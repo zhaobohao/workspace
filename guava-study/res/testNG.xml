@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="testproj">
+    <test name="testDemo1">
+        <groups>
+            <run>
+                <include name="fast" />
+                <include name="slow" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.testng.HelloTestNG"></class>
+        </classes>
+    </test>
+</suite>
