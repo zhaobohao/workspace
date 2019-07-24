@@ -28,5 +28,5 @@ public class BloomFilterTest {
         if(!exists){
             dealIdBloomFilter.put(deal_id);
         }
-    }
+}
 }
