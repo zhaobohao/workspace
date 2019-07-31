@@ -1,0 +1,45 @@
+.ztree li a.curSelectedNode {
+    padding-top: 0px;
+    background-color: #FFE6B0;
+    color: black;
+    height: 16px;
+    border: 1px #FFB951 solid;
+    opacity: 0.8;
+}
+
+.ztree {
+    overflow: auto;
+    height: 100%;
+    min-height: 200px;
+    top: 20px;
+}
+
+.task-list {
+    list-style-type: disc !important;
+}
+#readme .markdown-body, #readme .plain {
+    background-color: #fff;
+    border-left: 1px solid #CACACA;
+    padding: 30px;
+}
+.markdown-body table{font-size: 13px;}
+.markdown-body table td,.markdown-body table th {padding: 3px 5px !important;}
+.markdown-body table td table {margin-bottom:0px !important;}
+.markdown-body h1{font-size: 22px;}
+.markdown-body h2{font-size: 18px;}
+.markdown-body h3{font-size: 14px;}
+.markdown-body pre{font-size: 13px;}
+/*api*/
+.api-config input {width: 400px;}
+.api-data {width: 600px;height: 70px;}
+.api-result {width: 600px;height: 300px;}
+.doc-remark {font-size: 13px;margin-bottom: 8px;} 
+.doc-name-version {font-size: 13px; margin-bottom: 8px;}
+.new-win-btn {margin-left: 10px;}
+.btn-disabled {border: 1px #ccc solid; color: gray;}
+.api-span-title{display: inherit;}
+.busi-param-model-txt{width:400px;height: 300px;}
+.label-param-urldecode{display: inherit;font-size: 12px;}
+.busi-result-model{width:400px;height: 300px;margin-bottom:16px;}
+.title-bold{font-weight: bold;}
+.tree-bar{overflow: auto; position: fixed; z-index: 2147483647; border: 0px none; left: 0px;top: 0px; padding-top: 3px; padding-left: 6px;padding-right: 6px; background: #eff7fd;border-bottom: 1px solid #EEEEEE;}

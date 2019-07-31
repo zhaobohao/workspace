@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="develop-doc" />
+        <module name="easyopen" />
+        <module name="easyopen-config" />
+        <module name="easyopen-ext-hystrix" />
+        <module name="easyopen-server-empty" />
+        <module name="easyopen-server-ext" />
+        <module name="easyopen-server-manual" />
+        <module name="easyopen-server-normal" />
+        <module name="easyopen-server-springmvc" />
+        <module name="easyopen-server-webflux" />
+        <module name="easyopen-spring-boot-starter" />
+        <module name="sdk-java" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="easyopen-config" options="-parameters" />
+      <module name="easyopen-server-empty" options="-parameters" />
+      <module name="easyopen-server-ext" options="-parameters" />
+      <module name="easyopen-server-manual" options="-parameters" />
+      <module name="easyopen-server-normal" options="-parameters" />
+      <module name="easyopen-server-webflux" options="-parameters" />
+    </option>
+  </component>
+</project>

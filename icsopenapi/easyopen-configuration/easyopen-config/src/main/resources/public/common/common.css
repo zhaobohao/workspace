@@ -1,0 +1,14 @@
+a{text-decoration:none;color:#00e;}
+span.green{color:green;}
+span.red{color:red;}
+.datagrid-cell .gray{color:dimgray;}
+.datagrid-cell a{text-decoration: none;color:#00e;}
+.easyui-dialog table th{text-align: right}
+.easyui-textbox, .easyui-combotree{width: 300px;}
+.tree-checked {font-weight: bold;color:darkgreen;}
+.search-panel{margin-bottom: 10px;}
+.validatebox-readonly{background-color:#eee;}
+fieldset {border:1px #ccc solid;}
+.top-area {display: inline-block;}
+.west-area .easyui-linkbutton{width: 100px;margin-bottom: 5px;}
+.btn-actived{background-color: #ddd;border:1px solid #8d8d8d;}

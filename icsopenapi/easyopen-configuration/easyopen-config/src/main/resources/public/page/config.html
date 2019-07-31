@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>配置</title>
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/material/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../common/common.css">
+</head>
+<body>
+<div id="mainTabs" class="easyui-tabs" data-options="plain:true" style="width:100%;">
+    <div title="接入方管理" style="padding:10px">
+		<div style="margin-bottom: 10px;">
+			<a id="addClientBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加接入方</a>
+		</div>
+
+		<div id="clientGridToolBar">
+			<span>appKey:</span>
+			<input id="appKeySch" type="text">
+			<a id="searchClientBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+		</div>
+
+		<div id="clientGrid"></div>
+    	
+    	<div id="clientInfoWin" class="easyui-dialog" 
+    		title="接入方信息" style="padding:10px;width:500px;display: none;"
+        	data-options="resizable:true,modal:true,closed:true,shadow:false,buttons:'#clientInfoWinBtns'">
+        	
+    		<form id="baseInfoFrm" method="post">
+	        	<input type="hidden" name="id" />
+				<table style="width: 100%;">
+					<tr>
+						<td></td><td><a id="createSecretBtn" href="javascript:void(0)" class="easyui-linkbutton">生成appKey和secret</a></td>
+					</tr>
+					<tr>
+						<th>appKey：</th><td><input id="baseInfoAppKey" class="easyui-textbox" type="text" name="appKey" data-options="required:true"/></td>
+					</tr>
+					<tr>
+						<th>secret：</th><td><input class="easyui-textbox" name="secret" data-options="required:true">
+							<a id="updateSecretBtn" href="javascript:void(0)" class="easyui-linkbutton" style="display: none;">生成secret</a>
+						</td>
+					</tr>
+					<tr>
+						<td></td><td><a id="createKeyBtn" href="javascript:void(0)" class="easyui-linkbutton">生成公私钥</a></td>
+					</tr>
+					<tr>
+						<th>公钥：</th><td><input class="easyui-textbox" name="pubKey" style="height:110px;" data-options="multiline:true,required:false"></td>
+					</tr>
+					<tr>
+						<th>私钥：</th><td><input class="easyui-textbox" name="priKey" style="height:110px;" data-options="multiline:true,required:false"></td>
+					</tr>
+					<tr>
+						<th>角色：</th><td><input id="roleTree" class="easyui-combotree" name="roleCode" data-options="required:true"></td>
+					</tr>
+					<tr>
+						<th>状态：</th><td><label><input type="radio" name="status" value="0"/>启用</label>
+						<label><input type="radio" name="status" value="1"/>禁用</label></td>
+					</tr>
+				</table>
+	        </form>
+	        <div id="clientInfoWinBtns">
+	            <a id="baseInfoSaveBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+	            <a href="javascript:void(0)" onclick="$('#clientInfoWin').dialog('close')" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+	        </div>
+
+    	</div>
+    </div>
+	<div title="权限管理" style="padding:10px">
+		<div style="margin-bottom: 10px;">
+			<a id="addRoleBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加角色</a>
+		</div>
+		
+		<div id="roleGrid"></div>
+		
+		<div id="roleWin" class="easyui-dialog" 
+    		title="角色信息" style="padding:10px;width:500px;display: none;"
+        	data-options="resizable:true,modal:true,closed:true,shadow:false,buttons:'#roleWinBtns'">
+        	
+    		<form id="roleFrm" method="post">
+	        	<input type="hidden" name="id" />
+				<table style="width: 100%;">
+					<tr>
+						<th>角色码：</th><td><input id="roleCode" class="easyui-textbox" type="text" name="roleCode" data-options="required:true"/></td>
+					</tr>
+					<tr>
+						<th>角色描述：</th><td><input class="easyui-textbox" name="description" data-options="required:true">
+						</td>
+					</tr>
+				</table>
+	        </form>
+	        <div id="roleWinBtns">
+	            <a id="roleSaveBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+	            <a href="javascript:void(0)" onclick="$('#roleWin').dialog('close')" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+	        </div>
+    	</div>
+    	
+    	<div id="apiWin" class="easyui-dialog" 
+    		title="接口信息" style="padding:10px;width:600px;height:700px;display: none;"
+        	data-options="resizable:true,modal:true,closed:true,shadow:false,buttons:'#apiBtns'">
+			<!--<div>-->
+				<!--接口名：<input id="apiNameSch" type="text">-->
+				<!--<a id="searchApiBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
+			<!--</div>-->
+			<input id="apiRoleCode" type="hidden"/>
+        	<div id="apiTree"></div>
+	        <div id="apiBtns">
+	            <a id="apiSaveBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+	            <a href="javascript:void(0)" onclick="$('#apiWin').dialog('close')" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+	        </div>
+    	</div>
+		
+	</div>
+	<div title="接口管理" style="padding:10px">
+		<div id="apiGridToolBar">
+			<span>接口名:</span>
+			<input id="apiNameSch" type="text">
+			<a id="searchApiBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+		</div>
+		<div id="apiGrid"></div>
+
+		<div id="apiRoleWin" class="easyui-dialog"
+			 title="接口信息" style="padding:10px;width:500px;height:400px;display: none;"
+			 data-options="resizable:true,modal:true,closed:true,shadow:false,buttons:'#apiRoleBtns'">
+			<input id="apiRoleApiId" type="hidden"/>
+			<div id="apiRoleTree"></div>
+
+			<div id="apiRoleBtns">
+				<a id="apiRoleSaveBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+				<a href="javascript:void(0)" onclick="$('#apiRoleWin').dialog('close')" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+			</div>
+		</div>
+	</div>
+    <div title="限流设置" style="padding:10px">
+		<div class="search-panel" >
+			<form id="limitSearchFrm">
+				<table>
+					<tr>
+						<td>接口名：<input id="apiName" name="name" type="text" placeholder="支持模糊查询"/>
+							开启状态：<select name="status">
+								<option value="">-全部-</option>
+								<option value="1">开启</option>
+								<option value="0">关闭</option>
+							</select>
+							策略：<select name="limitType">
+								<option value="">-全部-</option>
+								<option value="LIMIT">漏桶策略</option>
+								<option value="TOKEN_BUCKET">令牌桶策略</option>
+							</select>
+							<a id="limitSearchBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询(Enter)</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<div id="limitGridToolbar">
+			<a id="limitUpdateBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">批量设置</a>
+		</div>
+        <div id="limitGrid"></div>
+
+		<div id="limitWin" class="easyui-dialog"
+			 title="限流设置" style="padding:10px;width:600px;display: none;"
+			 data-options="resizable:true,modal:true,closed:true,shadow:false,buttons:'#limitWinBtns'">
+			<form id="limitBaseFrm">
+				<input type="hidden" name="id">
+				<input type="hidden" name="apiId">
+				<table style="width: 100%">
+					<tr class="limit-nameversion">
+						<th>接口名：</th><td><input name="name" type="text" class="easyui-textbox" readonly="readonly"/></td>
+					</tr>
+					<tr class="limit-nameversion">
+						<th>版本号：</th><td><input name="version" type="text" class="easyui-textbox" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<th>策略：</th>
+						<td>
+							<label><input name="limitType" class="limit-type" type="radio" value="LIMIT"/> 漏桶策略</label>
+							<label><input name="limitType" class="limit-type" type="radio" value="TOKEN_BUCKET"/> 令牌桶策略</label>
+						</td>
+					</tr>
+					<tr>
+						<th>状态：</th>
+						<td>
+							<label class="limit-open"><input name="status" class="limit-status" type="radio" value="1"/> 开启</label>
+							<label class="limit-close"><input name="status" class="limit-status" type="radio" value="0"/> 关闭</label>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div id="limitArea" style="margin-top: 10px;">
+				<fieldset id="LIMIT_ID">
+					<legend>漏桶策略</legend>
+					<h5>每秒处理固定数量的请求，超出请求返回错误信息。</h5>
+					<form id="limitLmtFrm">
+						<table>
+							<tr>
+								<th>每秒处理请求数：</th><td>
+								<input id="limitCount" name="limitCount" type="text"
+									   class="easyui-textbox text-number" data-options="required:true,validType:'length[1,10]'"
+									   /></td>
+							</tr>
+							<tr>
+								<th>限制后返回code：</th><td><input id="limitCode" name="limitCode" class="easyui-textbox" type="text" data-options="required:true,validType:'length[1,50]'"/></td>
+							</tr>
+							<tr>
+								<th>限制后返回msg：</th><td><input id="limitMsg" name="limitMsg" class="easyui-textbox" type="text" data-options="required:true,validType:'length[1,100]'"/></td>
+							</tr>
+						</table>
+					</form>
+				</fieldset>
+
+				<fieldset style="display: none;">
+					<legend>令牌桶策略</legend>
+					<h5>每秒放置固定数量的令牌数，不足的令牌数做等待处理，直到拿到令牌为止。</h5>
+					<form id="limitTokenFrm">
+						<table class="table table-bordered">
+							<tr>
+								<th>令牌桶容量：</th><td>
+								<input name="tokenBucketCount" class="easyui-textbox text-number" type="text"
+									   data-options="required:true,validType:'length[1,10]'" /></td>
+							</tr>
+						</table>
+					</form>
+				</fieldset>
+			</div>
+			<div id="limitWinBtns">
+				<a id="limitSaveBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+				<a href="javascript:void(0)" onclick="$('#limitWin').dialog('close')" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+			</div>
+		</div>
+    </div>
+</div>
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript" src="../common/lab.js"></script>
+<script type="text/javascript">
+    importJs([
+        // page js
+        'js/clientConfig.js'
+        ,'js/permissionConfig.js'
+        ,'js/apiConfig.js'
+        ,'js/limitConfig.js'
+    ], function () {
+        ClientConfig.init();
+        var initMap = {
+            '0':{inited:true},
+            '1':{inited:false,init:function(){PermissionConfig.init();}},
+            '2':{inited:false,init:function(){ApiConfig.init();}},
+            '3':{inited:false,init:function(){LimitConfig.init();}},
+        };
+        $('#mainTabs').tabs({
+            onSelect:function (title, index) {
+                var tab = initMap[index + ''];
+                if(!tab.inited) {
+                    tab.init();
+                    tab.inited = true;
+                }
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

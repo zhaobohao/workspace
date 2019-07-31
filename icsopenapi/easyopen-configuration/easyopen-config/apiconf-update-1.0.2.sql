@@ -1,0 +1,1 @@
+ALTER TABLE `apiconf`.`perm_api_info` ADD COLUMN `description` VARCHAR(200) NULL COMMENT '接口描述' AFTER `version`;

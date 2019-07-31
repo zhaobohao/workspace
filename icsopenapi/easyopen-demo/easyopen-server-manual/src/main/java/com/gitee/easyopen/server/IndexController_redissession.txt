@@ -1,0 +1,67 @@
+package com.gitee.easyopen.server;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.gitee.easyopen.ApiConfig;
+import com.gitee.easyopen.interceptor.ApiInterceptor;
+import com.gitee.easyopen.server.interceptor.LogInterceptor;
+import com.gitee.easyopen.session.RedisSessionManager;
+import com.gitee.easyopen.support.ApiController;
+
+/*
+pom.xml:
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+
+application.properties:
+
+#################redis基础配置#################
+spring.redis.database=0
+spring.redis.host=10.1.11.48
+spring.redis.password=0987654321rfvujmtgbyhn
+spring.redis.port=6379
+# 连接超时时间 单位 ms（毫秒）
+spring.redis.timeout=3000
+
+#################redis线程池设置#################
+# 连接池中的最大空闲连接，默认值也是8。
+spring.redis.pool.max-idle=500
+#连接池中的最小空闲连接，默认值也是0。
+spring.redis.pool.min-idle=50
+# 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
+spring.redis.pool.max-active=2000
+# 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
+spring.redis.pool.max-wait=1000
+
+*/
+@Controller
+@RequestMapping(value = "/api")
+public class IndexController extends ApiController {
+    
+    @Autowired
+    private RedisTemplate redisTemplate; // 1 声明redis模板
+
+    @Override
+    protected void initApiConfig(ApiConfig apiConfig) {
+        // 配置秘钥键值对
+        Map<String, String> appSecretStore = new HashMap<String, String>();
+        appSecretStore.put("test", "123456");
+
+        // 2 配置sessionManager
+        RedisSessionManager sessionManager = new RedisSessionManager(redisTemplate);
+        sessionManager.setKeyPrefix("session-key:");
+        apiConfig.setSessionManager(sessionManager);
+        
+        apiConfig.addAppSecret(appSecretStore);
+    }
+
+}

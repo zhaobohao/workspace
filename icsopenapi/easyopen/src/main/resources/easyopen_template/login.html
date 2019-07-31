@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>${title}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="${ctx}/opendoc/md5.js"></script>
+</head>
+<body style="text-align: center;">
+	<form method="post" action="${loginUrl}" onsubmit="login()">
+		<label>${remark}</label>
+		<input name="p" type="password" value="" autofocus="autofocus" /> 
+		<input type="submit" value="登录" />
+	</form>
+	<script type="text/javascript">
+	function login() {
+		var frm = document.forms[0];
+		frm.p.value = hex_md5(frm.p.value);
+		return true;
+	}
+	</script>
+</body>
+</html>

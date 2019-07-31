@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全局配置</title>
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/material/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../common/common.css">
+</head>
+<body>
+<div style="margin-bottom: 10px;">
+    <a id="addBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加配置</a>
+</div>
+
+<div id="grid"></div>
+
+<div id="win" class="easyui-dialog"
+     title="配置信息" style="padding:10px;width:500px;display: none;"
+     data-options="resizable:true,modal:true,closed:true,shadow:false,buttons:'#winBtns'">
+
+    <form id="frm" method="post">
+        <input type="hidden" name="id"/>
+        <table style="width: 100%;">
+            <tr>
+                <th>配置域：</th>
+                <td><input id="keyName" class="easyui-textbox" type="text" name="keyName" data-options="required:true"/>
+                </td>
+            </tr>
+            <tr>
+                <th>配置项：</th>
+                <td><input class="easyui-textbox" name="fieldName" data-options="required:true">
+                </td>
+            <tr>
+                <th>配置值：</th>
+                <td><input class="easyui-textbox" name="fieldValue" data-options="required:true">
+                </td>
+            <tr>
+                <th>描述：</th>
+                <td><input class="easyui-textbox" name="remark" data-options="required:true">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div id="winBtns">
+        <a id="saveBtn" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+        <a href="javascript:void(0)" onclick="$('#win').dialog('close')" class="easyui-linkbutton"
+           data-options="iconCls:'icon-cancel'">取消</a>
+    </div>
+</div>
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript" src="../common/lab.js"></script>
+<script type="text/javascript">
+    importJs([
+        // page js
+        'js/globalConfig.js'
+    ]);
+</script>
+</body>
+</html>

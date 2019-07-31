@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>${title}</title>
+    <script>
+        var expandAll = '${is_expand_all}';
+    </script>
+    <link rel="stylesheet" type="text/css" href="${ctx}/opendoc/github1-contents.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/opendoc/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/opendoc/common.css">
+</head>
+<body>
+<div>
+    <div>
+        <div class="tree-bar">
+            <a id="hideTree" href="javascript:void(0)">隐藏</a> <a id="treeExp" href="javascript:void(0)" class="tree-opt">展开</a> <a id="treeCol" href="javascript:void(0)" class="tree-opt">收缩</a>
+        </div>
+        <ul id="tree" class="ztree">
+            <!-- 目录内容在网页另存为之后将插入到此处 -->
+        </ul>
+    </div>
+    <div id="readme" style="margin-left: 25%;">
+        <article class="markdown-body">
+            <p>
+                <a href="./doc/download" target="_blank">下载文档</a>
+            </p>
+            <p>
+            <div class="docRemark">${docRemark}</div>
+            </p>
+            <!-- ***********************************************************内容分割线****************************************************************** -->
+            <!-- 请把你的html正文部分粘贴到此处，在浏览器中打开之后将会自动生成目录。如果想要将目录保留并嵌入到此文档中，只需在浏览器中“另存为->网页，全部”即可 -->
+            <h1>配置项</h1>
+            <table class="api-config">
+                <tr>
+                    <th>HTTP请求地址</th>
+                    <td><input id="url" type="text" value="${apiUrl}"/></td>
+                </tr>
+                <tr>
+                    <th>app_key</th>
+                    <td><input id="appKey" type="text" value="test"/></td>
+                </tr>
+                <tr>
+                    <th>secret</th>
+                    <td><input id="secret" type="text" value="123456"/></td>
+                </tr>
+                <tr>
+                    <th>access_token</th>
+                    <td><input id="access_token" type="text" value=""/></td>
+                </tr>
+                <tr>
+                    <th>jwt</th>
+                    <td><input id="jwt" type="text" value=""/></td>
+                </tr>
+            </table>
+
+            #foreach($apiModule in $apiModules)
+            #set($moduleIndex = ${velocityCount})
+            <h1>${apiModule.name}</h1>
+            #foreach($docItem in ${apiModule.moduleItems})
+            <div id="api_item_${moduleIndex}_${velocityCount}" class="api-item">
+                <h2>${docItem.description}${docItem.version}</h2>
+                <div class="doc-remark">${docItem.remark}</div>
+                <div class="doc-name-version">
+                    <div><strong>接口名(${API_NAME})：</strong>${docItem.name}</div>
+                    <div><strong>版本号(${VERSION_NAME})：</strong>${docItem.version}</div>
+                </div>
+                <div class="api-block">
+                    <input type="hidden" class="api-name" value="${docItem.name}"/>
+                    <input type="hidden" class="api-version" value="${docItem.version}"/>
+                    <span class="api-span-title">
+                        <a href="javascript:void(0)" class="label-param title-bold">请求参数</a>/
+                        <a href="javascript:void(0)" class="label-param-model">数据模型</a>
+                    </span>
+                    <form class="busi-param">
+                        <table>
+                            <tr>
+                                <th>名称</th>
+                                <th>类型</th>
+                                <th>是否必须</th>
+                                <th>示例值</th>
+                                <th>描述</th>
+                            </tr>
+                            #foreach($paramDefinition in ${docItem.paramDefinitions})
+                            ${paramDefinition.getParamHtml(${docItem.nameVersion})}
+                            #end
+                        </table>
+                    </form>
+                    <div class="busi-param-model" style="display: none;">
+                        <a href="javascript:void(0)" class="label-param-urldecode" title="将文本框内容转义">URLDecode</a>
+                        <textarea class="busi-param-model-txt">${docItem.paramData}</textarea>
+                    </div>
+                    <span class="api-span-title"><a href="javascript:void(0)" class="label-result title-bold">返回结果</a>/<a href="javascript:void(0)" class="label-result-model">数据模型</a></span>
+                    <div class="result-table">
+                    #if(${docItem.customWrapper})
+                    <table>
+                        <tr>
+                            <th>名称</th>
+                            <th>类型</th>
+                            <th>示例值</th>
+                            <th>描述</th>
+                        </tr>
+                        #foreach($resultDefinition in ${docItem.resultDefinitions})
+                        ${resultDefinition.resultHtml}
+                        #end
+                    </table>
+                    #else
+                    <table>
+                        <tr>
+                            <th>名称</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                        </tr>
+                        <tr>
+                            <td>${code_name}</td>
+                            <td>string</td>
+                            <td>${code_description}</td>
+                        </tr>
+                        <tr>
+                            <td>${msg_name}</td>
+                            <td>string</td>
+                            <td>${msg_description}</td>
+                        </tr>
+                        #if(${docItem.singleReturn})
+                            <tr>
+                                <td>${data_name}</td>
+                                <td>${docItem.apiDocReturnDefinition.dataType}</td>
+                                <td>${docItem.apiDocReturnDefinition.description}。#if(${docItem.apiDocReturnDefinition.example} != "")示例值：${docItem.apiDocReturnDefinition.example}#end</td>
+                            </tr>
+                        #else
+                        <tr>
+                            <td>${data_name}</td>
+                            <td>object</td>
+                            <td>${data_description}
+                                <table>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>类型</th>
+                                        <th>示例值</th>
+                                        <th>描述</th>
+                                    </tr>
+                                    #foreach($resultDefinition in ${docItem.resultDefinitions})
+                                    ${resultDefinition.resultHtml}
+                                    #end
+                                </table>
+                            </td>
+                        </tr>
+                        #end
+                    </table>
+                    #end
+                    </div>
+                    <textarea class="busi-result-model" style="display: none;">${docItem.resultData}</textarea>
+
+                    <p>
+                        <button type="button" class="post-btn">请求</button>
+                        <button type="button" class="new-win-btn">新窗口请求</button>
+                    </p>
+                    <div class="post-result" style="display: none;">
+                        <table>
+                            <tr>
+                                <th>请求数据</th>
+                                <td><textarea readonly="readonly" class="api-data"></textarea></td>
+                            </tr>
+                            <tr>
+                                <th>返回结果</th>
+                                <td><textarea readonly="readonly" class="api-result"></textarea></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            #end
+
+            #end
+
+            <h1>附录</h1>
+            <h2>签名算法</h2>
+            <pre>
+签名算法描述如下：
+1.将请求参数按参数名升序排序；
+2.按请求参数名及参数值相互连接组成一个字符串：&lt;paramName1&gt;&lt;paramValue1&gt;&lt;paramName2&gt;&lt;paramValue2&gt;...；
+3.将应用密钥分别添加到以上请求参数串的头部和尾部：&lt;secret&gt;&lt;请求参数字符串&gt;&lt;secret&gt;；
+4.对该字符串进行MD5（全部大写），MD5后的字符串即是这些请求参数对应的签名；
+5.该签名值使用sign参数一起和其它请求参数一起发送给服务开放平台。
+
+伪代码:
+Map&lt;String,Object&gt; paramsMap = new ...; // 参数
+
+Set&lt;String&gt; keySet = paramsMap.keySet();
+List&lt;String&gt; paramNames = new ArrayList&lt;String&gt;(keySet);
+// 1.
+Collections.sort(paramNames);
+
+StringBuilder paramNameValue = new StringBuilder();
+// 2.
+for (String paramName : paramNames) {
+    paramNameValue.append(paramName).append(paramsMap.get(paramName));
+}
+// 3.
+String source = secret + paramNameValue.toString() + secret;
+// 4.
+String sign = md5(source);
+// 5.
+paramsMap.put("sign",sign);
+</pre>
+            <h2>请求示例</h2>
+
+            Java版本：
+            <pre><code>import java.io.IOException;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.Test;
+
+import com.alibaba.fastjson.JSON;
+
+import junit.framework.TestCase;
+
+public class PostTest extends TestCase {
+
+    @Test
+    public void testPost() throws IOException {
+        String appKey = "test";
+        String secret = "123456";
+        // 业务参数
+        Map&lt;String, String&gt; jsonMap = new HashMap&lt;String, String&gt;();
+        jsonMap.put("goodsName", "iphoneX");
+
+        String json = JSON.toJSONString(jsonMap);
+        json = URLEncoder.encode(json, "utf-8");
+
+        // 系统参数
+        Map&lt;String, Object&gt; param = new HashMap&lt;String, Object&gt;();
+        param.put("name", "goods.get");
+        param.put("app_key", appKey);
+        param.put("data", json);
+        param.put("timestamp", getTime());
+        param.put("version", "");
+        param.put("access_token", "");
+
+        String sign = buildSign(param, secret);
+
+        param.put("sign", sign);
+
+        /*
+        // 最终请求数据
+        {
+            "sign": "2AE534A15AACE112EE43B9CCF6BD4383",
+            "timestamp": "2018-03-21 12:57:30",
+            "name": "goods.get",
+            "data": "%7B%22goodsName%22%3A%22iphoneX%22%7D",
+            "app_key": "test",
+            "version": ""
+        }
+        */
+        System.out.println("=====请求数据=====");
+        String postJson = JSON.toJSONString(param);
+        System.out.println(postJson);
+        // String resp = HttpUtil.post(postJson); // 发送请求
+        /*
+        响应结果:
+        {
+            "${code_name}":"0",
+            "${data_name}":{
+                "pageIndex":1,
+                "pageSize":10,
+                "rows":[
+                    {
+	                    "goods_name":"iPhoneX",
+	                    "id":1,
+	                    "price":8000
+                    },
+                    {
+	                    "goods_name":"三星",
+	                    "id":2,
+	                    "price":7000
+                    }
+	           ],
+	           "total":100
+            }
+        }
+        */
+    }
+
+    /**
+     * 构建签名
+     *
+     * @param paramsMap
+     *            参数
+     * @param secret
+     *            密钥
+     * @return
+     * @throws IOException
+     */
+    public static String buildSign(Map&lt;String, ?&gt; paramsMap, String secret) throws IOException {
+        Set&lt;String&gt; keySet = paramsMap.keySet();
+        List&lt;String&gt; paramNames = new ArrayList&lt;String&gt;(keySet);
+
+        Collections.sort(paramNames);
+
+        StringBuilder paramNameValue = new StringBuilder();
+
+        for (String paramName : paramNames) {
+            paramNameValue.append(paramName).append(paramsMap.get(paramName));
+        }
+
+        String source = secret + paramNameValue.toString() + secret;
+
+        return md5(source);
+    }
+
+    /**
+     * 生成md5,全部大写
+     *
+     * @param message
+     * @return
+     */
+    public static String md5(String message) {
+        try {
+            // 1 创建一个提供信息摘要算法的对象，初始化为md5算法对象
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // 2 将消息变成byte数组
+            byte[] input = message.getBytes();
+
+            // 3 计算后获得字节数组,这就是那128位了
+            byte[] buff = md.digest(input);
+
+            // 4 把数组每一字节（一个字节占八位）换成16进制连成md5字符串
+            return byte2hex(buff);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 二进制转十六进制字符串
+     *
+     * @param bytes
+     * @return
+     */
+    private static String byte2hex(byte[] bytes) {
+        StringBuilder sign = new StringBuilder();
+        for (int i = 0; i &lt; bytes.length; i++) {
+            String hex = Integer.toHexString(bytes[i] &amp; 0xFF);
+            if (hex.length() == 1) {
+                sign.append("0");
+            }
+            sign.append(hex.toUpperCase());
+        }
+        return sign.toString();
+    }
+
+    public String getTime() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    }
+}
+
+</code></pre>
+
+            <p>
+                JavaScript版本:<a href="${ctx}/opendoc/sdk.js">jssdk下载</a>
+            </p>
+            <!-- ***********************************************************内容分割线****************************************************************** -->
+
+        </article>
+    </div>
+</div>
+<script type="text/javascript">var ctx = '${ctx}';</script>
+<script src="${ctx}/opendoc/jquery-1.10.2.min.js"></script>
+<script src="${ctx}/opendoc/jquery.ztree.all-3.5.min.js"></script>
+<script src="${ctx}/opendoc/jquery.ztree_toc.min.js"></script>
+<script src="${ctx}/opendoc/My97DatePicker/WdatePicker.js"></script>
+<script src="${ctx}/opendoc/sdk.js?v=${sys_time}"></script>
+<script src="${ctx}/opendoc/format.js?v=${sys_time}"></script>
+<script src="${ctx}/opendoc/doc.js?v=${sys_time}"></script>
+<script type="text/javascript">
+    $(function () {
+        initTree();
+        initEvent();
+
+        var storage = window.localStorage;
+        if (storage) {
+            var dataKey = location.host;
+
+            $('body').find('input[type="text"]').change(function () {
+                var id = this.id;
+                if (id) {
+                    var data = getCache();
+                    data[id] = this.value;
+                    setCache(data);
+                }
+            });
+
+            function getCache() {
+                var jsonStr = storage.getItem(dataKey);
+                if (!jsonStr) {
+                    jsonStr = '{}';
+                }
+                return JSON.parse(jsonStr);
+            }
+
+            function setCache(jsonObj) {
+                var jsonStr = JSON.stringify(jsonObj);
+                storage.setItem(dataKey, jsonStr);
+            }
+
+            // load data
+            var cache = getCache();
+            var docu = document;
+
+            for (var id in cache) {
+                var dom = docu.getElementById(id);
+                if (dom) {
+                    var oldVal = dom.value;
+                    var val = cache[id] || oldVal;
+                    dom.value = val;
+                }
+            }
+        }
+    });
+</script>
+<!-- JS 钩子 -->
+<script type="text/javascript">${jsHook}</script>
+</body>
+</html>

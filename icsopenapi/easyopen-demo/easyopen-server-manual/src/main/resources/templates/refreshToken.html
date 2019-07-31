@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>获取新的accessToken</title>
+<style type="text/css">
+input{width: 500px;}
+</style>
+</head>
+<body>
+	<form th:action="@{/api/accessToken}" method="post">
+		refresh_token:<input name="refresh_token" type="text" value="" placeholder="输入refreshToken"/> <br/>
+		client_id:<input name="client_id" type="text" value="test" /> <br/>
+		client_secret:<input name="client_secret" type="text" value="123456" /> <br/>
+		grant_type:<input name="grant_type" type="text" value="refresh_token" /> <br/>
+		<button type="submit">获取新的accessToken</button>
+	</form>
+</body>
+</html>

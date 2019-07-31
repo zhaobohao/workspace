@@ -1,0 +1,1 @@
+(function(){JUI.Class("DialogView",{init:function(a){this._super(a)},afterRender:function(){this._super();this.initEvent()},initEvent:function(){var a=this;this.getWin().find("input,select,button").on("keydown",function(c){if(c.keyCode==13){var b=a.opt("onOk");b&&b.call(a.cmp)}})}},JUI.WinView)})();

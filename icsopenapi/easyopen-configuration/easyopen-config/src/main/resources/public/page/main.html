@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>配置中心</title>
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/material/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../common/common.css">
+</head>
+<body id="mainLayout" class="easyui-layout">
+<div data-options="region:'north',border:false" style="height:30px;padding:5px;">
+    <div class="logo top-area">接口平台配置中心</div>
+    <div class="top-area" style="float: right;">
+        <a href="#" onclick="ApiUtil.logout(); return false;">退出</a>
+    </div>
+</div>
+<div data-options="region:'west',split:true,title:'菜单'" style="width:130px;">
+    <div class="easyui-accordion west-area" data-options="border:false, multiple:true">
+        <div id="appList" title="应用列表" style="overflow:auto;padding:10px;">
+        </div>
+        <div id="sysMenu" title="系统菜单" style="padding:10px;">
+            <a id="setting-btn" href="javascript:void(0)" url="globalConfig.html" class="easyui-linkbutton" data-options="iconCls:'icon-setting',size:'large',iconAlign:'top'">全局设置</a>
+        </div>
+    </div>
+</div>
+<div data-options="region:'center'" style="with:100%;">
+    <div id="mainTab" class="easyui-tabs" data-options="fit:true,border:false">
+        <div title="首页" style="padding:10px">
+            欢迎登录配置中心
+            <p>如果是首次登录:</p>
+            <ul>
+                <li>先设置基本参数（系统菜单->全局配置）</li>
+                <li>设置app的角色（权限管理->添加角色）</li>
+                <li>添加接入方</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="tabsMenu" class="easyui-menu" style="width:120px;">
+    <div name="Refresh">刷新</div>
+    <div name="Other">关闭其他</div>
+    <div name="All">关闭所有</div>
+</div>
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript" src="../common/lab.js"></script>
+<script type="text/javascript">
+    importJs([
+        // page js
+        'js/main.js'
+    ], function () {
+        Main.init();
+    });
+</script>
+</body>
+</html>

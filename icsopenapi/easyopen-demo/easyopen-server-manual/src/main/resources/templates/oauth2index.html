@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>oauth2授权</title>
+<style type="text/css">
+input {
+	width: 500px;
+}
+</style>
+</head>
+<body>
+	<form th:action="@{/api/authorize}" method="get">
+		client_id: <input name="client_id" type="text" value="test" /> <br />
+		response_type: <input name="response_type" type="text" value="code" /> <br /> 
+		redirect_uri: <input name="redirect_uri" type="text" value="http://localhost:8080/oauth2callback" /> <br /> 
+		<button type="submit">前往授权</button>
+	</form>
+</body>
+</html>

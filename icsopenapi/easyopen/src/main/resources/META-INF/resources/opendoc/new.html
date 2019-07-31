@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="github1-contents.css">
+<link rel="stylesheet" type="text/css" href="zTreeStyle.css" >
+<link rel="stylesheet" type="text/css" href="common.css" >
+</head>
+<body>
+
+<!-- html -->
+<div class="markdown-body" style="margin: 20px;">
+    <h1>配置项</h1>
+    <table class="api-config">
+        <tr>
+            <th>HTTP请求地址</th><td> <input id="url" type="text" value="" /> </td>
+        </tr>
+        <tr>
+            <th>app_key</th><td> <input id="appKey" type="text" value="" /> </td>
+        </tr>
+        <tr>
+            <th>secret</th><td> <input id="secret" type="text" value="" /> </td>
+        </tr> 
+        <tr>
+            <th>access_token</th><td> <input id="access_token" type="text" value="" /> </td>
+        </tr>   
+        <tr>
+            <th>jwt</th><td> <input id="jwt" type="text" value="" /> </td>
+        </tr>            
+    </table>
+	<div id="content"></div>
+</div>
+
+<!-- js -->
+<script src="jquery-1.10.2.min.js"></script>
+<script src="My97DatePicker/WdatePicker.js"></script>
+<script src="sdk.js"></script>
+<script src="format.js"></script>
+<script src="doc.js"></script>
+<script type="text/javascript">
+var params = {};
+var aPairs, aTmp;  
+var queryString = window.location.search.toString();
+queryString = queryString.substr(1, queryString.length); //remove   "?"     
+aPairs = queryString.split("&");  
+for (var i = 0; i < aPairs.length; i++) {  
+    aTmp = aPairs[i].split("=");  
+    params[aTmp[0]] = aTmp[1];  
+}
+
+$(function(){
+	var id = params.id;
+	if(id) {
+		var win = window.opener;
+		var winDoc = win.document;
+        var divDom = winDoc.getElementById(id);
+        $('#content').html(divDom.innerHTML);
+        $('#content').find('.new-win-btn').remove();
+        
+        document.title = $('#content').find('h2').eq(0).html();
+        $('#url').val(winDoc.getElementById('url').value)
+        $('#appKey').val(winDoc.getElementById('appKey').value)
+        $('#secret').val(winDoc.getElementById('secret').value)
+        $('#access_token').val(winDoc.getElementById('access_token').value)
+        $('#jwt').val(winDoc.getElementById('jwt').value)
+        
+        initEvent();
+        
+        $('#content').find('.post-btn').eq(0).click();
+	}
+});
+</script>
+</body>
+</html>
