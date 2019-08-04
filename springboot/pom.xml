@@ -10,6 +10,7 @@
     <modules>
         <module>spring-batch-part</module>
         <module>parent-pom</module>
+        <module>spring-batch-test</module>
     </modules>
 
 </project>

@@ -1,0 +1,8 @@
+
+1.batch_sa_index  批处理总索引表
+2.batch_sa_config 常量配置表
+3.batch_sa_jobs   job执行表
+4.batch_sa_jobs_exception job异常表
+5.batch_Sa_steps  step执行表。
+6.batch_sa_steps_exception  steps异常表
+7.batch_sa_report  批处理报告表

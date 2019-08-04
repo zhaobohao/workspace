@@ -26,7 +26,7 @@ public class ColumnRangePartitioner implements Partitioner {
         int min = jdbcTemplate.queryForObject("SELECT MIN(arcid) from  kl_article", Integer.class);
         int max = jdbcTemplate.queryForObject("SELECT MAX(arcid) from  kl_article", Integer.class);
         int targetSize = (max - min) / gridSize + 1;
-        Map<String, ExecutionContext> result = new HashMap<String, ExecutionContext>();
+        Map<String, ExecutionContext> result = new HashMap<String, ExecutionContext>(targetSize);
         int number = 0;
         int start = min;
         int end = start + targetSize - 1;

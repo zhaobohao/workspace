@@ -1,5 +1,6 @@
 package com.kailing.bootbatch.partitionjob.config;
 
+import com.google.common.io.Resources;
 import com.kailing.bootbatch.partitionjob.entity.Article;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -7,6 +8,8 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.partition.PartitionHandler;
+import org.springframework.batch.core.partition.support.MultiResourcePartitioner;
+import org.springframework.batch.core.partition.support.SimplePartitioner;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.integration.partition.MessageChannelPartitionHandler;
 import org.springframework.batch.item.database.JpaPagingItemReader;
@@ -16,12 +19,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.integration.scheduling.PollerMetadata;
 import org.springframework.scheduling.support.PeriodicTrigger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +59,27 @@ public class PartitionConfiguration {
     EntityManagerFactory entityManagerFactory;
 
     private static final int GRID_SIZE = 10;
+
+    @Bean
+    public MultiResourcePartitioner getPartitioner() {
+        MultiResourcePartitioner m = new MultiResourcePartitioner();
+        try {
+            m.setKeyName("fileName");
+            m.setResources(new PathMatchingResourcePatternResolver(this.getClass().getClassLoader()).getResources("file:/a/d/*.csv"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  m;
+    }
+
+    @Bean
+    public SimplePartitioner getSimplepartitioner()
+    {
+        return  new SimplePartitioner();
+
+    }
+
+
 
     @Bean
     public PartitionHandler partitionHandler(MessagingTemplate messagingTemplate) throws Exception {
