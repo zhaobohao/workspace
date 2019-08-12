@@ -12,6 +12,8 @@
         <module>parent-pom</module>
         <module>spring-batch-test</module>
         <module>xxljob</module>
+        <module>spring-boot-web-demo</module>
+        <module>spring-boot-web-core</module>
     </modules>
 
 </project>

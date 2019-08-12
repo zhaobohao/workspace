@@ -1,0 +1,48 @@
+##########################################################
+##################  所有profile共有的配置  #################
+##########################################################
+
+###################  项目启动端口  ###################
+server:
+  port: 8092
+  servlet:
+    context-path: /admin
+
+#########j2cache integeration
+#########useage:@Autowired
+##########private CacheChannel cacheChannel;
+j2cache:
+  #false 关闭2级缓存 ，true 开启
+  l2-cache-open: false
+  config-location: /j2cache-${spring.profiles.active}.properties
+  open-spring-cache: true
+  allow-null-values: true
+  cache-clean-mode: passive
+  redis-client: lettuce
+
+###################  spring配置  ###################
+spring:
+  application:
+    name: springboot2Demo
+  profiles:
+    active: dev
+  cache:
+    type: GENERIC
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
