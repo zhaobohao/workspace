@@ -14,7 +14,7 @@ server:
 j2cache:
   #false 关闭2级缓存 ，true 开启
   l2-cache-open: false
-  config-location: /j2cache-${spring.profiles.active}.properties
+  config-location: classpath:j2cache-${spring.profiles.active}.properties
   open-spring-cache: true
   allow-null-values: true
   cache-clean-mode: passive

@@ -1,4 +1,4 @@
-package com.spring.web.core.configure;
+package com.spring.web.test.web.core.configure;
 
 
 import org.springframework.context.annotation.Bean;

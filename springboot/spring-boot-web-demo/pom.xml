@@ -28,6 +28,7 @@
         <dependency>
             <groupId>spring.learn</groupId>
             <artifactId>spring-boot-web-core</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>net.oschina.j2cache</groupId>
@@ -52,6 +53,11 @@
                     <artifactId>fastjson</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
