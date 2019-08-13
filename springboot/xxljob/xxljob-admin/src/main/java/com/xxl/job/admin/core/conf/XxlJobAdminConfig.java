@@ -40,7 +40,7 @@ public class XxlJobAdminConfig implements InitializingBean{
     @Value("${spring.mail.username}")
     private String emailUserName;
 
-    // dao, service
+    // mapper, service
 
     @Resource
     private XxlJobLogDao xxlJobLogDao;

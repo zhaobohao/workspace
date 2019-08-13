@@ -22,19 +22,17 @@ public class MockBeanTest extends BaseTest {
 
     //这里只是让spring去mock helloService,但没有注入？？
     @MockBean
-    private HelloService helloService;
-    //这里是把spring 已经mock好的bean,拿出来用，真是见鬼了。
+    //这里是把spring 已经mock好的bean,拿出来用，真是见鬼了。看来这两个注解要合起来用了。
     @Resource
-    private HelloService helloServiceImpl;
-
+    private HelloService helloService;
 
     @Test
     public void exampleTest() {
         //这句的意思是当调用helloService的getRemoteVal方法时，返回mock的结果："远程调用结果"
-        given(this.helloServiceImpl.getRemoteVal()).willReturn("远程调用结果");
+        given(this.helloService.getRemoteVal()).willReturn("远程调用结果");
         //when(this.helloService.getRemoteVal()).
         //进行调用测试
-        String reverse = helloServiceImpl.getRemoteVal();
+        String reverse = helloService.getRemoteVal();
         assertThat(reverse).isEqualTo("远程调用结果");
     }
 
@@ -42,9 +40,9 @@ public class MockBeanTest extends BaseTest {
     public void implTest()
     {
         //这句的意思是当调用helloService的getRemoteVal方法时，返回mock的结果："远程调用结果"
-        given(this.helloServiceImpl.getRemoteVal()).willReturn("remote Val");
-        log.info(helloServiceImpl.getRemoteVal());
-        assertThat(helloServiceImpl.getRemoteVal()).isEqualTo("remote Val");
+        given(this.helloService.getRemoteVal()).willReturn("remote Val");
+        log.info(helloService.getRemoteVal());
+        assertThat(helloService.getRemoteVal()).isEqualTo("remote Val");
     }
 
 }

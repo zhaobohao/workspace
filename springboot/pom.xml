@@ -16,6 +16,8 @@
         <module>spring-boot-web-core</module>
         <module>apollo-demo</module>
         <module>easypoi</module>
+        <module>spring-boot-web-dao</module>
+        <module>spring-boot-web-service</module>
     </modules>
 
 </project>
