@@ -18,8 +18,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication
 @EnableConfigurationProperties
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableAsync
-@EnableScheduling
 @EnableCaching
 @EnableWebMvc
 @EnableTransactionManagement
