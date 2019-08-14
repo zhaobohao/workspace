@@ -1,7 +1,10 @@
 package com.spring.demo.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.spring.demo.SuperEntity;
+import com.spring.demo.entity.enums.AgeEnum;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -15,7 +18,9 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class User extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+public class User extends SuperEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,12 +32,36 @@ public class User extends BaseEntity {
     /**
      * 年龄
      */
-    private Integer age;
+    private AgeEnum age;
 
     /**
      * 邮箱
      */
     private String email;
 
+    @TableField(exist = false)
+    private Integer count;
 
+    public Long getId()
+    {
+        return this.id;
+    }
+
+    public User setId(Long id)
+    {
+        this.id=id;
+        return this;
+    }
+
+    /**
+     * fill 属性是配合MyMetaObjectHandler 这个元数据注入使用的，确实方便很多
+     */
+    @TableField(exist = false,fill = FieldFill.INSERT_UPDATE)
+    private String operator;
+
+    /**
+     * 使用下面这个注解来匹配逻辑删除
+     */
+   // @TableLogic
+   // private Integer isDelete;
 }

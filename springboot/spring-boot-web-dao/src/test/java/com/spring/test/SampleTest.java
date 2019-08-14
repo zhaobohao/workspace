@@ -1,5 +1,7 @@
 package com.spring.test;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.spring.BaseTest;
 import com.spring.demo.entity.User;
 import com.spring.demo.mapper.UserMapper;
