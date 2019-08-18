@@ -19,6 +19,11 @@ HibernatePagingItemReader	通过 Hibernate 从数据库中读取数据，支持�
 IbatisPagingItemReader	通过 Ibatis 从数据库中读取数据，支持分页
 JdbcPagingItemReader	通过 SQL 从数据库中读取数据，支持分页
 JpaPagingItemReader	通过 Jpa 从数据库中读取数据，支持分页
+JacksonJsonObjectReader
+JsonItemReader
+GsonJsonObjectReader
+JsonFileItemWriterBuilder
+JsonItemReaderBuilder
 JmsItemReader	从 JMS 中读取数据
 AmqpItemReader	从 AMQP 中读取数据
 ListItemReader	从 List 中读取数据
