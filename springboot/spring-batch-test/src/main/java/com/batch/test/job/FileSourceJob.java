@@ -1,7 +1,6 @@
 package com.batch.test.job;
 
 
-import com.batch.test.config.BatchSystemConfiguration;
 import com.batch.test.enity.Access;
 import com.batch.test.listener.JobListener;
 import org.slf4j.Logger;
@@ -13,6 +12,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -26,6 +26,8 @@ import org.springframework.core.io.FileSystemResource;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
+import java.io.Writer;
 
 @Configuration
 @EnableBatchProcessing
@@ -87,7 +89,9 @@ public class FileSourceJob {
     @Bean
     public FlatFileItemReader<? extends Access> getDataReader() {
         //读取数据,这里可以用JPA,JDBC,JMS 等方式 读入数据
-        FlatFileItemReader<Access> fr=new FlatFileItemReader<>();
+        FlatFileItemReader<Access> fr = new FlatFileItemReader<>();
+        //将每个文件的第一行忽略掉。
+        fr.setLinesToSkip(1);
         fr.setResource(new FileSystemResource("z:\\in.txt"));
         fr.setLineMapper(new DefaultLineMapper<Access>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
@@ -126,6 +130,13 @@ public class FileSourceJob {
                 setNames(new String[]{"name", "age"});
             }});
         }});
+        txtItemWriter.setHeaderCallback(new FlatFileHeaderCallback() {
+            @Override
+            public void writeHeader(Writer writer) throws IOException {
+                //写入文件的头部信息
+                writer.write("a,b,c,d");
+            }
+        });
         return txtItemWriter;
     }
 

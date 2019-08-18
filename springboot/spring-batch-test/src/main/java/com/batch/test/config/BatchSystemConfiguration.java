@@ -1,30 +1,12 @@
 package com.batch.test.config;
 
-import com.batch.test.enity.Access;
-import com.batch.test.listener.JobListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
-import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.SyncTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManagerFactory;
 
 /**
  * @author zhaoyiyang
@@ -39,21 +21,14 @@ import javax.persistence.EntityManagerFactory;
  * JobBuilderFactory bean名称"jobBuilders"
  * StepBuilderFactory bean名称"stepBuilders"
  */
+@Slf4j
 public class BatchSystemConfiguration {
-    private static final Logger log = LoggerFactory.getLogger(BatchSystemConfiguration.class);
 
-    @Resource
-    private JobBuilderFactory jobBuilderFactory;    //用于构建JOB
 
-    @Resource
-    private StepBuilderFactory stepBuilderFactory;  //用于构建Step
-
-    @Resource
-    private EntityManagerFactory emf;           //注入实例化Factory 访问数据
-
-    @Resource
-    private JobListener jobListener;            //简单的JOB listener
-
+    /**
+     * 多线程执行Step里的任务
+     * @return
+     */
     @Bean
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
@@ -63,6 +38,31 @@ public class BatchSystemConfiguration {
         threadPoolTaskExecutor.setThreadNamePrefix("Data-Job");
         return threadPoolTaskExecutor;
     }
+
+    /**
+     * 异步执行Step，这个实现不重用任何线程,每次调用都启动一个新线程
+     * @return
+     */
+    @Bean
+    public SimpleAsyncTaskExecutor simpleAsyncTaskExecutor()
+    {
+        SimpleAsyncTaskExecutor simpleAsyncTaskExecutor=new SimpleAsyncTaskExecutor();
+        simpleAsyncTaskExecutor.setConcurrencyLimit(20);
+        return simpleAsyncTaskExecutor;
+    }
+
+    /**
+     * 这个实现不会异步执行。相反，每次调用都在发起调用的线程中执行。它的主要用处是在不需要多线程的时候，比如简单的test case。
+     * @return
+     */
+    @Bean
+    public SyncTaskExecutor syncTaskExecutor()
+    {
+        return new SyncTaskExecutor();
+
+    }
+
+
 
 
 }
