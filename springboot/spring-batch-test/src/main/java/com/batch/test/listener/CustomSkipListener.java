@@ -1,20 +1,23 @@
 package com.batch.test.listener;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.SkipListener;
+@Slf4j
+public class CustomSkipListener implements SkipListener<Object, Object> {
 
-public class CustomSkipListener implements SkipListener<String, String> {
     @Override
-    public void onSkipInRead(Throwable t) {
-        // business logic
+    public void onSkipInRead(Throwable throwable) {
+        // bussiness logic
+        log.info("recive Exception : {} ", throwable.getCause());
     }
 
     @Override
-    public void onSkipInWrite(String item, Throwable t) {
-        // no need
+    public void onSkipInWrite(Object o, Throwable throwable) {
+       log.info("Skipping Record in Wirte {},Cause:{}",o,throwable.getCause());
     }
 
     @Override
-    public void onSkipInProcess(String item, Throwable t) {
-        // no need
+    public void onSkipInProcess(Object o, Throwable throwable) {
+        log.info("Skipping Record in Process {},Cause:{}",o,throwable.getCause());
     }
 }

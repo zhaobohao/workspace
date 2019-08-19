@@ -3,8 +3,6 @@ package com.batch.test.job;
 import com.batch.test.enity.Access;
 import com.batch.test.listener.JobListener;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -20,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
@@ -42,7 +41,8 @@ public class FromeFileToDBJob {
 
     @Autowired
     protected DataSource dataSource;
-
+    @Resource
+    private ThreadPoolTaskExecutor taskExecutor;
 
     @Bean
     public Step presitenceDataStep() {
@@ -56,8 +56,12 @@ public class FromeFileToDBJob {
                 //指定ItemProcessor
                         processor(fileSourceDataProcessor()).
                 //指定ItemWriter
-                        writer(fileSourceDataItemWriter(null)).
-                        build();
+                        writer(fileSourceDataItemWriter(null))
+                //最大使用线程池
+                .throttleLimit(2)
+                .taskExecutor(taskExecutor)
+                .exceptionHandler((context, throwable) -> log.error("Skipping record on file. cause={}", ((Exception) throwable).getCause()))
+                .build();
     }
 
     @Bean

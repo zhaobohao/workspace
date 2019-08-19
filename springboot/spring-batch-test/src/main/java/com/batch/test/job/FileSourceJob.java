@@ -23,6 +23,7 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
@@ -53,6 +54,8 @@ public class FileSourceJob {
     @Resource
     private JobListener jobListener;            //简单的JOB listener
 
+    @Resource
+    private ThreadPoolTaskExecutor  taskExecutor;
     /**
      * 一个简单基础的Job通常由一个或者多个Step组成
      */
@@ -82,8 +85,12 @@ public class FileSourceJob {
                 faultTolerant().retryLimit(3).retry(Exception.class).skipLimit(100).skip(Exception.class). //捕捉到异常就重试,重试100次还是异常,JOB就停止并标志失败
                 reader(getDataReader()).         //指定ItemReader
                 processor(getDataProcessor()).   //指定ItemProcessor
-                writer(txtItemWriter()).         //指定ItemWriter
-                build();
+                writer(txtItemWriter())        //指定ItemWriter
+                //最大使用线程池
+                .throttleLimit(2)
+                .taskExecutor(taskExecutor)
+                .exceptionHandler((context,throwable)->log.error("Skipping record on file. cause={}",((Exception)throwable).getCause()))
+                .build();
     }
 
     @Bean
