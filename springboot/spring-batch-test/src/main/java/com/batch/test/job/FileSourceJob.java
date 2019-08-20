@@ -55,21 +55,22 @@ public class FileSourceJob {
     private JobListener jobListener;            //简单的JOB listener
 
     @Resource
-    private ThreadPoolTaskExecutor  taskExecutor;
+    private ThreadPoolTaskExecutor taskExecutor;
+
     /**
      * 一个简单基础的Job通常由一个或者多个Step组成
      */
     @Bean("fileJob1")
     public Job dataHandleJob() {
-        return jobBuilderFactory.get("FileSourceJob").
-                incrementer(new RunIdIncrementer()).
-                start(handleDataStep()).    //start是JOB执行的第一个step
-//                next(xxxStep()).
-//                next(xxxStep()).
+        return jobBuilderFactory.get("FileSourceJob")
+                .incrementer(new RunIdIncrementer())
+                .start(handleDataStep())    //start是JOB执行的第一个step
+//                .next(xxxStep()).
+//                .next(xxxStep()).
 //                ...
 
-        listener(jobListener).      //设置了一个简单JobListener
-                build();
+                .listener(jobListener)      //设置了一个简单JobListener
+                .build();
     }
 
     /**
@@ -81,15 +82,15 @@ public class FileSourceJob {
     @Bean
     public Step handleDataStep() {
         return stepBuilderFactory.get("getData").
-                <Access, Access>chunk(100).        // <输入,输出> 。chunk通俗的讲类似于SQL的commit; 这里表示处理(processor)100条后写入(writer)一次。
-                faultTolerant().retryLimit(3).retry(Exception.class).skipLimit(100).skip(Exception.class). //捕捉到异常就重试,重试100次还是异常,JOB就停止并标志失败
-                reader(getDataReader()).         //指定ItemReader
-                processor(getDataProcessor()).   //指定ItemProcessor
-                writer(txtItemWriter())        //指定ItemWriter
+                <Access, Access>chunk(100)        // <输入,输出> 。chunk通俗的讲类似于SQL的commit; 这里表示处理(processor)100条后写入(writer)一次。
+                .faultTolerant().retryLimit(3).retry(Exception.class).skipLimit(100).skip(Exception.class) //捕捉到异常就重试,重试100次还是异常,JOB就停止并标志失败
+                .reader(getDataReader())         //指定ItemReader
+                .processor(getDataProcessor())   //指定ItemProcessor
+                .writer(txtItemWriter())        //指定ItemWriter
                 //最大使用线程池
                 .throttleLimit(2)
                 .taskExecutor(taskExecutor)
-                .exceptionHandler((context,throwable)->log.error("Skipping record on file. cause={}",((Exception)throwable).getCause()))
+                .exceptionHandler((context, throwable) -> log.error("Skipping record on file. cause={}", ((Exception) throwable).getCause()))
                 .build();
     }
 

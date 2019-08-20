@@ -46,17 +46,17 @@ public class FromeFileToDBJob {
 
     @Bean
     public Step presitenceDataStep() {
-        return stepBuilderFactory.get("presitenceDataStep").
+        return stepBuilderFactory.get("presitenceDataStep")
                 // <输入,输出> 。chunk通俗的讲类似于SQL的commit; 这里表示处理(processor)100条后写入(writer)一次。
-                        <Access, Access>chunk(100).
+                .<Access, Access>chunk(100)
                 //捕捉到异常就重试,重试100次还是异常,JOB就停止并标志失败
-                        faultTolerant().retryLimit(3).retry(Exception.class).skipLimit(100).skip(Exception.class).
+                .faultTolerant().retryLimit(3).retry(Exception.class).skipLimit(100).skip(Exception.class)
                 //指定ItemReader
-                        reader(fileSourceDataReader(null, null)).
+                .reader(fileSourceDataReader(null, null))
                 //指定ItemProcessor
-                        processor(fileSourceDataProcessor()).
+                .processor(fileSourceDataProcessor())
                 //指定ItemWriter
-                        writer(fileSourceDataItemWriter(null))
+                .writer(fileSourceDataItemWriter(null))
                 //最大使用线程池
                 .throttleLimit(2)
                 .taskExecutor(taskExecutor)
