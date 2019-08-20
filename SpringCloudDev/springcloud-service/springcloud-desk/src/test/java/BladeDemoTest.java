@@ -1,16 +1,16 @@
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springblade.core.test.BladeBootTest;
-import org.springblade.core.test.BladeSpringRunner;
-import org.springblade.desk.DeskApplication;
-import org.springblade.desk.service.INoticeService;
+import org.springclouddev.core.test.BladeBootTest;
+import org.springclouddev.core.test.BladeSpringRunner;
+import org.springclouddev.desk.DeskApplication;
+import org.springclouddev.desk.service.INoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * Blade单元测试
  *
- * @author Chill
+ * @author firewan
  */
 @RunWith(BladeSpringRunner.class)
 @SpringBootTest(classes = DeskApplication.class)

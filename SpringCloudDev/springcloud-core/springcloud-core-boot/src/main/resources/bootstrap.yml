@@ -73,13 +73,13 @@ mybatis-plus:
 
 #swagger配置信息
 swagger:
-  title: SpringBlade 接口文档系统
-  description: SpringBlade 接口文档系统
+  title:  接口文档系统
+  description:  接口文档系统
   version: 2.4.1
-  license: Powered By SpringBlade
+  license: Powered By
   licenseUrl: https://bladex.vip
   terms-of-service-url: https://bladex.vip
   contact:
-    name: smallchill
-    email: smallchill@163.com
+    name: smallfirewan
+    email: smallfirewan@163.com
     url: https://gitee.com/smallc

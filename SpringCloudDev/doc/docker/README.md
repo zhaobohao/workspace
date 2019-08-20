@@ -8,7 +8,7 @@
     <username>admin</username>
     <password>Harbor12345</password>
     <configuration>
-      <email>smallchill@163.com</email>
+      <email>smallfirewan@163.com</email>
     </configuration>
   </server>
 </servers>
@@ -69,7 +69,7 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
 ```
 FROM anapsix/alpine-java:8_server-jre_unlimited
 
-MAINTAINER smallchill@163.com
+MAINTAINER smallfirewan@163.com
 
 RUN mkdir -p /blade/gateway
 

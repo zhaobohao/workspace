@@ -6,7 +6,7 @@
 
     <parent>
          <groupId>org.springclouddev</groupId>
-        <artifactId>SpringBlade</artifactId>
+        <artifactId>SpringCloudDev</artifactId>
         <version>1.0.1</version>
     </parent>
 
@@ -14,7 +14,6 @@
     <name>${project.artifactId}</name>
     <version>1.0.1</version>
     <packaging>pom</packaging>
-    <description>SpringBlade 微服务集合</description>
 
     <modules>
         <module>springcloud-desk</module>

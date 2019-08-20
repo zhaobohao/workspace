@@ -86,5 +86,5 @@ blade:
   tenant:
     column: tenant_id
     tables:
-      - blade_notice
+      - mk_notice
 
