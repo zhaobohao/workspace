@@ -4,7 +4,7 @@ package org.springclouddev.core.log.event;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springclouddev.core.launch.props.BladeProperties;
+import org.springclouddev.core.launch.props.SystemProperties;
 import org.springclouddev.core.launch.server.ServerInfo;
 import org.springclouddev.core.log.constant.EventConstant;
 import org.springclouddev.core.log.feign.ILogClient;
@@ -27,7 +27,7 @@ public class ErrorLogListener {
 
 	private final ILogClient logService;
 	private final ServerInfo serverInfo;
-	private final BladeProperties bladeProperties;
+	private final SystemProperties systemProperties;
 
 	@Async
 	@Order
@@ -35,7 +35,7 @@ public class ErrorLogListener {
 	public void saveErrorLog(ErrorLogEvent event) {
 		Map<String, Object> source = (Map<String, Object>) event.getSource();
 		LogError logError = (LogError) source.get(EventConstant.EVENT_LOG);
-		LogAbstractUtil.addOtherInfoToLog(logError, bladeProperties, serverInfo);
+		LogAbstractUtil.addOtherInfoToLog(logError, systemProperties, serverInfo);
 		logService.saveErrorLog(logError);
 	}
 

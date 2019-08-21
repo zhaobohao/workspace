@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springclouddev.core.test.BladeBootTest;
-import org.springclouddev.core.test.BladeSpringRunner;
+import org.springclouddev.core.test.BootTest;
+import org.springclouddev.core.test.SysSpringRunner;
 import org.springclouddev.desk.DeskApplication;
 import org.springclouddev.desk.service.INoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
  *
  * @author firewan
  */
-@RunWith(BladeSpringRunner.class)
+@RunWith(SysSpringRunner.class)
 @SpringBootTest(classes = DeskApplication.class)
-@BladeBootTest(appName = "blade-desk", profile = "test", enableLoader = true)
+@BootTest(appName = "blade-desk", profile = "test", enableLoader = true)
 public class BladeDemoTest {
 
 	@Autowired

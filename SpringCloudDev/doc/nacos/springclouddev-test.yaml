@@ -13,10 +13,10 @@ spring:
     #  commandTimeout: 5000
 
 #项目模块集中配置
-blade:
+springclouddev:
   #通用开发生产环境数据库地址(特殊情况可在对应的子工程里配置覆盖)
   datasource:
-    prod:
+    test:
       url: jdbc:mysql://10.211.55.5:3306/blade?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
       username: root
       password: root

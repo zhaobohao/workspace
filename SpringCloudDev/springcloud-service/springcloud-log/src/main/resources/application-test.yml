@@ -4,6 +4,6 @@ server:
 
 spring:
   datasource:
-    url: ${blade.datasource.test.url}
-    username: ${blade.datasource.test.username}
-    password: ${blade.datasource.test.password}
+    url: ${springclouddev.datasource.test.url}
+    username: ${springclouddev.datasource.test.username}
+    password: ${springclouddev.datasource.test.password}

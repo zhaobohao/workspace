@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>springclouddev-service</artifactId>
-         <groupId>org.springclouddev</groupId>
+        <groupId>org.springclouddev</groupId>
         <version>1.0.1</version>
     </parent>
 
@@ -17,17 +17,17 @@
 
     <dependencies>
         <dependency>
-             <groupId>org.springclouddev</groupId>
+            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-boot</artifactId>
             <version>${project.tool.version}</version>
         </dependency>
         <dependency>
-             <groupId>org.springclouddev</groupId>
+            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-user-api</artifactId>
             <version>${springclouddev.project.version}</version>
         </dependency>
         <dependency>
-             <groupId>org.springclouddev</groupId>
+            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-dict-api</artifactId>
             <version>${springclouddev.project.version}</version>
         </dependency>

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
        <groupId>org.springclouddev</groupId>
-        <artifactId>springclouddev-tool</artifactId>
+        <artifactId>springclouddev-core</artifactId>
         <version>1.0.1</version>
     </parent>
 
@@ -31,7 +31,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
-        <!-- Blade -->
+        <!-- springclouddev -->
         <dependency>
            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-launch</artifactId>
@@ -115,7 +115,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.15</version>
+            <version>5.1.47</version>
         </dependency>
         <!-- PostgreSql -->
         <!--<dependency>

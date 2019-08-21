@@ -5,7 +5,7 @@ import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.boot.ctrl.BladeController;
 import org.springclouddev.core.mp.support.Condition;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.annotation.PreAuth;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.RoleConstant;
@@ -93,7 +93,7 @@ public class MenuController extends BladeController {
 	@GetMapping("/routes")
 	@ApiOperationSupport(order = 5)
 	@ApiOperation(value = "前端菜单数据", notes = "前端菜单数据")
-	public R<List<MenuVO>> routes(BladeUser user) {
+	public R<List<MenuVO>> routes(SystemUser user) {
 		List<MenuVO> list = menuService.routes(user.getRoleId());
 		return R.data(list);
 	}
@@ -104,7 +104,7 @@ public class MenuController extends BladeController {
 	@GetMapping("/buttons")
 	@ApiOperationSupport(order = 6)
 	@ApiOperation(value = "前端按钮数据", notes = "前端按钮数据")
-	public R<List<MenuVO>> buttons(BladeUser user) {
+	public R<List<MenuVO>> buttons(SystemUser user) {
 		List<MenuVO> list = menuService.buttons(user.getRoleId());
 		return R.data(list);
 	}
@@ -126,7 +126,7 @@ public class MenuController extends BladeController {
 	@GetMapping("/grant-tree")
 	@ApiOperationSupport(order = 8)
 	@ApiOperation(value = "权限分配树形结构", notes = "权限分配树形结构")
-	public R<List<MenuVO>> grantTree(BladeUser user) {
+	public R<List<MenuVO>> grantTree(SystemUser user) {
 		return R.data(menuService.grantTree(user));
 	}
 
@@ -146,7 +146,7 @@ public class MenuController extends BladeController {
 	@GetMapping("auth-routes")
 	@ApiOperationSupport(order = 10)
 	@ApiOperation(value = "菜单的角色权限")
-	public R<List<Kv>> authRoutes(BladeUser user) {
+	public R<List<Kv>> authRoutes(SystemUser user) {
 		return R.data(menuService.authRoutes(user));
 	}
 

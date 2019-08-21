@@ -11,12 +11,12 @@ public interface AppConstant {
 	/**
 	 * 应用版本
 	 */
-	String APPLICATION_VERSION = "2.4.1";
+	String APPLICATION_VERSION = "1.0.1";
 
 	/**
 	 * 基础包
 	 */
-	String BASE_PACKAGES = "org.springblade";
+	String BASE_PACKAGES = "org.springclouddev";
 
 	/**
 	 * 应用名前缀

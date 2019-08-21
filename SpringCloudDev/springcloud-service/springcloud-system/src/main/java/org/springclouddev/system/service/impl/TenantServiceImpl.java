@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.boot.tenant.TenantId;
 import org.springclouddev.core.mp.base.BaseServiceImpl;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Role;
@@ -43,7 +43,7 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 	@Transactional(rollbackFor = Exception.class)
 	public boolean saveTenant(Tenant tenant) {
 		if (Func.isEmpty(tenant.getId())) {
-			List<Tenant> tenants = baseMapper.selectList(Wrappers.<Tenant>query().lambda().eq(Tenant::getIsDeleted, BladeConstant.DB_NOT_DELETED));
+			List<Tenant> tenants = baseMapper.selectList(Wrappers.<Tenant>query().lambda().eq(Tenant::getIsDeleted, ToolConstant.DB_NOT_DELETED));
 			List<String> codes = tenants.stream().map(Tenant::getTenantId).collect(Collectors.toList());
 			String tenantId = getTenantId(codes);
 			tenant.setTenantId(tenantId);

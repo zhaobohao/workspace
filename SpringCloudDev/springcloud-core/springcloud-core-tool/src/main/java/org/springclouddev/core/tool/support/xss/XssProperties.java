@@ -13,7 +13,7 @@ import java.util.List;
  * @author firewan
  */
 @Data
-@ConfigurationProperties("blade.xss.url")
+@ConfigurationProperties("springclouddev.xss.url")
 public class XssProperties {
 
 	private final List<String> excludePatterns = new ArrayList<>();

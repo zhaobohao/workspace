@@ -7,8 +7,8 @@ import org.springclouddev.core.log.aspect.ApiLogAspect;
 import org.springclouddev.core.log.event.ApiLogListener;
 import org.springclouddev.core.log.event.UsualLogListener;
 import org.springclouddev.core.log.event.ErrorLogListener;
-import org.springclouddev.core.log.logger.BladeLogger;
-import org.springclouddev.core.launch.props.BladeProperties;
+import org.springclouddev.core.log.logger.SystemLogger;
+import org.springclouddev.core.launch.props.SystemProperties;
 import org.springclouddev.core.launch.server.ServerInfo;
 import org.springclouddev.core.log.feign.ILogClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -23,11 +23,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AllArgsConstructor
 @ConditionalOnWebApplication
-public class BladeLogToolAutoConfiguration {
+public class LogToolAutoConfiguration {
 
 	private final ILogClient logService;
 	private final ServerInfo serverInfo;
-	private final BladeProperties bladeProperties;
+	private final SystemProperties systemProperties;
 
 	@Bean
 	public ApiLogAspect apiLogAspect() {
@@ -35,23 +35,23 @@ public class BladeLogToolAutoConfiguration {
 	}
 
 	@Bean
-	public BladeLogger bladeLogger() {
-		return new BladeLogger();
+	public SystemLogger bladeLogger() {
+		return new SystemLogger();
 	}
 
 	@Bean
 	public ApiLogListener apiLogListener() {
-		return new ApiLogListener(logService, serverInfo, bladeProperties);
+		return new ApiLogListener(logService, serverInfo, systemProperties);
 	}
 
 	@Bean
 	public ErrorLogListener errorEventListener() {
-		return new ErrorLogListener(logService, serverInfo, bladeProperties);
+		return new ErrorLogListener(logService, serverInfo, systemProperties);
 	}
 
 	@Bean
 	public UsualLogListener bladeEventListener() {
-		return new UsualLogListener(logService, serverInfo, bladeProperties);
+		return new UsualLogListener(logService, serverInfo, systemProperties);
 	}
 
 }

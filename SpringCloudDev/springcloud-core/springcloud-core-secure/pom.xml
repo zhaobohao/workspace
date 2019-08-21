@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>springclouddev-tool</artifactId>
+        <artifactId>springclouddev-core</artifactId>
        <groupId>org.springclouddev</groupId>
         <version>1.0.1</version>
     </parent>
@@ -22,7 +22,7 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-        <!--Blade-->
+        <!--springclouddev-->
         <dependency>
            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-tool</artifactId>

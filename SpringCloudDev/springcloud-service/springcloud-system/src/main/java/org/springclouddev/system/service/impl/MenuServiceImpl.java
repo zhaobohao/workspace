@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.secure.BladeUser;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.secure.SystemUser;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.ForestNodeMerger;
 import org.springclouddev.core.tool.support.Kv;
 import org.springclouddev.core.tool.utils.Func;
@@ -72,8 +72,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	}
 
 	@Override
-	public List<MenuVO> grantTree(BladeUser user) {
-		return ForestNodeMerger.merge(user.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID) ? baseMapper.grantTree() : baseMapper.grantTreeByRole(Func.toIntList(user.getRoleId())));
+	public List<MenuVO> grantTree(SystemUser user) {
+		return ForestNodeMerger.merge(user.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID) ? baseMapper.grantTree() : baseMapper.grantTreeByRole(Func.toIntList(user.getRoleId())));
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	}
 
 	@Override
-	public List<Kv> authRoutes(BladeUser user) {
+	public List<Kv> authRoutes(SystemUser user) {
 		if (Func.isEmpty(user)) {
 			return null;
 		}

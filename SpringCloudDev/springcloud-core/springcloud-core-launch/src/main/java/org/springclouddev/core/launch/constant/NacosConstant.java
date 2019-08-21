@@ -16,7 +16,7 @@ public interface NacosConstant {
 	/**
 	 * nacos 配置前缀
 	 */
-	String NACOS_CONFIG_PREFIX = "blade";
+	String NACOS_CONFIG_PREFIX = "springclouddev";
 
 	/**
 	 * nacos 配置文件类型

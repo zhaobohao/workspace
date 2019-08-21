@@ -12,7 +12,7 @@ spring:
         enabled: true
 
 # 聚合文档配置
-blade:
+springclouddev:
   document:
     resources:
       - name: 授权模块

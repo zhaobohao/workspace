@@ -7,7 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.SneakyThrows;
 import org.springclouddev.core.launch.constant.TokenConstant;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.TokenInfo;
 import org.springclouddev.core.secure.constant.SecureConstant;
 import org.springclouddev.core.secure.exception.SecureException;
@@ -26,7 +26,7 @@ import java.util.*;
  * @author firewan
  */
 public class SecureUtil {
-	private static final String BLADE_USER_REQUEST_ATTR = "_BLADE_USER_REQUEST_ATTR_";
+	private static final String USER_REQUEST_ATTR = "_USER_REQUEST_ATTR_";
 
 	private final static String HEADER = TokenConstant.HEADER;
 	private final static String BEARER = TokenConstant.BEARER;
@@ -49,32 +49,32 @@ public class SecureUtil {
 	/**
 	 * 获取用户信息
 	 *
-	 * @return BladeUser
+	 * @return SystemUser
 	 */
-	public static BladeUser getUser() {
+	public static SystemUser getUser() {
 		HttpServletRequest request = WebUtil.getRequest();
 		if (request == null) {
 			return null;
 		}
 		// 优先从 request 中获取
-		Object bladeUser = request.getAttribute(BLADE_USER_REQUEST_ATTR);
-		if (bladeUser == null) {
-			bladeUser = getUser(request);
-			if (bladeUser != null) {
+		Object systemUser = request.getAttribute(USER_REQUEST_ATTR);
+		if (systemUser == null) {
+			systemUser = getUser(request);
+			if (systemUser != null) {
 				// 设置到 request 中
-				request.setAttribute(BLADE_USER_REQUEST_ATTR, bladeUser);
+				request.setAttribute(USER_REQUEST_ATTR, systemUser);
 			}
 		}
-		return (BladeUser) bladeUser;
+		return (SystemUser) systemUser;
 	}
 
 	/**
 	 * 获取用户信息
 	 *
 	 * @param request request
-	 * @return BladeUser
+	 * @return SystemUser
 	 */
-	public static BladeUser getUser(HttpServletRequest request) {
+	public static SystemUser getUser(HttpServletRequest request) {
 		Claims claims = getClaims(request);
 		if (claims == null) {
 			return null;
@@ -86,15 +86,15 @@ public class SecureUtil {
 		String account = Func.toStr(claims.get(SecureUtil.ACCOUNT));
 		String roleName = Func.toStr(claims.get(SecureUtil.ROLE_NAME));
 		String userName = Func.toStr(claims.get(SecureUtil.USER_NAME));
-		BladeUser bladeUser = new BladeUser();
-		bladeUser.setClientId(clientId);
-		bladeUser.setUserId(userId);
-		bladeUser.setTenantId(tenantId);
-		bladeUser.setAccount(account);
-		bladeUser.setRoleId(roleId);
-		bladeUser.setRoleName(roleName);
-		bladeUser.setUserName(userName);
-		return bladeUser;
+		SystemUser systemUser = new SystemUser();
+		systemUser.setClientId(clientId);
+		systemUser.setUserId(userId);
+		systemUser.setTenantId(tenantId);
+		systemUser.setAccount(account);
+		systemUser.setRoleId(roleId);
+		systemUser.setRoleName(roleName);
+		systemUser.setUserName(userName);
+		return systemUser;
 	}
 
 
@@ -104,7 +104,7 @@ public class SecureUtil {
 	 * @return userId
 	 */
 	public static Integer getUserId() {
-		BladeUser user = getUser();
+		SystemUser user = getUser();
 		return (null == user) ? -1 : user.getUserId();
 	}
 
@@ -115,7 +115,7 @@ public class SecureUtil {
 	 * @return userId
 	 */
 	public static Integer getUserId(HttpServletRequest request) {
-		BladeUser user = getUser(request);
+		SystemUser user = getUser(request);
 		return (null == user) ? -1 : user.getUserId();
 	}
 
@@ -125,7 +125,7 @@ public class SecureUtil {
 	 * @return userAccount
 	 */
 	public static String getUserAccount() {
-		BladeUser user = getUser();
+		SystemUser user = getUser();
 		return (null == user) ? StringPool.EMPTY : user.getAccount();
 	}
 
@@ -136,7 +136,7 @@ public class SecureUtil {
 	 * @return userAccount
 	 */
 	public static String getUserAccount(HttpServletRequest request) {
-		BladeUser user = getUser(request);
+		SystemUser user = getUser(request);
 		return (null == user) ? StringPool.EMPTY : user.getAccount();
 	}
 
@@ -146,7 +146,7 @@ public class SecureUtil {
 	 * @return userName
 	 */
 	public static String getUserName() {
-		BladeUser user = getUser();
+		SystemUser user = getUser();
 		return (null == user) ? StringPool.EMPTY : user.getUserName();
 	}
 
@@ -157,7 +157,7 @@ public class SecureUtil {
 	 * @return userName
 	 */
 	public static String getUserName(HttpServletRequest request) {
-		BladeUser user = getUser(request);
+		SystemUser user = getUser(request);
 		return (null == user) ? StringPool.EMPTY : user.getUserName();
 	}
 
@@ -167,7 +167,7 @@ public class SecureUtil {
 	 * @return userName
 	 */
 	public static String getUserRole() {
-		BladeUser user = getUser();
+		SystemUser user = getUser();
 		return (null == user) ? StringPool.EMPTY : user.getRoleName();
 	}
 
@@ -178,7 +178,7 @@ public class SecureUtil {
 	 * @return userName
 	 */
 	public static String getUserRole(HttpServletRequest request) {
-		BladeUser user = getUser(request);
+		SystemUser user = getUser(request);
 		return (null == user) ? StringPool.EMPTY : user.getRoleName();
 	}
 
@@ -188,7 +188,7 @@ public class SecureUtil {
 	 * @return tenantId
 	 */
 	public static String getTenantId() {
-		BladeUser user = getUser();
+		SystemUser user = getUser();
 		return (null == user) ? StringPool.EMPTY : user.getTenantId();
 	}
 
@@ -199,7 +199,7 @@ public class SecureUtil {
 	 * @return tenantId
 	 */
 	public static String getTenantId(HttpServletRequest request) {
-		BladeUser user = getUser(request);
+		SystemUser user = getUser(request);
 		return (null == user) ? StringPool.EMPTY : user.getTenantId();
 	}
 
@@ -209,7 +209,7 @@ public class SecureUtil {
 	 * @return tenantId
 	 */
 	public static String getClientId() {
-		BladeUser user = getUser();
+		SystemUser user = getUser();
 		return (null == user) ? StringPool.EMPTY : user.getClientId();
 	}
 
@@ -220,7 +220,7 @@ public class SecureUtil {
 	 * @return tenantId
 	 */
 	public static String getClientId(HttpServletRequest request) {
-		BladeUser user = getUser(request);
+		SystemUser user = getUser(request);
 		return (null == user) ? StringPool.EMPTY : user.getClientId();
 	}
 

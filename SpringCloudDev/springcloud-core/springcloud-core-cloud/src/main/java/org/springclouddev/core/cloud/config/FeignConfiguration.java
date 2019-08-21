@@ -3,7 +3,7 @@ package org.springclouddev.core.cloud.config;
 
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.springclouddev.core.cloud.feign.BladeFeignRequestHeaderInterceptor;
+import org.springclouddev.core.cloud.feign.FeignRequestHeaderInterceptor;
 import org.springclouddev.core.cloud.feign.FeignHystrixConcurrencyStrategy;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.annotation.EnableCaching;
@@ -22,12 +22,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableCaching
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class BladeFeignConfiguration implements WebMvcConfigurer {
+public class FeignConfiguration implements WebMvcConfigurer {
 
 	@Bean
 	@ConditionalOnMissingBean
 	public RequestInterceptor requestInterceptor() {
-		return new BladeFeignRequestHeaderInterceptor();
+		return new FeignRequestHeaderInterceptor();
 	}
 
 	@Bean

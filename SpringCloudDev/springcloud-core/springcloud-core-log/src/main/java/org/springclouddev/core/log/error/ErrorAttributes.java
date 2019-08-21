@@ -19,7 +19,7 @@ import java.util.Map;
  * @author firewan
  */
 @Slf4j
-public class BladeErrorAttributes extends DefaultErrorAttributes {
+public class ErrorAttributes extends DefaultErrorAttributes {
 
 	@Override
 	public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {

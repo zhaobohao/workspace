@@ -17,19 +17,19 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @SpringBootTest
-public @interface BladeBootTest {
+public @interface BootTest {
 	/**
 	 * 服务名：appName
 	 * @return appName
 	 */
 	@AliasFor("appName")
-	String value() default "blade-test";
+	String value() default "sys-test";
 	/**
 	 * 服务名：appName
 	 * @return appName
 	 */
 	@AliasFor("value")
-	String appName() default "blade-test";
+	String appName() default "sys-test";
 	/**
 	 * profile
 	 * @return profile

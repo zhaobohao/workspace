@@ -67,7 +67,7 @@ management:
       show-details: always
 
 #blade配置
-blade:
+springclouddev:
   xss:
     url:
       exclude-patterns:

@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springclouddev.core.boot.ctrl.BladeController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Tenant;
 import org.springclouddev.system.service.ITenantService;
@@ -55,9 +55,9 @@ public class TenantController extends BladeController {
 		@ApiImplicitParam(name = "contactNumber", value = "联系电话", paramType = "query", dataType = "string")
 	})
 	@ApiOperation(value = "分页", notes = "传入tenant")
-	public R<IPage<Tenant>> list(@ApiIgnore @RequestParam Map<String, Object> tenant, Query query, BladeUser bladeUser) {
+	public R<IPage<Tenant>> list(@ApiIgnore @RequestParam Map<String, Object> tenant, Query query, SystemUser systemUser) {
 		QueryWrapper<Tenant> queryWrapper = Condition.getQueryWrapper(tenant, Tenant.class);
-		IPage<Tenant> pages = tenantService.page(Condition.getPage(query), (!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Tenant::getTenantId, bladeUser.getTenantId()) : queryWrapper);
+		IPage<Tenant> pages = tenantService.page(Condition.getPage(query), (!systemUser.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Tenant::getTenantId, systemUser.getTenantId()) : queryWrapper);
 		return R.data(pages);
 	}
 
@@ -66,9 +66,9 @@ public class TenantController extends BladeController {
 	 */
 	@GetMapping("/select")
 	@ApiOperation(value = "下拉数据源", notes = "传入tenant")
-	public R<List<Tenant>> select(Tenant tenant, BladeUser bladeUser) {
+	public R<List<Tenant>> select(Tenant tenant, SystemUser systemUser) {
 		QueryWrapper<Tenant> queryWrapper = Condition.getQueryWrapper(tenant);
-		List<Tenant> list = tenantService.list((!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Tenant::getTenantId, bladeUser.getTenantId()) : queryWrapper);
+		List<Tenant> list = tenantService.list((!systemUser.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Tenant::getTenantId, systemUser.getTenantId()) : queryWrapper);
 		return R.data(list);
 	}
 

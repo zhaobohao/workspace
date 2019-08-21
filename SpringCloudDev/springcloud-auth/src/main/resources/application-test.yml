@@ -5,7 +5,7 @@ server:
 #数据源配置
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${blade.datasource.test.url}
-    username: ${blade.datasource.test.username}
-    password: ${blade.datasource.test.password}
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${springclouddev.datasource.test.url}
+    username: ${springclouddev.datasource.test.username}
+    password: ${springclouddev.datasource.test.password}

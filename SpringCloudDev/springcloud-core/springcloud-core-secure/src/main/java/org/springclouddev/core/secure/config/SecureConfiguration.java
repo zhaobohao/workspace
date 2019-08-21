@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springclouddev.core.secure.aspect.AuthAspect;
 import org.springclouddev.core.secure.interceptor.ClientInterceptor;
 import org.springclouddev.core.secure.interceptor.SecureInterceptor;
-import org.springclouddev.core.secure.props.BladeClientProperties;
-import org.springclouddev.core.secure.props.BladeSecureProperties;
+import org.springclouddev.core.secure.props.ClientProperties;
+import org.springclouddev.core.secure.props.SecureProperties;
 import org.springclouddev.core.secure.provider.ClientDetailsServiceImpl;
 import org.springclouddev.core.secure.provider.IClientDetailsService;
 import org.springclouddev.core.secure.registry.SecureRegistry;
@@ -28,14 +28,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Order
 @Configuration
 @AllArgsConstructor
-@EnableConfigurationProperties({BladeSecureProperties.class, BladeClientProperties.class})
+@EnableConfigurationProperties({SecureProperties.class, ClientProperties.class})
 public class SecureConfiguration implements WebMvcConfigurer {
 
 	private final SecureRegistry secureRegistry;
 
-	private final BladeSecureProperties secureProperties;
+	private final SecureProperties secureProperties;
 
-	private final BladeClientProperties clientProperties;
+	private final ClientProperties clientProperties;
 
 	private final JdbcTemplate jdbcTemplate;
 

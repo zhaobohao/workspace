@@ -6,9 +6,9 @@ import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.boot.ctrl.BladeController;
 import org.springclouddev.core.mp.support.Condition;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.INode;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Dept;
@@ -56,9 +56,9 @@ public class DeptController extends BladeController {
 	})
 	@ApiOperationSupport(order = 2)
 	@ApiOperation(value = "列表", notes = "传入dept")
-	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> dept, BladeUser bladeUser) {
+	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> dept, SystemUser systemUser) {
 		QueryWrapper<Dept> queryWrapper = Condition.getQueryWrapper(dept, Dept.class);
-		List<Dept> list = deptService.list((!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Dept::getTenantId, bladeUser.getTenantId()) : queryWrapper);
+		List<Dept> list = deptService.list((!systemUser.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Dept::getTenantId, systemUser.getTenantId()) : queryWrapper);
 		return R.data(DeptWrapper.build().listNodeVO(list));
 	}
 
@@ -70,8 +70,8 @@ public class DeptController extends BladeController {
 	@GetMapping("/tree")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "树形结构", notes = "树形结构")
-	public R<List<DeptVO>> tree(String tenantId, BladeUser bladeUser) {
-		List<DeptVO> tree = deptService.tree(Func.toStr(tenantId, bladeUser.getTenantId()));
+	public R<List<DeptVO>> tree(String tenantId, SystemUser systemUser) {
+		List<DeptVO> tree = deptService.tree(Func.toStr(tenantId, systemUser.getTenantId()));
 		return R.data(tree);
 	}
 
@@ -81,7 +81,7 @@ public class DeptController extends BladeController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入dept")
-	public R submit(@Valid @RequestBody Dept dept, BladeUser user) {
+	public R submit(@Valid @RequestBody Dept dept, SystemUser user) {
 		if (Func.isEmpty(dept.getId())) {
 			dept.setTenantId(user.getTenantId());
 		}

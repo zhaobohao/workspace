@@ -2,7 +2,7 @@
 
 package org.springclouddev.core.log.utils;
 
-import org.springclouddev.core.launch.props.BladeProperties;
+import org.springclouddev.core.launch.props.SystemProperties;
 import org.springclouddev.core.launch.server.ServerInfo;
 import org.springclouddev.core.log.model.LogAbstract;
 import org.springclouddev.core.secure.utils.SecureUtil;
@@ -39,14 +39,14 @@ public class LogAbstractUtil {
 	 * 向log中添加补齐其他的信息（eg：blade、server等）
 	 *
 	 * @param logAbstract     日志基础类
-	 * @param bladeProperties 配置信息
+	 * @param systemProperties 配置信息
 	 * @param serverInfo      服务信息
 	 */
-	public static void addOtherInfoToLog(LogAbstract logAbstract, BladeProperties bladeProperties, ServerInfo serverInfo) {
-		logAbstract.setServiceId(bladeProperties.getName());
+	public static void addOtherInfoToLog(LogAbstract logAbstract, SystemProperties systemProperties, ServerInfo serverInfo) {
+		logAbstract.setServiceId(systemProperties.getName());
 		logAbstract.setServerHost(serverInfo.getHostName());
 		logAbstract.setServerIp(serverInfo.getIpWithPort());
-		logAbstract.setEnv(bladeProperties.getEnv());
+		logAbstract.setEnv(systemProperties.getEnv());
 		logAbstract.setCreateTime(LocalDateTime.now());
 
 		//这里判断一下params为null的情况，否则blade-log服务在解析该字段的时候，可能会报出NPE

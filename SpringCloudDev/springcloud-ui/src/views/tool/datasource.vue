@@ -71,8 +71,8 @@
               type: 'select',
               dicData: [
                 {
-                  label: 'com.mysql.cj.jdbc.Driver',
-                  value: 'com.mysql.cj.jdbc.Driver',
+                  label: 'com.mysql.jdbc.Driver',
+                  value: 'com.mysql.jdbc.Driver',
                 }, {
                   label: 'org.postgresql.Driver',
                   value: 'org.postgresql.Driver',

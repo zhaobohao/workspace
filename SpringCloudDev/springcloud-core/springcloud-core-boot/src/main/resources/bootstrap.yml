@@ -28,7 +28,7 @@ spring:
   resources:
     add-mappings: false
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     hikari:
       connection-test-query: SELECT 1 FROM DUAL
       connection-timeout: 30000
@@ -42,7 +42,7 @@ spring:
 
 #配置日志地址
 logging:
-  config: classpath:log/logback_${blade.env}.xml
+  config: classpath:log/logback_${springclouddev.env}.xml
 
 # mybatis
 mybatis-plus:
@@ -75,11 +75,11 @@ mybatis-plus:
 swagger:
   title:  接口文档系统
   description:  接口文档系统
-  version: 2.4.1
+  version: 1.0.1
   license: Powered By
-  licenseUrl: https://bladex.vip
-  terms-of-service-url: https://bladex.vip
+  licenseUrl: https://xxxxx.vip
+  terms-of-service-url: https://xxxxx.vip
   contact:
     name: smallfirewan
-    email: smallfirewan@163.com
-    url: https://gitee.com/smallc
+    email: zhaobohao@163.com
+    url: https://gitee.com/zhaobohao

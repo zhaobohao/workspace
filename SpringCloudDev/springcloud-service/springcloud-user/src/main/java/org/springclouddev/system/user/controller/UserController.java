@@ -8,9 +8,9 @@ import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.user.entity.User;
 import org.springclouddev.system.user.service.IUserService;
@@ -55,9 +55,9 @@ public class UserController {
 	})
 	@ApiOperationSupport(order = 2)
 	@ApiOperation(value = "列表", notes = "传入account和realName")
-	public R<IPage<UserVO>> list(@ApiIgnore @RequestParam Map<String, Object> user, Query query, BladeUser bladeUser) {
+	public R<IPage<UserVO>> list(@ApiIgnore @RequestParam Map<String, Object> user, Query query, SystemUser systemUser) {
 		QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user, User.class);
-		IPage<User> pages = userService.page(Condition.getPage(query), (!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(User::getTenantId, bladeUser.getTenantId()) : queryWrapper);
+		IPage<User> pages = userService.page(Condition.getPage(query), (!systemUser.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(User::getTenantId, systemUser.getTenantId()) : queryWrapper);
 		return R.data(UserWrapper.build().pageVO(pages));
 	}
 

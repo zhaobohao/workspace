@@ -3,7 +3,7 @@ package org.springclouddev.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.support.Kv;
 import org.springclouddev.system.entity.Menu;
 import org.springclouddev.system.vo.MenuVO;
@@ -55,7 +55,7 @@ public interface IMenuService extends IService<Menu> {
 	 * @param user
 	 * @return
 	 */
-	List<MenuVO> grantTree(BladeUser user);
+	List<MenuVO> grantTree(SystemUser user);
 
 	/**
 	 * 默认选中节点
@@ -71,6 +71,6 @@ public interface IMenuService extends IService<Menu> {
 	 * @param user
 	 * @return
 	 */
-	List<Kv> authRoutes(BladeUser user);
+	List<Kv> authRoutes(SystemUser user);
 
 }

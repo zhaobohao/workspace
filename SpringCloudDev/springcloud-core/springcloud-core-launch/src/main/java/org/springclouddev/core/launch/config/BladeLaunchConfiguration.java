@@ -2,7 +2,7 @@
 package org.springclouddev.core.launch.config;
 
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.launch.props.BladeProperties;
+import org.springclouddev.core.launch.props.SystemProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -17,7 +17,7 @@ import org.springframework.core.annotation.Order;
 @AllArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties({
-	BladeProperties.class
+	SystemProperties.class
 })
 public class BladeLaunchConfiguration {
 

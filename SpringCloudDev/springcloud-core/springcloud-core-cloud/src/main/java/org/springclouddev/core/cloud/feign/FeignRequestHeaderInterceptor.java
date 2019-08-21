@@ -16,7 +16,7 @@ import java.util.Enumeration;
  * @author firewan
  */
 @Slf4j
-public class BladeFeignRequestHeaderInterceptor implements RequestInterceptor {
+public class FeignRequestHeaderInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {

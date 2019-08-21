@@ -2,7 +2,7 @@
 package org.springclouddev.core.boot.resolver;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.utils.SecureUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -26,7 +26,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
 	 */
 	@Override
 	public boolean supportsParameter(MethodParameter methodParameter) {
-		return methodParameter.getParameterType().equals(BladeUser.class);
+		return methodParameter.getParameterType().equals(SystemUser.class);
 	}
 
 	/**

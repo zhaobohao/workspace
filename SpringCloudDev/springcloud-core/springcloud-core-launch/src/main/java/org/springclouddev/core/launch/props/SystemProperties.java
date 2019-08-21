@@ -14,8 +14,8 @@ import java.util.Map;
  *
  * @author firewan
  */
-@ConfigurationProperties("blade")
-public class BladeProperties {
+@ConfigurationProperties("springclouddev")
+public class SystemProperties {
 
 	/**
 	 * 开发环境

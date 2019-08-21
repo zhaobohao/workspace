@@ -21,27 +21,27 @@ import java.util.stream.Collectors;
  *
  * @author L.cm
  */
-public class BladeSpringRunner extends SpringJUnit4ClassRunner {
+public class SysSpringRunner extends SpringJUnit4ClassRunner {
 
-	public BladeSpringRunner(Class<?> clazz) throws InitializationError {
+	public SysSpringRunner(Class<?> clazz) throws InitializationError {
 		super(clazz);
 		setUpTestClass(clazz);
 	}
 
 	private void setUpTestClass(Class<?> clazz) {
-		BladeBootTest bladeBootTest = AnnotationUtils.getAnnotation(clazz, BladeBootTest.class);
-		if (bladeBootTest == null) {
-			throw new BladeBootTestException(String.format("%s must be @BladeBootTest .", clazz));
+		BootTest bootTest = AnnotationUtils.getAnnotation(clazz, BootTest.class);
+		if (bootTest == null) {
+			throw new BootTestException(String.format("%s must be @BootTest .", clazz));
 		}
-		String appName = bladeBootTest.appName();
-		String profile = bladeBootTest.profile();
+		String appName = bootTest.appName();
+		String profile = bootTest.profile();
 		boolean isLocalDev = SpingCloudDevApplication.isLocalDev();
 		Properties props = System.getProperties();
-		props.setProperty("blade.env", profile);
-		props.setProperty("blade.name", appName);
-		props.setProperty("blade.is-local", String.valueOf(isLocalDev));
-		props.setProperty("blade.dev-mode", profile.equals(AppConstant.PROD_CODE) ? "false" : "true");
-		props.setProperty("blade.service.version", AppConstant.APPLICATION_VERSION);
+		props.setProperty("springclouddev.env", profile);
+		props.setProperty("springclouddev.name", appName);
+		props.setProperty("springclouddev.is-local", String.valueOf(isLocalDev));
+		props.setProperty("springclouddev.dev-mode", profile.equals(AppConstant.PROD_CODE) ? "false" : "true");
+		props.setProperty("springclouddev.service.version", AppConstant.APPLICATION_VERSION);
 		props.setProperty("spring.application.name", appName);
 		props.setProperty("spring.profiles.active", profile);
 		props.setProperty("info.version", AppConstant.APPLICATION_VERSION);
@@ -53,7 +53,7 @@ public class BladeSpringRunner extends SpringJUnit4ClassRunner {
 		props.setProperty("spring.cloud.sentinel.transport.dashboard", SentinelConstant.SENTINEL_ADDR);
 		props.setProperty("spring.main.allow-bean-definition-overriding", "true");
 		// 加载自定义组件
-		if (bladeBootTest.enableLoader()) {
+		if (bootTest.enableLoader()) {
 			List<LauncherService> launcherList = new ArrayList<>();
 			SpringApplicationBuilder builder = new SpringApplicationBuilder(clazz);
 			ServiceLoader.load(LauncherService.class).forEach(launcherList::add);

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author firewan
  */
 @Data
-public class BladeUser implements Serializable {
+public class SystemUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	/**

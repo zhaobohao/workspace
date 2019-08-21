@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 客户端校验配置
+ * secure放行额外配置
  *
  * @author firewan
  */
 @Data
-@ConfigurationProperties("blade.secure")
-public class BladeClientProperties {
+@ConfigurationProperties("springclouddev.secure.url")
+public class SecureProperties {
 
-	private final List<ClientSecure> client = new ArrayList<>();
+	private final List<String> excludePatterns = new ArrayList<>();
 
 }

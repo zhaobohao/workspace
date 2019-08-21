@@ -12,6 +12,32 @@
     <artifactId>springclouddev-user-api</artifactId>
     <name>${project.artifactId}</name>
     <version>${springclouddev.project.version}</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-launch</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-tool</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <version>3.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-mybatis</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
     <packaging>jar</packaging>
 
 </project>

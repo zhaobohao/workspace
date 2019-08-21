@@ -7,7 +7,7 @@ import org.springclouddev.core.log.constant.EventConstant;
 import org.springclouddev.core.log.event.ApiLogEvent;
 import org.springclouddev.core.log.model.LogApi;
 import org.springclouddev.core.log.utils.LogAbstractUtil;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.SpringUtil;
 import org.springclouddev.core.tool.utils.WebUtil;
 
@@ -25,7 +25,7 @@ public class ApiLogPublisher {
 	public static void publishEvent(String methodName, String methodClass, ApiLog apiLog, long time) {
 		HttpServletRequest request = WebUtil.getRequest();
 		LogApi logApi = new LogApi();
-		logApi.setType(BladeConstant.LOG_NORMAL_TYPE);
+		logApi.setType(ToolConstant.LOG_NORMAL_TYPE);
 		logApi.setTitle(apiLog.value());
 		logApi.setTime(String.valueOf(time));
 		logApi.setMethodClass(methodClass);

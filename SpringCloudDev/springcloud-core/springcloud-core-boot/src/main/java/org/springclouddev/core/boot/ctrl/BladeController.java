@@ -3,7 +3,7 @@ package org.springclouddev.core.boot.ctrl;
 
 import org.springclouddev.core.boot.file.BladeFile;
 import org.springclouddev.core.boot.file.BladeFileUtil;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.utils.SecureUtil;
 import org.springclouddev.core.tool.api.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +38,9 @@ public class BladeController {
 	/**
 	 * 获取当前用户
 	 *
-	 * @return BladeUser
+	 * @return SystemUser
 	 */
-	public BladeUser getUser() {
+	public SystemUser getUser() {
 		return SecureUtil.getUser();
 	}
 

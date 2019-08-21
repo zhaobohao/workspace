@@ -19,9 +19,9 @@ import java.util.Map;
  *
  * @author firewan
  */
-public class BladeErrorController extends BasicErrorController {
+public class ErrorController extends BasicErrorController {
 
-	public BladeErrorController(ErrorAttributes errorAttributes, ErrorProperties errorProperties) {
+	public ErrorController(ErrorAttributes errorAttributes, ErrorProperties errorProperties) {
 		super(errorAttributes, errorProperties);
 	}
 

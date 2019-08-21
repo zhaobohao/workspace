@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
  *
  * @author L.cm
  */
-@RunWith(BladeSpringRunner.class)
-public abstract class BladeBaseTest extends AbstractJUnit4SpringContextTests {
+@RunWith(SysSpringRunner.class)
+public abstract class SysBaseTest extends AbstractJUnit4SpringContextTests {
 
 }

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @author firewan
  */
 @Slf4j
-public class BladeLogger implements InitializingBean {
+public class SystemLogger implements InitializingBean {
 
 	@Value("${spring.application.name}")
 	private String serviceId;
@@ -35,7 +35,7 @@ public class BladeLogger implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		log.info(serviceId + ": BladeLogger init success!");
+		log.info(serviceId + ": SystemLogger init success!");
 	}
 
 }

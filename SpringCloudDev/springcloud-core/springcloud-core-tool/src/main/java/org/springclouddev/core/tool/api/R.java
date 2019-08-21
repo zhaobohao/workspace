@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.ObjectUtil;
 import org.springframework.lang.Nullable;
 
@@ -88,7 +88,7 @@ public class R<T> implements Serializable {
 	 * @return R
 	 */
 	public static <T> R<T> data(T data) {
-		return data(data, BladeConstant.DEFAULT_SUCCESS_MESSAGE);
+		return data(data, ToolConstant.DEFAULT_SUCCESS_MESSAGE);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class R<T> implements Serializable {
 	 * @return R
 	 */
 	public static <T> R<T> data(int code, T data, String msg) {
-		return new R<>(code, data, data == null ? BladeConstant.DEFAULT_NULL_MESSAGE : msg);
+		return new R<>(code, data, data == null ? ToolConstant.DEFAULT_NULL_MESSAGE : msg);
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class R<T> implements Serializable {
 	 * @return R
 	 */
 	public static <T> R<T> status(boolean flag) {
-		return flag ? success(BladeConstant.DEFAULT_SUCCESS_MESSAGE) : fail(BladeConstant.DEFAULT_FAILURE_MESSAGE);
+		return flag ? success(ToolConstant.DEFAULT_SUCCESS_MESSAGE) : fail(ToolConstant.DEFAULT_FAILURE_MESSAGE);
 	}
 
 }

@@ -5,6 +5,6 @@ server:
 #数据源配置
 spring:
   datasource:
-    url: ${blade.datasource.dev.url}
-    username: ${blade.datasource.dev.username}
-    password: ${blade.datasource.dev.password}
+    url: ${springclouddev.datasource.dev.url}
+    username: ${springclouddev.datasource.dev.username}
+    password: ${springclouddev.datasource.dev.password}

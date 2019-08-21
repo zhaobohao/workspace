@@ -7,9 +7,9 @@ package org.springclouddev.core.test;
  *
  * @author L.cm
  */
-class BladeBootTestException extends RuntimeException {
+class BootTestException extends RuntimeException {
 
-	BladeBootTestException(String message) {
+	BootTestException(String message) {
 		super(message);
 	}
 }

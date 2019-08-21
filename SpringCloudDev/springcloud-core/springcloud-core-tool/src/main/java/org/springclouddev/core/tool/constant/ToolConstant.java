@@ -6,7 +6,7 @@ package org.springclouddev.core.tool.constant;
  *
  * @author firewan
  */
-public interface BladeConstant {
+public interface ToolConstant {
 
 	/**
 	 * 编码

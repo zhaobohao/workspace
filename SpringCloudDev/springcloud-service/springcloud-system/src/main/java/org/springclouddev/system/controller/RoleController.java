@@ -6,9 +6,9 @@ import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.boot.ctrl.BladeController;
 import org.springclouddev.core.mp.support.Condition;
-import org.springclouddev.core.secure.BladeUser;
+import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
-import org.springclouddev.core.tool.constant.BladeConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.INode;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Role;
@@ -56,9 +56,9 @@ public class RoleController extends BladeController {
 	})
 	@ApiOperationSupport(order = 2)
 	@ApiOperation(value = "列表", notes = "传入role")
-	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> role, BladeUser bladeUser) {
+	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> role, SystemUser systemUser) {
 		QueryWrapper<Role> queryWrapper = Condition.getQueryWrapper(role, Role.class);
-		List<Role> list = roleService.list((!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Role::getTenantId, bladeUser.getTenantId()) : queryWrapper);
+		List<Role> list = roleService.list((!systemUser.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Role::getTenantId, systemUser.getTenantId()) : queryWrapper);
 		return R.data(RoleWrapper.build().listNodeVO(list));
 	}
 
@@ -68,8 +68,8 @@ public class RoleController extends BladeController {
 	@GetMapping("/tree")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "树形结构", notes = "树形结构")
-	public R<List<RoleVO>> tree(String tenantId, BladeUser bladeUser) {
-		List<RoleVO> tree = roleService.tree(Func.toStr(tenantId, bladeUser.getTenantId()));
+	public R<List<RoleVO>> tree(String tenantId, SystemUser systemUser) {
+		List<RoleVO> tree = roleService.tree(Func.toStr(tenantId, systemUser.getTenantId()));
 		return R.data(tree);
 	}
 
@@ -79,7 +79,7 @@ public class RoleController extends BladeController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入role")
-	public R submit(@Valid @RequestBody Role role, BladeUser user) {
+	public R submit(@Valid @RequestBody Role role, SystemUser user) {
 		if (Func.isEmpty(role.getId())) {
 			role.setTenantId(user.getTenantId());
 		}

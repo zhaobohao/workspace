@@ -20,7 +20,7 @@ public class AuthInfo {
 	@ApiModelProperty(value = "刷新令牌")
 	private String refreshToken;
 	@ApiModelProperty(value = "头像")
-	private String avatar = "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png";
+	private String avatar = "xxx.png";
 	@ApiModelProperty(value = "角色名")
 	private String authority;
 	@ApiModelProperty(value = "用户名")
@@ -30,5 +30,5 @@ public class AuthInfo {
 	@ApiModelProperty(value = "过期时间")
 	private long expiresIn;
 	@ApiModelProperty(value = "许可证")
-	private String license = "powered by blade";
+	private String license = "free for all ";
 }
