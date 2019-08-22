@@ -35,9 +35,9 @@ CREATE TABLE `mk_dict`  (
   `additional_information` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附加说明',
   `autoapprove` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '自动授权',
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '修改时间',
   `status` int(2) NOT NULL COMMENT '状态',
   `is_deleted` int(2) NOT NULL COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
@@ -92,9 +92,9 @@ CREATE TABLE `mk_datasource`  (
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `create_user` bigint(64) NULL DEFAULT NULL COMMENT '创建人',
   `create_dept` bigint(64) NULL DEFAULT NULL COMMENT '创建部门',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` bigint(64) NULL DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '修改时间',
   `status` int(2) NULL DEFAULT NULL COMMENT '状态',
   `is_deleted` int(2) NULL DEFAULT NULL COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
@@ -104,7 +104,7 @@ CREATE TABLE `mk_datasource`  (
 -- Records of mk_datasource
 -- ----------------------------
 BEGIN;
-INSERT INTO `mk_datasource` VALUES (1, 'mysql', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306/blade?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true', 'root', 'root', 'mysql', 1, 1, '2019-08-14 11:43:06', 1, '2019-08-14 11:43:06', 1, 0), (2, 'postgresql', 'org.postgresql.Driver', 'jdbc:postgresql://127.0.0.1:5432/blade', 'postgres', '123456', 'postgresql', 1, 1, '2019-08-14 11:43:41', 1, '2019-08-14 11:43:41', 1, 0), (3, 'oracle', 'oracle.jdbc.OracleDriver', 'jdbc:oracle:thin:@127.0.0.1:49161:orcl', 'BLADE', 'blade', 'oracle', 1, 1, '2019-08-14 11:44:03', 1, '2019-08-14 11:44:03', 1, 0);
+INSERT INTO `mk_datasource` VALUES (1, 'mysql', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306/blade?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroTIMESTAMP Behavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true', 'root', 'root', 'mysql', 1, 1, '2019-08-14 11:43:06', 1, '2019-08-14 11:43:06', 1, 0), (2, 'postgresql', 'org.postgresql.Driver', 'jdbc:postgresql://127.0.0.1:5432/blade', 'postgres', '123456', 'postgresql', 1, 1, '2019-08-14 11:43:41', 1, '2019-08-14 11:43:41', 1, 0), (3, 'oracle', 'oracle.jdbc.OracleDriver', 'jdbc:oracle:thin:@127.0.0.1:49161:orcl', 'BLADE', 'blade', 'oracle', 1, 1, '2019-08-14 11:44:03', 1, '2019-08-14 11:44:03', 1, 0);
 COMMIT;
 
 -- ----------------------------
@@ -175,7 +175,7 @@ CREATE TABLE `mk_log_api`  (
   `params` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '操作提交的数据',
   `time` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '执行时间',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '接口日志表';
 
@@ -204,7 +204,7 @@ CREATE TABLE `mk_log_error`  (
   `params` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '操作提交的数据',
   `time` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '执行时间',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '错误日志表';
 
@@ -229,9 +229,9 @@ CREATE TABLE `mk_log_usual`  (
   `method_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '方法名',
   `user_agent` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户代理',
   `params` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '操作提交的数据',
-  `time` datetime(0) NULL DEFAULT NULL COMMENT '执行时间',
+  `time` TIMESTAMP  NULL DEFAULT NULL COMMENT '执行时间',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通用日志表';
 
@@ -272,12 +272,12 @@ CREATE TABLE `mk_notice`  (
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
   `category` int(11) NULL DEFAULT NULL COMMENT '类型',
-  `release_time` datetime(0) NULL DEFAULT NULL COMMENT '发布时间',
+  `release_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '发布时间',
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容',
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '修改时间',
   `status` int(2) NULL DEFAULT NULL COMMENT '状态',
   `is_deleted` int(2) NULL DEFAULT NULL COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
@@ -301,9 +301,9 @@ CREATE TABLE `mk_param`  (
   `param_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '参数值',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '修改时间',
   `status` int(2) NULL DEFAULT NULL COMMENT '状态',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
@@ -368,9 +368,9 @@ CREATE TABLE `mk_tenant`  (
   `contact_number` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系电话',
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系地址',
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '修改时间',
   `status` int(2) NULL DEFAULT NULL COMMENT '状态',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
@@ -396,14 +396,14 @@ CREATE TABLE `mk_user`  (
   `real_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '真名',
   `email` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `phone` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机',
-  `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
+  `birthday` TIMESTAMP  NULL DEFAULT NULL COMMENT '生日',
   `sex` smallint(6) NULL DEFAULT NULL COMMENT '性别',
   `role_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色id',
   `dept_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门id',
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_time` TIMESTAMP  NULL DEFAULT NULL COMMENT '修改时间',
   `status` int(2) NULL DEFAULT NULL COMMENT '状态',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE

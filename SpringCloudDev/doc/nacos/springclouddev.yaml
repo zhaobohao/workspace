@@ -66,7 +66,7 @@ management:
     health:
       show-details: always
 
-#blade配置
+#springclouddev配置
 springclouddev:
   xss:
     url:
