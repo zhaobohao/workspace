@@ -11,7 +11,7 @@ import org.apache.ibatis.reflection.MetaObject;
  * @author firewan
  */
 @Slf4j
-public class BladeMetaObjectHandler implements MetaObjectHandler {
+public class MybatisPlugsMetaObjectHandler implements com.baomidou.mybatisplus.core.handlers.MetaObjectHandler {
 
 	@Override
 	public void insertFill(MetaObject metaObject) {
