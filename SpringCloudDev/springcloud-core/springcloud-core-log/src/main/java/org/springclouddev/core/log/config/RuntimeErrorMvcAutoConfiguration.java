@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +28,7 @@ import javax.servlet.Servlet;
 @Configuration
 @AllArgsConstructor
 @ConditionalOnWebApplication
-@AutoConfigureBefore(RuntimeErrorMvcAutoConfiguration.class)
+@AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
 @ConditionalOnClass({Servlet.class, DispatcherServlet.class})
 public class RuntimeErrorMvcAutoConfiguration {
 

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Profile;
  * @author firewan
  */
 @Configuration
-@MapperScan("org.springblade.**.mapper.**")
+@MapperScan("org.springclouddev.**.mapper.**")
 public class MybatisPlusConfiguration {
 
 	@Bean

@@ -49,7 +49,7 @@ public class BladeCodeGenerator {
 	/**
 	 * 代码生成的包名
 	 */
-	private String packageName = "org.springblade.test";
+	private String packageName = "org.springclouddev.test";
 	/**
 	 * 代码后端生成的地址
 	 */
@@ -159,16 +159,16 @@ public class BladeCodeGenerator {
 			strategy.setExclude(excludeTables);
 		}
 		if (hasSuperEntity) {
-			strategy.setSuperEntityClass("org.springblade.core.mp.base.BaseEntity");
+			strategy.setSuperEntityClass("org.springclouddev.core.mp.base.BaseEntity");
 			strategy.setSuperEntityColumns(superEntityColumns);
-			strategy.setSuperServiceClass("org.springblade.core.mp.base.BaseService");
-			strategy.setSuperServiceImplClass("org.springblade.core.mp.base.BaseServiceImpl");
+			strategy.setSuperServiceClass("org.springclouddev.core.mp.base.BaseService");
+			strategy.setSuperServiceImplClass("org.springclouddev.core.mp.base.BaseServiceImpl");
 		} else {
 			strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
 			strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
 		}
 		// 自定义 controller 父类
-		strategy.setSuperControllerClass("org.springblade.core.boot.ctrl.BladeController");
+		strategy.setSuperControllerClass("org.springclouddev.core.boot.ctrl.BladeController");
 		strategy.setEntityBuilderModel(false);
 		strategy.setEntityLombokModel(true);
 		strategy.setControllerMappingHyphenStyle(true);

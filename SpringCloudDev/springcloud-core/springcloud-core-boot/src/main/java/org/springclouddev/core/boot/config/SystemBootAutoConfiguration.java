@@ -21,7 +21,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 })
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 @AllArgsConstructor
-public class BladeBootAutoConfiguration {
+public class SystemBootAutoConfiguration {
 
 	private SystemProperties systemProperties;
 

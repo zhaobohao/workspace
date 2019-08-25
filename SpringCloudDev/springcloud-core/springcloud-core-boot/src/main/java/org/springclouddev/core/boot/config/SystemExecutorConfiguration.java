@@ -28,7 +28,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @EnableConfigurationProperties({
 	BladeAsyncProperties.class
 })
-public class BladeExecutorConfiguration extends AsyncConfigurerSupport {
+public class SystemExecutorConfiguration extends AsyncConfigurerSupport {
 
 	private final BladeAsyncProperties bladeAsyncProperties;
 

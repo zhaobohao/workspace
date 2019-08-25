@@ -22,7 +22,7 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis.plus.version}</version>
         </dependency>
-        <!--Blade-->
+        <!--springclouddev-->
         <dependency>
            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-secure</artifactId>

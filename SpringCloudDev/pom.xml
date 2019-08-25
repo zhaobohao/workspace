@@ -28,8 +28,8 @@
         <spring.platform.version>Cairo-SR8</spring.platform.version>
 
         <!-- 推荐使用Harbor -->
-        <docker.registry.url>10.211.55.5</docker.registry.url>
-        <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
+        <docker.registry.url>1.1.1.5</docker.registry.url>
+        <docker.registry.host>http://${docker.registry.url}:2135</docker.registry.host>
         <docker.plugin.version>1.2.0</docker.plugin.version>
     </properties>
 

@@ -46,10 +46,10 @@ logging:
 
 # mybatis
 mybatis-plus:
-  mapper-locations: classpath:org/springblade/**/mapper/*Mapper.xml
+  mapper-locations: classpath:**/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: org.springblade.**.entity
-  #typeEnumsPackage: org.springblade.dashboard.entity.enums
+  typeAliasesPackage: org.springclouddev.**.entity
+  typeEnumsPackage: org.springclouddev.**.entity.enums
   global-config:
     # 关闭MP3.0自带的banner
     banner: false
@@ -75,11 +75,11 @@ mybatis-plus:
 swagger:
   title:  接口文档系统
   description:  接口文档系统
-  version: 1.0.1
   license: Powered By
   licenseUrl: https://xxxxx.vip
   terms-of-service-url: https://xxxxx.vip
+  version: 1.0.1
   contact:
-    name: smallfirewan
     email: zhaobohao@163.com
+    name: smallfirewan
     url: https://gitee.com/zhaobohao

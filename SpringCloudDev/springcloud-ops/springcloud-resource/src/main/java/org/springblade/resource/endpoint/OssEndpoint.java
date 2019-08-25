@@ -1,5 +1,5 @@
 
-package org.springblade.resource.endpoint;
+package org.springclouddev.resource.endpoint;
 
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;

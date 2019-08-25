@@ -75,7 +75,7 @@ CREATE TABLE `mk_code`  (
 -- Records of mk_code
 -- ----------------------------
 BEGIN;
-INSERT INTO `mk_code` VALUES (1, 1, 'blade-demo', '通知公告', 'mk_notice', 'blade_', 'id', 'org.springblade.desktop', 1, 1, 'D:\\Develop\\WorkSpace\\Git\\\\blade-ops\\blade-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
+INSERT INTO `mk_code` VALUES (1, 1, 'blade-demo', '通知公告', 'mk_notice', 'blade_', 'id', 'org.springclouddev.desktop', 1, 1, 'D:\\Develop\\WorkSpace\\Git\\\\blade-ops\\blade-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
 COMMIT;
 
 -- ----------------------------

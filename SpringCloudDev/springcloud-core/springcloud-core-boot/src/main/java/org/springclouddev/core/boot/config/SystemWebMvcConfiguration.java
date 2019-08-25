@@ -20,7 +20,7 @@ import java.util.List;
 @Configuration
 @EnableCaching
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class BladeWebMvcConfiguration implements WebMvcConfigurer {
+public class SystemWebMvcConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {

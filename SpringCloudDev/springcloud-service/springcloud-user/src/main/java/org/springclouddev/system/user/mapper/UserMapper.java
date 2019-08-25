@@ -3,6 +3,7 @@ package org.springclouddev.system.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.ibatis.annotations.Mapper;
 import org.springclouddev.system.user.entity.User;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  *
  * @author firewan
  */
+
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
 	/**

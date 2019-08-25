@@ -1,1 +1,1 @@
-mvn install:install-file -Dfile=blade-core-1.0.jar -DgroupId=org.springblade -DartifactId=blade-core -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=blade-core-1.0.jar -DgroupId=org.springclouddev -DartifactId=springclouddev-core -Dversion=1.0 -Dpackaging=jar

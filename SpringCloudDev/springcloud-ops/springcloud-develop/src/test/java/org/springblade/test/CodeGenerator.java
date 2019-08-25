@@ -1,5 +1,5 @@
 
-package org.springblade.test;
+package org.springclouddev.test;
 
 
 import org.springclouddev.develop.support.BladeCodeGenerator;
@@ -22,7 +22,7 @@ public class CodeGenerator {
 	/**
 	 * 代码生成的包名
 	 */
-	public static String PACKAGE_NAME = "org.springblade.system";
+	public static String PACKAGE_NAME = "org.springclouddev.system";
 	/**
 	 * 前端代码生成所属系统
 	 */
