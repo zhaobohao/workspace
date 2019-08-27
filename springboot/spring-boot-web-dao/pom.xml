@@ -17,6 +17,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <bouncycastle.version>1.62</bouncycastle.version>
+        <mybatis.plus.versino>3.2.0</mybatis.plus.versino>
     </properties>
     <dependencies>
 
@@ -25,7 +26,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.1.2</version>
+            <version>${mybatis.plus.versino}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -40,7 +41,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.1.2</version>
+            <version>${mybatis.plus.versino}</version>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -48,9 +49,6 @@
             <version>2.3.28</version>
         </dependency>
         <!--mybatis-plus dependency  end-->
-
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
