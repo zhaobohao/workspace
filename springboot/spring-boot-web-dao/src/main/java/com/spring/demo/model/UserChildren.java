@@ -1,4 +1,4 @@
-package com.spring.demo.module;
+package com.spring.demo.model;
 
 
 import com.spring.demo.entity.Children;

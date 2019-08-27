@@ -18,6 +18,7 @@
         <module>easypoi</module>
         <module>spring-boot-web-dao</module>
         <module>spring-boot-web-service</module>
+        <module>nacos-demo</module>
     </modules>
 
 </project>

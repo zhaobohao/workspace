@@ -370,7 +370,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       if (isTS && value == "declare") {
         cx.marked = "keyword"
         return cont(statement)
-      } else if (isTS && (value == "module" || value == "enum" || value == "type") && cx.stream.match(/^\s*\w/, false)) {
+      } else if (isTS && (value == "model" || value == "enum" || value == "type") && cx.stream.match(/^\s*\w/, false)) {
         cx.marked = "keyword"
         if (value == "enum") return cont(enumdef);
         else if (value == "type") return cont(typeexpr, expect("operator"), typeexpr, expect(";"));

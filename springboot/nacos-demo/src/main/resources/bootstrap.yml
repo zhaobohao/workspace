@@ -1,0 +1,19 @@
+#服务名
+spring:
+  application:
+  name: nacos-config-example
+  # 配置中心url
+nacos:
+  config:
+    server-addr: 127.0.0.1:8848:
+    endpoint: http://localhost:8080/actuator/nacos-config
+    namespace: http://localhost:8080/actuator/health
+    # 推荐使用 RAM 用户的 accessKey 和 secretKey
+    access-key： ${accessKey}
+    secret-key： ${secretKey}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+    health.show-details: always
