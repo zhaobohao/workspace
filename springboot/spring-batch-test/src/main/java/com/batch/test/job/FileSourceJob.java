@@ -20,6 +20,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.support.PassThroughItemProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
@@ -85,7 +86,8 @@ public class FileSourceJob {
                 <Access, Access>chunk(100)        // <输入,输出> 。chunk通俗的讲类似于SQL的commit; 这里表示处理(processor)100条后写入(writer)一次。
                 .faultTolerant().retryLimit(3).retry(Exception.class).skipLimit(100).skip(Exception.class) //捕捉到异常就重试,重试100次还是异常,JOB就停止并标志失败
                 .reader(getDataReader())         //指定ItemReader
-                .processor(getDataProcessor())   //指定ItemProcessor
+                //.processor(getDataProcessor())   //指定ItemProcessor
+                .processor(new PassThroughItemProcessor<Access>())
                 .writer(txtItemWriter())        //指定ItemWriter
                 //最大使用线程池
                 .throttleLimit(2)
