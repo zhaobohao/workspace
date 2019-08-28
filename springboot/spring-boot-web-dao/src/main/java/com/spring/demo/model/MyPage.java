@@ -1,4 +1,4 @@
-package com.spring.demo.module;
+package com.spring.demo.model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
