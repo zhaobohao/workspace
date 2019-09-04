@@ -3,9 +3,15 @@
 #####################################################################
 spring:
   profiles: ft
-
+  port: 8888
+  servlet:
+    context-path: /
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_web_demo?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1qaz2wsx
 logging:
   level:
     root: INFO
     com.xncoding: DEBUG
-  path: D:/logs/springboot-aop
+  path: D:/logs/springboot-demo

@@ -15,6 +15,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <bouncycastle.version>1.62</bouncycastle.version>
+        <jansi.version>1.18</jansi.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,12 +27,17 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
-            <version>2.1.6.RELEASE</version>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>2.1.6.RELEASE</version>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,12 +48,13 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
-            <version>2.1.6.RELEASE</version>
+            <version>${spring-boot.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.1.6.RELEASE</version>
+            <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
         <!--其它辅助工具-->
@@ -78,7 +85,11 @@
             <artifactId>bcprov-jdk15on</artifactId>
             <version>${bouncycastle.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>${jansi.version}</version>
+        </dependency>
         <!-- testNG-->
         <dependency>
             <groupId>org.testng</groupId>

@@ -3,17 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>spring.learn</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <modelVersion>4.0.0</modelVersion>
-
+    <parent>
+        <artifactId>parent-pom</artifactId>
+        <groupId>spring.learn</groupId>
+        <version>1.0</version>
+    </parent>
     <artifactId>spring-boot-web-service</artifactId>
     <packaging>jar</packaging>
     <dependencies>
 
         <dependency>
             <groupId>spring.learn</groupId>
-            <artifactId>spring-boot-web-dao</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>spring-boot-web-core</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -31,7 +35,20 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
             <version>2.1.6.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -50,6 +67,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>spring.learn</groupId>
+            <artifactId>spring-boot-web-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

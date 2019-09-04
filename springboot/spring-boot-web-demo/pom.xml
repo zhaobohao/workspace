@@ -39,9 +39,9 @@
             <version>5.1.8.RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
+         <dependency>
             <groupId>spring.learn</groupId>
-            <artifactId>spring-boot-web-core</artifactId>
+            <artifactId>spring-boot-web-service</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
@@ -73,5 +73,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 </project>
