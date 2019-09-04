@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 获取当前请求的HttpServletRequest对象
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class HttpServletRequestUtil {

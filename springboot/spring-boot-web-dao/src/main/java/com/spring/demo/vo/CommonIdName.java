@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * <p>
  *     公共ID-NAME-VO对象
  * </p>
- * @author geekidea
+ * @author zhaobohao
  * @since 2018-11-08
  */
 @ApiModel("ID-NAME-VO")

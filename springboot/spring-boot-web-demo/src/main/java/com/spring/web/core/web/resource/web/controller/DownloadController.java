@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * 下载控制器
- * @author geekidea
+ * @author zhaobohao
  * @date 2019/8/20
  * @since 1.2.1-RELEASE
  */

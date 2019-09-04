@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Slf4j
@@ -24,7 +24,7 @@ public class LoginUtil {
 
     static {
         Environment environment = SpringContextUtil.getBean(Environment.class);
-        String time = environment.getProperty("spring-boot-plus.login.token-valid-time");
+        String time = environment.getProperty("spring-web-demo.login.token-valid-time");
         TOKEN_VALID_TIME_MINUTE = Integer.valueOf(time);
         log.info("TOKEN_VALID_TIME_MINUTE:{}",TOKEN_VALID_TIME_MINUTE);
     }

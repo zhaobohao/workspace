@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
  * <code>
  *
  * </code>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class StringToDoubleConverter implements Converter<String, Double> {

@@ -1,7 +1,9 @@
 package com.spring.demo;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -26,9 +28,10 @@ public class SuperEntity implements Serializable{
     /**
      * 主键ID
      */
-    @TableId("id")
     //@TableId(value = "id", type = IdType.INPUT)//如果是oracle 这样的sequence
-    protected Long id;
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "id", type = IdType.ID_WORKER)
+    public Long id;
 
 
 

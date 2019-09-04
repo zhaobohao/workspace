@@ -5,7 +5,7 @@ package com.spring.web.core.util;
 import java.util.UUID;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class UUIDUtil {

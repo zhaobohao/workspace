@@ -2,11 +2,12 @@
 
 package com.spring.web.core.exception;
 
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 系统登录异常
- * @author geekidea
+ * @author zhaobohao
  * @date 2019-08-04
  */
 public class SysLoginException extends RuntimeException{
@@ -19,7 +20,7 @@ public class SysLoginException extends RuntimeException{
     }
 
     public SysLoginException(Integer code , String message){
-        this(StringUtils.isBlank(message)?String.valueOf(code):message);
+        this(StrUtil.isBlank(message)?String.valueOf(code):message);
         this.code=code;
     }
 

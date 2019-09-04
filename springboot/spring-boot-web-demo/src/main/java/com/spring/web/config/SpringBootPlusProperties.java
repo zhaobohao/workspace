@@ -10,14 +10,14 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import java.util.List;
 
 /**
- * spring-boot-plus属性配置信息
- * @author geekidea
+ * spring-web-demo属性配置信息
+ * @author zhaobohao
  * @date 2019-08-04
  * @since 1.2.0-RELEASE
  */
 @Data
 @Accessors(chain = true)
-@ConfigurationProperties(prefix = "spring-boot-plus")
+@ConfigurationProperties(prefix = "spring-web-demo")
 public class SpringBootPlusProperties {
 
     /**

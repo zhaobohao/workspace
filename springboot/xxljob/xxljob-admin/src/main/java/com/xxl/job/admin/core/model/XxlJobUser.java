@@ -1,6 +1,6 @@
 package com.xxl.job.admin.core.model;
 
-import org.springframework.util.StringUtils;
+import org.springframework.util.StrUtil;
 
 /**
  * @author xuxueli 2019-05-04 16:43:12
@@ -58,7 +58,7 @@ public class XxlJobUser {
 		if (this.role == 1) {
 			return true;
 		} else {
-			if (StringUtils.hasText(this.permission)) {
+			if (StrUtil.hasText(this.permission)) {
 				for (String permissionItem : this.permission.split(",")) {
 					if (String.valueOf(jobGroup).equals(permissionItem)) {
 						return true;

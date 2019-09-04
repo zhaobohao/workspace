@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * IP地址 Mapper 接口
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @since 2019-08-04
  */
 @Repository

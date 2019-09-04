@@ -8,7 +8,7 @@ import com.spring.demo.service.core.IbaseService;
  * IP地址 服务类
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @since 2019-08-04
  */
 public interface IpService extends IbaseService<Ip> {

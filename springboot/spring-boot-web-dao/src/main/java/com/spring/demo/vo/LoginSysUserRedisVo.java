@@ -11,7 +11,7 @@ import java.io.Serializable;
  * <p>
  *  登录用户redis对象，后台使用
  * </p>
- * @auth geekidea
+ * @author zhaobohao
  * @date 2019-05-15
  **/
 @Data

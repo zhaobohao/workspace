@@ -2,7 +2,7 @@
 
 package com.spring.web.core.web.converter;
 
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * <code>
@@ -11,13 +11,13 @@ import org.apache.commons.lang3.StringUtils;
  *
  * </pre>
  * </code>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class StringToIntegerUtil {
 
 	public static Integer convert(String source) {
-		if (StringUtils.isBlank(source)){
+		if (StrUtil.isBlank(source)){
 			return null;
 		}
 		Integer i = Integer.parseInt(source);

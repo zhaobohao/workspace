@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * 查询参数
- * @author geekidea
+ * @author zhaobohao
  * @since 2018-11-08
  */
 @Data

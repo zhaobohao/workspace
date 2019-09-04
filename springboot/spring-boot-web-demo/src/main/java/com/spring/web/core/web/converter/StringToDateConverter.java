@@ -10,7 +10,7 @@ import java.util.Date;
  * <code>
  * 日期转换器,将请求参数的日期字符串转换成java.util.Date类型
  * </code>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class StringToDateConverter implements Converter<String, Date> {

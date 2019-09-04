@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * 自定义系统内的枚举验证注解
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Documented

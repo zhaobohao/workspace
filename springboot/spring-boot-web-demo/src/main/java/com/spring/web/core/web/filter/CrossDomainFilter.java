@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 
 /**
  * 设置允许跨域
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Slf4j

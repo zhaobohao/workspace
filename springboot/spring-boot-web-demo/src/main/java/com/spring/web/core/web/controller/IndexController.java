@@ -12,7 +12,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * <p>
  *     项目根路径提示信息
  * </p>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018/11/12
  */
 @RestController

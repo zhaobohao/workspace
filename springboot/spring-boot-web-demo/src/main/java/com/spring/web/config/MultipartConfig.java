@@ -12,7 +12,7 @@ import javax.servlet.MultipartConfigElement;
 
 /**
  * 文件上传配置
- * @author geekidea
+ * @author zhaobohao
  * @since 2018-11-08
  */
 @Configuration

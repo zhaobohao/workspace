@@ -3,8 +3,8 @@
 package com.spring.web.core.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
+
+import cn.hutool.core.util.StrUtil;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.FileCopyUtils;
@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * 文件下载工具类
- * @author geekidea
+ * @author zhaobohao
  * @date 2019/8/21
  * @since 1.2.1-RELEASE
  */
@@ -46,10 +46,10 @@ public final class DownloadUtil {
         log.info("downloadDir:{}",downloadDir);
         log.info("downloadFileName:{}",downloadFileName);
 
-        if (StringUtils.isBlank(downloadDir)){
+        if (StrUtil.isBlank(downloadDir)){
             throw new IOException("文件目录不能为空");
         }
-        if (StringUtils.isBlank(downloadFileName)){
+        if (StrUtil.isBlank(downloadFileName)){
             throw new IOException("文件名称不能为空");
         }
         // 安全判断，防止../情况,防止出现类似非法文件名称：../../hello/123.txt
@@ -61,7 +61,7 @@ public final class DownloadUtil {
             throw new IllegalArgumentException("请设置允许下载的文件后缀");
         }
         // 获取文件名称
-        String fileExtension = FilenameUtils.getExtension(downloadFileName);
+        String fileExtension = UploadUtil.getExtension(downloadFileName);
 
         // 从服务器读取文件，然后输出
         File downloadFile = new File(downloadDir,downloadFileName);

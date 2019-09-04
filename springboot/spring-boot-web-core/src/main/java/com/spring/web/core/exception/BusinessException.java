@@ -2,11 +2,11 @@
 
 package com.spring.web.core.exception;
 
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 业务异常
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class BusinessException extends RuntimeException{
@@ -19,7 +19,7 @@ public class BusinessException extends RuntimeException{
     }
 
     public BusinessException(Integer code ,String message){
-        this(StringUtils.isBlank(message)?String.valueOf(code):message);
+        this(StrUtil.isBlank(message)?String.valueOf(code):message);
         this.code=code;
     }
 

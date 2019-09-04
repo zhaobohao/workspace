@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 图片等文件资源访问控制器
  * /api/resource 访问路径 用于区分 文件访问虚拟目录映射 /resource
- * @author geekidea
+ * @author zhaobohao
  * @date 2019/8/20
  * @since 1.2.1-RELEASE
  */

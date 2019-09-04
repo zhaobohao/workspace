@@ -11,7 +11,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * <p>
  *  打印项目信息
  * </p>
- * @auth geekidea
+ * @author zhaobohao
  * @date 2019-05-08
  **/
 @Slf4j
@@ -72,7 +72,7 @@ public class PrintApplicationInfo {
         String swaggerUrl = "http://" + IpUtil.getLocalhostIp() + ":" + port + contextPath + "docs";
         log.info("home:{}",homeUrl);
         log.info("docs:{}",swaggerUrl);
-        log.info("spring-boot-plus project start success...........");
+        log.info("spring-web-demo project start success...........");
         log.info("\n{}",AnsiUtil.getAnsi(Ansi.Color.BLUE,startSuccess));
     }
 

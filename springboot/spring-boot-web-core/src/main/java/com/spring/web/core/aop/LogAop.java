@@ -1,5 +1,3 @@
-
-
 package com.spring.web.core.aop;
 
 import cn.hutool.core.date.DateUtil;
@@ -34,7 +32,7 @@ import java.util.Map;
  * 获取响应结果信息
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Data
@@ -83,7 +81,7 @@ public class LogAop {
             HttpServletRequest request = attributes.getRequest();
 
 
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
 
             // 获取请求类名和方法名称
             Signature signature = joinPoint.getSignature();
@@ -94,74 +92,72 @@ public class LogAop {
 
             // 请求全路径
             String url = request.getRequestURI();
-            map.put("path",url);
+            map.put("path", url);
             // IP地址
             String ip = IpUtil.getRequestIp();
-            map.put("ip",ip);
+            map.put("ip", ip);
 
             // 获取请求方式
             String requestMethod = request.getMethod();
-            map.put("requestMethod",requestMethod);
+            map.put("requestMethod", requestMethod);
 
             // 获取请求内容类型
             String contentType = request.getContentType();
-            map.put("contentType",contentType);
+            map.put("contentType", contentType);
 
             // 判断控制器方法参数中是否有RequestBody注解
             Annotation[][] annotations = method.getParameterAnnotations();
             boolean isRequestBody = isRequestBody(annotations);
-            map.put("isRequestBody",isRequestBody);
+            map.put("isRequestBody", isRequestBody);
             // 设置请求参数
             Object requestParamJson = getRequestParamJsonString(joinPoint, request, requestMethod, contentType, isRequestBody);
-            map.put("param",requestParamJson);
-            map.put("time", DateUtil.format(new Date(),"yyyyMMdd HH:mm:ss"));
+            map.put("param", requestParamJson);
+            map.put("time", DateUtil.format(new Date(), "yyyyMMdd HH:mm:ss"));
 
             // 获取请求头token
-            map.put("x-auth-token",request.getHeader("x-auth-token"));
+            map.put("x-auth-token", request.getHeader("x-auth-token"));
 
             String requestInfo = null;
             try {
-                if (requestLogFormat){
-                    requestInfo = "\n" + JSON.toJSONString(map,true);
-                }else{
+                if (requestLogFormat) {
+                    requestInfo = "\n" + JSON.toJSONString(map, true);
+                } else {
                     requestInfo = JSON.toJSONString(map);
                 }
             } catch (Exception e) {
 
             }
-            log.info(AnsiUtil.getAnsi(Ansi.Color.GREEN,"requestInfo:" + requestInfo));
+            log.info(AnsiUtil.getAnsi(Ansi.Color.GREEN, "requestInfo:" + requestInfo));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
         // 执行目标方法,获得返回值
         Object result = joinPoint.proceed();
-        try{
-            if (result != null && result instanceof ApiResult){
+        try {
+            if (result != null && result instanceof ApiResult) {
                 ApiResult apiResult = (ApiResult) result;
                 int code = apiResult.getCode();
                 String responseResultInfo = "responseResult:";
-                if (responseLogFormat){
-                    responseResultInfo += "\n" + JSON.toJSONString(apiResult,true);
-                }else{
+                if (responseLogFormat) {
+                    responseResultInfo += "\n" + JSON.toJSONString(apiResult, true);
+                } else {
                     responseResultInfo += JSON.toJSONString(apiResult);
                 }
-                if (code == ApiCode.SUCCESS.getCode()){
-                    log.info(AnsiUtil.getAnsi(Ansi.Color.BLUE,responseResultInfo));
-                }else{
-                    log.error(AnsiUtil.getAnsi(Ansi.Color.RED,responseResultInfo));
+                if (code == ApiCode.SUCCESS.getCode()) {
+                    log.info(AnsiUtil.getAnsi(Ansi.Color.BLUE, responseResultInfo));
+                } else {
+                    log.error(AnsiUtil.getAnsi(Ansi.Color.RED, responseResultInfo));
                 }
 
             }
-        }catch (Exception e){
-            log.error("处理响应结果异常",e);
+        } catch (Exception e) {
+            log.error("处理响应结果异常", e);
         }
         return result;
     }
-
 
 
     /**

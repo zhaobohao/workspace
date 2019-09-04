@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * 名称参数
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @ApiModel("名称参数")

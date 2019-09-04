@@ -127,14 +127,14 @@ mybatis-plus:
     multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
 
-############################## spring-boot-plus start #############################
-spring-boot-plus:
+############################## spring-web-demo start #############################
+spring-web-demo:
   # jwt配置
   jwt:
     header: token
     secret: 666666
-    issuer: spring-boot-plus
-    subject: spring-boot-plus-jwt
+    issuer: spring-web-demo
+    subject: spring-web-demo-jwt
     audience: web
     expire-minutes: 2
   # 拦截器配置
@@ -153,7 +153,7 @@ spring-boot-plus:
       exclude-path: /swagger-resources/**,/api-docs/**,/v2/api-docs/**,/docs,/resource/**
     resource-config:
       enabled: true
-      include-path: ${spring-boot-plus.resource-access-patterns}
+      include-path: ${spring-web-demo.resource-access-patterns}
     upload-config:
       enabled: true
       include-path: /upload/**
@@ -166,13 +166,13 @@ spring-boot-plus:
   # 资源访问路径
   resource-access-path: /resource/
   # 资源访问路径匹配：/resource/**
-  resource-access-patterns: ${spring-boot-plus.resource-access-path}**
+  resource-access-patterns: ${spring-web-demo.resource-access-path}**
   # 资源访问全路径前缀：http://localhost:8888/resource/
-  resource-access-url: http://localhost:${server.port}${server.servlet.context-path}${spring-boot-plus.resource-access-path}
+  resource-access-url: http://localhost:${server.port}${server.servlet.context-path}${spring-web-demo.resource-access-path}
   # 全局允许上传的类型
   allow-upload-file-extensions: jpg,png,docx,xlsx,pptx,pdf
   allow-download-file-extensions: jpg,png,docx,xlsx,pptx,pdf
-############################### spring-boot-plus end ###############################
+############################### spring-web-demo end ###############################
 
 
 #################################### Swagger start ####################################

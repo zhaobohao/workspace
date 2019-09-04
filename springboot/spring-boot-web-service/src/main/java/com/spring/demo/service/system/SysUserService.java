@@ -13,7 +13,7 @@ import java.io.Serializable;
  * SystemUser 服务类
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @since 2019-08-26
  */
 public interface SysUserService extends IbaseService<SysUser> {

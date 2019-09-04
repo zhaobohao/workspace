@@ -15,7 +15,7 @@ import java.util.Date;
  * SystemUser
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @since 2019-08-26
  */
 @Data
@@ -24,10 +24,6 @@ import java.util.Date;
 public class SysUser extends SuperEntity {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "id")
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
 
     @ApiModelProperty(value = "name")
     private String name;

@@ -4,14 +4,12 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import io.geekidea.springbootplus.common.web.param.QueryParam;
-
 /**
  * <p>
  * SystemUser 查询参数对象
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @date 2019-08-26
  */
 @Data

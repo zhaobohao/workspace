@@ -11,7 +11,7 @@ import java.io.Serializable;
  * IP地址 查询结果对象
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @date 2019-08-04
  */
 @Data

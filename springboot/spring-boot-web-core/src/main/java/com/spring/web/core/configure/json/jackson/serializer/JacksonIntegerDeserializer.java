@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class JacksonIntegerDeserializer extends JsonDeserializer<Integer> {

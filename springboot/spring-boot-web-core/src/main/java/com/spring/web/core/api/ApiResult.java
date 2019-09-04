@@ -2,13 +2,13 @@
 
 package com.spring.web.core.api;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +20,7 @@ import java.util.Map;
  * REST API 返回结果
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @since 2018-11-08
  */
 @Data
@@ -60,7 +60,7 @@ public class ApiResult<T> implements Serializable {
 
     public static ApiResult result(ApiCode apiCode,String msg,Object data){
         String message = apiCode.getMsg();
-        if (StringUtils.isNotBlank(msg)){
+        if (StrUtil.isNotBlank(msg)){
             message = msg;
         }
         return ApiResult.builder()

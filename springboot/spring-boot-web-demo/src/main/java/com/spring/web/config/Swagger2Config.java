@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Swagger2全局配置
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Configuration

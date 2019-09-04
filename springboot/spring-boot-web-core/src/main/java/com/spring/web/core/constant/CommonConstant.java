@@ -4,7 +4,7 @@ package com.spring.web.core.constant;
 
 /**
  * 常量
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public interface CommonConstant {

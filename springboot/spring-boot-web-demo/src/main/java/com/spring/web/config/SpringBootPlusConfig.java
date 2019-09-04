@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * spring-boot-plus配置
- * @author geekidea
+ * spring-web-demo配置
+ * @author zhaobohao
  * @date 2019/8/4
  * @since 1.2.0-RELEASE
  */

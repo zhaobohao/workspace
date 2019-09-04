@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public final class HttpServletResponseUtil {

@@ -42,11 +42,6 @@ public class User extends SuperEntity {
     @TableField(exist = false)
     private Integer count;
 
-    public Long getId()
-    {
-        return this.id;
-    }
-
     public User setId(Long id)
     {
         this.id=id;

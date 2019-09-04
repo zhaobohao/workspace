@@ -1,29 +1,29 @@
 
 
-package com.spring.demo.service.security.impl;
+package com.spring.web.security.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
+import com.spring.demo.param.LoginParam;
+import com.spring.demo.service.security.LoginService;
+import com.spring.demo.vo.ClientInfo;
+import com.spring.demo.vo.JwtTokenRedisVo;
+import com.spring.demo.vo.LoginSysUserRedisVo;
+import com.spring.demo.vo.LoginSysUserVo;
 import com.spring.web.core.api.ApiResult;
 import com.spring.web.core.constant.CommonConstant;
 import com.spring.web.core.constant.CommonRedisKey;
 import com.spring.web.core.util.HttpServletRequestUtil;
 import com.spring.web.core.util.MapUtil;
-import com.spring.demo.param.LoginParam;
-import com.spring.demo.service.security.LoginService;
 import com.spring.web.security.util.JwtUtil;
-import com.spring.demo.vo.ClientInfo;
-import com.spring.demo.vo.JwtTokenRedisVo;
-import com.spring.demo.vo.LoginSysUserRedisVo;
-import com.spring.demo.vo.LoginSysUserVo;
 import com.spring.web.util.ClientInfoUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import net.oschina.j2cache.CacheChannel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ import java.util.Map;
  * <p>
  *  登录服务实现类
  * </p>
- * @auth geekidea
+ * @author zhaobohao
  * @date 2019-05-23
  **/
 @Api
@@ -46,7 +46,7 @@ import java.util.Map;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private CacheChannel cacheChannel;
 
 
     @Override
@@ -116,13 +116,13 @@ public class LoginServiceImpl implements LoginService {
         loginSysUserRedisVo.setJwtTokenRedisVo(jwtTokenRedisVo);    // 设置系统登录用户token对象
 
         // token hash cache
-        redisTemplate.opsForHash().put(loginTokenRedisKey,tokenMd5,loginSysUserRedisVo);
+        cacheChannel.set(loginTokenRedisKey,tokenMd5,loginSysUserRedisVo);
 
         // user hash cache
         String loginUserRedisKey = String.format(CommonRedisKey.LOGIN_SYS_USER,userId);
 
         // 支持一个账号多次登录
-        redisTemplate.opsForHash().put(loginUserRedisKey,tokenMd5,jwtTokenRedisVo);
+        cacheChannel.set(loginUserRedisKey,tokenMd5,jwtTokenRedisVo);
 
         // 单个登录，始终以最后一个有效
 //        String oneLoginUserRedisKey = "login:sys:user";

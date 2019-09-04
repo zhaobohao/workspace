@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 资源拦截器
- * @author geekidea
+ * @author zhaobohao
  * @date 2019/8/20
  * @since 1.2.1-RELEASE
  */

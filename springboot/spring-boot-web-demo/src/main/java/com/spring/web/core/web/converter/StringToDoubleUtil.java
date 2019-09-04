@@ -2,7 +2,7 @@
 
 package com.spring.web.core.web.converter;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StrUtil;
 
 /**
  * <code>
@@ -11,13 +11,13 @@ import org.apache.commons.lang.StringUtils;
  *
  * </pre>
  * </code>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class StringToDoubleUtil {
 
 	public static Double convert(String source) {
-		if (StringUtils.isBlank(source)){
+		if (StrUtil.isBlank(source)){
 			return null;
 		}
 		Double d = Double.parseDouble(source);

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements IbaseService<T> {

@@ -10,7 +10,7 @@ import java.io.Serializable;
  * <p>
  *  设备信息
  * </p>
- * @auth geekidea
+ * @author zhaobohao
  * @date 2019-05-24
  **/
 @Data

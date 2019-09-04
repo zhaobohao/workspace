@@ -12,7 +12,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * Api文档
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Controller

@@ -2,7 +2,7 @@
 
 package com.spring.web.core.web.converter;
 
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,7 +21,7 @@ import java.util.Date;
  *	5.yyyy-MM-dd
  * </pre>
  * </code>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class StringToDateUtil{
@@ -50,7 +50,7 @@ public class StringToDateUtil{
 	 * </code>
 	 */
 	public static Date convert(String source) {
-		if (StringUtils.isBlank(source)){
+		if (StrUtil.isBlank(source)){
 			return null;
 		}
 		source = source.trim();

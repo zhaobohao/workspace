@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * 	2.判断当前用户的浏览器
  * </code>
  * 
- * @author geekidea
+ * @author zhaobohao
  * @since 2018-11-08
  */
 public  final  class BrowserUtil {

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Data

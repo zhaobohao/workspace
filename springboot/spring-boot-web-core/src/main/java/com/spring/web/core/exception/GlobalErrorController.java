@@ -13,7 +13,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 全局Error/404处理
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @ApiIgnore

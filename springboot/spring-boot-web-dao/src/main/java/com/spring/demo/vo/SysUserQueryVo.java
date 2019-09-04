@@ -12,7 +12,7 @@ import java.util.Date;
  * SystemUser 查询结果对象
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @date 2019-08-26
  */
 @Data

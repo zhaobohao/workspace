@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * 自定义邮箱验证注解实现类
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class EmailValidator implements ConstraintValidator<Email, String> {

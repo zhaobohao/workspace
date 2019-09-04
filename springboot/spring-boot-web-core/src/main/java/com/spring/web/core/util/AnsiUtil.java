@@ -7,7 +7,7 @@ import org.fusesource.jansi.Ansi;
 import org.springframework.core.env.Environment;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Slf4j
@@ -19,7 +19,7 @@ public class AnsiUtil {
         Boolean value = false;
         try {
             Environment environment = SpringContextUtil.getBean(Environment.class);
-            value = environment.getProperty("spring-boot-plus.enable-ansi",boolean.class);
+            value = environment.getProperty("spring-web-demo.enable-ansi",boolean.class);
             value = value == null ? false : value;
         } catch (Exception e) {
             e.printStackTrace();

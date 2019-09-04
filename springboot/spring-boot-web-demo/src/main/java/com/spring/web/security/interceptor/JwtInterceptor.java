@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * <p>
  *  判断jwt token是否有效
  * </p>
- * @auth geekidea
+ * @author zhaobohao
  * @date 2019-05-22
  **/
 @Slf4j

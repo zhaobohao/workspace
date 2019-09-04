@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * IP地址
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @since 2019-08-04
  */
 @Data
@@ -35,9 +35,7 @@ public class Ip extends SuperEntity {
     @ApiModelProperty(value = "运营商")
     private String operator;
 
-    @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
+
 
     @ApiModelProperty(value = "ip开始地址数字")
     private Long ipStartNum;

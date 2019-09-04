@@ -3,12 +3,12 @@
 package com.spring.web.config;
 
 import com.alibaba.fastjson.JSON;
-import io.geekidea.springbootplus.common.web.interceptor.PermissionInterceptor;
-import io.geekidea.springbootplus.common.web.interceptor.TokenTimeoutInterceptor;
-import io.geekidea.springbootplus.resource.web.interceptor.DownloadInterceptor;
-import io.geekidea.springbootplus.resource.web.interceptor.ResourceInterceptor;
-import io.geekidea.springbootplus.resource.web.interceptor.UploadInterceptor;
-import io.geekidea.springbootplus.security.interceptor.JwtInterceptor;
+import com.spring.web.core.web.interceptor.PermissionInterceptor;
+import com.spring.web.core.web.interceptor.TokenTimeoutInterceptor;
+import com.spring.web.core.web.resource.web.interceptor.DownloadInterceptor;
+import com.spring.web.core.web.resource.web.interceptor.ResourceInterceptor;
+import com.spring.web.core.web.resource.web.interceptor.UploadInterceptor;
+import com.spring.web.security.interceptor.JwtInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
 
 /**
  * WebMvc配置
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Configuration

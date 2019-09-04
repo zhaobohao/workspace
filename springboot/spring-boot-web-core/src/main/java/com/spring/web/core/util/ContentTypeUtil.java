@@ -1,8 +1,8 @@
 package com.spring.web.core.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
+
+import cn.hutool.core.util.StrUtil;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
@@ -16,7 +16,7 @@ import java.util.Properties;
 /**
  * 获取文件的内容类型
  * mime-type参考：https://svn.apache.org/viewvc/httpd/httpd/trunk/docs/conf/mime.types?revision=1752884&view=co
- * @author geekidea
+ * @author zhaobohao
  * @date 2019/08/20
  * @since
  */
@@ -77,8 +77,8 @@ public final class ContentTypeUtil {
         if (properties == null){
             return null;
         }
-        String extension = FilenameUtils.getExtension(file.getName());
-        if (StringUtils.isBlank(extension)){
+        String extension = UploadUtil.getExtension(file.getName());
+        if (StrUtil.isBlank(extension)){
             return null;
         }
         String contentType = properties.getProperty(extension);

@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * 自定义系统内的枚举验证注解实现类
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class EnumTypeValidator implements ConstraintValidator<EnumType, Integer> {

@@ -6,7 +6,7 @@ package com.spring.web.core.constant;
  * <p>
  *     日期格式常量
  * </p>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public interface DatePattern {

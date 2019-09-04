@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  * 系统日志 查询参数对象
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @date 2019-08-04
  */
 @Data

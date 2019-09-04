@@ -16,7 +16,7 @@ import java.io.Serializable;
  * SystemUser Mapper 接口
  * </p>
  *
- * @author geekidea
+ * @author zhaobohao
  * @since 2019-08-26
  */
 @Repository

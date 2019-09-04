@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @ApiModel("主键状态VO")

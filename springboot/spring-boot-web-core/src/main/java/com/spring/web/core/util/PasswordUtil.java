@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 密码加密工具类
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 @Slf4j

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 上传拦截器
- * @author geekidea
+ * @author zhaobohao
  * @date 2019/8/22
  * @since 1.2.2-RELEASE
  */

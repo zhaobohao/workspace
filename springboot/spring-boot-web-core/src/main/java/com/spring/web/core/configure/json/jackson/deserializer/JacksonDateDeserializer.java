@@ -16,7 +16,7 @@ import java.util.Date;
  * <p>
  *     Jackson Date序列化器
  * </p>
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public class JacksonDateDeserializer extends JsonDeserializer<Date> {

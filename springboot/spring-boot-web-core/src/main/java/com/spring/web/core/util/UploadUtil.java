@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * 文件上传工具类
  *
- * @author geekidea
+ * @author zhaobohao
  * @date 2019/8/21
  * @since 1.2.1-RELEASE
  */

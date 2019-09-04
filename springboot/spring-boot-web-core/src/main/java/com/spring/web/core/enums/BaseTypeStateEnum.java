@@ -3,7 +3,7 @@
 package com.spring.web.core.enums;
 
 /**
- * @author geekidea
+ * @author zhaobohao
  * @date 2018-11-08
  */
 public interface BaseTypeStateEnum {

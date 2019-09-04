@@ -6,7 +6,7 @@ package com.spring.web.core.constant;
  * <p>
  *  redis key 常量
  * </p>
- * @auth geekidea
+ * @author zhaobohao
  * @date 2019-05-23
  **/
 public interface CommonRedisKey {
