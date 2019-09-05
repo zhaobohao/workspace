@@ -15,7 +15,7 @@
     </properties>
 
     <dependencies>
-         <!--apollo相关jar包 -->
+        <!--apollo相关jar包 -->
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-client</artifactId>
@@ -37,8 +37,24 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <suiteXmlFiles>
+                        <file>res/testNG.xml</file>
+                    </suiteXmlFiles>
+                    <skipTests>true</skipTests>
+                    <!--<workingDirectory>target/</workingDirectory>-->
+                </configuration>
+            </plugin>
+        </plugins>
 
-
+    </build>
 
 
 </project>

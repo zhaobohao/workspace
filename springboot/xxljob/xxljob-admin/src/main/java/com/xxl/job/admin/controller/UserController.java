@@ -11,7 +11,7 @@ import com.xxl.job.core.biz.model.ReturnT;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.StrUtil;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,7 +70,7 @@ public class UserController {
     public ReturnT<String> add(XxlJobUser xxlJobUser) {
 
         // valid username
-        if (!StrUtil.hasText(xxlJobUser.getUsername())) {
+        if (!StringUtils.hasText(xxlJobUser.getUsername())) {
             return new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("system_please_input")+I18nUtil.getString("user_username") );
         }
         xxlJobUser.setUsername(xxlJobUser.getUsername().trim());
@@ -78,7 +78,7 @@ public class UserController {
             return new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("system_lengh_limit")+"[4-20]" );
         }
         // valid password
-        if (!StrUtil.hasText(xxlJobUser.getPassword())) {
+        if (!StringUtils.hasText(xxlJobUser.getPassword())) {
             return new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("system_please_input")+I18nUtil.getString("user_password") );
         }
         xxlJobUser.setPassword(xxlJobUser.getPassword().trim());
@@ -111,7 +111,7 @@ public class UserController {
         }
 
         // valid password
-        if (StrUtil.hasText(xxlJobUser.getPassword())) {
+        if (StringUtils.hasText(xxlJobUser.getPassword())) {
             xxlJobUser.setPassword(xxlJobUser.getPassword().trim());
             if (!(xxlJobUser.getPassword().length()>=4 && xxlJobUser.getPassword().length()<=20)) {
                 return new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("system_lengh_limit")+"[4-20]" );
