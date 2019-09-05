@@ -2,57 +2,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>parent-pom</artifactId>
         <groupId>spring.learn</groupId>
         <version>1.0</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-boot-web-demo</artifactId>
+    <version>${springbootdemo.project.version}</version>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
 
     <properties>
-
+        <j2cache-spring-boot2-starter.version>2.7.6-release</j2cache-spring-boot2-starter.version>
+        <j2cache-core.version>2.7.8-release</j2cache-core.version>
     </properties>
+
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>5.1.8.RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-         <dependency>
             <groupId>spring.learn</groupId>
             <artifactId>spring-boot-web-service</artifactId>
-            <version>1.0</version>
+            <version>${springbootdemo.project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.oschina.j2cache</groupId>
             <artifactId>j2cache-spring-boot2-starter</artifactId>
-            <version>2.7.6-release</version>
+            <version>${j2cache-spring-boot2-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>net.oschina.j2cache</groupId>
             <artifactId>j2cache-core</artifactId>
-            <version>2.7.8-release</version>
+            <version>${j2cache-core.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -73,6 +55,24 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <suiteXmlFiles>
+                        <file>res/testNG.xml</file>
+                    </suiteXmlFiles>
+                    <skipTests>true</skipTests>
+                    <!--<workingDirectory>target/</workingDirectory>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

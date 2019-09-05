@@ -2,9 +2,9 @@
 
 package com.spring.web.core.web.resource.web.interceptor;
 
-import io.geekidea.springbootplus.common.api.ApiResult;
-import io.geekidea.springbootplus.core.SpringBootPlusProperties;
-import io.geekidea.springbootplus.util.HttpServletResponseUtil;
+import com.spring.web.config.SpringBootPlusProperties;
+import com.spring.web.core.api.ApiResult;
+import com.spring.web.core.util.HttpServletResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;

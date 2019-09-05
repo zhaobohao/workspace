@@ -10,8 +10,8 @@
         <version>1.0</version>
     </parent>
 
-    <version>${springbootdemo.roject.version}</version>
     <artifactId>spring-boot-web-core</artifactId>
+    <version>${springbootdemo.project.version}</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
 
@@ -32,10 +32,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
@@ -50,37 +46,34 @@
         </dependency>
 
         <!--其它辅助工具-->
-
-
-
         <dependency>
             <groupId>org.fusesource.jansi</groupId>
             <artifactId>jansi</artifactId>
             <version>${jansi.version}</version>
         </dependency>
-
-
     </dependencies>
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                    <finalName>${project.name}</finalName>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <copy overwrite="true"
-                                      tofile="${session.executionRootDirectory}/target/${artifactId}.jar"
-                                      file="${project.build.directory}/${artifactId}.jar" />
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <suiteXmlFiles>
+                        <file>res/testNG.xml</file>
+                    </suiteXmlFiles>
+                    <skipTests>true</skipTests>
+                    <!--<workingDirectory>target/</workingDirectory>-->
+                </configuration>
             </plugin>
         </plugins>
     </build>
