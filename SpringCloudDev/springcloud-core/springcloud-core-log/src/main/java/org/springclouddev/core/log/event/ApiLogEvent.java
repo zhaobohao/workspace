@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 系统日志事件
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class ApiLogEvent extends ApplicationEvent {
 

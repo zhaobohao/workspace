@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.utils;
 /**
  * 生成的随机数类型
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public enum RandomType {
 	/**

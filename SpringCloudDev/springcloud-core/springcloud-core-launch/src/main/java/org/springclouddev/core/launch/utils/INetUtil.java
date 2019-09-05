@@ -11,7 +11,7 @@ import java.util.Enumeration;
 /**
  * INet 相关工具
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class INetUtil {
 	public static final String LOCAL_HOST = "127.0.0.1";

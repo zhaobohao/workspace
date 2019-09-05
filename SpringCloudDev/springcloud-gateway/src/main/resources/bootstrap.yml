@@ -16,10 +16,10 @@ springclouddev:
   document:
     resources:
       - name: 授权模块
-        location: /blade-auth
+        location: /springcloud-auth
       - name: 工作台模块
-        location: /blade-desk
+        location: /springcloud-desk
       - name: 系统模块
-        location: /blade-system
+        location: /springcloud-system
 
 

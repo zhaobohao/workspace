@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * Feign接口类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @FeignClient(
 	value = AppConstant.APPLICATION_LOG_NAME,

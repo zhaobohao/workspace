@@ -7,12 +7,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 异步配置
- * @author firewan
+ * @author zhaobohao
  */
 @Getter
 @Setter
 @ConfigurationProperties("springclouddev.async")
-public class BladeAsyncProperties {
+public class SpringCloudAsyncProperties {
 	/**
 	 * 异步核心线程数，默认：2
 	 */

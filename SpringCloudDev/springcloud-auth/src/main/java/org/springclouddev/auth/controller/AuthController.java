@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 认证模块
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor

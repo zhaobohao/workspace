@@ -9,7 +9,7 @@ import org.springclouddev.system.user.entity.User;
 /**
  * 视图实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

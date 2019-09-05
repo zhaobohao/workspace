@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * 启动参数拓展
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class DemoTestLauncherServiceImpl implements LauncherService {
 

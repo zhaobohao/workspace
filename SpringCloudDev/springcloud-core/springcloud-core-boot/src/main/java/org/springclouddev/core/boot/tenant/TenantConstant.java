@@ -4,7 +4,7 @@ package org.springclouddev.core.boot.tenant;
 /**
  * 租户常量.
  *
- * @author zhuangqian
+ * @author zhaobohao
  */
 public interface TenantConstant {
 

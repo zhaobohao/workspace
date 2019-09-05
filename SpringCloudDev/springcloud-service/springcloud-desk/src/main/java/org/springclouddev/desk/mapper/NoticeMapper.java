@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Mapper 接口
  *
- * @author firewan
+ * @author zhaobohao
  * @since 2018-09-29
  */
 public interface NoticeMapper extends BaseMapper<Notice> {

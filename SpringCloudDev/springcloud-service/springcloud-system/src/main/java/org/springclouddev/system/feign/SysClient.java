@@ -13,7 +13,7 @@ import springfox.documentation.annotations.ApiIgnore;
 /**
  * 系统服务Feign实现类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @ApiIgnore
 @RestController

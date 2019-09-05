@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 消息配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @AllArgsConstructor

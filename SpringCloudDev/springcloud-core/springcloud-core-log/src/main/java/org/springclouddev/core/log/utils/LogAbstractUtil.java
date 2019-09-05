@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 /**
  * INet 相关工具
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class LogAbstractUtil {
 
@@ -49,7 +49,7 @@ public class LogAbstractUtil {
 		logAbstract.setEnv(systemProperties.getEnv());
 		logAbstract.setCreateTime(LocalDateTime.now());
 
-		//这里判断一下params为null的情况，否则blade-log服务在解析该字段的时候，可能会报出NPE
+		//这里判断一下params为null的情况，否则springcloud-log服务在解析该字段的时候，可能会报出NPE
 		if (logAbstract.getParams() == null) {
 			logAbstract.setParams(StringPool.EMPTY);
 		}

@@ -13,7 +13,7 @@ import org.springclouddev.core.mp.base.BaseEntity;
 /**
  * 数据源配置表实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @TableName("mk_datasource")

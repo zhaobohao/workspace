@@ -8,7 +8,7 @@ import org.springclouddev.system.entity.Dict;
 /**
  * 数据传输对象实体类
  *
- * @author firewan
+ * @author zhaobohao
  * @since 2018-12-24
  */
 @Data

@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * 用户认证服务器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @SpringCloudApplication
 @EnableFeignClients(AppConstant.BASE_PACKAGES)

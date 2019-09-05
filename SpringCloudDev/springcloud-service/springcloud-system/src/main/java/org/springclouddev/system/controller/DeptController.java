@@ -4,7 +4,7 @@ package org.springclouddev.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
@@ -25,13 +25,13 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/dept")
 @Api(value = "部门", tags = "部门")
-public class DeptController extends BladeController {
+public class DeptController extends AbstractController {
 
 	private IDeptService deptService;
 

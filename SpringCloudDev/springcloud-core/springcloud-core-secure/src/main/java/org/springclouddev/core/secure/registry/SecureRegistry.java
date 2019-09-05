@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * secure api放行配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class SecureRegistry {

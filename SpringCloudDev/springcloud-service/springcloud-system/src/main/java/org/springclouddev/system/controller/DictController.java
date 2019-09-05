@@ -3,7 +3,7 @@ package org.springclouddev.system.controller;
 
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.node.INode;
@@ -26,13 +26,13 @@ import static org.springclouddev.common.cache.CacheNames.DICT_VALUE;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/dict")
 @Api(value = "字典", tags = "字典")
-public class DictController extends BladeController {
+public class DictController extends AbstractController {
 
 	private IDictService dictService;
 

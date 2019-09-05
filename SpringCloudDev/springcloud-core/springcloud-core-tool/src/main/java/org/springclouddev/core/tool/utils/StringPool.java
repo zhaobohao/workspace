@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.utils;
 /**
  * 静态 String 池
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public interface StringPool {
 

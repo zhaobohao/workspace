@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 全局异常处理
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 public class ErrorAttributes extends DefaultErrorAttributes {

@@ -8,7 +8,7 @@ WORKDIR /blade/gateway
 
 EXPOSE 80
 
-ADD ./target/blade-gateway.jar ./app.jar
+ADD ./target/springcloud-gateway.jar ./app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
 

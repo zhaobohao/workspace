@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 客户端令牌认证信息
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class ClientSecure {

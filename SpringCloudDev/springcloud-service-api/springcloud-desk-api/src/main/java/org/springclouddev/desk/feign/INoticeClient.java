@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Notice Feign接口类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @FeignClient(
 	value = AppConstant.APPLICATION_DESK_NAME

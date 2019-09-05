@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 /**
  * LogError视图实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

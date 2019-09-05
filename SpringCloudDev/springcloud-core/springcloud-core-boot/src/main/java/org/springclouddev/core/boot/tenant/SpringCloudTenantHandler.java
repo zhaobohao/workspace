@@ -13,13 +13,13 @@ import org.springclouddev.core.tool.utils.StringUtil;
 /**
  * 租户信息处理器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 @AllArgsConstructor
-public class BladeTenantHandler implements TenantHandler {
+public class SpringCloudTenantHandler implements TenantHandler {
 
-	private final BladeTenantProperties properties;
+	private final SpringCloudTenantProperties properties;
 
 	/**
 	 * 获取租户ID

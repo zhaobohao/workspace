@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * Blade系统配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class SystemConstant {

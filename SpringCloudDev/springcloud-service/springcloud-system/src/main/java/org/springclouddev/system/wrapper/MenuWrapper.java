@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * 包装类,返回视图层所需的字段
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class MenuWrapper extends BaseEntityWrapper<Menu, MenuVO> {
 

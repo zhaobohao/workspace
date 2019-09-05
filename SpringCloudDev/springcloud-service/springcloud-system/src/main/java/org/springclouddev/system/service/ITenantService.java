@@ -8,7 +8,7 @@ import org.springclouddev.system.entity.Tenant;
 /**
  * 服务类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface ITenantService extends BaseService<Tenant> {
 

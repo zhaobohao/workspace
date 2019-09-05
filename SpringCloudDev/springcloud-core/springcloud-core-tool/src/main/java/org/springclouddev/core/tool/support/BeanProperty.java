@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * Bean属性
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Getter
 @AllArgsConstructor

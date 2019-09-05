@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.common.cache.CacheNames;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.tool.api.R;
@@ -25,14 +25,14 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  * @since 2018-09-29
  */
 @RestController
 @RequestMapping("notice")
 @AllArgsConstructor
 @Api(value = "用户博客", tags = "博客接口")
-public class NoticeController extends BladeController implements CacheNames {
+public class BasedController extends AbstractController implements CacheNames {
 
 	private INoticeService noticeService;
 
@@ -99,7 +99,7 @@ public class NoticeController extends BladeController implements CacheNames {
 	@ApiOperationSupport(order = 6)
 	@ApiOperation(value = "逻辑删除", notes = "传入notice")
 	public R remove(@ApiParam(value = "主键集合") @RequestParam String ids) {
-		boolean temp = noticeService.deleteLogic(Func.toIntList(ids));
+		boolean temp = noticeService.deleteLogic(Func.toLongList(ids));
 		return R.status(temp);
 	}
 

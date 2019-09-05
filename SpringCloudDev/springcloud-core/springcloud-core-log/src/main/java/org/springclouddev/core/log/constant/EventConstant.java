@@ -4,7 +4,7 @@ package org.springclouddev.core.log.constant;
 /**
  * 事件常量
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface EventConstant {
 

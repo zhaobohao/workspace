@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 /**
  * 实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @TableName("mk_user")

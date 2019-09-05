@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.constant;
 /**
  * 系统常量
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface ToolConstant {
 

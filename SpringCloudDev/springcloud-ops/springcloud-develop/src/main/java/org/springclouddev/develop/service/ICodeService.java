@@ -8,7 +8,7 @@ import org.springclouddev.develop.entity.Code;
 /**
  * 服务类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface ICodeService extends IService<Code> {
 

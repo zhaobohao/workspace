@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Profile;
 /**
  * mybatisplus 配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @MapperScan("org.springclouddev.**.mapper.**")

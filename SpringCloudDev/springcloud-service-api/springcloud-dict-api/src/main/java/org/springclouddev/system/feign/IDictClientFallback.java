@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Feign失败配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Component
 public class IDictClientFallback implements IDictClient {

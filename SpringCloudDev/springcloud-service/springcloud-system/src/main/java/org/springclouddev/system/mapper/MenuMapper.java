@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Mapper 接口
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface MenuMapper extends BaseMapper<Menu> {
 

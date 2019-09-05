@@ -17,7 +17,7 @@ import java.io.IOException;
  * 2. 返回给 app 端的数据使用 writeObjectMapper
  * </p>
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class MappingApiJackson2HttpMessageConverter extends AbstractReadWriteJackson2HttpMessageConverter {
 

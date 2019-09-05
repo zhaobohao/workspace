@@ -14,9 +14,9 @@ import java.util.Date;
 /**
  * 文件代理类
  *
- * @author firewan
+ * @author zhaobohao
  */
-public class BladeFileProxyFactory implements IFileProxy {
+public class SpringCloudFileProxyFactory implements IFileProxy {
 
 	@Override
 	public File rename(File f, String path) {
@@ -40,7 +40,7 @@ public class BladeFileProxyFactory implements IFileProxy {
 			.append(time)
 			.append(getFileExt(f.getName()));
 
-		return new String[]{BladeFileUtil.formatUrl(uploadPath.toString()), BladeFileUtil.formatUrl(virtualPath.toString())};
+		return new String[]{SpringCloudFileUtil.formatUrl(uploadPath.toString()), SpringCloudFileUtil.formatUrl(virtualPath.toString())};
 	}
 
 	/**

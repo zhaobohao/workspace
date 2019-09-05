@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 用户服务Feign实现类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor

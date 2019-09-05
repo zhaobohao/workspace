@@ -1,8 +1,8 @@
 
 package org.springclouddev.core.boot.ctrl;
 
-import org.springclouddev.core.boot.file.BladeFile;
-import org.springclouddev.core.boot.file.BladeFileUtil;
+import org.springclouddev.core.boot.file.SpringCloudFile;
+import org.springclouddev.core.boot.file.SpringCloudFileUtil;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.utils.SecureUtil;
 import org.springclouddev.core.tool.api.R;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Blade控制器封装类
+ * 控制器封装类
  *
- * @author firewan
+ * @author zhaobohao
  */
-public class BladeController {
+public class AbstractController {
 
 	/**
 	 * ============================     REQUEST    =================================================
@@ -119,10 +119,10 @@ public class BladeController {
 	 * 获取BladeFile封装类
 	 *
 	 * @param file 文件
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public BladeFile getFile(MultipartFile file) {
-		return BladeFileUtil.getFile(file);
+	public SpringCloudFile getFile(MultipartFile file) {
+		return SpringCloudFileUtil.getFile(file);
 	}
 
 	/**
@@ -130,10 +130,10 @@ public class BladeController {
 	 *
 	 * @param file 文件
 	 * @param dir  目录
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public BladeFile getFile(MultipartFile file, String dir) {
-		return BladeFileUtil.getFile(file, dir);
+	public SpringCloudFile getFile(MultipartFile file, String dir) {
+		return SpringCloudFileUtil.getFile(file, dir);
 	}
 
 	/**
@@ -143,20 +143,20 @@ public class BladeController {
 	 * @param dir         目录
 	 * @param path        路径
 	 * @param virtualPath 虚拟路径
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public BladeFile getFile(MultipartFile file, String dir, String path, String virtualPath) {
-		return BladeFileUtil.getFile(file, dir, path, virtualPath);
+	public SpringCloudFile getFile(MultipartFile file, String dir, String path, String virtualPath) {
+		return SpringCloudFileUtil.getFile(file, dir, path, virtualPath);
 	}
 
 	/**
 	 * 获取BladeFile封装类
 	 *
 	 * @param files 文件集合
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public List<BladeFile> getFiles(List<MultipartFile> files) {
-		return BladeFileUtil.getFiles(files);
+	public List<SpringCloudFile> getFiles(List<MultipartFile> files) {
+		return SpringCloudFileUtil.getFiles(files);
 	}
 
 	/**
@@ -164,10 +164,10 @@ public class BladeController {
 	 *
 	 * @param files 文件集合
 	 * @param dir   目录
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public List<BladeFile> getFiles(List<MultipartFile> files, String dir) {
-		return BladeFileUtil.getFiles(files, dir);
+	public List<SpringCloudFile> getFiles(List<MultipartFile> files, String dir) {
+		return SpringCloudFileUtil.getFiles(files, dir);
 	}
 
 	/**
@@ -177,10 +177,10 @@ public class BladeController {
 	 * @param dir         目录
 	 * @param path        目录
 	 * @param virtualPath 虚拟路径
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public List<BladeFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath) {
-		return BladeFileUtil.getFiles(files, dir, path, virtualPath);
+	public List<SpringCloudFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath) {
+		return SpringCloudFileUtil.getFiles(files, dir, path, virtualPath);
 	}
 
 

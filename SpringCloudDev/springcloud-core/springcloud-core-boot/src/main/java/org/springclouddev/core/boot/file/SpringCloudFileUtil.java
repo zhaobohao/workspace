@@ -10,9 +10,9 @@ import java.util.*;
 /**
  * 文件工具类
  *
- * @author firewan
+ * @author zhaobohao
  */
-public class BladeFileUtil {
+public class SpringCloudFileUtil {
 
 	/**
 	 * 定义允许上传的文件扩展名
@@ -159,9 +159,9 @@ public class BladeFileUtil {
 	 * 获取BladeFile封装类
 	 *
 	 * @param file 文件
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public static BladeFile getFile(MultipartFile file) {
+	public static SpringCloudFile getFile(MultipartFile file) {
 		return getFile(file, "image", null, null);
 	}
 
@@ -170,9 +170,9 @@ public class BladeFileUtil {
 	 *
 	 * @param file 文件
 	 * @param dir  目录
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public static BladeFile getFile(MultipartFile file, String dir) {
+	public static SpringCloudFile getFile(MultipartFile file, String dir) {
 		return getFile(file, dir, null, null);
 	}
 
@@ -183,19 +183,19 @@ public class BladeFileUtil {
 	 * @param dir         目录
 	 * @param path        路径
 	 * @param virtualPath 虚拟路径
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public static BladeFile getFile(MultipartFile file, String dir, String path, String virtualPath) {
-		return new BladeFile(file, dir, path, virtualPath);
+	public static SpringCloudFile getFile(MultipartFile file, String dir, String path, String virtualPath) {
+		return new SpringCloudFile(file, dir, path, virtualPath);
 	}
 
 	/**
 	 * 获取BladeFile封装类
 	 *
 	 * @param files 文件集合
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public static List<BladeFile> getFiles(List<MultipartFile> files) {
+	public static List<SpringCloudFile> getFiles(List<MultipartFile> files) {
 		return getFiles(files, "image", null, null);
 	}
 
@@ -204,9 +204,9 @@ public class BladeFileUtil {
 	 *
 	 * @param files 文件集合
 	 * @param dir   目录
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public static List<BladeFile> getFiles(List<MultipartFile> files, String dir) {
+	public static List<SpringCloudFile> getFiles(List<MultipartFile> files, String dir) {
 		return getFiles(files, dir, null, null);
 	}
 
@@ -216,12 +216,12 @@ public class BladeFileUtil {
 	 * @param files       文件集合
 	 * @param path        路径
 	 * @param virtualPath 虚拟路径
-	 * @return BladeFile
+	 * @return SpringCloudFile
 	 */
-	public static List<BladeFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath) {
-		List<BladeFile> list = new ArrayList<>();
+	public static List<SpringCloudFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath) {
+		List<SpringCloudFile> list = new ArrayList<>();
 		for (MultipartFile file : files) {
-			list.add(new BladeFile(file, dir, path, virtualPath));
+			list.add(new SpringCloudFile(file, dir, path, virtualPath));
 		}
 		return list;
 	}

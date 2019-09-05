@@ -10,7 +10,7 @@ import java.time.temporal.TemporalAccessor;
 /**
  * DateTime 工具类
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class DateTimeUtil {
 	public static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern(DateUtil.PATTERN_DATETIME);

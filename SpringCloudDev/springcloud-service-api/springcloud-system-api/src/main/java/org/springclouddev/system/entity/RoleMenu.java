@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  * 实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @TableName("mk_role_menu")

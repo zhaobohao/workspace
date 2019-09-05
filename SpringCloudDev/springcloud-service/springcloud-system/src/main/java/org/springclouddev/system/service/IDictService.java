@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 服务类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface IDictService extends IService<Dict> {
 

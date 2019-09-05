@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * SwaggerProperties
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @ConfigurationProperties("swagger")

@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * 链式map
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class Kv extends LinkedCaseInsensitiveMap<Object> {
 

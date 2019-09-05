@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 路由配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @RefreshScope

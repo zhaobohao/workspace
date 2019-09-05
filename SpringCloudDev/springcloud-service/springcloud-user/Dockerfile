@@ -8,7 +8,7 @@ WORKDIR /blade/user
 
 EXPOSE 8102
 
-ADD ./target/blade-user.jar ./app.jar
+ADD ./target/springcloud-user.jar ./app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
 

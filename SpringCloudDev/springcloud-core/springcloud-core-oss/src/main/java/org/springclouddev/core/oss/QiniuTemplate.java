@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * QiniuTemplate
  *
- * @author firewan
+ * @author zhaobohao
  */
 @AllArgsConstructor
 public class QiniuTemplate {

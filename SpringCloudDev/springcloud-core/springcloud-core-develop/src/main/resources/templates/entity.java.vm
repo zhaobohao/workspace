@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * $!{table.comment}实体类
  *
- * @author $!{author}
+ * @author zhaobohao
  * @since $!{date}
  */
 #if($!{entityLombokModel})

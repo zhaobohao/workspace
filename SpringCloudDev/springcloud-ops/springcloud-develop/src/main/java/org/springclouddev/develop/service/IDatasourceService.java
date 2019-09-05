@@ -7,7 +7,7 @@ import org.springclouddev.develop.entity.Datasource;
 /**
  * 数据源配置表 服务类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface IDatasourceService extends BaseService<Datasource> {
 

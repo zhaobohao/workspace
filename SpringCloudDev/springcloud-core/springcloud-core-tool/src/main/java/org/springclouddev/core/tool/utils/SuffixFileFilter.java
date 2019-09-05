@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 文件后缀过滤器
  *
- * @author smalfirewan
+ * @author zhaobohao
  */
 public class SuffixFileFilter implements FileFilter, Serializable {
 

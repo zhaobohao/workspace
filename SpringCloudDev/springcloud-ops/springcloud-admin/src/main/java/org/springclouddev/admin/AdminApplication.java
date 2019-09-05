@@ -9,7 +9,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 /**
  * admin启动器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @EnableAdminServer
 @SpringCloudApplication

@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 更改html请求异常为ajax
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class ErrorController extends BasicErrorController {
 

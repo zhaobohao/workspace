@@ -4,7 +4,7 @@ package org.springclouddev.core.secure.provider;
 /**
  * 多终端注册接口
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface IClientDetailsService {
 

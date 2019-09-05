@@ -23,7 +23,7 @@ import java.util.*;
 /**
  * Secure工具类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class SecureUtil {
 	private static final String USER_REQUEST_ATTR = "_USER_REQUEST_ATTR_";

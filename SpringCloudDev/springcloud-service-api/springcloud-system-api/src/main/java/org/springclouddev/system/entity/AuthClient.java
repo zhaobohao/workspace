@@ -13,7 +13,7 @@ import org.springclouddev.core.mp.base.BaseEntity;
 /**
  * 实体类
  *
- * @author BladeX
+ * @author zhaobohao
  * @since 2019-03-24
  */
 @Data

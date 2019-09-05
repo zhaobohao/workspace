@@ -4,7 +4,7 @@ package org.springclouddev.core.secure.constant;
 /**
  * 授权校验常量
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface SecureConstant {
 

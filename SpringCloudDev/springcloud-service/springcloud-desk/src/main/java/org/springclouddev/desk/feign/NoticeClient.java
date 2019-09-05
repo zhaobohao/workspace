@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Notice Feign
  *
- * @author firewan
+ * @author zhaobohao
  */
 @ApiIgnore()
 @RestController

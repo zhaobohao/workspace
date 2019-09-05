@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.utils;
 /**
  * Base64工具
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class Base64Util extends org.springframework.util.Base64Utils {
 

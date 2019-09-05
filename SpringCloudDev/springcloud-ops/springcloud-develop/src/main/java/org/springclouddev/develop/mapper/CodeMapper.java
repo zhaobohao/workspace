@@ -7,7 +7,7 @@ import org.springclouddev.develop.entity.Code;
 /**
  * Mapper 接口
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface CodeMapper extends BaseMapper<Code> {
 

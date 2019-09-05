@@ -6,10 +6,10 @@ import java.io.File;
 /**
  * 文件管理类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class FileProxyManager {
-	private IFileProxy defaultFileProxyFactory = new BladeFileProxyFactory();
+	private IFileProxy defaultFileProxyFactory = new SpringCloudFileProxyFactory();
 
 	private static FileProxyManager me = new FileProxyManager();
 

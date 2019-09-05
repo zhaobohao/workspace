@@ -23,7 +23,7 @@ import java.util.TimeZone;
 /**
  * Jackson配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)

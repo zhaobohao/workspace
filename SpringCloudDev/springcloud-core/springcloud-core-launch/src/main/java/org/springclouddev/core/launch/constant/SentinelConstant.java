@@ -4,7 +4,7 @@ package org.springclouddev.core.launch.constant;
 /**
  * sentinel配置.
  *
- * @author zhuangqian
+ * @author zhaobohao
  */
 public interface SentinelConstant {
 

@@ -4,13 +4,13 @@ package org.springclouddev.core.launch.constant;
 /**
  * Token配置常量.
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface TokenConstant {
 
-	String SIGN_KEY = "Blade";
+	String SIGN_KEY = "SpringCloud";
 	String AVATAR = "avatar";
-	String HEADER = "blade-auth";
+	String HEADER = "springcloud-auth";
 	String BEARER = "bearer";
 	String ACCESS_TOKEN = "access_token";
 	String REFRESH_TOKEN = "refresh_token";
@@ -24,8 +24,8 @@ public interface TokenConstant {
 	String TENANT_ID = "tenant_id";
 	String CLIENT_ID = "client_id";
 	String LICENSE = "license";
-	String LICENSE_NAME = "powered by blade";
-	String DEFAULT_AVATAR = "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png";
+	String LICENSE_NAME = "powered by springCloud";
+	String DEFAULT_AVATAR = "https://gw.alipayobjects.com/";
 	Integer AUTH_LENGTH = 7;
 
 }

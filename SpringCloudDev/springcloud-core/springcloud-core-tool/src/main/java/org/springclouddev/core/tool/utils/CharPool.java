@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.utils;
 /**
  * char 常量池
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public interface CharPool {
 

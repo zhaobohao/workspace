@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
@@ -24,14 +24,14 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/tenant")
 @ApiIgnore
 @Api(value = "租户管理", tags = "接口")
-public class TenantController extends BladeController {
+public class TenantController extends AbstractController {
 
 	private ITenantService tenantService;
 
@@ -98,7 +98,7 @@ public class TenantController extends BladeController {
 	@PostMapping("/remove")
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-		return R.status(tenantService.deleteLogic(Func.toIntList(ids)));
+		return R.status(tenantService.deleteLogic(Func.toLongList(ids)));
 	}
 
 

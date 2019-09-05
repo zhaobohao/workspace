@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * 实体类
  *
- * @author firewan
+ * @author zhaobohao
  * @since 2018-12-24
  */
 @Data

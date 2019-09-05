@@ -19,18 +19,18 @@ import java.util.List;
 /**
  * 多租户配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @AllArgsConstructor
 @AutoConfigureBefore(MybatisConfiguration.class)
-@EnableConfigurationProperties(BladeTenantProperties.class)
+@EnableConfigurationProperties(SpringCloudTenantProperties.class)
 public class TenantConfiguration {
 
 	/**
 	 * 多租户配置类
 	 */
-	private final BladeTenantProperties properties;
+	private final SpringCloudTenantProperties properties;
 
 	/**
 	 * 自定义租户处理器
@@ -40,7 +40,7 @@ public class TenantConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(TenantHandler.class)
 	public TenantHandler bladeTenantHandler() {
-		return new BladeTenantHandler(properties);
+		return new SpringCloudTenantHandler(properties);
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class TenantConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(TenantId.class)
 	public TenantId tenantId() {
-		return new BladeTenantId();
+		return new SpringCloudTenantId();
 	}
 
 	/**

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * 设置启动参数
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class SysSpringRunner extends SpringJUnit4ClassRunner {
 

@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * 不使用ThreadLocal，创建足够的SimpleDateFormat对象来满足并发性要求。
  * </p>
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class ConcurrentDateFormat {
 	private final String format;

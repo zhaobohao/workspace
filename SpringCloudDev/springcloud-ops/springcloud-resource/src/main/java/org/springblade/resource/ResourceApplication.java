@@ -8,7 +8,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 /**
  * 资源启动器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @SpringCloudApplication
 public class ResourceApplication {

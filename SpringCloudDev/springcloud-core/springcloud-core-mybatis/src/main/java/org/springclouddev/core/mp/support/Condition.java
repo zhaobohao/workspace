@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 分页工具
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class Condition {
 

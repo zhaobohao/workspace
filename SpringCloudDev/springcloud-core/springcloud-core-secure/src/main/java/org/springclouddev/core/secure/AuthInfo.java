@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * AuthInfo
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @ApiModel(description = "认证信息")

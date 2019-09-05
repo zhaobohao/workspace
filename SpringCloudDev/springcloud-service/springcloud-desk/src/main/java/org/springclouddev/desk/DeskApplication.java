@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * Desk启动器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @SpringCloudApplication
 @EnableFeignClients(AppConstant.BASE_PACKAGES)

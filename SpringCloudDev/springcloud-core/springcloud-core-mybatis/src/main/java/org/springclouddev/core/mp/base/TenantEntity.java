@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * 租户基础实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class TenantEntity extends BaseEntity {

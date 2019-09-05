@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Feign接口类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @FeignClient(
 	value = AppConstant.APPLICATION_SYSTEM_NAME,

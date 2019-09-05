@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * 项目启动器，搞定环境变量问题
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class SpingCloudDevApplication {
 

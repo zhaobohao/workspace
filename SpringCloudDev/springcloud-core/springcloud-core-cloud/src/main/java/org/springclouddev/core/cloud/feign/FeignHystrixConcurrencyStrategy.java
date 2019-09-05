@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 自定义Feign的隔离策略
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
 

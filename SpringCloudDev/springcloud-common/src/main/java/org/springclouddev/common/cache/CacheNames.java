@@ -4,7 +4,7 @@ package org.springclouddev.common.cache;
 /**
  * 缓存名
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface CacheNames {
 

@@ -37,7 +37,7 @@ VALUES (@parentid, 'datasource_add', '新增', 'add', '/tool/datasource/add', 'p
 INSERT INTO `mk_menu`(`parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
 VALUES (@parentid, 'datasource_edit', '修改', 'edit', '/tool/datasource/edit', 'form', 2, 2, 2, 2, NULL, 0);
 INSERT INTO `mk_menu`(`parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
-VALUES (@parentid, 'datasource_delete', '删除', 'delete', '/api/blade-develop/datasource/remove', 'delete', 3, 2, 3, 3, NULL, 0);
+VALUES (@parentid, 'datasource_delete', '删除', 'delete', '/api/springcloud-develop/datasource/remove', 'delete', 3, 2, 3, 3, NULL, 0);
 INSERT INTO `mk_menu`(`parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
 VALUES (@parentid, 'datasource_view', '查看', 'view', '/tool/datasource/view', 'file-text', 4, 2, 2, 2, NULL, 0);
 

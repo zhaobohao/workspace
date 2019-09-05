@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * Feign失败配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Component
 public class ISysClientFallback implements ISysClient {

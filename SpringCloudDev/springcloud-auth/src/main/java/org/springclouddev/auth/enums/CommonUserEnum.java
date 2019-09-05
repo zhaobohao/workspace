@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * 用户类型枚举
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Getter
 @AllArgsConstructor

@@ -12,7 +12,7 @@ import org.springclouddev.core.log.publisher.ApiLogPublisher;
 /**
  * 操作日志使用spring event异步入库
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 @Aspect

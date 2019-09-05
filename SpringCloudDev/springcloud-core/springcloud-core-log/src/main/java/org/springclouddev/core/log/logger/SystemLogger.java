@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 /**
  * 日志工具类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 public class SystemLogger implements InitializingBean {

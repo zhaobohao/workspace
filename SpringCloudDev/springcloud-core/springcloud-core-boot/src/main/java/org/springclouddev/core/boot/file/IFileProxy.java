@@ -6,7 +6,7 @@ import java.io.File;
 /**
  * 文件代理接口
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface IFileProxy {
 

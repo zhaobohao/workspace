@@ -22,7 +22,7 @@ import java.time.Duration;
 /**
  * RedisTemplate 配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @EnableCaching
 @Configuration

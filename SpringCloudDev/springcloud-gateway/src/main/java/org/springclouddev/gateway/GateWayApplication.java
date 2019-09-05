@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * 项目启动
  *
- * @author firewan
+ * @author zhaobohao
  */
 @EnableHystrix
 @EnableScheduling

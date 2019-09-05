@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.constant;
 /**
  * 系统默认角色
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class RoleConstant {
 

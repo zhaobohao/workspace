@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Feign接口类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @FeignClient(
 	value = AppConstant.APPLICATION_SYSTEM_NAME,

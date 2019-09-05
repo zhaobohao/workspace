@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Xss配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @ConfigurationProperties("springclouddev.xss.url")

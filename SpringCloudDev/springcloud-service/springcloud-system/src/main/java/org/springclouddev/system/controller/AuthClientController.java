@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiOperationSupport;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.annotation.PreAuth;
@@ -24,7 +24,7 @@ import javax.validation.Valid;
 /**
  *  应用管理控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
@@ -32,7 +32,7 @@ import javax.validation.Valid;
 @ApiIgnore
 @Api(value = "应用管理", tags = "接口")
 @PreAuth(RoleConstant.HAS_ROLE_ADMIN)
-public class AuthClientController extends BladeController {
+public class AuthClientController extends AbstractController {
 
 	private IAuthClientService clientService;
 
@@ -96,7 +96,7 @@ public class AuthClientController extends BladeController {
 	@ApiOperationSupport(order = 6)
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-		return R.status(clientService.deleteLogic(Func.toIntList(ids)));
+		return R.status(clientService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	

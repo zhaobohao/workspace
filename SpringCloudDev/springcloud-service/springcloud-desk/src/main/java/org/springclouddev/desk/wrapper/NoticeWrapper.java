@@ -12,7 +12,7 @@ import org.springclouddev.system.feign.IDictClient;
 /**
  * Notice包装类,返回视图层所需的字段
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class NoticeWrapper extends BaseEntityWrapper<Notice, NoticeVO> {
 

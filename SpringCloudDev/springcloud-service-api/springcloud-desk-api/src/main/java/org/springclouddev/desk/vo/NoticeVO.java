@@ -8,7 +8,7 @@ import org.springclouddev.desk.entity.Notice;
 /**
  * 通知公告视图类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

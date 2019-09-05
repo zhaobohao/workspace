@@ -10,7 +10,7 @@ import org.springclouddev.core.tool.utils.StringUtil;
 /**
  * 权限判断
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class AuthFun {
 

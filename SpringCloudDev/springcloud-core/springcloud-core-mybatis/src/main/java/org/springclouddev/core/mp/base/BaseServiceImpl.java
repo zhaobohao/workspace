@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @param <M> mapper
  * @param <T> model
- * @author firewan
+ * @author zhaobohao
  */
 @Validated
 public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements BaseService<T> {

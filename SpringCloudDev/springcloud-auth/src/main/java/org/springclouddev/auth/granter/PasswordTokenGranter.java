@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 /**
  * PasswordTokenGranter
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Component
 @AllArgsConstructor

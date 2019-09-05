@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * swagger配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @EnableSwagger2

@@ -13,7 +13,7 @@ import java.util.Enumeration;
 /**
  * feign 传递Request header
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 public class FeignRequestHeaderInterceptor implements RequestInterceptor {
@@ -28,7 +28,7 @@ public class FeignRequestHeaderInterceptor implements RequestInterceptor {
 				while (headerNames.hasMoreElements()) {
 					String name = headerNames.nextElement();
 					String value = request.getHeader(name);
-					if ("blade-auth".equals(name.toLowerCase())) {
+					if ("springcloud-auth".equals(name.toLowerCase())) {
 						requestTemplate.header(name, value);
 					}
 				}

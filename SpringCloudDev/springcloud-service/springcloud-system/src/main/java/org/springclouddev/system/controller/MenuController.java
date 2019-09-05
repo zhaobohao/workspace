@@ -3,7 +3,7 @@ package org.springclouddev.system.controller;
 
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.annotation.PreAuth;
@@ -25,13 +25,13 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/menu")
 @Api(value = "菜单", tags = "菜单")
-public class MenuController extends BladeController {
+public class MenuController extends AbstractController {
 
 	private IMenuService menuService;
 

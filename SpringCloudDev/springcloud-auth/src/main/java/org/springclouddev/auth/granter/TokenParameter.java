@@ -7,7 +7,7 @@ import org.springclouddev.core.tool.support.Kv;
 /**
  * TokenParameter
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class TokenParameter {

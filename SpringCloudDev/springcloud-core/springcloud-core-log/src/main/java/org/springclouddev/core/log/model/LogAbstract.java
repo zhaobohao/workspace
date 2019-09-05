@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 /**
  * logApi、logError、logUsual的父类，拥有相同的属性值
  *
- * @author jiang
+ * @author zhaobohao
  */
 @Data
 public class LogAbstract implements Serializable {

@@ -4,7 +4,7 @@ package org.springclouddev.core.launch.constant;
 /**
  * Consul常量.
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface ConsulConstant {
 

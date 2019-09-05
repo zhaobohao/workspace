@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 视图实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -9,7 +9,7 @@ import org.springclouddev.system.entity.RoleMenu;
 /**
  * 视图实体类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

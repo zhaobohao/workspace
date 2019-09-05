@@ -17,7 +17,7 @@ import java.net.URL;
 /**
  * 图片工具类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public final class ImageUtil {
 

@@ -8,7 +8,7 @@ import org.springclouddev.desk.entity.Notice;
 /**
  * 服务类
  *
- * @author firewan
+ * @author zhaobohao
  * @since 2018-09-29
  */
 public interface INoticeService extends BaseService<Notice> {

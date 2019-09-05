@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @RequestMapping
@@ -88,7 +88,7 @@ public class UserController {
 	@ApiOperationSupport(order = 5)
 	@ApiOperation(value = "删除", notes = "传入地基和")
 	public R remove(@RequestParam String ids) {
-		return R.status(userService.deleteLogic(Func.toIntList(ids)));
+		return R.status(userService.deleteLogic(Func.toLongList(ids)));
 	}
 
 

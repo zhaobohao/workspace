@@ -8,7 +8,7 @@ import java.nio.charset.Charset;
 /**
  * url处理工具类
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class UrlUtil extends org.springframework.web.util.UriUtils {
 

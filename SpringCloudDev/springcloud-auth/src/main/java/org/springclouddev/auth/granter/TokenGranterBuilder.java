@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * TokenGranterBuilder
  *
- * @author firewan
+ * @author zhaobohao
  */
 @AllArgsConstructor
 public class TokenGranterBuilder {

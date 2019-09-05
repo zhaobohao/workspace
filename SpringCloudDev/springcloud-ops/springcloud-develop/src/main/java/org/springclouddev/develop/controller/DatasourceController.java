@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiOperationSupport;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.tool.api.R;
@@ -22,13 +22,13 @@ import java.util.List;
 /**
  * 数据源配置表 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/datasource")
 @Api(value = "数据源配置表", tags = "数据源配置表接口")
-public class DatasourceController extends BladeController {
+public class DatasourceController extends AbstractController {
 
 	private IDatasourceService datasourceService;
 
@@ -93,7 +93,7 @@ public class DatasourceController extends BladeController {
 	@ApiOperationSupport(order = 7)
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-		return R.status(datasourceService.deleteLogic(Func.toIntList(ids)));
+		return R.status(datasourceService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**

@@ -18,7 +18,7 @@ import java.util.Objects;
  * spring cache中的简单基本类型直接使用 StringRedisSerializer 会有问题
  * </p>
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class RedisKeySerializer implements RedisSerializer<Object> {
 	private final Charset charset;

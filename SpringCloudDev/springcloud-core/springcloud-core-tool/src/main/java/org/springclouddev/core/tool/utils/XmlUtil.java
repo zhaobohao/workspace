@@ -31,7 +31,7 @@ import java.util.Map;
  *     http://www.w3school.com.cn/xpath/index.asp
  * </pre>
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public class XmlUtil {
 	private final XPath path;

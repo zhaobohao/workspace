@@ -8,7 +8,7 @@ import org.apache.ibatis.reflection.MetaObject;
 /**
  * mybatisplus自定义填充
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 public class MybatisPlugsMetaObjectHandler implements com.baomidou.mybatisplus.core.handlers.MetaObjectHandler {

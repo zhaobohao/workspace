@@ -36,12 +36,12 @@ mount(){
 
 #启动基础模块
 base(){
-	docker-compose up -d nacos sentinel web-nginx blade-nginx blade-redis
+	docker-compose up -d nacos sentinel web-nginx springcloud-nginx springcloud-redis
 }
 
 #启动程序模块
 modules(){
-	docker-compose up -d blade-gateway1 blade-gateway2 blade-admin blade-auth1 blade-auth2 blade-user blade-desk blade-system blade-log
+	docker-compose up -d springcloud-gateway1 springcloud-gateway2 springcloud-admin springcloud-auth1 springcloud-auth2 springcloud-user springcloud-desk springcloud-system springcloud-log
 }
 
 #关闭所有模块

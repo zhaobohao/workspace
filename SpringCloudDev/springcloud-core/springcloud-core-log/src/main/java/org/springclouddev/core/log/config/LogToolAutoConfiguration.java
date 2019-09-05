@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 日志工具自动配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @AllArgsConstructor

@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 异常处理
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 

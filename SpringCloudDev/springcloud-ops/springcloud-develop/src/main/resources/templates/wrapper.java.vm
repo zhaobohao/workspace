@@ -11,7 +11,7 @@ import $!{voPackage}.$!{entity}VO;
 /**
  * $!{table.comment}包装类,返回视图层所需的字段
  *
- * @author $!{author}
+ * @author zhaobohao
  * @since $!{date}
  */
 public class $!{entity}Wrapper extends BaseEntityWrapper<$!{entity}, $!{entity}VO>  {

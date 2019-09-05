@@ -7,7 +7,7 @@ import org.springclouddev.core.launch.constant.AppConstant;
 /**
  * Swagger聚合文档属性
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class RouteResource {

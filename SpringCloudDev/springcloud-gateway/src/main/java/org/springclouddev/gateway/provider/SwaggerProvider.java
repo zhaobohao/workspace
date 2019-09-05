@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 聚合接口文档注册
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Primary
 @Component

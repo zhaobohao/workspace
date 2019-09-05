@@ -4,7 +4,7 @@ package org.springclouddev.develop.constant;
 /**
  * 系统常量.
  *
- * @author zhuangqian
+ * @author zhaobohao
  */
 public interface DevelopConstant {
 	/**

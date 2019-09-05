@@ -23,7 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * 安全配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Order
 @Configuration

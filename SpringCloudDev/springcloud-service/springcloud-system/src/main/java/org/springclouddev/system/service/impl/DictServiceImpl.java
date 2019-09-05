@@ -25,7 +25,7 @@ import static org.springclouddev.common.cache.CacheNames.DICT_VALUE;
 /**
  * 服务实现类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {

@@ -4,7 +4,7 @@ package org.springclouddev.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
@@ -25,13 +25,13 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/role")
 @Api(value = "角色", tags = "角色")
-public class RoleController extends BladeController {
+public class RoleController extends AbstractController {
 
 	private IRoleService roleService;
 

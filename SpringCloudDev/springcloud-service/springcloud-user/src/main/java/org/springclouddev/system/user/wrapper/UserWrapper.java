@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 包装类,返回视图层所需的字段
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 

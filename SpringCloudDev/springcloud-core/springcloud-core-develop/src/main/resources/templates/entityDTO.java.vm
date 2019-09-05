@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 /**
  * $!{table.comment}数据传输对象实体类
  *
- * @author $!{author}
+ * @author zhaobohao
  * @since $!{date}
  */
 #if($!{entityLombokModel})

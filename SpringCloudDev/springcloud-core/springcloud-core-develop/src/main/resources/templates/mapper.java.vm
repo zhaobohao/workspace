@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * $!{table.comment} Mapper 接口
  *
- * @author $!{author}
+ * @author zhaobohao
  * @since $!{date}
  */
 #if($!{kotlin})

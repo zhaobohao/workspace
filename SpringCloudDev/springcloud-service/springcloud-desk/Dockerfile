@@ -8,7 +8,7 @@ WORKDIR /blade/desk
 
 EXPOSE 8105
 
-ADD ./target/blade-desk.jar ./app.jar
+ADD ./target/springcloud-desk.jar ./app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
 

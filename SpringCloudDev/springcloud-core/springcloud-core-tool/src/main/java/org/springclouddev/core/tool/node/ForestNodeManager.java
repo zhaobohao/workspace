@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 森林管理类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class ForestNodeManager<T extends INode> {
 

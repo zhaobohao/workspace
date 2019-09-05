@@ -4,7 +4,7 @@ package org.springclouddev.core.boot.tenant;
 /**
  * 租户id生成器
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface TenantId {
 

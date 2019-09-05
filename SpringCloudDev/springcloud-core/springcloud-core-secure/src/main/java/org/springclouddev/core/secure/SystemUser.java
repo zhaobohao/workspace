@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 用户实体
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class SystemUser implements Serializable {

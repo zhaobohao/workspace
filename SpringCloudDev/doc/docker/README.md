@@ -77,7 +77,7 @@ WORKDIR /blade/gateway
 
 EXPOSE 80
 
-ADD ./target/blade-gateway.jar ./app.jar
+ADD ./target/springcloud-gateway.jar ./app.jar
 
 CMD java -Djava.security.egd=file:/dev/./urandom -jar app.jar --spring.profiles.active=test
 
@@ -85,8 +85,8 @@ CMD java -Djava.security.egd=file:/dev/./urandom -jar app.jar --spring.profiles.
 
 ###5. 在工程根目录的docker-compose.yml下加入配置，内容可参考如下
 ```
-blade-gateway:
-  image: "${REGISTER}/blade/blade-gateway:${TAG}"
+springcloud-gateway:
+  image: "${REGISTER}/blade/springcloud-gateway:${TAG}"
   ports:
   - 80:80
   networks:

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * WEB配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 @Configuration

@@ -4,7 +4,7 @@ package org.springclouddev.core.launch.constant;
 /**
  * 系统常量
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface AppConstant {
 
@@ -21,7 +21,7 @@ public interface AppConstant {
 	/**
 	 * 应用名前缀
 	 */
-	String APPLICATION_NAME_PREFIX = "blade-";
+	String APPLICATION_NAME_PREFIX = "springcloud-";
 	/**
 	 * 网关模块名称
 	 */

@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * 认证工具类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class TokenUtil {
 

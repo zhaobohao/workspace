@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * 客户端详情
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class ClientDetails implements IClientDetails {

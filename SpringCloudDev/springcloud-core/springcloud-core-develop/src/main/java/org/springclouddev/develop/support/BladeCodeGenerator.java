@@ -29,7 +29,7 @@ import java.util.*;
 /**
  * 代码生成器配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @Slf4j
@@ -45,7 +45,7 @@ public class BladeCodeGenerator {
 	/**
 	 * 代码所在服务名
 	 */
-	private String serviceName = "blade-service";
+	private String serviceName = "springcloud-service";
 	/**
 	 * 代码生成的包名
 	 */
@@ -320,7 +320,7 @@ public class BladeCodeGenerator {
 	 * @return outputDir
 	 */
 	public String getOutputDir() {
-		return (Func.isBlank(packageDir) ? System.getProperty("user.dir") + "/blade-ops/blade-develop" : packageDir) + "/src/main/java";
+		return (Func.isBlank(packageDir) ? System.getProperty("user.dir") + "/springcloud-ops/springcloud-develop" : packageDir) + "/src/main/java";
 	}
 
 	/**

@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * XSS过滤处理
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 

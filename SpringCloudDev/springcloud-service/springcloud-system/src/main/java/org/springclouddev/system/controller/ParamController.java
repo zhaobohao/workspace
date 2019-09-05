@@ -4,7 +4,7 @@ package org.springclouddev.system.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.BladeController;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.tool.api.R;
@@ -20,13 +20,13 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/param")
 @Api(value = "参数管理", tags = "接口")
-public class ParamController extends BladeController {
+public class ParamController extends AbstractController {
 
 	private IParamService paramService;
 
@@ -75,7 +75,7 @@ public class ParamController extends BladeController {
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-		return R.status(paramService.deleteLogic(Func.toIntList(ids)));
+		return R.status(paramService.deleteLogic(Func.toLongList(ids)));
 	}
 
 

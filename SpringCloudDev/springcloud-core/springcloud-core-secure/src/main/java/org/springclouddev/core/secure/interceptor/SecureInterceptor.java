@@ -20,7 +20,7 @@ import java.util.Objects;
 /**
  * jwt拦截器校验
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 @AllArgsConstructor

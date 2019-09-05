@@ -7,7 +7,7 @@ import org.springclouddev.system.user.entity.UserInfo;
 /**
  * 授权认证统一接口.
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface ITokenGranter {
 

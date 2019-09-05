@@ -6,7 +6,7 @@ import org.springclouddev.core.tool.utils.StringPool;
 /**
  * 字符串格式化
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class StrFormatter {
 

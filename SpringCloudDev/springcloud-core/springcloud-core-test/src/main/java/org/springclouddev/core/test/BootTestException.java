@@ -5,7 +5,7 @@ package org.springclouddev.core.test;
 /**
  * blade test 异常
  *
- * @author L.cm
+ * @author zhaobohao
  */
 class BootTestException extends RuntimeException {
 

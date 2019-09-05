@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 错误日志事件
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class ErrorLogEvent extends ApplicationEvent {
 

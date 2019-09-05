@@ -10,11 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * Blade单元测试
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RunWith(SysSpringRunner.class)
 @SpringBootTest(classes = DeskApplication.class)
-@BootTest(appName = "blade-desk", profile = "test", enableLoader = true)
+@BootTest(appName = "springcloud-desk", profile = "test", enableLoader = true)
 public class BladeDemoTest {
 
 	@Autowired

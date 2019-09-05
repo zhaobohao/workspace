@@ -23,7 +23,7 @@ import javax.servlet.Servlet;
 /**
  * 统一异常处理
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @AllArgsConstructor

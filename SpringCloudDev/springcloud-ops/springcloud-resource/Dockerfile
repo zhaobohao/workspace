@@ -8,7 +8,7 @@ WORKDIR /blade/resource
 
 EXPOSE 8010
 
-ADD ./target/blade-resource.jar ./app.jar
+ADD ./target/springcloud-resource.jar ./app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
 

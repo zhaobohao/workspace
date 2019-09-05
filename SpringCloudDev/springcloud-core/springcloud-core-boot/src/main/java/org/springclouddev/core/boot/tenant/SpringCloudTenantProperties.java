@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * 多租户配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "blade.tenant")
-public class BladeTenantProperties {
+@ConfigurationProperties(prefix = "springcloud.tenant")
+public class SpringCloudTenantProperties {
 
 	/**
 	 * 多租户字段名称

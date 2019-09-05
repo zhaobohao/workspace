@@ -8,7 +8,7 @@ WORKDIR /blade/auth
 
 EXPOSE 8010
 
-ADD ./target/blade-auth.jar ./app.jar
+ADD ./target/springcloud-auth.jar ./app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
 

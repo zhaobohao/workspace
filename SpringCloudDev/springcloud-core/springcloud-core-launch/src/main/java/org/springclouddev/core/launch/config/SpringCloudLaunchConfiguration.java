@@ -11,7 +11,7 @@ import org.springframework.core.annotation.Order;
 /**
  * 配置类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @AllArgsConstructor
@@ -19,6 +19,6 @@ import org.springframework.core.annotation.Order;
 @EnableConfigurationProperties({
 	SystemProperties.class
 })
-public class BladeLaunchConfiguration {
+public class SpringCloudLaunchConfiguration {
 
 }

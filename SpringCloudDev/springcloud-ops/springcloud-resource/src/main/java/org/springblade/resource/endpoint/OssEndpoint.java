@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 对象存储端点
  *
- * @author firewan
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor

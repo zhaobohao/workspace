@@ -7,7 +7,7 @@ import org.springclouddev.develop.entity.Datasource;
 /**
  * 数据源配置表 Mapper 接口
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface DatasourceMapper extends BaseMapper<Datasource> {
 

@@ -7,7 +7,7 @@ import org.springclouddev.system.entity.AuthClient;
 /**
  * Mapper 接口
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface AuthClientMapper extends BaseMapper<AuthClient> {
 

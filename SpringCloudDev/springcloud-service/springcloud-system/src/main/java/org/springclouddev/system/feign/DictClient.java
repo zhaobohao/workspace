@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 字典服务Feign实现类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @ApiIgnore
 @RestController

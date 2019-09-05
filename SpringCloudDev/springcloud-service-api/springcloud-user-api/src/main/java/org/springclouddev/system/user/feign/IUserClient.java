@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * User Feign接口类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @FeignClient(
 	value = AppConstant.APPLICATION_USER_NAME,

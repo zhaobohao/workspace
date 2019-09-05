@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 /**
  * 简化 测试
  *
- * @author L.cm
+ * @author zhaobohao
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

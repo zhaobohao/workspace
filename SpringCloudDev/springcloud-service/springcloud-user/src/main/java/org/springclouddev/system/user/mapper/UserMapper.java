@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Mapper 接口
  *
- * @author firewan
+ * @author zhaobohao
  */
 
 @Mapper

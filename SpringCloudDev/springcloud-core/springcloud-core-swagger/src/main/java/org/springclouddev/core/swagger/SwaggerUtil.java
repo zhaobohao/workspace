@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Swagger工具类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class SwaggerUtil {
 

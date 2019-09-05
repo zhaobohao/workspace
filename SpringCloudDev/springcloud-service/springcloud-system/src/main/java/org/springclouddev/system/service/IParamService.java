@@ -9,7 +9,7 @@ import org.springclouddev.system.vo.ParamVO;
 /**
  * 服务类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface IParamService extends BaseService<Param> {
 

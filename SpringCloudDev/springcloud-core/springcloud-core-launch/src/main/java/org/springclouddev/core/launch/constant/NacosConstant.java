@@ -4,7 +4,7 @@ package org.springclouddev.core.launch.constant;
 /**
  * Nacos常量.
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface NacosConstant {
 

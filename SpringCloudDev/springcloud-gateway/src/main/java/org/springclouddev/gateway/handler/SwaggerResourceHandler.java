@@ -17,7 +17,7 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 /**
  * SwaggerResourceHandler
  *
- * @author lengleng
+ * @author zhaobohao
  */
 @Slf4j
 @Component

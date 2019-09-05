@@ -4,7 +4,7 @@ package org.springclouddev.core.oss.rule;
 /**
  * Oss通用规则
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface OssRule {
 

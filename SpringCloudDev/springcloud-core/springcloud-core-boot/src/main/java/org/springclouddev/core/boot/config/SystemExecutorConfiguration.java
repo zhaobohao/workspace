@@ -2,7 +2,7 @@
 package org.springclouddev.core.boot.config;
 
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.props.BladeAsyncProperties;
+import org.springclouddev.core.boot.props.SpringCloudAsyncProperties;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,27 +19,27 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * 异步处理
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Configuration
 @EnableAsync
 @EnableScheduling
 @AllArgsConstructor
 @EnableConfigurationProperties({
-	BladeAsyncProperties.class
+	SpringCloudAsyncProperties.class
 })
 public class SystemExecutorConfiguration extends AsyncConfigurerSupport {
 
-	private final BladeAsyncProperties bladeAsyncProperties;
+	private final SpringCloudAsyncProperties springCloudAsyncProperties;
 
 	@Override
 	@Bean(name = "taskExecutor")
 	public Executor getAsyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(bladeAsyncProperties.getCorePoolSize());
-		executor.setMaxPoolSize(bladeAsyncProperties.getMaxPoolSize());
-		executor.setQueueCapacity(bladeAsyncProperties.getQueueCapacity());
-		executor.setKeepAliveSeconds(bladeAsyncProperties.getKeepAliveSeconds());
+		executor.setCorePoolSize(springCloudAsyncProperties.getCorePoolSize());
+		executor.setMaxPoolSize(springCloudAsyncProperties.getMaxPoolSize());
+		executor.setQueueCapacity(springCloudAsyncProperties.getQueueCapacity());
+		executor.setKeepAliveSeconds(springCloudAsyncProperties.getKeepAliveSeconds());
 		executor.setThreadNamePrefix("async-executor-");
 		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 		return executor;

@@ -7,7 +7,7 @@ import org.springclouddev.develop.support.BladeCodeGenerator;
 /**
  * 代码生成器
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class CodeGenerator {
 
@@ -18,7 +18,7 @@ public class CodeGenerator {
 	/**
 	 * 代码所在服务名
 	 */
-	public static String SERVICE_NAME = "blade-system";
+	public static String SERVICE_NAME = "springcloud-system";
 	/**
 	 * 代码生成的包名
 	 */

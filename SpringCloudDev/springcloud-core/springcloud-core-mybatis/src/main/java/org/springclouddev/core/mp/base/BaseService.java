@@ -10,7 +10,7 @@ import java.util.List;
  * 基础业务接口
  *
  * @param <T>
- * @author firewan
+ * @author zhaobohao
  */
 public interface BaseService<T> extends IService<T> {
 
@@ -20,6 +20,6 @@ public interface BaseService<T> extends IService<T> {
 	 * @param ids id集合(逗号分隔)
 	 * @return
 	 */
-	boolean deleteLogic(@NotEmpty List<Integer> ids);
+	boolean deleteLogic(@NotEmpty List<Long> ids);
 
 }

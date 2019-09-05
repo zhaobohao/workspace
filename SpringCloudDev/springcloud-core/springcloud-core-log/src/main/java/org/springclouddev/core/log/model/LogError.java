@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 服务 异常
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @TableName("mk_log_error")

@@ -8,7 +8,7 @@ WORKDIR /blade/log
 
 EXPOSE 8103
 
-ADD ./target/blade-log.jar ./app.jar
+ADD ./target/springcloud-log.jar ./app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
 

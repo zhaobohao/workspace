@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * TokenInfo
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class TokenInfo {

@@ -7,7 +7,7 @@ import org.springclouddev.system.entity.AuthClient;
 /**
  *  服务类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface IAuthClientService extends BaseService<AuthClient> {
 

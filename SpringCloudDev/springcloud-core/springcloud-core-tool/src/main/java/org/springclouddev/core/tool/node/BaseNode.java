@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 节点基类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 public class BaseNode implements INode {

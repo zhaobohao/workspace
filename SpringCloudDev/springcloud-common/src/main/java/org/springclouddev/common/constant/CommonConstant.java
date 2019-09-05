@@ -5,7 +5,7 @@ import org.springclouddev.core.launch.constant.AppConstant;
 /**
  * 通用常量
  *
- * @author firewan
+ * @author zhaobohao
  */
 public interface CommonConstant {
 

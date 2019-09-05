@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 服务器信息
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Getter
 @Configuration

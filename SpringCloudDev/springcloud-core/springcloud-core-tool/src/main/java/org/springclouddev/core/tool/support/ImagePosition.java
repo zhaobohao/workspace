@@ -4,7 +4,7 @@ package org.springclouddev.core.tool.support;
 /**
  * 图片操作类
  *
- * @author firewan
+ * @author zhaobohao
  */
 public class ImagePosition {
 

@@ -20,7 +20,7 @@ import java.util.Map;
  *     2. 自定义的 BeanCopier 解决 spring boot 和 cglib ClassLoader classLoader 不一致的问题
  * </p>
  *
- * @author L.cm
+ * @author zhaobohao
  */
 public abstract class BaseBeanCopier {
 	private static final BeanCopierKey KEY_FACTORY = (BeanCopierKey) KeyFactory.create(BeanCopierKey.class);

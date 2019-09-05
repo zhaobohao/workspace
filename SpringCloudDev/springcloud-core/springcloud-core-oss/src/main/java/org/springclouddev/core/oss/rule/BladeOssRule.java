@@ -10,7 +10,7 @@ import org.springclouddev.core.tool.utils.StringUtil;
 /**
  * 默认存储桶生成规则
  *
- * @author firewan
+ * @author zhaobohao
  */
 @AllArgsConstructor
 public class BladeOssRule implements OssRule {

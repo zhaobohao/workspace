@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationEvent;
 /**
  * spring 工具类
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Slf4j
 public class SpringUtil implements ApplicationContextAware {

@@ -11,9 +11,9 @@ import java.util.Date;
 
 /**
  * 上传文件封装
- * @author firewan
+ * @author zhaobohao
  */
-public class BladeFile {
+public class SpringCloudFile {
 	/**
 	 * 上传文件在附件表中的id
 	 */
@@ -49,24 +49,24 @@ public class BladeFile {
 	 */
 	private String originalFileName;
 
-	public BladeFile() {
+	public SpringCloudFile() {
 
 	}
 
-	public BladeFile(MultipartFile file, String dir) {
+	public SpringCloudFile(MultipartFile file, String dir) {
 		this.dir = dir;
 		this.file = file;
 		this.fileName = file.getName();
 		this.originalFileName = file.getOriginalFilename();
-		this.uploadPath = BladeFileUtil.formatUrl(File.separator + SystemConstant.me().getUploadRealPath() + File.separator + dir + File.separator + DateUtil.format(new Date(), "yyyyMMdd") + File.separator + this.originalFileName);
-		this.uploadVirtualPath = BladeFileUtil.formatUrl(SystemConstant.me().getUploadCtxPath().replace(SystemConstant.me().getContextPath(), "") + File.separator + dir + File.separator + DateUtil.format(new Date(), "yyyyMMdd") + File.separator + this.originalFileName);
+		this.uploadPath = SpringCloudFileUtil.formatUrl(File.separator + SystemConstant.me().getUploadRealPath() + File.separator + dir + File.separator + DateUtil.format(new Date(), "yyyyMMdd") + File.separator + this.originalFileName);
+		this.uploadVirtualPath = SpringCloudFileUtil.formatUrl(SystemConstant.me().getUploadCtxPath().replace(SystemConstant.me().getContextPath(), "") + File.separator + dir + File.separator + DateUtil.format(new Date(), "yyyyMMdd") + File.separator + this.originalFileName);
 	}
 
-	public BladeFile(MultipartFile file, String dir, String uploadPath, String uploadVirtualPath) {
+	public SpringCloudFile(MultipartFile file, String dir, String uploadPath, String uploadVirtualPath) {
 		this(file, dir);
 		if (null != uploadPath) {
-			this.uploadPath = BladeFileUtil.formatUrl(uploadPath);
-			this.uploadVirtualPath = BladeFileUtil.formatUrl(uploadVirtualPath);
+			this.uploadPath = SpringCloudFileUtil.formatUrl(uploadPath);
+			this.uploadVirtualPath = SpringCloudFileUtil.formatUrl(uploadVirtualPath);
 		}
 	}
 

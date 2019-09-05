@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 配置文件
  *
- * @author firewan
+ * @author zhaobohao
  */
 @ConfigurationProperties("springclouddev")
 public class SystemProperties {

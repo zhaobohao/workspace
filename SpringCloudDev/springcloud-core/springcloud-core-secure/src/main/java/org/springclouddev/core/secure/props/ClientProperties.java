@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 客户端校验配置
  *
- * @author firewan
+ * @author zhaobohao
  */
 @Data
 @ConfigurationProperties("springclouddev.secure")
