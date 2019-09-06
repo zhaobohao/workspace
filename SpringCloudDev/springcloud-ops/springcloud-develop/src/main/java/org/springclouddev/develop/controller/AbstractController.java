@@ -4,7 +4,6 @@ package org.springclouddev.develop.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.annotation.PreAuth;
@@ -15,7 +14,7 @@ import org.springclouddev.develop.entity.Code;
 import org.springclouddev.develop.entity.Datasource;
 import org.springclouddev.develop.service.ICodeService;
 import org.springclouddev.develop.service.IDatasourceService;
-import org.springclouddev.develop.support.BladeCodeGenerator;
+import org.springclouddev.develop.support.SpringCloudDEmoCodeGenerator;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -109,7 +108,7 @@ public class AbstractController extends AbstractController {
 	public R genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "sword") String system) {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
 		codes.forEach(code -> {
-			BladeCodeGenerator generator = new BladeCodeGenerator();
+			SpringCloudDEmoCodeGenerator generator = new SpringCloudDEmoCodeGenerator();
 			// 设置数据源
 			Datasource datasource = datasourceService.getById(code.getDatasourceId());
 			generator.setDriverName(datasource.getDriverClass());

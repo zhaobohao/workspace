@@ -57,7 +57,7 @@ public class AuthAspect implements ApplicationContextAware {
 	/**
 	 * 处理权限
 	 *
-	 * @param point 切点
+		 * @param point 切点
 	 */
 	private boolean handleAuth(ProceedingJoinPoint point) {
 		MethodSignature ms = (MethodSignature) point.getSignature();

@@ -75,7 +75,7 @@ public class SwaggerProperties {
 		/**
 		 * 联系人
 		 **/
-		private String name = "firewanzhuang";
+		private String name = "zhaobohao";
 		/**
 		 * 联系人url
 		 **/
@@ -83,7 +83,7 @@ public class SwaggerProperties {
 		/**
 		 * 联系人email
 		 **/
-		private String email = "smallfirewan@163.com";
+		private String email = "zhaobohao@sohu.com";
 
 	}
 

@@ -2,7 +2,7 @@
 package org.springclouddev.develop;
 
 
-import org.springclouddev.develop.support.BladeCodeGenerator;
+import org.springclouddev.develop.support.SpringCloudDEmoCodeGenerator;
 
 /**
  * 代码生成器
@@ -57,7 +57,7 @@ public class CodeGenerator {
 	 * RUN THIS
 	 */
 	public static void run() {
-		BladeCodeGenerator generator = new BladeCodeGenerator();
+		SpringCloudDEmoCodeGenerator generator = new SpringCloudDEmoCodeGenerator();
 		generator.setCodeName(CODE_NAME);
 		generator.setServiceName(SERVICE_NAME);
 		generator.setSystemName(SYSTEM_NAME);
