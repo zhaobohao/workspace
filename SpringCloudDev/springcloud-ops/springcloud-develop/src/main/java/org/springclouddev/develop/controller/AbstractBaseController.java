@@ -4,6 +4,7 @@ package org.springclouddev.develop.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.annotation.PreAuth;
@@ -33,7 +34,7 @@ import java.util.Map;
 @RequestMapping("/code")
 @Api(value = "代码生成", tags = "代码生成")
 @PreAuth(RoleConstant.HAS_ROLE_ADMIN)
-public class AbstractController extends AbstractController {
+public class AbstractBaseController extends AbstractController {
 
 	private ICodeService codeService;
 	private IDatasourceService datasourceService;

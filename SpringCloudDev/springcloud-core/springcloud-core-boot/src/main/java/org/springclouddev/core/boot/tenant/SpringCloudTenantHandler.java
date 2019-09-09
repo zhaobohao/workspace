@@ -27,7 +27,7 @@ public class SpringCloudTenantHandler implements TenantHandler {
 	 * @return 租户ID
 	 */
 	@Override
-	public Expression getTenantId() {
+	public Expression getTenantId(boolean where) {
 		return new StringValue(Func.toStr(SecureUtil.getTenantId(), TenantConstant.DEFAULT_TENANT_ID));
 	}
 
