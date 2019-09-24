@@ -8,7 +8,7 @@ import com.qiniu.util.Auth;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.oss.QiniuTemplate;
 import org.springclouddev.core.oss.props.OssProperties;
-import org.springclouddev.core.oss.rule.BladeOssRule;
+import org.springclouddev.core.oss.rule.SpringCloudOssRule;
 import org.springclouddev.core.oss.rule.OssRule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -33,7 +33,7 @@ public class OssConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(OssRule.class)
 	public OssRule ossRule() {
-		return new BladeOssRule();
+		return new SpringCloudOssRule();
 	}
 
 	@Bean

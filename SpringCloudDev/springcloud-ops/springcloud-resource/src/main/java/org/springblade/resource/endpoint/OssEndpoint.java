@@ -5,7 +5,7 @@ import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springclouddev.core.oss.QiniuTemplate;
-import org.springclouddev.core.oss.model.BladeFile;
+import org.springclouddev.core.oss.model.SpringCloudFile;
 import org.springclouddev.core.oss.model.OssFile;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.utils.Func;
@@ -111,9 +111,9 @@ public class OssEndpoint {
 	 */
 	@SneakyThrows
 	@PostMapping("/put-file")
-	public R<BladeFile> putFile(@RequestParam MultipartFile file) {
-		BladeFile bladeFile = qiniuTemplate.putFile(file.getOriginalFilename(), file.getInputStream());
-		return R.data(bladeFile);
+	public R<SpringCloudFile> putFile(@RequestParam MultipartFile file) {
+		SpringCloudFile springCloudFile = qiniuTemplate.putFile(file.getOriginalFilename(), file.getInputStream());
+		return R.data(springCloudFile);
 	}
 
 	/**
@@ -125,9 +125,9 @@ public class OssEndpoint {
 	 */
 	@SneakyThrows
 	@PostMapping("/put-file-by-name")
-	public R<BladeFile> putFile(@RequestParam String fileName, @RequestParam MultipartFile file) {
-		BladeFile bladeFile = qiniuTemplate.putFile(fileName, file.getInputStream());
-		return R.data(bladeFile);
+	public R<SpringCloudFile> putFile(@RequestParam String fileName, @RequestParam MultipartFile file) {
+		SpringCloudFile springCloudFile = qiniuTemplate.putFile(fileName, file.getInputStream());
+		return R.data(springCloudFile);
 	}
 
 	/**

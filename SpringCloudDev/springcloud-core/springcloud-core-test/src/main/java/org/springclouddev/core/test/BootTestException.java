@@ -3,7 +3,7 @@
 package org.springclouddev.core.test;
 
 /**
- * blade test 异常
+ *  test 异常
  *
  * @author zhaobohao
  */

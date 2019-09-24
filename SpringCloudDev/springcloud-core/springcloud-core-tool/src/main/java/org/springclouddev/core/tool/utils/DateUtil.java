@@ -38,7 +38,14 @@ public class DateUtil {
 	public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern(DateUtil.PATTERN_DATETIME);
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DateUtil.PATTERN_DATE);
 	public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(DateUtil.PATTERN_TIME);
-
+	/**
+	 * 获取当前日期
+	 *
+	 * @return 当前日期
+	 */
+	public static Date now() {
+		return new Date();
+	}
 	/**
 	 * 添加年
 	 *

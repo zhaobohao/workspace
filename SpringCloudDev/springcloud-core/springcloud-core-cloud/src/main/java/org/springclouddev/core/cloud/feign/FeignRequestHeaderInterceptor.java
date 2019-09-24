@@ -3,36 +3,29 @@ package org.springclouddev.core.cloud.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
+import org.springclouddev.core.cloud.hystrix.HttpHeadersContextHolder;
+import org.springframework.http.HttpHeaders;
 
 /**
  * feign 传递Request header
  *
- * @author zhaobohao
+ * <p>
+ *     https://blog.csdn.net/u014519194/article/details/77160958
+ *     http://tietang.wang/2016/02/25/hystrix/Hystrix%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/
+ *     https://github.com/Netflix/Hystrix/issues/92#issuecomment-260548068
+ * </p>
+ *
+ * @author zhaobo
  */
-@Slf4j
 public class FeignRequestHeaderInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {
-		ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		if (attrs != null) {
-			HttpServletRequest request = attrs.getRequest();
-			Enumeration<String> headerNames = request.getHeaderNames();
-			if (headerNames != null) {
-				while (headerNames.hasMoreElements()) {
-					String name = headerNames.nextElement();
-					String value = request.getHeader(name);
-					if ("springcloud-auth".equals(name.toLowerCase())) {
-						requestTemplate.header(name, value);
-					}
-				}
-			}
+		HttpHeaders headers = HttpHeadersContextHolder.get();
+		if (headers != null && !headers.isEmpty()) {
+			headers.forEach((key, values) -> {
+				values.forEach(value -> requestTemplate.header(key, value));
+			});
 		}
 	}
 

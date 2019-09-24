@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import org.springclouddev.common.constant.CommonConstant;
 import org.springclouddev.core.mp.base.BaseServiceImpl;
+import org.springclouddev.core.tool.utils.DateUtil;
 import org.springclouddev.core.tool.utils.DigestUtil;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.user.entity.User;
@@ -78,7 +79,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public boolean resetPassword(String userIds) {
 		User user = new User();
 		user.setPassword(DigestUtil.encrypt(CommonConstant.DEFAULT_PASSWORD));
-		user.setUpdateTime(LocalDateTime.now());
+		user.setUpdateTime(DateUtil.now());
 		return this.update(user, Wrappers.<User>update().lambda().in(User::getId, Func.toIntList(userIds)));
 	}
 

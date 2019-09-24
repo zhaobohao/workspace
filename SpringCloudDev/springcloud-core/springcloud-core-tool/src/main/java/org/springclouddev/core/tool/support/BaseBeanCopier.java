@@ -131,7 +131,7 @@ public abstract class BaseBeanCopier {
 			EmitUtils.null_constructor(ce);
 			CodeEmitter e = ce.begin_method(Constants.ACC_PUBLIC, COPY, null);
 
-			// 2018.12.27 by L.cm 支持链式 bean
+			// 2018.12.27 by zhaobo 支持链式 bean
 			PropertyDescriptor[] getters = BeanUtil.getBeanGetters(source);
 			PropertyDescriptor[] setters = BeanUtil.getBeanSetters(target);
 			Map<String, Object> names = new HashMap<>(16);
@@ -167,7 +167,7 @@ public abstract class BaseBeanCopier {
 						e.unbox_or_zero(setterType);
 						e.invoke(write);
 					} else if (compatible(getter, setter)) {
-						// 2018.12.27 by L.cm 支持链式 bean
+						// 2018.12.27 by zhaobo 支持链式 bean
 						e.load_local(targetLocal);
 						e.load_local(sourceLocal);
 						e.invoke(read);

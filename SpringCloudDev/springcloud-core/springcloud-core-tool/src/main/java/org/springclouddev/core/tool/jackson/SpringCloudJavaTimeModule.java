@@ -20,9 +20,9 @@ import java.time.LocalTime;
  *
  * @author zhaobohao
  */
-public class BladeJavaTimeModule extends SimpleModule {
+public class SpringCloudJavaTimeModule extends SimpleModule {
 
-	public BladeJavaTimeModule() {
+	public SpringCloudJavaTimeModule() {
 		super(PackageVersion.VERSION);
 		this.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeUtil.DATETIME_FORMAT));
 		this.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeUtil.DATE_FORMAT));

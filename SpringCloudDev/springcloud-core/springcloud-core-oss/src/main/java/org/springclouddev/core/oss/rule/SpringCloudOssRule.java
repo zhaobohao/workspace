@@ -13,7 +13,7 @@ import org.springclouddev.core.tool.utils.StringUtil;
  * @author zhaobohao
  */
 @AllArgsConstructor
-public class BladeOssRule implements OssRule {
+public class SpringCloudOssRule implements OssRule {
 
 	@Override
 	public String bucketName(String bucketName) {

@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author zhaobohao
  */
-public class BladeBeanSerializerModifier extends BeanSerializerModifier {
+public class SpringCloudBeanSerializerModifier extends BeanSerializerModifier {
     @Override
     public List<BeanPropertyWriter> changeProperties(
             SerializationConfig config, BeanDescription beanDesc,

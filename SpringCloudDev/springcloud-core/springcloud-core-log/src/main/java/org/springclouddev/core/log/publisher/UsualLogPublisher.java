@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * BLADE日志信息事件发送
+ * 日志信息事件发送
  *
  * @author zhaobohao
  */

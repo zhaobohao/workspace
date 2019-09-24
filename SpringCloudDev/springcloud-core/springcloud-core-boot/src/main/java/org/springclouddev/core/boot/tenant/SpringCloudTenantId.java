@@ -5,7 +5,7 @@ import org.springclouddev.core.tool.utils.RandomType;
 import org.springclouddev.core.tool.utils.StringUtil;
 
 /**
- * blade租户id生成器
+ * 租户id生成器
  *
  * @author zhaobohao
  */

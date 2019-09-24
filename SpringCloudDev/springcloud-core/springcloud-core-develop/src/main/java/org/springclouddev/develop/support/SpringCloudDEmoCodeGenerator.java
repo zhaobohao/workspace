@@ -61,11 +61,11 @@ public class SpringCloudDEmoCodeGenerator {
 	/**
 	 * 需要去掉的表前缀
 	 */
-	private String[] tablePrefix = {"blade_"};
+	private String[] tablePrefix = {"mk_"};
 	/**
 	 * 需要生成的表名(两者只能取其一)
 	 */
-	private String[] includeTables = {"blade_test"};
+	private String[] includeTables = {"mk_test"};
 	/**
 	 * 需要排除的表名(两者只能取其一)
 	 */
@@ -168,7 +168,7 @@ public class SpringCloudDEmoCodeGenerator {
 			strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
 		}
 		// 自定义 controller 父类
-		strategy.setSuperControllerClass("org.springclouddev.core.boot.ctrl.BladeController");
+		strategy.setSuperControllerClass("org.springclouddev.core.boot.ctrl.AbstractController");
 		strategy.setEntityBuilderModel(false);
 		strategy.setEntityLombokModel(true);
 		strategy.setControllerMappingHyphenStyle(true);

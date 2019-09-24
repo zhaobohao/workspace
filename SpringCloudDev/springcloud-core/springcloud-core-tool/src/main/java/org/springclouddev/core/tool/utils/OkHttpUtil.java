@@ -39,7 +39,7 @@ public class OkHttpUtil {
 	public static String get(String url, Map<String, String> header, Map<String, String> queries) {
 		StringBuffer sb = new StringBuffer(url);
 		if (queries != null && queries.keySet().size() > 0) {
-			sb.append("?clientId=blade");
+			sb.append("?clientId=springcloud");
 			queries.forEach((k, v) -> sb.append("&").append(k).append("=").append(v));
 		}
 
@@ -73,7 +73,7 @@ public class OkHttpUtil {
 	 * @return String
 	 */
 	public static String post(String url, Map<String, String> header, Map<String, String> params) {
-		FormBody.Builder formBuilder = new FormBody.Builder().add("clientId", "blade");
+		FormBody.Builder formBuilder = new FormBody.Builder().add("clientId", "springcloud");
 		//添加参数
 		if (params != null && params.keySet().size() > 0) {
 			params.forEach(formBuilder::add);

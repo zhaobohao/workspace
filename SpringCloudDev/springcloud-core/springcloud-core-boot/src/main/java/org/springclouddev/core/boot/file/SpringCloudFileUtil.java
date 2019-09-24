@@ -5,6 +5,7 @@ import org.springclouddev.core.tool.utils.StringPool;
 import org.springclouddev.core.tool.utils.StringUtil;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -113,6 +114,7 @@ public class SpringCloudFileUtil {
 	}
 
 	public static class SizeComparator implements Comparator {
+
 		@Override
 		public int compare(Object a, Object b) {
 			Hashtable hashA = (Hashtable) a;
@@ -133,7 +135,7 @@ public class SpringCloudFileUtil {
 		}
 	}
 
-	public static class TypeComparator implements Comparator {
+	public static class TypeComparator implements Comparator, Serializable {
 		@Override
 		public int compare(Object a, Object b) {
 			Hashtable hashA = (Hashtable) a;
@@ -153,10 +155,10 @@ public class SpringCloudFileUtil {
 	}
 
 
-	/********************************BladeFile封装********************************************************/
+	/********************************SpringCloudFile封装********************************************************/
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param file 文件
 	 * @return SpringCloudFile
@@ -166,7 +168,7 @@ public class SpringCloudFileUtil {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param file 文件
 	 * @param dir  目录
@@ -177,7 +179,7 @@ public class SpringCloudFileUtil {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param file        文件
 	 * @param dir         目录
@@ -190,7 +192,7 @@ public class SpringCloudFileUtil {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param files 文件集合
 	 * @return SpringCloudFile
@@ -200,7 +202,7 @@ public class SpringCloudFileUtil {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param files 文件集合
 	 * @param dir   目录
@@ -211,7 +213,7 @@ public class SpringCloudFileUtil {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param files       文件集合
 	 * @param path        路径

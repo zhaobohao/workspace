@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springclouddev.core.tool.jackson.BladeJavaTimeModule;
+import org.springclouddev.core.tool.jackson.SpringCloudJavaTimeModule;
 import org.springclouddev.core.tool.utils.DateUtil;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -56,7 +56,7 @@ public class JacksonConfiguration {
 		//反序列化时，属性不存在的兼容处理
 		objectMapper.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		//日期格式化
-		objectMapper.registerModule(new BladeJavaTimeModule());
+		objectMapper.registerModule(new SpringCloudJavaTimeModule());
 		objectMapper.findAndRegisterModules();
 		return objectMapper;
 	}

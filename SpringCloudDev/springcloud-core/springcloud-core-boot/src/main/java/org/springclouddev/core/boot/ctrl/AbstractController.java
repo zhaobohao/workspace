@@ -116,7 +116,7 @@ public class AbstractController {
 	/**============================     FILE    =================================================  */
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param file 文件
 	 * @return SpringCloudFile
@@ -126,7 +126,7 @@ public class AbstractController {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param file 文件
 	 * @param dir  目录
@@ -137,7 +137,7 @@ public class AbstractController {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param file        文件
 	 * @param dir         目录
@@ -150,7 +150,7 @@ public class AbstractController {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param files 文件集合
 	 * @return SpringCloudFile
@@ -160,7 +160,7 @@ public class AbstractController {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param files 文件集合
 	 * @param dir   目录
@@ -171,7 +171,7 @@ public class AbstractController {
 	}
 
 	/**
-	 * 获取BladeFile封装类
+	 * 获取SpringCloudFile封装类
 	 *
 	 * @param files       文件集合
 	 * @param dir         目录

@@ -35,7 +35,7 @@ public class LogToolAutoConfiguration {
 	}
 
 	@Bean
-	public SystemLogger bladeLogger() {
+	public SystemLogger systemLogger() {
 		return new SystemLogger();
 	}
 
@@ -50,7 +50,7 @@ public class LogToolAutoConfiguration {
 	}
 
 	@Bean
-	public UsualLogListener bladeEventListener() {
+	public UsualLogListener springCloudEventListener() {
 		return new UsualLogListener(logService, serverInfo, systemProperties);
 	}
 

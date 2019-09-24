@@ -1,11 +1,10 @@
-
-
 package org.springclouddev.core.log.utils;
 
 import org.springclouddev.core.launch.props.SystemProperties;
 import org.springclouddev.core.launch.server.ServerInfo;
 import org.springclouddev.core.log.model.LogAbstract;
 import org.springclouddev.core.secure.utils.SecureUtil;
+import org.springclouddev.core.tool.utils.DateUtil;
 import org.springclouddev.core.tool.utils.StringPool;
 import org.springclouddev.core.tool.utils.UrlUtil;
 import org.springclouddev.core.tool.utils.WebUtil;
@@ -36,7 +35,7 @@ public class LogAbstractUtil {
 	}
 
 	/**
-	 * 向log中添加补齐其他的信息（eg：blade、server等）
+	 * 向log中添加补齐其他的信息（eg：springcloud、server等）
 	 *
 	 * @param logAbstract     日志基础类
 	 * @param systemProperties 配置信息
@@ -47,7 +46,7 @@ public class LogAbstractUtil {
 		logAbstract.setServerHost(serverInfo.getHostName());
 		logAbstract.setServerIp(serverInfo.getIpWithPort());
 		logAbstract.setEnv(systemProperties.getEnv());
-		logAbstract.setCreateTime(LocalDateTime.now());
+		logAbstract.setCreateTime(DateUtil.now());
 
 		//这里判断一下params为null的情况，否则springcloud-log服务在解析该字段的时候，可能会报出NPE
 		if (logAbstract.getParams() == null) {

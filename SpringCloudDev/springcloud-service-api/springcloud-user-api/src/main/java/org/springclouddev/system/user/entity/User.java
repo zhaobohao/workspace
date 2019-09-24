@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springclouddev.core.mp.base.TenantEntity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 实体类
@@ -57,7 +57,7 @@ public class User extends TenantEntity {
 	/**
 	 * 生日
 	 */
-	private LocalDateTime birthday;
+	private Date birthday;
 	/**
 	 * 性别
 	 */

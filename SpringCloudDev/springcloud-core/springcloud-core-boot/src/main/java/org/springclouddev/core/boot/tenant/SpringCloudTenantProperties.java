@@ -32,5 +32,5 @@ public class SpringCloudTenantProperties {
 	/**
 	 * 多租户系统数据表
 	 */
-	private List<String> bladeTables = Arrays.asList("mk_notice", "mk_log_api", "mk_log_error", "mk_log_usual");
+	private List<String> mkTable = Arrays.asList("mk_notice", "mk_log_api", "mk_log_error", "mk_log_usual");
 }

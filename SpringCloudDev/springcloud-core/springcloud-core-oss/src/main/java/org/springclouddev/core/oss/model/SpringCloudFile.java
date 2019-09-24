@@ -4,12 +4,12 @@ package org.springclouddev.core.oss.model;
 import lombok.Data;
 
 /**
- * BladeFile
+ * File
  *
  * @author zhaobohao
  */
 @Data
-public class BladeFile {
+public class SpringCloudFile {
 	/**
 	 * 文件地址
 	 */

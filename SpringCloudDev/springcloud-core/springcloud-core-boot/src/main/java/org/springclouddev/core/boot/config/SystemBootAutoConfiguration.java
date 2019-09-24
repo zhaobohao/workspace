@@ -42,7 +42,7 @@ public class SystemBootAutoConfiguration {
 		me.setRemoteMode(systemProperties.getBoolean("remote-mode", true));
 
 		//远程上传地址
-		me.setRemotePath(systemProperties.get("remote-path", System.getProperty("user.dir") + "/work/blade"));
+		me.setRemotePath(systemProperties.get("remote-path", System.getProperty("user.dir") + "/work/springcloud"));
 
 		//设定文件上传头文件夹
 		me.setUploadPath(systemProperties.get("upload-path", "/upload"));

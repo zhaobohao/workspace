@@ -39,7 +39,7 @@ public class TenantConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean(TenantHandler.class)
-	public TenantHandler bladeTenantHandler() {
+	public TenantHandler springCloudTenantHandler() {
 		return new SpringCloudTenantHandler(properties);
 	}
 

@@ -9,7 +9,7 @@ import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.springclouddev.core.oss.model.BladeFile;
+import org.springclouddev.core.oss.model.SpringCloudFile;
 import org.springclouddev.core.oss.model.OssFile;
 import org.springclouddev.core.oss.props.OssProperties;
 import org.springclouddev.core.oss.rule.OssRule;
@@ -114,36 +114,36 @@ public class QiniuTemplate {
 
 
 	@SneakyThrows
-	public BladeFile putFile(MultipartFile file) {
+	public SpringCloudFile putFile(MultipartFile file) {
 		return putFile(ossProperties.getBucketName(), file.getOriginalFilename(), file);
 	}
 
 
 	@SneakyThrows
-	public BladeFile putFile(String fileName, MultipartFile file) {
+	public SpringCloudFile putFile(String fileName, MultipartFile file) {
 		return putFile(ossProperties.getBucketName(), fileName, file);
 	}
 
 
 	@SneakyThrows
-	public BladeFile putFile(String bucketName, String fileName, MultipartFile file) {
+	public SpringCloudFile putFile(String bucketName, String fileName, MultipartFile file) {
 		return putFile(bucketName, fileName, file);
 	}
 
 
 	@SneakyThrows
-	public BladeFile putFile(String fileName, InputStream stream) {
+	public SpringCloudFile putFile(String fileName, InputStream stream) {
 		return putFile(ossProperties.getBucketName(), fileName, stream);
 	}
 
 
 	@SneakyThrows
-	public BladeFile putFile(String bucketName, String fileName, InputStream stream) {
+	public SpringCloudFile putFile(String bucketName, String fileName, InputStream stream) {
 		return put(bucketName, stream, fileName, false);
 	}
 
 	@SneakyThrows
-	public BladeFile put(String bucketName, InputStream stream, String key, boolean cover) {
+	public SpringCloudFile put(String bucketName, InputStream stream, String key, boolean cover) {
 		makeBucket(bucketName);
 		key = getFileName(key);
 		// 覆盖上传
@@ -158,7 +158,7 @@ public class QiniuTemplate {
 				retry++;
 			}
 		}
-		BladeFile file = new BladeFile();
+		SpringCloudFile file = new SpringCloudFile();
 		file.setName(key);
 		file.setLink(fileLink(bucketName, key));
 		return file;

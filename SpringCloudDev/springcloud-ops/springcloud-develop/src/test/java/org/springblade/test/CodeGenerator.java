@@ -34,7 +34,7 @@ public class CodeGenerator {
 	/**
 	 * 需要去掉的表前缀
 	 */
-	public static String[] TABLE_PREFIX = {"blade_"};
+	public static String[] TABLE_PREFIX = {"mk_"};
 	/**
 	 * 需要生成的表名(两者只能取其一)
 	 */

@@ -5,7 +5,7 @@ package org.springclouddev.core.tool.constant;
 import lombok.Data;
 
 /**
- * Blade系统配置类
+ * 系统配置类
  *
  * @author zhaobohao
  */
@@ -30,7 +30,7 @@ public class SystemConstant {
 	/**
 	 * 上传下载路径(物理路径)
 	 */
-	private String remotePath = System.getProperty("user.dir") + "/target/blade";
+	private String remotePath = System.getProperty("user.dir") + "/target/springcloud";
 
 	/**
 	 * 上传路径(相对路径)

@@ -46,8 +46,8 @@ public class MappingApiJackson2HttpMessageConverter extends AbstractReadWriteJac
 		// 拷贝 readObjectMapper
 		ObjectMapper writeObjectMapper = readObjectMapper.copy();
 		// null 处理
-		writeObjectMapper.setSerializerFactory(writeObjectMapper.getSerializerFactory().withSerializerModifier(new BladeBeanSerializerModifier()));
-		writeObjectMapper.getSerializerProvider().setNullValueSerializer(BladeBeanSerializerModifier.NullJsonSerializers.STRING_JSON_SERIALIZER);
+		writeObjectMapper.setSerializerFactory(writeObjectMapper.getSerializerFactory().withSerializerModifier(new SpringCloudBeanSerializerModifier()));
+		writeObjectMapper.getSerializerProvider().setNullValueSerializer(SpringCloudBeanSerializerModifier.NullJsonSerializers.STRING_JSON_SERIALIZER);
 		return writeObjectMapper;
 	}
 
