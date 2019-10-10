@@ -1,0 +1,10 @@
+package java.entity;
+syntax = "proto3";
+option java_outer_classname = "StudentEntity";
+option java_package="com.proto.java";
+option optimize_for=CODE_SIZE;
+message Student {
+   int32 id = 1;
+   string name = 2;
+   string nickname = 3;
+}
