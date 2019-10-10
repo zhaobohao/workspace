@@ -71,8 +71,12 @@
             <artifactId>protobuf-java</artifactId>
             <version>3.10.0</version>
         </dependency>
-
-
+        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/kryo -->
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo-shaded</artifactId>
+            <version>4.0.2</version>
+        </dependency>
 
         <!-- testNG-->
         <dependency>
