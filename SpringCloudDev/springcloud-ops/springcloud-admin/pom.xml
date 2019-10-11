@@ -27,9 +27,20 @@
             <version>${project.tool.version}</version>
         </dependency>
         <dependency>
-              <groupId>org.springclouddev</groupId>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-tool</artifactId>
+            <version>${project.tool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-cloud</artifactId>
             <version>${project.tool.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springclouddev</groupId>
+                    <artifactId>springclouddev-core-secure</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--Admin-Server-->
         <dependency>
