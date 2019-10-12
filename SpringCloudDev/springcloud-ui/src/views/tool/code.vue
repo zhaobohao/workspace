@@ -78,7 +78,7 @@
               search: true,
               span: 24,
               type: "select",
-              dicUrl: "/api/springcloud-develop/datasource/select",
+              dicUrl: "/api/blade-develop/datasource/select",
               props: {
                 label: "name",
                 value: "id"
@@ -152,7 +152,7 @@
               label: "基础业务",
               prop: "baseMode",
               type: 'radio',
-              dicUrl: "/api/springcloud-system/dict/dictionary?code=yes_no",
+              dicUrl: "/api/blade-system/dict/dictionary?code=yes_no",
               props: {
                 label: "dictValue",
                 value: "dictKey"
@@ -168,7 +168,7 @@
               label: "包装器",
               prop: "wrapMode",
               type: 'radio',
-              dicUrl: "/api/springcloud-system/dict/dictionary?code=yes_no",
+              dicUrl: "/api/blade-system/dict/dictionary?code=yes_no",
               props: {
                 label: "dictValue",
                 value: "dictKey"

@@ -86,7 +86,7 @@
               label: "上级菜单",
               prop: "parentId",
               type: "tree",
-              dicUrl: "/api/springcloud-system/menu/tree",
+              dicUrl: "/api/blade-system/menu/tree",
               hide: true,
               props: {
                 label: "title"

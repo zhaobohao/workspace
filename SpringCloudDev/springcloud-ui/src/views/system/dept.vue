@@ -66,7 +66,7 @@
               label: "所属租户",
               prop: "tenantId",
               type: "tree",
-              dicUrl: "/api/springcloud-system/tenant/select",
+              dicUrl: "/api/blade-system/tenant/select",
               addDisplay: false,
               editDisplay: false,
               viewDisplay: website.tenantMode,

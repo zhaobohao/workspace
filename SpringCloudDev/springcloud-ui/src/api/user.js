@@ -2,7 +2,7 @@ import request from '@/router/axios';
 import {baseUrl} from '@/config/env';
 
 export const loginByUsername = (tenantId, account, password, type) => request({
-  url: '/api/springcloud-auth/token',
+  url: '/api/blade-auth/token',
   method: 'post',
   params: {
     tenantId,
@@ -13,7 +13,7 @@ export const loginByUsername = (tenantId, account, password, type) => request({
 })
 
 export const getButtons = () => request({
-  url: '/api/springcloud-system/menu/buttons',
+  url: '/api/blade-system/menu/buttons',
   method: 'get'
 });
 
@@ -28,7 +28,7 @@ export const refeshToken = () => request({
 })
 
 export const getMenu = () => request({
-  url: '/api/springcloud-system/menu/routes',
+  url: '/api/blade-system/menu/routes',
   method: 'get'
 });
 
