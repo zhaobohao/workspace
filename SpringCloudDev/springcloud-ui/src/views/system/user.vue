@@ -112,7 +112,7 @@
               label: "所属租户",
               prop: "tenantId",
               type: "tree",
-              dicUrl: "/api/blade-system/tenant/select",
+              dicUrl: "/api/springcloud-system/tenant/select",
               props: {
                 label: "tenantName",
                 value: "tenantId"

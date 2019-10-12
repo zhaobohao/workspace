@@ -2,7 +2,7 @@ import request from '@/router/axios';
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/blade-system/role/list',
+    url: '/api/springcloud-system/role/list',
     method: 'get',
     params: {
       ...params,
@@ -13,14 +13,14 @@ export const getList = (current, size, params) => {
 }
 export const grantTree = () => {
   return request({
-    url: '/api/blade-system/menu/grant-tree',
+    url: '/api/springcloud-system/menu/grant-tree',
     method: 'get',
   })
 }
 
 export const grant = (roleIds, menuIds) => {
   return request({
-    url: '/api/blade-system/role/grant',
+    url: '/api/springcloud-system/role/grant',
     method: 'post',
     params: {
       roleIds,
@@ -31,7 +31,7 @@ export const grant = (roleIds, menuIds) => {
 
 export const remove = (ids) => {
   return request({
-    url: '/api/blade-system/role/remove',
+    url: '/api/springcloud-system/role/remove',
     method: 'post',
     params: {
       ids,
@@ -41,7 +41,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/blade-system/role/submit',
+    url: '/api/springcloud-system/role/submit',
     method: 'post',
     data: row
   })
@@ -49,7 +49,7 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/api/blade-system/role/submit',
+    url: '/api/springcloud-system/role/submit',
     method: 'post',
     data: row
   })
@@ -58,7 +58,7 @@ export const update = (row) => {
 
 export const getRole = (roleIds) => {
   return request({
-    url: '/api/blade-system/menu/role-tree-keys',
+    url: '/api/springcloud-system/menu/role-tree-keys',
     method: 'get',
     params: {
       roleIds,
@@ -68,7 +68,7 @@ export const getRole = (roleIds) => {
 
 export const getRoleTree = (tenantId) => {
   return request({
-    url: '/api/blade-system/role/tree',
+    url: '/api/springcloud-system/role/tree',
     method: 'get',
     params: {
       tenantId,

@@ -2,7 +2,7 @@ import request from '@/router/axios';
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/blade-develop/code/list',
+    url: '/api/springcloud-develop/code/list',
     method: 'get',
     params: {
       ...params,
@@ -14,7 +14,7 @@ export const getList = (current, size, params) => {
 
 export const build = (ids) => {
   return request({
-    url: '/api/blade-develop/code/gen-code',
+    url: '/api/springcloud-develop/code/gen-code',
     method: 'post',
     params: {
       ids,
@@ -24,7 +24,7 @@ export const build = (ids) => {
 }
 export const remove = (ids) => {
   return request({
-    url: '/api/blade-develop/code/remove',
+    url: '/api/springcloud-develop/code/remove',
     method: 'post',
     params: {
       ids,
@@ -34,7 +34,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/blade-develop/code/submit',
+    url: '/api/springcloud-develop/code/submit',
     method: 'post',
     data: row
   })
@@ -42,7 +42,7 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/api/blade-develop/code/submit',
+    url: '/api/springcloud-develop/code/submit',
     method: 'post',
     data: row
   })
@@ -50,7 +50,7 @@ export const update = (row) => {
 
 export const copy = (id) => {
   return request({
-    url: '/api/blade-develop/code/copy',
+    url: '/api/springcloud-develop/code/copy',
     method: 'post',
     params: {
       id,
@@ -60,7 +60,7 @@ export const copy = (id) => {
 
 export const getCode = (id) => {
   return request({
-    url: '/api/blade-develop/code/detail',
+    url: '/api/springcloud-develop/code/detail',
     method: 'get',
     params: {
       id,
