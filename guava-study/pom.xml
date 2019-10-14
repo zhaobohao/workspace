@@ -11,6 +11,18 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <encoding>UTF-8</encoding>
         <bouncycastle.version>1.62</bouncycastle.version>
+        <log4j-slf4j-impl.version>2.11.0</log4j-slf4j-impl.version>
+        <lombok.version>1.18.8</lombok.version>
+        <guava.version>27.1-jre</guava.version>
+        <caffeine.version>2.7.0</caffeine.version>
+        <hutool.version>4.5.10</hutool.version>
+        <slf4j-log4j12.version>1.7.7</slf4j-log4j12.version>
+        <hystrix.version>1.5.18</hystrix.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <protobuf-java.version>3.10.0</protobuf-java.version>
+        <grpc.version>1.24.0</grpc.version>
+        <kryo-shaded.version>4.0.2</kryo-shaded.version>
+        <testng.version>6.14.3</testng.version>
     </properties>
 
     <dependencies>
@@ -18,29 +30,29 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.11.0</version>
+            <version>${log4j-slf4j-impl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>27.1-jre</version>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
-            <version>2.7.0</version>
+            <version>${caffeine.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>4.5.10</version>
+            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
@@ -51,38 +63,52 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
+            <version>${slf4j-log4j12.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
+            <version>${fastjson.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.netflix.hystrix/hystrix-core -->
         <dependency>
             <groupId>com.netflix.hystrix</groupId>
             <artifactId>hystrix-core</artifactId>
-            <version>1.5.18</version>
+            <version>${hystrix.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.10.0</version>
+            <version>${protobuf-java.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.grpc/grpc-all -->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-all</artifactId>
+            <version>${grpc.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/com.esotericsoftware/kryo -->
         <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo-shaded</artifactId>
-            <version>4.0.2</version>
+            <version>${kryo-shaded.version}</version>
         </dependency>
 
         <!-- testNG-->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.14.3</version>
+            <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -109,7 +135,42 @@
     </dependencies>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.4.1.Final</version>
+            </extension>
+        </extensions>
         <plugins>
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:3.10.0:exe:${os.detected.classifier}
+                    </protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.24.0:exe:${os.detected.classifier}
+                    </pluginArtifact>
+                    <!-- 指定proto文件的位置 -->
+                    <protoSourceRoot>src/main/protoc</protoSourceRoot>
+                    <!-- 生成java文件的位置 -->
+                    <outputDirectory>src/main/java</outputDirectory>
+                    <!-- 生成java文件的时候，是否清除掉整个目录下所有的内容，切记，这个地方一定要配置成false,
+                         曾经在这里将之前的代码全部清除掉了。
+                     -->
+                    <clearOutputDirectory>false</clearOutputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.acupt.grpc.proto";
+option java_outer_classname = "HelloProto";
+
+package com.acupt.grpc;
+
+service HelloService {
+    rpc hello (InvokeRequest) returns (InvokeResponse) {
+    }
+}
+
+message InvokeRequest {
+    string name = 1;
+}
+
+message InvokeResponse {
+    string msg = 1;
+}
