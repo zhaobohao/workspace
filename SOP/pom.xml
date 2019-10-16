@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gitee.sop</groupId>
+	<artifactId>sop-parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<description>一个开放平台解决方案项目，基于Spring Cloud实现，目标是能够让用户快速得搭建起自己的开放平台</description>
+
+	<modules>
+		<module>doc</module>
+		<module>sop-common</module>
+		<module>sop-auth</module>
+		<module>sop-example</module>
+		<module>sop-admin</module>
+		<module>sop-gateway</module>
+		<module>sop-test</module>
+		<module>sop-sdk</module>
+		<module>sop-website</module>
+	</modules>
+</project>

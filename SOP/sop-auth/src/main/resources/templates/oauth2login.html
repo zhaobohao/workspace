@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>用户登录</title>
+</head>
+<body>
+	<div th:if="${error}" style="color: red;"><span th:text="${error}"></span></div>
+	<form th:action="@{/oauth2/authorize}" method="post">
+	   <input name="response_type" type="hidden" th:value="${response_type}"/>
+	   <input name="client_id" type="hidden" th:value="${client_id}"/>
+	   <input name="redirect_uri" type="hidden" th:value="${redirect_uri}"/>
+		用户名: <input type="text" name="username" value="zhangsan"/> <br/>
+		密码: <input type="password" name="password" value="123456"/> <br/>
+		<button type="submit">登录并授权</button>
+	</form>
+</body>
+</html>

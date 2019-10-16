@@ -1,0 +1,369 @@
+<html data-find="_6">
+<head>
+    <script src="https://www.googletagservices.com/activeview/js/current/osd.js?cb=%2Fr20100101"></script>
+    <meta charset="utf-8">
+    <title>文档中心</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../../assets/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../assets/css/global.css" media="all">
+    <link id="layuicss-skincodecss" rel="stylesheet" href="../../assets/lib/layui/css/modules/code.css" media="all">
+    <link id="layuicss-layer" rel="stylesheet" href="../../assets/lib/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
+    <style type="text/css">
+        .layui-table {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .layui-table th {
+            white-space: nowrap !important;
+        }
+
+        .prop-name {
+            width: 105px;
+        }
+
+        .prop-type {
+            width: 50px;
+        }
+
+        .treeTable-empty{margin-left: 20px;}
+
+        /** 修改文件夹图标：未展开 */
+        .treeTable-icon .layui-icon-layer:before {
+            content: "";
+        }
+
+        /** 修改文件夹图标：展开 */
+        .treeTable-icon.open .layui-icon-layer:before {
+            content: "";
+        }
+        /* 修改文件图标：*/
+        .treeTable-icon .layui-icon-file:before {
+            content: "";
+        }
+    </style>
+</head>
+<body data-find="_5">
+
+<div class="layui-header header header-doc" spring="">
+    <div class="layui-main">
+        <a class="logo" href="#" style="color: #ffffff">
+            开放平台
+        </a>
+        <ul class="layui-nav">
+            <li class="layui-nav-item">
+                <a href="../sandbox/sandbox.html">沙箱环境</a>
+            </li>
+            <li class="layui-nav-item layui-this">
+                <a href="doc.html">文档中心</a>
+            </li>
+
+
+            <span class="layui-nav-bar" style="left: 162px; top: 55px; width: 0px; opacity: 0;"></span>
+        </ul>
+    </div>
+</div>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<div class="layui-main site-inline">
+    <div class="site-tree">
+        <div class="layui-form" style="height: 38px; margin: 10px 13px 0 0;">
+            <select id="moduleList" lay-filter="moduleListFilter">
+                <!--<option value="故事API" selected="selected">故事API</option>
+                <option value="书本API">书本API</option>-->
+            </select>
+        </div>
+        <ul id="docItemTree" class="layui-tree">
+
+            <!--<li><h2 class="docModule">支付API</h2></li>
+
+            <li class="site-tree-noicon layui-this">
+                <a href="/">
+                    <cite>xxx</cite>
+                </a>
+            </li>-->
+        </ul>
+    </div>
+
+    <div class="site-content">
+        <h1 class="site-h1"><i class="layui-icon layui-icon-slider"></i> <span class="sop-name"></span>(<span
+                class="sop-summary"></span>)
+        </h1>
+        <blockquote class="layui-elem-quote layui-text sop-description">
+        </blockquote>
+
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>请求地址</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th style="width: 120px;">环境</th>
+                    <th>请求地址</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>正式环境</td>
+                    <td class="url-prod"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>请求方法</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <span id="httpMethodList"></span>
+        </div>
+
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>公共参数</legend>
+            </fieldset>
+        </div>
+
+        <div class="site-text">
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th class="prop-name">参数</th>
+                    <th class="prop-type">类型</th>
+                    <th class="prop-required">是否必填</th>
+                    <th class="prop-maxlen">最大长度</th>
+                    <th class="prop-desc">描述</th>
+                    <th>示例值</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="common-req-param-app_id">
+                    <td>app_id</td>
+                    <td>String</td>
+                    <td> 是</td>
+                    <td>32</td>
+                    <td>平台分配给开发者的应用ID</td>
+                    <td>2014072300007148</td>
+                </tr>
+
+                <tr id="common-req-param-method">
+                    <td>method</td>
+                    <td>String</td>
+                    <td> 是</td>
+                    <td>128</td>
+                    <td>接口名称</td>
+                    <td>alipay.trade.close</td>
+                </tr>
+
+                <tr id="common-req-param-format">
+                    <td>format</td>
+                    <td>String</td>
+                    <td> 否</td>
+                    <td>40</td>
+                    <td>仅支持JSON</td>
+                    <td>json</td>
+                </tr>
+
+                <tr id="common-req-param-charset">
+                    <td>charset</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>10</td>
+                    <td>请求使用的编码格式，如utf-8,gbk,gb2312等</td>
+                    <td>utf-8</td>
+                </tr>
+
+                <tr id="common-req-param-sign_type">
+                    <td>sign_type</td>
+                    <td>String</td>
+                    <td> 是</td>
+                    <td>10</td>
+                    <td>商户生成签名字符串所使用的签名算法类型，目前支持RSA2和RSA，推荐使用RSA2</td>
+                    <td>RSA2</td>
+                </tr>
+
+                <tr id="common-req-param-sign">
+                    <td>sign</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>344</td>
+                    <td>商户请求参数的签名串，详见<a href="sign.html" target="_blank">签名</a></td>
+                    <td>详见示例</td>
+                </tr>
+
+                <tr id="common-req-param-timestamp">
+                    <td>timestamp</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>19</td>
+                    <td>发送请求的时间，格式"yyyy-MM-dd HH:mm:ss"</td>
+                    <td>2014-07-24 03:07:50</td>
+                </tr>
+
+                <tr id="common-req-param-version">
+                    <td>version</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>3</td>
+                    <td>调用的接口版本，固定为：1.0</td>
+                    <td>1.0</td>
+                </tr>
+
+                <tr id="common-req-param-notify_url">
+                    <td>notify_url</td>
+                    <td>String</td>
+                    <td>否</td>
+                    <td>256</td>
+                    <td>平台服务器主动通知商户服务器里指定的页面http/https路径。</td>
+                    <td>http://open.xxx.com/atinterface/receive_notify.htm</td>
+                </tr>
+
+                <tr id="common-req-param-app_auth_token">
+                    <td>app_auth_token</td>
+                    <td>String</td>
+                    <td>否</td>
+                    <td>40</td>
+                    <td>详见<a href="auth.html" target="_blank">应用授权概述</a></td>
+                    <td></td>
+                </tr>
+
+                <tr id="common-req-param-biz_content">
+                    <td>biz_content</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>-</td>
+                    <td>请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>业务参数</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <table id="treeTableReq"></table>
+        </div>
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>公共响应参数</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th class="prop-name">参数</th>
+                    <th class="prop-type">类型</th>
+                    <th>是否必填</th>
+                    <th>最大长度</th>
+                    <th class="prop-desc">描述</th>
+                    <th class="prop-example">示例值</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>code</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>-</td>
+                    <td>网关返回码,<a href="code.html" target="_blank">详见文档</a></td>
+                    <td>40004</td>
+                </tr>
+                <tr>
+                    <td>msg</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>-</td>
+                    <td>网关返回码描述,<a href="code.html" target="_blank">详见文档</a></td>
+                    <td>Business Failed</td>
+                </tr>
+                <tr>
+                    <td>sub_code</td>
+                    <td>String</td>
+                    <td>否</td>
+                    <td>-</td>
+                    <td>业务返回码，参见具体的API接口文档</td>
+                    <td>ACQ.TRADE_HAS_SUCCESS</td>
+                </tr>
+                <tr>
+                    <td>sub_msg</td>
+                    <td>String</td>
+                    <td>否</td>
+                    <td>-</td>
+                    <td>业务返回码描述，参见具体的API接口文档</td>
+                    <td>交易已被支付</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>业务响应参数</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <table id="treeTableResp"></table>
+        </div>
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>响应示例</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+<pre id="responseExampleJson">
+</pre>
+        </div>
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>异常示例</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+<pre id="responseErrorJson">
+</pre>
+        </div>
+
+
+    </div>
+</div><!-- layui-main end~ -->
+<div class="layui-footer footer footer-doc">
+    <div class="layui-main">
+        <p>© 2019 <a href="https://gitee.com/durcframework/SOP" target="_blank">SOP</a> MIT license</p>
+    </div>
+</div>
+<script src="../../assets/lib/layui/layui.js" charset="utf-8"></script>
+<script src="../../assets/js/format.js" charset="utf-8"></script>
+<script src="../../config/config.js" charset="utf-8"></script>
+<script src="../../assets/lib/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+
+<script src="doc.js" type="text/javascript"></script>
+<script src="docEvent.js" type="text/javascript"></script>
+
+</body>
+</html>

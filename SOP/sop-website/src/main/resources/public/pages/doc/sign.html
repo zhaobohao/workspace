@@ -1,0 +1,116 @@
+<html data-find="_6">
+<head>
+    <script src="https://www.googletagservices.com/activeview/js/current/osd.js?cb=%2Fr20100101"></script>
+    <meta charset="utf-8">
+    <title>签名</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../../assets/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../assets/css/global.css" media="all">
+    <link id="layuicss-skincodecss" rel="stylesheet" href="../../assets/lib/layui/css/modules/code.css" media="all">
+    <link id="layuicss-layer" rel="stylesheet" href="../../assets/lib/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
+    <style type="text/css">
+
+    </style>
+</head>
+<body data-find="_5">
+
+<div class="layui-header header header-doc" spring="">
+    <div class="layui-main">
+        <a class="logo" href="#" style="color: #ffffff">
+            开放平台
+        </a>
+        <ul class="layui-nav">
+            <li class="layui-nav-item layui-this">
+                <a href="doc.html">文档中心<!--  --></a>
+            </li>
+
+            <span class="layui-nav-bar" style="left: 162px; top: 55px; width: 0px; opacity: 0;"></span>
+        </ul>
+    </div>
+</div>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<div class="layui-main site-inline">
+    <div class="site-tree">
+        <ul id="docItemTree" class="layui-tree">
+            <li><h2 class="docModule">签名专区</h2></li>
+            <li class="site-tree-noicon layui-this">
+                <a href="#">
+                    <cite>自行实现签名</cite>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="site-content">
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend><a name="use">自行实现签名</a></legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <p>如果未使用开放平台SDK，需要自行实现签名过程。</p>
+
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>如何签名</legend>
+            </fieldset>
+            <p>1.筛选并排序</p>
+            <p>
+                获取所有请求参数，不包括字节类型参数，如文件、字节流，剔除sign字段，剔除值为空的参数，并按照第一个字符的键值ASCII码递增排序（字母升序排序），如果遇到相同字符则按照第二个字符的键值ASCII码递增排序，以此类推。</p>
+            <p>2.拼接</p>
+            <p>将排序后的参数与其对应值，组合成“参数=参数值”的格式，并且把这些参数用&amp;字符连接起来，此时生成的字符串为待签名字符串。</p>
+            <p>例如下面的请求示例，参数值都是示例，开发者参考格式即可：</p>
+            <pre class="layui-code">REQUEST URL: http://open-test.yourdomain.com/api
+REQUEST METHOD: POST
+CONTENT:
+app_id=2014072300007148
+method=alipay.mobile.public.menu.add
+charset=GBK
+sign_type=RSA2
+timestamp=2014-07-24 03:07:50
+biz_content={"button":[{"actionParam":"ZFB_HFCZ","actionType":"out","name":"话费充值"},{"name":"查询","subButton":[{"actionParam":"ZFB_YECX","actionType":"out","name":"余额查询"},{"actionParam":"ZFB_LLCX","actionType":"out","name":"流量查询"},{"actionParam":"ZFB_HFCX","actionType":"out","name":"话费查询"}]},{"actionParam":"http://m.alipay.com","actionType":"link","name":"最新优惠"}]}
+sign=e9zEAe4TTQ4LPLQvETPoLGXTiURcxiAKfMVQ6Hrrsx2hmyIEGvSfAQzbLxHrhyZ48wOJXTsD4FPnt+YGdK57+fP1BCbf9rIVycfjhYCqlFhbTu9pFnZgT55W+xbAFb9y7vL0MyAxwXUXvZtQVqEwW7pURtKilbcBTEW7TAxzgro=
+version=1.0
+</pre>
+            <p>则待签名字符串为：</p>
+            <pre class="layui-code">app_id=2014072300007148&amp;biz_content={"button":[{"actionParam":"ZFB_HFCZ","actionType":"out","name":"话费充值"},{"name":"查询","subButton":[{"actionParam":"ZFB_YECX","actionType":"out","name":"余额查询"},{"actionParam":"ZFB_LLCX","actionType":"out","name":"流量查询"},{"actionParam":"ZFB_HFCX","actionType":"out","name":"话费查询"}]},{"actionParam":"http://m.alipay.com","actionType":"link","name":"最新优惠"}]}&amp;charset=GBK&amp;method=alipay.mobile.public.menu.add&amp;sign_type=RSA2&amp;timestamp=2014-07-24 03:07:50&amp;version=1.0</pre>
+            <p>3.调用签名函数</p>
+            <p>
+                使用各自语言对应的SHA256WithRSA(对应sign_type为RSA2)或SHA1WithRSA(对应sign_type为RSA)签名函数利用商户私钥对待签名字符串进行签名，并进行Base64编码。</p>
+            <p>4.把生成的签名赋值给sign参数，拼接到请求参数中。</p>
+            <pre class="layui-code">/**
+@param content 加签内容
+@param privateKey 加签私钥
+@param charset 加签字符集
+@param charset 签名方法
+**/
+String AlipaySignature.rsaSign(String content, String privateKey, String charset,String signType)
+</pre>
+        </div>
+    </div>
+</div><!-- layui-main end~ -->
+<div class="layui-footer footer footer-doc">
+    <div class="layui-main">
+        <p>© 2019 <a href="https://gitee.com/durcframework/SOP" target="_blank">SOP</a> MIT license</p>
+    </div>
+</div>
+<script src="../../assets/lib/layui/layui.js" charset="utf-8"></script>
+<script src="../../config/config.js" charset="utf-8"></script>
+<script src="../../assets/lib/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+<script>
+    layui.use('code', function(){ //加载code模块
+        layui.code(); //引用code方法
+    });
+</script>
+</body>
+</html>

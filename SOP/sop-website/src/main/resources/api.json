@@ -1,0 +1,1947 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "文档描述",
+    "version": "1.0",
+    "title": "故事API",
+    "termsOfService": "文档"
+  },
+  "host": "10.1.30.157:2222",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "故事接口",
+      "description": "Alipay Controller"
+    },
+    {
+      "name": "故事接口2",
+      "description": "Story 2 Controller"
+    },
+    {
+      "name": "文件上传",
+      "description": "File Upload Demo Controller"
+    }
+  ],
+  "paths": {
+    "/alipay.category.get/": {
+      "get": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取分类信息",
+        "description": "演示表格树",
+        "operationId": "getCategoryUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "分类名称",
+            "required": false,
+            "type": "string",
+            "x-example": "娱乐"
+          },
+          {
+            "name": "story.gmt_create",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2019-04-14 19:02:12"
+          },
+          {
+            "name": "story.id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "story.name",
+            "in": "query",
+            "description": "故事名称",
+            "required": false,
+            "type": "string",
+            "x-example": "海底小纵队"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category",
+              "originalRef": "Category"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.category.get",
+        "sop_version": "1.0"
+      },
+      "head": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取分类信息",
+        "description": "演示表格树",
+        "operationId": "getCategoryUsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "分类名称",
+            "required": false,
+            "type": "string",
+            "x-example": "娱乐"
+          },
+          {
+            "name": "story.gmt_create",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2019-04-14 19:02:12"
+          },
+          {
+            "name": "story.id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "story.name",
+            "in": "query",
+            "description": "故事名称",
+            "required": false,
+            "type": "string",
+            "x-example": "海底小纵队"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category",
+              "originalRef": "Category"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.category.get",
+        "sop_version": "1.0"
+      },
+      "post": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取分类信息",
+        "description": "演示表格树",
+        "operationId": "getCategoryUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "分类名称",
+            "required": false,
+            "type": "string",
+            "x-example": "娱乐"
+          },
+          {
+            "name": "story.gmt_create",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2019-04-14 19:02:12"
+          },
+          {
+            "name": "story.id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "story.name",
+            "in": "query",
+            "description": "故事名称",
+            "required": false,
+            "type": "string",
+            "x-example": "海底小纵队"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category",
+              "originalRef": "Category"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.category.get",
+        "sop_version": "1.0"
+      },
+      "put": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取分类信息",
+        "description": "演示表格树",
+        "operationId": "getCategoryUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "分类名称",
+            "required": false,
+            "type": "string",
+            "x-example": "娱乐"
+          },
+          {
+            "name": "story.gmt_create",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2019-04-14 19:02:12"
+          },
+          {
+            "name": "story.id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "story.name",
+            "in": "query",
+            "description": "故事名称",
+            "required": false,
+            "type": "string",
+            "x-example": "海底小纵队"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category",
+              "originalRef": "Category"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.category.get",
+        "sop_version": "1.0"
+      },
+      "delete": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取分类信息",
+        "description": "演示表格树",
+        "operationId": "getCategoryUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "分类名称",
+            "required": false,
+            "type": "string",
+            "x-example": "娱乐"
+          },
+          {
+            "name": "story.gmt_create",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2019-04-14 19:02:12"
+          },
+          {
+            "name": "story.id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "story.name",
+            "in": "query",
+            "description": "故事名称",
+            "required": false,
+            "type": "string",
+            "x-example": "海底小纵队"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category",
+              "originalRef": "Category"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.category.get",
+        "sop_version": "1.0"
+      },
+      "options": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取分类信息",
+        "description": "演示表格树",
+        "operationId": "getCategoryUsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "分类名称",
+            "required": false,
+            "type": "string",
+            "x-example": "娱乐"
+          },
+          {
+            "name": "story.gmt_create",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2019-04-14 19:02:12"
+          },
+          {
+            "name": "story.id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "story.name",
+            "in": "query",
+            "description": "故事名称",
+            "required": false,
+            "type": "string",
+            "x-example": "海底小纵队"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category",
+              "originalRef": "Category"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.category.get",
+        "sop_version": "1.0"
+      },
+      "patch": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取分类信息",
+        "description": "演示表格树",
+        "operationId": "getCategoryUsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "分类名称",
+            "required": false,
+            "type": "string",
+            "x-example": "娱乐"
+          },
+          {
+            "name": "story.gmt_create",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2019-04-14 19:02:12"
+          },
+          {
+            "name": "story.id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "story.name",
+            "in": "query",
+            "description": "故事名称",
+            "required": false,
+            "type": "string",
+            "x-example": "海底小纵队"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category",
+              "originalRef": "Category"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.category.get",
+        "sop_version": "1.0"
+      }
+    },
+    "/alipay.story.find/": {
+      "get": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取故事信息",
+        "description": "说明接口的详细信息，介绍，用途，注意事项等。",
+        "operationId": "getStory2UsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 111
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "故事名称",
+            "required": true,
+            "type": "string",
+            "x-example": "白雪公主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StoryVO",
+              "originalRef": "StoryVO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.story.find",
+        "sop_version": "1.0"
+      },
+      "head": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取故事信息",
+        "description": "说明接口的详细信息，介绍，用途，注意事项等。",
+        "operationId": "getStory2UsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 111
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "故事名称",
+            "required": true,
+            "type": "string",
+            "x-example": "白雪公主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StoryVO",
+              "originalRef": "StoryVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.story.find",
+        "sop_version": "1.0"
+      },
+      "post": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取故事信息",
+        "description": "说明接口的详细信息，介绍，用途，注意事项等。",
+        "operationId": "getStory2UsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 111
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "故事名称",
+            "required": true,
+            "type": "string",
+            "x-example": "白雪公主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StoryVO",
+              "originalRef": "StoryVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.story.find",
+        "sop_version": "1.0"
+      },
+      "put": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取故事信息",
+        "description": "说明接口的详细信息，介绍，用途，注意事项等。",
+        "operationId": "getStory2UsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 111
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "故事名称",
+            "required": true,
+            "type": "string",
+            "x-example": "白雪公主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StoryVO",
+              "originalRef": "StoryVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.story.find",
+        "sop_version": "1.0"
+      },
+      "delete": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取故事信息",
+        "description": "说明接口的详细信息，介绍，用途，注意事项等。",
+        "operationId": "getStory2UsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 111
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "故事名称",
+            "required": true,
+            "type": "string",
+            "x-example": "白雪公主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StoryVO",
+              "originalRef": "StoryVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.story.find",
+        "sop_version": "1.0"
+      },
+      "options": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取故事信息",
+        "description": "说明接口的详细信息，介绍，用途，注意事项等。",
+        "operationId": "getStory2UsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 111
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "故事名称",
+            "required": true,
+            "type": "string",
+            "x-example": "白雪公主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StoryVO",
+              "originalRef": "StoryVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.story.find",
+        "sop_version": "1.0"
+      },
+      "patch": {
+        "tags": [
+          "故事接口"
+        ],
+        "summary": "获取故事信息",
+        "description": "说明接口的详细信息，介绍，用途，注意事项等。",
+        "operationId": "getStory2UsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "故事ID",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 111
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "故事名称",
+            "required": true,
+            "type": "string",
+            "x-example": "白雪公主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StoryVO",
+              "originalRef": "StoryVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "alipay.story.find",
+        "sop_version": "1.0"
+      }
+    },
+    "/demo.file.upload/": {
+      "get": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例1",
+        "description": "上传文件demo",
+        "operationId": "file1UsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file1",
+            "in": "query",
+            "description": "文件1",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "file2",
+            "in": "query",
+            "description": "文件2",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "demo.file.upload",
+        "sop_version": "1.0"
+      },
+      "head": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例1",
+        "description": "上传文件demo",
+        "operationId": "file1UsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file1",
+            "in": "query",
+            "description": "文件1",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "file2",
+            "in": "query",
+            "description": "文件2",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "demo.file.upload",
+        "sop_version": "1.0"
+      },
+      "post": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例1",
+        "description": "上传文件demo",
+        "operationId": "file1UsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file1",
+            "in": "query",
+            "description": "文件1",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "file2",
+            "in": "query",
+            "description": "文件2",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "demo.file.upload",
+        "sop_version": "1.0"
+      },
+      "put": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例1",
+        "description": "上传文件demo",
+        "operationId": "file1UsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file1",
+            "in": "query",
+            "description": "文件1",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "file2",
+            "in": "query",
+            "description": "文件2",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "demo.file.upload",
+        "sop_version": "1.0"
+      },
+      "delete": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例1",
+        "description": "上传文件demo",
+        "operationId": "file1UsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file1",
+            "in": "query",
+            "description": "文件1",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "file2",
+            "in": "query",
+            "description": "文件2",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "demo.file.upload",
+        "sop_version": "1.0"
+      },
+      "options": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例1",
+        "description": "上传文件demo",
+        "operationId": "file1UsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file1",
+            "in": "query",
+            "description": "文件1",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "file2",
+            "in": "query",
+            "description": "文件2",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "demo.file.upload",
+        "sop_version": "1.0"
+      },
+      "patch": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例1",
+        "description": "上传文件demo",
+        "operationId": "file1UsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file1",
+            "in": "query",
+            "description": "文件1",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "file2",
+            "in": "query",
+            "description": "文件2",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "demo.file.upload",
+        "sop_version": "1.0"
+      }
+    },
+    "/demo.file.upload2/": {
+      "get": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例2",
+        "description": "可上传多个文件",
+        "operationId": "file2UsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "multiple": "multiple",
+        "sop_name": "demo.file.upload2",
+        "sop_version": "1.0"
+      },
+      "head": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例2",
+        "description": "可上传多个文件",
+        "operationId": "file2UsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "multiple": "multiple",
+        "sop_name": "demo.file.upload2",
+        "sop_version": "1.0"
+      },
+      "post": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例2",
+        "description": "可上传多个文件",
+        "operationId": "file2UsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "multiple": "multiple",
+        "sop_name": "demo.file.upload2",
+        "sop_version": "1.0"
+      },
+      "put": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例2",
+        "description": "可上传多个文件",
+        "operationId": "file2UsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "multiple": "multiple",
+        "sop_name": "demo.file.upload2",
+        "sop_version": "1.0"
+      },
+      "delete": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例2",
+        "description": "可上传多个文件",
+        "operationId": "file2UsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "multiple": "multiple",
+        "sop_name": "demo.file.upload2",
+        "sop_version": "1.0"
+      },
+      "options": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例2",
+        "description": "可上传多个文件",
+        "operationId": "file2UsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "multiple": "multiple",
+        "sop_name": "demo.file.upload2",
+        "sop_version": "1.0"
+      },
+      "patch": {
+        "tags": [
+          "文件上传"
+        ],
+        "summary": "文件上传例2",
+        "description": "可上传多个文件",
+        "operationId": "file2UsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileUploadVO",
+              "originalRef": "FileUploadVO"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "multiple": "multiple",
+        "sop_name": "demo.file.upload2",
+        "sop_version": "1.0"
+      }
+    },
+    "/story2/getStory4": {
+      "get": {
+        "tags": [
+          "故事接口2"
+        ],
+        "summary": "获取故事信息2",
+        "description": "获取故事信息2的详细信息",
+        "operationId": "storygetUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Story",
+              "originalRef": "Story"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "story2.getStory4",
+        "sop_version": "1.4"
+      },
+      "head": {
+        "tags": [
+          "故事接口2"
+        ],
+        "summary": "获取故事信息2",
+        "description": "获取故事信息2的详细信息",
+        "operationId": "storygetUsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Story",
+              "originalRef": "Story"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "story2.getStory4",
+        "sop_version": "1.4"
+      },
+      "post": {
+        "tags": [
+          "故事接口2"
+        ],
+        "summary": "获取故事信息2",
+        "description": "获取故事信息2的详细信息",
+        "operationId": "storygetUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Story",
+              "originalRef": "Story"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "story2.getStory4",
+        "sop_version": "1.4"
+      },
+      "put": {
+        "tags": [
+          "故事接口2"
+        ],
+        "summary": "获取故事信息2",
+        "description": "获取故事信息2的详细信息",
+        "operationId": "storygetUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Story",
+              "originalRef": "Story"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "story2.getStory4",
+        "sop_version": "1.4"
+      },
+      "delete": {
+        "tags": [
+          "故事接口2"
+        ],
+        "summary": "获取故事信息2",
+        "description": "获取故事信息2的详细信息",
+        "operationId": "storygetUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Story",
+              "originalRef": "Story"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "story2.getStory4",
+        "sop_version": "1.4"
+      },
+      "options": {
+        "tags": [
+          "故事接口2"
+        ],
+        "summary": "获取故事信息2",
+        "description": "获取故事信息2的详细信息",
+        "operationId": "storygetUsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Story",
+              "originalRef": "Story"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "story2.getStory4",
+        "sop_version": "1.4"
+      },
+      "patch": {
+        "tags": [
+          "故事接口2"
+        ],
+        "summary": "获取故事信息2",
+        "description": "获取故事信息2的详细信息",
+        "operationId": "storygetUsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Story",
+              "originalRef": "Story"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false,
+        "sop_name": "story2.getStory4",
+        "sop_version": "1.4"
+      }
+    }
+  },
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "properties": {
+        "categoryName": {
+          "type": "string",
+          "example": "娱乐",
+          "description": "分类名称"
+        },
+        "story": {
+          "description": "分类故事",
+          "$ref": "#/definitions/StoryVO",
+          "originalRef": "StoryVO"
+        }
+      },
+      "title": "Category"
+    },
+    "FileMeta": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "FileMeta"
+    },
+    "FileUploadVO": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FileMeta",
+            "originalRef": "FileMeta"
+          }
+        }
+      },
+      "title": "FileUploadVO"
+    },
+    "Story": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Story"
+    },
+    "StoryVO": {
+      "type": "object",
+      "properties": {
+        "gmt_create": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-04-14 19:02:12",
+          "description": "创建时间"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "故事ID"
+        },
+        "name": {
+          "type": "string",
+          "example": "海底小纵队",
+          "description": "故事名称"
+        }
+      },
+      "title": "StoryVO"
+    }
+  }
+}

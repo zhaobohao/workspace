@@ -1,0 +1,647 @@
+<html data-find="_6">
+<head>
+    <script src="https://www.googletagservices.com/activeview/js/current/osd.js?cb=%2Fr20100101"></script>
+    <meta charset="utf-8">
+    <title>返回状态码</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../../assets/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../assets/css/global.css" media="all">
+    <link id="layuicss-skincodecss" rel="stylesheet" href="../../assets/lib/layui/css/modules/code.css" media="all">
+    <link id="layuicss-layer" rel="stylesheet" href="../../assets/lib/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
+    <style type="text/css">
+        .site-content table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            empty-cells: show;
+            vertical-align: top;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            margin: 12px 0 24px;
+        }
+        .site-content table + p {
+            margin-top: 24px;
+        }
+        .site-content table th,
+        .site-content table td {
+            padding: 8px 12px;
+            font-size: 14px;
+            text-align: left;
+            word-break: break-word;
+            word-wrap: break-word;
+            min-width: 100px;
+            color: gray;
+        }
+        .site-content table thead tr{
+            background-color: #f2f2f2;
+        }
+        .site-content table thead td,
+        .site-content table tbody td{
+            border-bottom: 1px solid #e6e6e6;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+            border-top: 1px solid #e6e6e6;
+        }
+    </style>
+</head>
+<body data-find="_5">
+
+<div class="layui-header header header-doc" spring="">
+    <div class="layui-main">
+        <a class="logo" href="#" style="color: #ffffff">
+            开放平台
+        </a>
+        <ul class="layui-nav">
+            <li class="layui-nav-item layui-this">
+                <a href="doc.html">文档中心<!--  --></a>
+            </li>
+
+            <span class="layui-nav-bar" style="left: 162px; top: 55px; width: 0px; opacity: 0;"></span>
+        </ul>
+    </div>
+</div>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<div class="layui-main site-inline">
+    <div class="site-tree">
+        <ul id="docItemTree" class="layui-tree">
+            <li><h2 class="docModule">文档专区</h2></li>
+            <li class="site-tree-noicon layui-this">
+                <a href="#">
+                    <cite>公共错误码</cite>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="site-content">
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>公共错误码</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <p>网关会对开发者的接口非业务调用错误做统一处理，返回码如下：</p>
+            <table>
+                <thead>
+
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div><strong>code（返回码）</strong></div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div><strong>msg（返回码描述）</strong></div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div><strong>sub_code（明细返回码）</strong></div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div><strong>sub_msg（明细返回码描述）</strong></div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div><strong>解决方案</strong></div>
+                    </td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>10000</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>Success（接口调用成功）</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>&nbsp;</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>&nbsp;</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>&nbsp;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3" colspan="1">
+                        <div>20000</div>
+                    </td>
+                    <td rowspan="3" colspan="1">
+                        <div>服务不可用</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>isp.unknown-error</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>服务暂不可用（业务系统不可用）</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>稍后重试</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>aop.unknow-error</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>服务暂不可用（网关自身的未知错误）</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>稍后重试</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isp.service-not-available</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>服务暂不可用</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>稍后重试</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="6" colspan="1">
+                        <div>20001</div>
+                    </td>
+                    <td rowspan="6" colspan="1">
+                        <div>授权权限不足</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>aop.invalid-auth-token</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无效的访问令牌</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请刷新授权令牌或重新授权获取新的令牌</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>aop.auth-token-time-out</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>访问令牌已过期</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请刷新授权令牌或重新授权获取新的令牌</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>aop.invalid-app-auth-token</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无效的应用授权令牌</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请刷新应用授权令牌或重新授权获取新的令牌</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>aop.invalid-app-auth-token-no-api</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>商户未授权当前接口</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请重新授权获取新的应用授权令牌</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>aop.app-auth-token-time-out</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>应用授权令牌已过期</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请刷新应用授权令牌或重新授权获取新的令牌</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>aop.no-product-reg-by-partner</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>商户未签约任何产品</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>ISV代理调用的场景，请上线商户的服务窗</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="8" colspan="1">
+                        <div>40001</div>
+                    </td>
+                    <td rowspan="8" colspan="1">
+                        <div>缺少必选参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-method</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>缺少方法名参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请求参数里面必须要有method参数</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-signature</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>缺少签名参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查请求参数，缺少sign参数</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-signature-type</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>缺少签名类型参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查请求参数，缺少sign_type参数</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-signature-key</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>缺少签名配置</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>未上传公钥配置</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-app-id</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>缺少appId参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查请求参数，缺少app_id参数</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-timestamp</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>缺少时间戳参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查请求参数，缺少timestamp参数</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-version</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>缺少版本参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查请求参数，缺少version参数</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.decryption-error-missing-encrypt-type</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>解密出错, 未指定加密算法</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查参数，缺少encrypt_type参数</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="20" colspan="1">
+                        <div>40002</div>
+                    </td>
+                    <td rowspan="20" colspan="1">
+                        <div>非法的参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-parameter</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>参数无效</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查参数，格式不对、非法值、越界等</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.upload-fail</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>文件上传失败</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>文件写入失败，重试</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-file-extension</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>文件扩展名无效</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查传入的文件扩展名称，目前支持格式：csv,txt,zip,rar,gz,doc,docx,xls,xlsx,pdf,bmp,gif,jpg,jpeg,png</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-file-size</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>文件大小无效</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查文件大小，目前支持最大为：50MB&nbsp;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-method</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>不存在的方法名</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查入参method是否正确</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-format</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无效的数据格式</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查入参format，目前只支持json和xml 2种格式</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-signature-type</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无效的签名类型</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查入参sign_type,目前只支持RSA,RSA2,HMAC_SHA1</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-signature</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无效签名</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>1.公私钥是否是一对 2.检查公钥上传是否与私钥匹配 3.存在中文需要做urlencode 4.签名算法是否无误
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-encrypt-type</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无效的加密类型</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查入参encrypt_type，目前只支持AES</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-encrypt</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>解密异常</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>重试</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-app-id</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无效的appId参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查入参app_id，app_id不存在，或者未上线</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-timestamp</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>非法的时间戳参数</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>时间戳参数timestamp非法，请检查格式需要为"yyyy-MM-dd HH:mm:ss"</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-charset</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>字符集错误</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请求参数charset错误，目前支持格式：GBK,UTF-8</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.invalid-digest</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>摘要错误</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查请求参数，文件摘要参数必填</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.decryption-error-not-valid-encrypt-type</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>解密出错，不支持的加密算法</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>检查入参encrypt_type，目前只支持AES</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.decryption-error-not-valid-encrypt-key</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>解密出错, 未配置加密密钥或加密密钥格式错误</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>没有配置加密密钥</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.decryption-error-unknown</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>解密出错，未知异常</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>重试</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.missing-signature-config</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>验签出错, 未配置对应签名算法的公钥或者证书</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>没有配置应用公钥</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.not-support-app-auth</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>本接口不支持第三方代理调用</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>本接口不支持第三方代理调用</div>
+                    </td>
+                </tr>
+                <tr height="34px">
+                    <td rowspan="1" colspan="1">
+                        <div>isv.suspected-attack</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>可疑的攻击请求</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>40004</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>业务处理失败</div>
+                    </td>
+                    <td rowspan="1" colspan="3">
+                        <div>对应业务错误码，明细错误码和解决方案请参见具体的API接口文档</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="4" colspan="1">
+                        <div>40006</div>
+                    </td>
+                    <td rowspan="4" colspan="1">
+                        <div>权限不足</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.insufficient-isv-permissions</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>ISV权限不足</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>请检查配置的账户是否有当前接口权限</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.insufficient-user-permissions</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>用户权限不足</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>代理的商户没有当前接口权限</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.route-no-permissions</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>用户权限不足</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>没有当前接口权限</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="1" colspan="1">
+                        <div>isv.access-forbidden</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>用户权限不足</div>
+                    </td>
+                    <td rowspan="1" colspan="1">
+                        <div>无权访问（接口被禁用）</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!-- layui-main end~ -->
+<div class="layui-footer footer footer-doc">
+    <div class="layui-main">
+        <p>© 2019 <a href="https://gitee.com/durcframework/SOP" target="_blank">SOP</a> MIT license</p>
+    </div>
+</div>
+<script src="../../assets/lib/layui/layui.js" charset="utf-8"></script>
+<script src="../../config/config.js" charset="utf-8"></script>
+<script src="../../assets/lib/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+<script>
+    layui.use('code', function(){ //加载code模块
+        layui.code(); //引用code方法
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<html data-find="_6">
+<head>
+    <script src="https://www.googletagservices.com/activeview/js/current/osd.js?cb=%2Fr20100101"></script>
+    <meta charset="utf-8">
+    <title>应用授权</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../../assets/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../assets/css/global.css" media="all">
+    <link id="layuicss-skincodecss" rel="stylesheet" href="../../assets/lib/layui/css/modules/code.css" media="all">
+    <link id="layuicss-layer" rel="stylesheet" href="../../assets/lib/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
+    <style type="text/css">
+        .layui-table th {
+            white-space: nowrap !important;
+        }
+        h1 {font-size: 22px;margin-top: 20px;margin-bottom: 20px;font-weight: bold;}
+        .site-text p {color: rgba(0, 0, 0, .65);}
+    </style>
+</head>
+<body data-find="_5">
+
+<div class="layui-header header header-doc" spring="">
+    <div class="layui-main">
+        <a class="logo" href="#" style="color: #ffffff">
+            开放平台
+        </a>
+        <ul class="layui-nav">
+            <li class="layui-nav-item layui-this">
+                <a href="doc.html">文档中心<!--  --></a>
+            </li>
+
+            <span class="layui-nav-bar" style="left: 162px; top: 55px; width: 0px; opacity: 0;"></span>
+        </ul>
+    </div>
+</div>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<div class="layui-main site-inline">
+    <div class="site-tree">
+        <ul id="docItemTree" class="layui-tree">
+            <li><h2 class="docModule">第三方应用授权</h2></li>
+            <li class="site-tree-noicon layui-this">
+                <a href="#">
+                    <cite>第三方应用授权</cite>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="site-content">
+        <h1>第三方应用授权</h1>
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>概述</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <p>1、用户对开发者进行应用授权后，开发者可以帮助用户完成相应的业务逻辑。</p>
+            <p>2、授权采用标准的OAuth 2.0流程。</p>
+        </div>
+
+        <h1>授权流程</h1>
+        <img src="../../assets/image/auth.png" style="width: 700px;"/>
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>快速接入</legend>
+            </fieldset>
+        </div>
+        <div class="site-text">
+            <h1>第一步：应用授权URL拼装</h1>
+            <p><strong>拼接规则:</strong></p>
+            <p>http://openauth.yourdomain.com/oauth2/appToAppAuth?app_id=2019032617262200001&redirect_uri=http%3a%2f%2flocalhost%3a8087%2foauth2callback</p>
+            <p><strong>参数说明：</strong></p>
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th><strong>参数</strong></th>
+                    <th><strong>参数名称</strong></th>
+                    <th><strong>类型</strong></th>
+                    <th><strong>必填</strong></th>
+                    <th><strong>描述</strong></th>
+                    <th><strong>范例</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>app_id</td>
+                    <td>开发者应用的AppId</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>开发者应用的AppId</td>
+                    <td>2015101400446982</td>
+                </tr>
+                <tr>
+                    <td>redirect_uri</td>
+                    <td>回调页面</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>参数需要UrlEncode</td>
+                    <td>http%3A%2F%2Fexample.com</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h1>第二步：获取code</h1>
+            <p>授权成功后，客户端会跳转至开发者定义的回调页面（即redirect_uri参数对应的url），在回调页面请求中会带上当次授权的授权码code和开发者的app_id，示例如下：</p>
+            <p>http://devloper.domain.com/oauth2callback?app_id=2015101400446982&amp;code=ca34ea491e7146cc87d25fca24c4cD11</p>
+
+            <h1>第三步：使用code换取app_auth_token</h1>
+            <p>接口名称：open.auth.token.app</p>
+            <p>开发者通过code可以换取app_auth_token、授权用户的userId。</p>
+            <p><strong>注意:</strong>应用授权的code唯一，code使用一次后失效，有效期24小时； app_auth_token永久有效。</p>
+            <p><strong>请求参数说明</strong></p>
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th><strong>参数</strong></th>
+                    <th><strong>参数名称</strong></th>
+                    <th><strong>类型</strong></th>
+                    <th><strong>必填</strong></th>
+                    <th><strong>描述</strong></th>
+                    <th><strong>范例</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>grant_type</td>
+                    <td>授权类型</td>
+                    <td>String</td>
+                    <td>是</td>
+                    <td>如果使用code换取token，则为authorization_code，如果使用refresh_token换取新的token，则为refresh_token</td>
+                    <td>authorization_code</td>
+                </tr>
+                <tr>
+                    <td>code</td>
+                    <td>授权码</td>
+                    <td>String</td>
+                    <td>否</td>
+                    <td>与refresh_token二选一，用户对应用授权后得到，即第一步中开发者获取到的code值</td>
+                    <td>bf67d8d5ed754af297f72cc482287X62</td>
+                </tr>
+                <tr>
+                    <td>refresh_token</td>
+                    <td>刷新令牌</td>
+                    <td>String</td>
+                    <td>否</td>
+                    <td>与code二选一，可为空，刷新令牌时使用</td>
+                    <td>201510BB0c409dd5758b4d939d4008a525463X62</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p><strong>接口请求SDK示例</strong></p>
+<pre class="layui-code">
+   @GetMapping("oauth2callback")
+    @ResponseBody
+    public String callback(HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+        String app_id = servletRequest.getParameter("app_id");
+        String code = servletRequest.getParameter("code");
+
+        OpenAuthTokenAppRequest request = new OpenAuthTokenAppRequest();
+        OpenAuthTokenAppModel model = new OpenAuthTokenAppModel();
+        model.setCode(code);
+        model.setGrant_type("authorization_code");
+        request.setBizModel(model);
+
+        // 根据code获取token
+        OpenAuthTokenAppResponse response = openClient.execute(request);
+        if (response.isSuccess()) {
+            // 成功拿到token，开发者在这里保存token信息
+            // 后续使用token进行接口访问
+            log.info("授权成功，body:{}", response.getBody());
+        }
+        return response.getBody();
+    }
+</pre>
+        </div>
+        <p><strong>同步响应参数说明</strong></p>
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th><strong>参数</strong></th>
+                <th><strong>参数名称</strong></th>
+                <th><strong>类型</strong></th>
+                <th><strong>必填</strong></th>
+                <th><strong>描述</strong></th>
+                <th><strong>范例</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>app_auth_token</td>
+                <td>用户授权令牌</td>
+                <td>String</td>
+                <td>是</td>
+                <td>通过该令牌来帮助用户发起请求，完成业务</td>
+                <td>856faf8d77d3b985c1073557ce6ea724</td>
+            </tr>
+            <tr>
+                <td>user_id</td>
+                <td>授权用户的ID</td>
+                <td>String</td>
+                <td>是</td>
+                <td>授权者id</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>expires_in</td>
+                <td>令牌有效期</td>
+                <td>Long</td>
+                <td>是</td>
+                <td>负值表示永久有效</td>
+                <td>-1</td>
+            </tr>
+            <tr>
+                <td>re_expires_in</td>
+                <td>刷新令牌有效期</td>
+                <td>Long</td>
+                <td>是</td>
+                <td>负值表示永久有效</td>
+                <td>-3</td>
+            </tr>
+            <tr>
+                <td>app_refresh_token</td>
+                <td>刷新令牌时使用</td>
+                <td>String</td>
+                <td>是</td>
+                <td>刷新令牌后，我们会保证老的app_auth_token从刷新开始10分钟内可继续使用，请及时替换为最新token</td>
+                <td>88e68196d2359667f0dc8136e6c86803</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>同步响应结果示例</strong></p>
+        <pre class="layui-code"><code>{
+    "open_auth_token_app_response": {
+        "code": "10000",
+        "msg": "Success",
+        "app_auth_token": "88e68196d2359667f0dc8136e6c86803",
+        "app_refresh_token": "856faf8d77d3b985c1073557ce6ea724",
+        "expires_in": -1,
+        "re_expires_in": -3,
+        "user_id": "1"
+    },
+    "sign": "xxx"
+}
+</code></pre>
+
+        <p><strong>刷新token</strong></p>
+        <pre class="layui-code"><code>
+OpenAuthTokenAppRequest request = new OpenAuthTokenAppRequest();
+OpenAuthTokenAppModel model = new OpenAuthTokenAppModel();
+model.setGrant_type("refresh_token");
+model.setRefresh_token("856faf8d77d3b985c1073557ce6ea724");
+request.setBizModel(model);
+
+OpenAuthTokenAppResponse response = openClient.execute(request);
+if (response.isSuccess()) {
+    // 成功拿到token，开发者在这里保存token信息
+    // 后续使用token进行接口访问
+    log.info("换取token成功，body:{}", response.getBody());
+}
+        </code></pre>
+    </div>
+</div><!-- layui-main end~ -->
+<div class="layui-footer footer footer-doc">
+    <div class="layui-main">
+        <p>© 2019 <a href="https://gitee.com/durcframework/SOP" target="_blank">SOP</a> MIT license</p>
+    </div>
+</div>
+<script src="../../assets/lib/layui/layui.js" charset="utf-8"></script>
+<script src="../../config/config.js" charset="utf-8"></script>
+<script src="../../assets/lib/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+<script>
+    layui.use('code', function(){ //加载code模块
+        layui.code(); //引用code方法
+    });
+</script>
+</body>
+</html>

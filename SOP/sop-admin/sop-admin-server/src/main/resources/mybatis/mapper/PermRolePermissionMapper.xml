@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 注意：文件名必须跟Dao类名字一致，因为是根据文件名做关联。 -->
+<mapper namespace="com.gitee.sop.adminserver.mapper.PermRolePermissionMapper">
+
+    <select id="listRouteRole" resultType="com.gitee.sop.adminserver.entity.RouteRoleDTO">
+        SELECT
+            t.route_id as routeId,
+            t.role_code as roleCode,
+            t2.description
+        FROM perm_role_permission t
+        INNER JOIN perm_role t2 ON t.role_code=t2.role_code
+        WHERE t.route_id in
+        <foreach collection="routeIdList" item="routeId" open="(" separator="," close=")">
+            #{routeId}
+        </foreach>
+    </select>
+
+</mapper>

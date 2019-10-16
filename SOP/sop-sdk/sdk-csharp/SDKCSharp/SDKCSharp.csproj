@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Dll\.DS_Store" />
+    <None Remove="Dll\BouncyCastle.Crypto.dll" />
+    <None Remove="Dll\json\net20\Newtonsoft.Json.dll" />
+    <None Remove="Dll\json\net20\Newtonsoft.Json.pdb" />
+    <None Remove="Dll\json\net20\Newtonsoft.Json.xml" />
+    <None Remove="Dll\json\net40\Newtonsoft.Json.dll" />
+    <None Remove="Dll\json\net40\Newtonsoft.Json.pdb" />
+    <None Remove="Dll\json\net40\Newtonsoft.Json.xml" />
+  </ItemGroup>
+</Project>
