@@ -5,8 +5,8 @@ package com.spring.web.util;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.spring.web.core.util.IpUtil;
-import com.spring.demo.vo.ClientInfo;
-import com.spring.demo.vo.DeviceInfo;
+import com.spring.web.vo.ClientInfo;
+import com.spring.web.vo.DeviceInfo;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

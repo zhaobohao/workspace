@@ -2,8 +2,8 @@
 
 package com.spring.web.core.web.resource.web.controller;
 
-import com.spring.demo.param.IdParam;
-import com.spring.demo.vo.SysLogQueryVo;
+import com.spring.web.param.IdParam;
+import com.spring.web.vo.SysLogQueryVo;
 import com.spring.web.config.SpringBootPlusProperties;
 import com.spring.web.core.api.ApiResult;
 import com.spring.web.core.util.UploadUtil;

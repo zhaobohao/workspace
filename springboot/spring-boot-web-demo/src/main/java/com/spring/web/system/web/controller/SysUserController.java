@@ -1,11 +1,11 @@
 package com.spring.web.system.web.controller;
 
-import com.spring.demo.entity.SysUser;
-import com.spring.demo.param.IdParam;
-import com.spring.demo.param.SysUserQueryParam;
-import com.spring.demo.service.system.SysUserService;
-import com.spring.demo.vo.Paging;
-import com.spring.demo.vo.SysUserQueryVo;
+import com.spring.web.entity.SysUser;
+import com.spring.web.param.IdParam;
+import com.spring.web.param.SysUserQueryParam;
+import com.spring.web.service.system.SysUserService;
+import com.spring.web.vo.Paging;
+import com.spring.web.vo.SysUserQueryVo;
 import com.spring.web.core.api.ApiResult;
 import com.spring.web.core.web.controller.BaseController;
 import io.swagger.annotations.Api;

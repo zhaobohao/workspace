@@ -3,7 +3,7 @@
 package com.spring.web.security.interceptor;
 
 import cn.hutool.core.util.StrUtil;
-import com.spring.demo.service.security.LoginService;
+import com.spring.web.service.security.LoginService;
 import com.spring.web.core.api.ApiCode;
 import com.spring.web.core.api.ApiResult;
 import com.spring.web.core.util.HttpServletResponseUtil;

@@ -1,16 +1,13 @@
 package com.spring.test;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.spring.BaseTest;
-import com.spring.demo.entity.User;
-import com.spring.demo.mapper.UserMapper;
+import com.spring.web.entity.User;
+import com.spring.web.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.sound.midi.Soundbank;
 import java.util.List;
 
 @Slf4j
