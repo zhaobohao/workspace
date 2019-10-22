@@ -1,11 +1,11 @@
 package com.spring.web.system.web.controller;
 
-import com.spring.web.entity.SysLog;
-import com.spring.web.param.IdParam;
-import com.spring.web.param.SysLogQueryParam;
+import com.spring.web.dao.entity.SysLog;
+import com.spring.web.dao.param.IdParam;
+import com.spring.web.dao.param.SysLogQueryParam;
 import com.spring.web.service.system.SysLogService;
-import com.spring.web.vo.Paging;
-import com.spring.web.vo.SysLogQueryVo;
+import com.spring.web.dao.vo.Paging;
+import com.spring.web.dao.vo.SysLogQueryVo;
 import com.spring.web.core.api.ApiResult;
 import com.spring.web.core.web.controller.BaseController;
 import io.swagger.annotations.Api;

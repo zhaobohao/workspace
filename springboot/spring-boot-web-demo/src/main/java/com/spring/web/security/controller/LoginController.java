@@ -6,7 +6,7 @@ package com.spring.web.security.controller;
 import com.spring.web.core.api.ApiCode;
 import com.spring.web.core.api.ApiResult;
 import com.spring.web.core.web.controller.BaseController;
-import com.spring.web.param.LoginParam;
+import com.spring.web.dao.param.LoginParam;
 import com.spring.web.service.security.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

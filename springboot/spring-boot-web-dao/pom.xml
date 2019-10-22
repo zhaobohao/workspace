@@ -18,9 +18,9 @@
 
     <properties>
         <mybatis.plus.versino>3.2.0</mybatis.plus.versino>
-        <mysql-connector-java.version>5.1.47</mysql-connector-java.version>
         <druid-spring-boot-starter.version>1.1.14</druid-spring-boot-starter.version>
         <freemarker.version>2.3.28</freemarker.version>
+        <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
     </properties>
 
     <dependencies>
@@ -30,11 +30,13 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis.plus.versino}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>

@@ -1,6 +1,6 @@
 package com.spring.web.service.system;
 
-import com.spring.web.entity.Ip;
+import com.spring.web.dao.entity.Ip;
 import com.spring.web.service.core.IbaseService;
 
 /**

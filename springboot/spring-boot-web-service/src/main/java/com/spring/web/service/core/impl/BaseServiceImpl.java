@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.spring.web.service.core.IbaseService;
-import com.spring.web.param.OrderQueryParam;
-import com.spring.web.param.QueryParam;
+import com.spring.web.dao.param.OrderQueryParam;
+import com.spring.web.dao.param.QueryParam;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;

@@ -11,12 +11,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableConfigurationProperties
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableCaching
 @EnableWebMvc
+//@EnableSwagger2
 @EnableTransactionManagement
 @Slf4j
 /**
@@ -34,7 +36,6 @@ public class DemoApplication extends SpringBootServletInitializer {
             log.warn("Spring Boot 使用profile为:{}" , profile);
         }
         log.warn("DemoApplication is success!");
-
     }
 
     @Override

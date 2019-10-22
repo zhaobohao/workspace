@@ -1,10 +1,10 @@
 package com.spring.web.service.system;
 
-import com.spring.web.entity.SysUser;
-import com.spring.web.param.SysUserQueryParam;
+import com.spring.web.dao.entity.SysUser;
+import com.spring.web.dao.param.SysUserQueryParam;
 import com.spring.web.service.core.IbaseService;
-import com.spring.web.vo.Paging;
-import com.spring.web.vo.SysUserQueryVo;
+import com.spring.web.dao.vo.Paging;
+import com.spring.web.dao.vo.SysUserQueryVo;
 
 import java.io.Serializable;
 

@@ -2,7 +2,7 @@
 
 package com.spring.web.service.security;
 
-import com.spring.web.param.LoginParam;
+import com.spring.web.dao.param.LoginParam;
 import com.spring.web.core.api.ApiResult;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

@@ -15,14 +15,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages ={"com.spring.web"})
 @EnableConfigurationProperties
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableCaching
 @EnableWebMvc
 @EnableTransactionManagement
 @Slf4j
-@ComponentScan(basePackages ={"com.spring.web"})
 /**
  * sprinb boot web 的入口，上面是常用的注解
  */

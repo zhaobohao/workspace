@@ -1,13 +1,14 @@
 package com.spring.web.service.system.impl;
 
-import com.spring.web.entity.Ip;
-import com.spring.web.mapper.IpMapper;
+import com.spring.web.dao.entity.Ip;
+import com.spring.web.dao.mapper.IpMapper;
 import com.spring.web.service.core.impl.BaseServiceImpl;
 import com.spring.web.service.system.IpService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -23,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class IpServiceImpl extends BaseServiceImpl<IpMapper, Ip> implements IpService {
 
-    @Autowired
+    @Resource
     private IpMapper ipMapper;
 
 

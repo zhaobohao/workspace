@@ -3,18 +3,19 @@ package com.spring.web.service.system.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.spring.web.entity.SysLog;
-import com.spring.web.mapper.SysLogMapper;
-import com.spring.web.param.SysLogQueryParam;
+import com.spring.web.dao.entity.SysLog;
+import com.spring.web.dao.mapper.SysLogMapper;
+import com.spring.web.dao.param.SysLogQueryParam;
 import com.spring.web.service.core.impl.BaseServiceImpl;
 import com.spring.web.service.system.SysLogService;
-import com.spring.web.vo.Paging;
-import com.spring.web.vo.SysLogQueryVo;
+import com.spring.web.dao.vo.Paging;
+import com.spring.web.dao.vo.SysLogQueryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 
 

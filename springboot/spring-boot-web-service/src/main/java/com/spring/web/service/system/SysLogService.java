@@ -1,10 +1,10 @@
 package com.spring.web.service.system;
 
-import com.spring.web.entity.SysLog;
-import com.spring.web.param.SysLogQueryParam;
+import com.spring.web.dao.entity.SysLog;
+import com.spring.web.dao.param.SysLogQueryParam;
 import com.spring.web.service.core.IbaseService;
-import com.spring.web.vo.Paging;
-import com.spring.web.vo.SysLogQueryVo;
+import com.spring.web.dao.vo.Paging;
+import com.spring.web.dao.vo.SysLogQueryVo;
 
 import java.io.Serializable;
 

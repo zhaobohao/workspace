@@ -1,8 +1,8 @@
 package com.spring.test;
 
 import com.spring.BaseTest;
-import com.spring.web.entity.User;
-import com.spring.web.mapper.UserMapper;
+import com.spring.web.dao.entity.User;
+import com.spring.web.dao.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
