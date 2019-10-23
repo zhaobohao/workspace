@@ -398,6 +398,7 @@ CREATE TABLE `mk_user`  (
   `phone` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
   `sex` smallint(6) NULL DEFAULT NULL COMMENT '性别',
+  `avatar` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
   `role_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色id',
   `dept_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门id',
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
@@ -413,7 +414,7 @@ CREATE TABLE `mk_user`  (
 -- Records of mk_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `mk_user` VALUES (1, '000000', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', '管理员', '管理员', 'admin@bladex.vip', '22233322', '2018-08-08 00:00:00', 1, '1', '1', 1, '2018-08-08 00:00:00', 1, '2018-08-08 00:00:00', 1, 0);
+INSERT INTO `mk_user` VALUES (1, '000000', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', '管理员', '管理员', '', 'admin@xxxxxx.vip', '22233322', '2018-08-08 00:00:00', 1, '1', '1', 1, '2018-08-08 00:00:00', 1, '2018-08-08 00:00:00', 1, 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

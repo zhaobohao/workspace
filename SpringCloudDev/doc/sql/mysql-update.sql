@@ -54,3 +54,5 @@ ALTER TABLE `mk_code`
 -- 代码生成记录增加数据源字段
 -- ----------------------------
 UPDATE `mk_code` SET `datasource_id` = 1, `base_mode` = 1, `wrap_mode` = 1 WHERE `id` = 1;
+ALTER TABLE `mk`.`mk_user`
+    ADD COLUMN `avatar` varchar(2000) NULL COMMENT '头像' AFTER `real_name`;

@@ -67,6 +67,16 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	boolean resetPassword(String userIds);
+	/**
+	 * 修改密码
+	 *
+	 * @param userId
+	 * @param oldPassword
+	 * @param newPassword
+	 * @param newPassword1
+	 * @return
+	 */
+	boolean updatePassword(Integer userId, String oldPassword, String newPassword, String newPassword1);
 
 	/**
 	 * 获取角色名

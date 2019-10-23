@@ -29,6 +29,12 @@
               <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-cloud</artifactId>
             <version>${project.tool.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springblade</groupId>
+                    <artifactId>blade-core-secure</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
               <groupId>org.springclouddev</groupId>

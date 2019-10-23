@@ -31,7 +31,7 @@ public interface SecureConstant {
 	/**
 	 * mk_dict查询语句
 	 */
-	String BASE_STATEMENT = "select " + CLIENT_FIELDS + " from mk_dict";
+	String BASE_STATEMENT = "select " + CLIENT_FIELDS + " from mk_client";
 
 	/**
 	 * mk_dict查询排序
