@@ -8,12 +8,12 @@ package org.springbootdev.develop.constant;
  */
 public interface DevelopConstant {
 	/**
-	 * sword 系统名
+	 * vue 系统名
 	 */
-	String SWORD_NAME = "sword";
+	String SWORD_NAME = "vue";
 
 	/**
-	 * saber 系统名
+	 * react 系统名
 	 */
-	String SABER_NAME = "saber";
+	String SABER_NAME = "react";
 }

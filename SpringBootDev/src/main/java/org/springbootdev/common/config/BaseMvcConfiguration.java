@@ -9,12 +9,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Blade配置
- *
  * @author merryChen
  */
 @Configuration
-public class BladeConfiguration implements WebMvcConfigurer {
+public class BaseMvcConfiguration implements WebMvcConfigurer {
 
 	@Bean
 	public SecureRegistry secureRegistry() {

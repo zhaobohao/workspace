@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * 启动参数拓展
  *
- * @author smallchil
+ * @author chillenge
  */
 public class LauncherServiceImpl implements LauncherService {
 

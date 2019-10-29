@@ -8,7 +8,7 @@ import org.springbootdev.modules.desk.service.INoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Blade单元测试
+ * 单元测试
  *
  * @author merryChen
  */

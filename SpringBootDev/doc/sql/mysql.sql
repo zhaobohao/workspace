@@ -61,7 +61,7 @@ CREATE TABLE `mk_code`  (
 -- Records of mk_code
 -- ----------------------------
 BEGIN;
-INSERT INTO `mk_code` VALUES (1, 1, 'demo', '通知公告', 'mk_notice', 'mk_', 'id', 'org.springbootdev.desktop', 1, 1, 'D:\\Develop\\WorkSpace\\Git\\SpringBlade\\ops\\develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
+INSERT INTO `mk_code` VALUES (1, 1, 'demo', '通知公告', 'mk_notice', 'mk_', 'id', 'org.springbootdev.desktop', 1, 1, 'D:\\Develop\\WorkSpace\\Git\\ops\\develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
 COMMIT;
 
 -- ----------------------------
