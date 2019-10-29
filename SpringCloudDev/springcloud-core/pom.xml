@@ -25,7 +25,7 @@
         <alibaba.cloud.version>2.1.0.RELEASE</alibaba.cloud.version>
         <alibaba.seata.version>0.8.1</alibaba.seata.version>
 
-        <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
         <spring.cloud.version>Greenwich.SR2</spring.cloud.version>
         <spring.platform.version>Cairo-SR8</spring.platform.version>
 
