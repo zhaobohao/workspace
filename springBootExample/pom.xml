@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>core.parent</artifactId>
+    <groupId>spring.learn</groupId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <modules>
+        <module>springboot-aop</module>
+        <module>springboot-async</module>
+        <!--<module>springboot-batch</module>-->
+        <module>springboot-cache</module>
+        <module>springboot-cxf</module>
+        <module>springboot-echarts</module>
+        <module>springboot-hibernate</module>
+        <module>springboot-jwt</module>
+        <module>springboot-mongodb</module>
+        <module>springboot-multisource</module>
+        <module>springboot-mybatis</module>
+        <module>springboot-parent</module>
+        <module>springboot-rabbitmq</module>
+        <module>springboot-rabbitmq-rpc</module>
+        <module>springboot-redis</module>
+        <module>springboot-restful</module>
+        <module>springboot-resttemplate</module>
+        <module>springboot-schedule</module>
+        <module>springboot-shiro</module>
+        <module>springboot-socketio</module>
+        <module>springboot-starter</module>
+        <module>springboot-swagger2</module>
+        <module>springboot-thymeleaf</module>
+        <module>springboot-transaction</module>
+        <module>springboot-websocket</module>
+    </modules>
+</project>
