@@ -35,5 +35,6 @@
         <module>springboot-thymeleaf</module>
         <module>springboot-transaction</module>
         <module>springboot-websocket</module>
+        <module>springboot-t-io</module>
     </modules>
 </project>
