@@ -34,7 +34,7 @@ public class HelloClientStarter {
         tioClient = new TioClient(clientTioConfig);
         clientChannelContext = tioClient.connect(serverNode);
         //连上后，发条消息玩玩,通过测试可知，收和发是异步的。
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             send(RandomUtil.randomNumbers(5));
         }
         //下面是测试多客户端连接
@@ -63,7 +63,7 @@ public class HelloClientStarter {
     private static void send(String content) throws Exception {
         HelloPacket packet = new HelloPacket();
         packet.setBody(content.getBytes(HelloPacket.CHARSET));
-        Tio.send(clientChannelContext, packet);
-//        Tio.synSend(clientChannelContext,packet,3000);
+        //Tio.send(clientChannelContext, packet);
+        Tio.synSend(clientChannelContext,packet,3000);
     }
 }

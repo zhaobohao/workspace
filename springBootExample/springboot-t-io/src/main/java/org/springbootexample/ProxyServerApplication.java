@@ -10,8 +10,8 @@ import org.tio.core.starter.annotation.EnableTioServerServer;
  */
 @SpringBootApplication
 @EnableTioServerServer
-public class TioServerApplication {
+public class ProxyServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TioServerApplication.class, args);
+        SpringApplication.run(ProxyServerApplication.class, args);
     }
 }

@@ -1,27 +1,18 @@
-package org.springbootexample.tio.handler;
+package org.springbootexample.tio.proxyclient;
 
-import cn.hutool.core.util.RandomUtil;
 import org.springbootexample.tio.packet.HelloPacket;
-import org.springbootexample.tio.proxyclient.ProxyClientStarter;
 import org.springbootexample.tio.utils.PacketUtil;
-import org.tio.common.starter.annotation.TioServerMsgHandler;
+import org.tio.client.intf.ClientAioHandler;
 import org.tio.core.ChannelContext;
-import org.tio.core.Tio;
 import org.tio.core.TioConfig;
 import org.tio.core.exception.AioDecodeException;
 import org.tio.core.intf.Packet;
-import org.tio.server.intf.ServerAioHandler;
 
 import java.nio.ByteBuffer;
 
-/**
- * 消息处理 handler, 通过加 {@link TioServerMsgHandler} 注解启用，否则不会启用
- * 注意: handler 是必须要启用的，否则启动会抛出 {@link TioMsgHandlerNotFoundException} 异常
- *
- * @author yangjian
- */
-@TioServerMsgHandler
-public class HelloServerMsgHandler implements ServerAioHandler {
+public class ProxyClientAioHandler implements ClientAioHandler {
+    private static HelloPacket heartbeatPacket = new HelloPacket();
+
     /**
      * 解码：把接收到的ByteBuffer，解码成应用可以识别的业务消息包
      * 总的消息结构：消息头 + 消息体
@@ -29,10 +20,10 @@ public class HelloServerMsgHandler implements ServerAioHandler {
      * 消息体结构：   对象的json串的byte[]
      */
     @Override
-    public HelloPacket decode(ByteBuffer buffer, int limit, int position, int readableLength, ChannelContext channelContext) throws AioDecodeException
-    {
+    public HelloPacket decode(ByteBuffer buffer, int limit, int position, int readableLength, ChannelContext channelContext) throws AioDecodeException {
         return PacketUtil.decode(buffer, limit, position, readableLength, channelContext);
     }
+
     /**
      * 编码：把业务消息包编码为可以发送的ByteBuffer
      * 总的消息结构：消息头 + 消息体
@@ -40,10 +31,10 @@ public class HelloServerMsgHandler implements ServerAioHandler {
      * 消息体结构：   对象的json串的byte[]
      */
     @Override
-    public ByteBuffer encode(Packet packet, TioConfig tioConfig, ChannelContext channelContext)
-    {
+    public ByteBuffer encode(Packet packet, TioConfig tioConfig, ChannelContext channelContext) {
         return PacketUtil.encode(packet, tioConfig, channelContext);
     }
+
     /**
      * 处理消息
      */
@@ -54,12 +45,16 @@ public class HelloServerMsgHandler implements ServerAioHandler {
         if (body != null) {
             String str = new String(body, HelloPacket.CHARSET);
             System.out.println("收到消息：" + str);
-           // HelloPacket resppacket = new HelloPacket();
-//            resppacket.setBody(("收到了你的消息，你的消息是:" + str).getBytes(HelloPacket.CHARSET));
-//            Tio.send(channelContext, resppacket);
-        //通过代理给正常的服务器发消息
-            ProxyClientStarter.send(RandomUtil.randomNumbers(5));
         }
         return;
+    }
+
+    /**
+     * 此方法如果返回null，框架层面则不会发心跳；如果返回非null，框架层面会定时发本方法返回的消息包
+     */
+    @Override
+    public HelloPacket heartbeatPacket(ChannelContext channelContext) {
+//        return heartbeatPacket;
+return null;
     }
 }

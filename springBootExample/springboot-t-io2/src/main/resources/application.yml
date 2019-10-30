@@ -28,7 +28,7 @@ tio:
   core:
     server:
       # websocket port default 9876
-      port: 6789
+      port: 5678
       # 心跳时间
       heartbeat-timeout: 60000
       # 集群配置 默认关闭

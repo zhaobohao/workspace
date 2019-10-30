@@ -2,7 +2,6 @@ package org.springbootexample.tio.handler;
 
 import cn.hutool.core.util.RandomUtil;
 import org.springbootexample.tio.packet.HelloPacket;
-import org.springbootexample.tio.proxyclient.ProxyClientStarter;
 import org.springbootexample.tio.utils.PacketUtil;
 import org.tio.common.starter.annotation.TioServerMsgHandler;
 import org.tio.core.ChannelContext;
@@ -31,7 +30,16 @@ public class HelloServerMsgHandler implements ServerAioHandler {
     @Override
     public HelloPacket decode(ByteBuffer buffer, int limit, int position, int readableLength, ChannelContext channelContext) throws AioDecodeException
     {
-        return PacketUtil.decode(buffer, limit, position, readableLength, channelContext);
+        HelloPacket packet=  PacketUtil.decode(buffer, limit, position, readableLength, channelContext);
+        if(packet.getSynSeq()!=null)
+        {
+            try {
+                handler(packet,channelContext);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return packet;
     }
     /**
      * 编码：把业务消息包编码为可以发送的ByteBuffer
@@ -54,11 +62,9 @@ public class HelloServerMsgHandler implements ServerAioHandler {
         if (body != null) {
             String str = new String(body, HelloPacket.CHARSET);
             System.out.println("收到消息：" + str);
-           // HelloPacket resppacket = new HelloPacket();
-//            resppacket.setBody(("收到了你的消息，你的消息是:" + str).getBytes(HelloPacket.CHARSET));
-//            Tio.send(channelContext, resppacket);
-        //通过代理给正常的服务器发消息
-            ProxyClientStarter.send(RandomUtil.randomNumbers(5));
+            HelloPacket resppacket = new HelloPacket();
+            resppacket.setBody(("收到了你的消息，你的消息是:" + str).getBytes(HelloPacket.CHARSET));
+            Tio.send(channelContext, resppacket);
         }
         return;
     }

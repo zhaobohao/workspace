@@ -44,7 +44,8 @@ public class HelloClientAioHandler implements ClientAioHandler {
         byte[] body = helloPacket.getBody();
         if (body != null) {
             String str = new String(body, HelloPacket.CHARSET);
-            System.out.println("收到消息：" + str);
+            System.out.println("代理收到收到消息：" + str);
+
         }
         return;
     }
@@ -54,6 +55,7 @@ public class HelloClientAioHandler implements ClientAioHandler {
      */
     @Override
     public HelloPacket heartbeatPacket(ChannelContext channelContext) {
-        return heartbeatPacket;
+//        return heartbeatPacket;
+return null;
     }
 }
