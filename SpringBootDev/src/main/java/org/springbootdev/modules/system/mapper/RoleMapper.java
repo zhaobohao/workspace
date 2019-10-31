@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springbootdev.modules.system.entity.Role;
 import org.springbootdev.modules.system.vo.RoleVO;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author merryChen
  */
-public interface RoleMapper extends BaseMapper<Role> {
+public interface RoleMapper extends SuperMapper<Role> {
 
 	/**
 	 * 自定义分页

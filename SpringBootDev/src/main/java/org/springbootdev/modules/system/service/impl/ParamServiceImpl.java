@@ -19,7 +19,7 @@ public class ParamServiceImpl extends BaseServiceImpl<ParamMapper, Param> implem
 
 	@Override
 	public IPage<ParamVO> selectParamPage(IPage<ParamVO> page, ParamVO param) {
-		return page.setRecords(baseMapper.selectParamPage(page, param));
+		return page.setRecords(SuperMapper.selectParamPage(page, param));
 	}
 
 }

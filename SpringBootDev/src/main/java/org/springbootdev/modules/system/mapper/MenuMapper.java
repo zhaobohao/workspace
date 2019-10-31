@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springbootdev.modules.system.dto.MenuDTO;
 import org.springbootdev.modules.system.entity.Menu;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author merryChen
  */
-public interface MenuMapper extends BaseMapper<Menu> {
+public interface MenuMapper extends SuperMapper<Menu> {
 
 	/**
 	 * 自定义分页

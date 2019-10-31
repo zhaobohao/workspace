@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.develop.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.modules.develop.entity.Code;
 
 /**
@@ -9,6 +9,6 @@ import org.springbootdev.modules.develop.entity.Code;
  *
  * @author merryChen
  */
-public interface CodeMapper extends BaseMapper<Code> {
+public interface CodeMapper extends SuperMapper<Code> {
 
 }

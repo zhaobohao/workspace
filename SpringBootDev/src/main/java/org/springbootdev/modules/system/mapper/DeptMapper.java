@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springbootdev.modules.system.entity.Dept;
 import org.springbootdev.modules.system.vo.DeptVO;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author merryChen
  */
-public interface DeptMapper extends BaseMapper<Dept> {
+public interface DeptMapper extends SuperMapper<Dept> {
 
 	/**
 	 * 自定义分页

@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.core.log.model.LogApi;
 
 /**
@@ -9,6 +9,6 @@ import org.springbootdev.core.log.model.LogApi;
  *
  * @author merryChen
  */
-public interface LogApiMapper extends BaseMapper<LogApi> {
+public interface LogApiMapper extends SuperMapper<LogApi> {
 
 }

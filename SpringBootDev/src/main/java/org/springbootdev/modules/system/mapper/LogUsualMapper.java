@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.core.log.model.LogUsual;
 
 /**
@@ -9,6 +9,6 @@ import org.springbootdev.core.log.model.LogUsual;
  *
  * @author merryChen
  */
-public interface LogUsualMapper extends BaseMapper<LogUsual> {
+public interface LogUsualMapper extends SuperMapper<LogUsual> {
 
 }

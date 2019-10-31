@@ -18,7 +18,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<NoticeMapper, Notice> imp
 
 	@Override
 	public IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice) {
-		return page.setRecords(baseMapper.selectNoticePage(page, notice));
+		return page.setRecords(SuperMapper.selectNoticePage(page, notice));
 	}
 
 }

@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.modules.system.entity.AuthClient;
 
 /**
@@ -9,6 +9,6 @@ import org.springbootdev.modules.system.entity.AuthClient;
  *
  * @author merryChen
  */
-public interface AuthClientMapper extends BaseMapper<AuthClient> {
+public interface AuthClientMapper extends SuperMapper<AuthClient> {
 
 }

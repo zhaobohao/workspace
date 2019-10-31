@@ -1,7 +1,7 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.core.log.model.LogError;
 
 /**
@@ -9,6 +9,6 @@ import org.springbootdev.core.log.model.LogError;
  *
  * @author merryChen
  */
-public interface LogErrorMapper extends BaseMapper<LogError> {
+public interface LogErrorMapper extends SuperMapper<LogError> {
 
 }

@@ -32,7 +32,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		if (Func.isNotEmpty(user.getPassword())) {
 			user.setPassword(DigestUtil.encrypt(user.getPassword()));
 		}
-		Integer cnt = baseMapper.selectCount(Wrappers.<User>query().lambda().eq(User::getTenantId, user.getTenantId()).eq(User::getAccount, user.getAccount()));
+		Integer cnt = SuperMapper.selectCount(Wrappers.<User>query().lambda().eq(User::getTenantId, user.getTenantId()).eq(User::getAccount, user.getAccount()));
 		if (cnt > 0) {
 			throw new ApiException("当前用户已存在!");
 		}
@@ -41,16 +41,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
 	@Override
 	public IPage<User> selectUserPage(IPage<User> page, User user) {
-		return page.setRecords(baseMapper.selectUserPage(page, user));
+		return page.setRecords(SuperMapper.selectUserPage(page, user));
 	}
 
 	@Override
 	public UserInfo userInfo(Long userId) {
 		UserInfo userInfo = new UserInfo();
-		User user = baseMapper.selectById(userId);
+		User user = SuperMapper.selectById(userId);
 		userInfo.setUser(user);
 		if (Func.isNotEmpty(user)) {
-			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
+			List<String> roleAlias = SuperMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
 		}
 		return userInfo;
@@ -59,10 +59,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	@Override
 	public UserInfo userInfo(String tenantId, String account, String password) {
 		UserInfo userInfo = new UserInfo();
-		User user = baseMapper.getUser(tenantId, account, password);
+		User user = SuperMapper.getUser(tenantId, account, password);
 		userInfo.setUser(user);
 		if (Func.isNotEmpty(user)) {
-			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
+			List<String> roleAlias = SuperMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
 		}
 		return userInfo;
@@ -97,12 +97,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
 	@Override
 	public List<String> getRoleName(String roleIds) {
-		return baseMapper.getRoleName(Func.toStrArray(roleIds));
+		return SuperMapper.getRoleName(Func.toStrArray(roleIds));
 	}
 
 	@Override
 	public List<String> getDeptName(String deptIds) {
-		return baseMapper.getDeptName(Func.toStrArray(deptIds));
+		return SuperMapper.getDeptName(Func.toStrArray(deptIds));
 	}
 
 }
