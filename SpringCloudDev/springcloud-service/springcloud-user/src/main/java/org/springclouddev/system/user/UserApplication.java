@@ -3,8 +3,10 @@ package org.springclouddev.system.user;
 
 import org.springclouddev.core.launch.SpingCloudDevApplication;
 import org.springclouddev.core.launch.constant.AppConstant;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * 用户启动器
@@ -13,6 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringCloudApplication
 @EnableFeignClients(AppConstant.BASE_PACKAGES)
+@EnableConfigurationProperties
 public class UserApplication {
 
 	public static void main(String[] args) {

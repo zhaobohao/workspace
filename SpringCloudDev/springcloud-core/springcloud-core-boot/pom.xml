@@ -15,6 +15,11 @@
     <version>${project.tool.version}</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <j2cache-spring-boot2-starter.version>2.7.6-release</j2cache-spring-boot2-starter.version>
+        <j2cache-core.version>2.7.8-release</j2cache-core.version>
+    </properties>
+
     <dependencies>
         <!--Spring-->
         <dependency>
@@ -62,6 +67,30 @@
             <artifactId>springclouddev-core-swagger</artifactId>
             <version>${project.tool.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.oschina.j2cache</groupId>
+            <artifactId>j2cache-spring-boot2-starter</artifactId>
+            <version>${j2cache-spring-boot2-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.oschina.j2cache</groupId>
+            <artifactId>j2cache-core</artifactId>
+            <version>${j2cache-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>fastjson</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <!--Swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -104,12 +133,6 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-typehandlers-jsr310</artifactId>
             <version>1.0.2</version>
-        </dependency>
-        <!-- Ehcache -->
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>2.10.5</version>
         </dependency>
         <!-- Druid -->
         <dependency>

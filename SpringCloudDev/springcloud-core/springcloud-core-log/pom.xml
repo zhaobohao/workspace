@@ -32,12 +32,6 @@
             <artifactId>springclouddev-core-cloud</artifactId>
             <version>${project.tool.version}</version>
         </dependency>
-        <!--Mybatis-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>${mybatis.plus.version}</version>
-        </dependency>
     </dependencies>
 
 </project>

@@ -14,8 +14,7 @@ server:
 #spring配置
 spring:
   cache:
-    ehcache:
-      config: classpath:config/ehcache.xml
+    type: GENERIC
   http:
     encoding:
       charset: UTF-8
@@ -92,8 +91,19 @@ springbootdev:
       - client-id: client
         path-patterns:
           - /client/**
-
   tenant:
     column: tenant_id
     tables:
       - notice
+#########j2cache integeration
+#########useage:@Autowired
+##########private CacheChannel cacheChannel;
+######## j2CacheRedisTemplate  可以使用这个id获取redisTemplate
+j2cache:
+  #false 关闭2级缓存 ，true 开启
+  l2-cache-open: true
+  config-location: classpath:j2cache-${spring.profiles.active}.properties
+  open-spring-cache: true
+  allow-null-values: true
+  cache-clean-mode: passive
+  redis-client: lettuce

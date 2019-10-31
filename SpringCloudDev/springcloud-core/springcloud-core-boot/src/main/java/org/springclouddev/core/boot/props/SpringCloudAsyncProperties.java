@@ -16,7 +16,7 @@ public class SpringCloudAsyncProperties {
 	/**
 	 * 异步核心线程数，默认：2
 	 */
-	private int corePoolSize = 2;
+	private int corePoolSize = 4;
 	/**
 	 * 异步最大线程数，默认：50
 	 */

@@ -27,6 +27,8 @@
         <caffeine.version>2.7.0</caffeine.version>
         <guava.version>27.1-jre</guava.version>
         <bouncycastle.version>1.62</bouncycastle.version>
+        <j2cache-spring-boot2-starter.version>2.7.6-release</j2cache-spring-boot2-starter.version>
+        <j2cache-core.version>2.7.8-release</j2cache-core.version>
 
         <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
         <spring.platform.version>Cairo-SR8</spring.platform.version>
@@ -57,7 +59,7 @@
     </dependencyManagement>
 
     <dependencies>
-    	<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
@@ -95,7 +97,11 @@
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger.version}</version>
@@ -137,12 +143,7 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis.plus.version}</version>
         </dependency>
-        <!-- Ehcache -->
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>2.10.5</version>
-        </dependency>
+
         <!-- Druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -178,18 +179,36 @@
             <artifactId>okhttp</artifactId>
             <version>3.11.0</version>
         </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-all</artifactId>
-            <version>${alibaba.seata.version}</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.oschina.j2cache</groupId>
+            <artifactId>j2cache-spring-boot2-starter</artifactId>
+            <version>${j2cache-spring-boot2-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.oschina.j2cache</groupId>
+            <artifactId>j2cache-core</artifactId>
+            <version>${j2cache-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>fastjson</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!--其它辅助工具-->
 
