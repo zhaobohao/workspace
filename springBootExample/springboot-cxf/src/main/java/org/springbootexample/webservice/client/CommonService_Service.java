@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "CommonService", targetNamespace = "http://model.webservice.xncoding.com/", wsdlLocation = "http://localhost:8092/services/CommonService?wsdl")
+@WebServiceClient(name = "CommonService", targetNamespace = "http://model.webservice.springbootexample.com/", wsdlLocation = "http://localhost:8092/services/CommonService?wsdl")
 public class CommonService_Service
     extends Service
 {
 
     private final static URL COMMONSERVICE_WSDL_LOCATION;
     private final static WebServiceException COMMONSERVICE_EXCEPTION;
-    private final static QName COMMONSERVICE_QNAME = new QName("http://model.webservice.xncoding.com/", "CommonService");
+    private final static QName COMMONSERVICE_QNAME = new QName("http://model.webservice.springbootexample.com/", "CommonService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class CommonService_Service
      */
     @WebEndpoint(name = "CommonServiceImplPort")
     public CommonService getCommonServiceImplPort() {
-        return super.getPort(new QName("http://model.webservice.xncoding.com/", "CommonServiceImplPort"), CommonService.class);
+        return super.getPort(new QName("http://model.webservice.springbootexample.com/", "CommonServiceImplPort"), CommonService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class CommonService_Service
      */
     @WebEndpoint(name = "CommonServiceImplPort")
     public CommonService getCommonServiceImplPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://model.webservice.xncoding.com/", "CommonServiceImplPort"), CommonService.class, features);
+        return super.getPort(new QName("http://model.webservice.springbootexample.com/", "CommonServiceImplPort"), CommonService.class, features);
     }
 
     private static URL __getWsdlLocation() {

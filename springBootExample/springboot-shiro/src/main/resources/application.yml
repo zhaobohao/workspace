@@ -28,9 +28,9 @@ spring:
 mybatis-plus:
   mapper-locations: classpath*:com/xncoding/pos/dao/repository/mapping/*.xml
   typeAliasesPackage: >
-    com.xncoding.pos.api.model,
-    com.xncoding.pos.dao.entity,
-    com.xncoding.pos.common.dao.entity
+    com.springbootexample.pos.api.model,
+    com.springbootexample.pos.dao.entity,
+    com.springbootexample.pos.common.dao.entity
   global-config:
     id-type: 0  # 0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false
@@ -63,9 +63,9 @@ spring:
 xncoding:
   excel-path: E:/home/
   files-path: E:/home/
-  files-url-prefix: https://show.xncoding.net/files/ # 文件访问URL前缀
+  files-url-prefix: https://show.springbootexample.net/files/ # 文件访问URL前缀
   pics-path: E:/home/
-  pics-url-prefix: https://show.xncoding.net/pics/ # 图片访问URL前缀
+  pics-url-prefix: https://show.springbootexample.net/pics/ # 图片访问URL前缀
   posapi-url-prefix: http://127.0.0.1:9095
 
 logging:

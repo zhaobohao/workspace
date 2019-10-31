@@ -19,8 +19,8 @@ import javax.annotation.Resource;
 @Configuration
 @EnableTransactionManagement(order = 2)
 @MapperScan(basePackages = {
-        "com.xncoding.pos.common.dao.repository",
-        "com.xncoding.pos.dao.repository"})
+        "com.springbootexample.pos.common.dao.repository",
+        "com.springbootexample.pos.dao.repository"})
 public class MybatisPlusConfig {
 
     @Resource

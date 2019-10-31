@@ -21,7 +21,7 @@ spring:
 logging:
   level:
     root: INFO
-    com.xncoding: DEBUG
+    com.springbootexample: DEBUG
   path: D:/logs/springboot-aop
 
 tio:

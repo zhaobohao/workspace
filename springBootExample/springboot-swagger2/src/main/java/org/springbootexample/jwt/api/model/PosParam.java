@@ -56,7 +56,7 @@ public class PosParam {
      * 应用ID
      */
     @ApiModelProperty(value = "APP应用ID（长度1-64位），每个APP都有唯一的Application Id，并且这个应用ID必须已经存在于系统之中",
-            name = "applicationId", dataType = "String", example = "com.xncoding.xzpay", required = true)
+            name = "applicationId", dataType = "String", example = "com.springbootexample.xzpay", required = true)
     private String applicationId;
 
     public String getImei() {

@@ -24,7 +24,7 @@ spring:
 mybatis-plus:
   mapper-locations: classpath*:com/xncoding/trans/dao/repository/mapping/*.xml
   typeAliasesPackage: >
-    com.xncoding.trans.dao.entity
+    com.springbootexample.trans.dao.entity
   global-config:
     id-type: 1  # 0:数据库ID自增  1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false

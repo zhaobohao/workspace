@@ -23,7 +23,7 @@
 
 ## JMH性能测试
 
-在包`com.xncoding.benchmark`中，有几个基准测试，并且可将测试结果利用echarts图片导出到图片。
+在包`com.springbootexample.benchmark`中，有几个基准测试，并且可将测试结果利用echarts图片导出到图片。
 
 ## 测试步骤
 

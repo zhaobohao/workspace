@@ -22,7 +22,7 @@ wsdl2java -autoNameResolution http://xxx?wsdl
 **JDK自带的工具（推荐）**
 
 ```
-wsimport -encoding utf-8 -p com.xncoding.webservice.client -keep http://xxx?wsdl -s d:/ws -B-XautoNameResolution
+wsimport -encoding utf-8 -p com.springbootexample.webservice.client -keep http://xxx?wsdl -s d:/ws -B-XautoNameResolution
 ```
 
 其中：

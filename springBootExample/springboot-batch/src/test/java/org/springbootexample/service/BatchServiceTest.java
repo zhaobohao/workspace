@@ -2,7 +2,7 @@ package org.springbootexample.service;
 
 import org.springbootexample.trans.Application;
 import org.springbootexample.trans.config.properties.CommonProperties;
-import com.xncoding.trans.modules.common.vo.*;
+import com.springbootexample.trans.modules.common.vo.*;
 import org.springbootexample.trans.modules.common.vo.BscCanton;
 import org.springbootexample.trans.modules.common.vo.BscExeOffice;
 import org.springbootexample.trans.modules.common.vo.BscOfficeExeItem;
@@ -108,7 +108,7 @@ public class BatchServiceTest {
                 .addLong("time",System.currentTimeMillis())
                 .addString(KEY_JOB_NAME, "App")
                 .addString(KEY_FILE_NAME, p.getCsvApp())
-                .addString(KEY_VO_NAME, "com.xncoding.trans.modules.zapp.App")
+                .addString(KEY_VO_NAME, "com.springbootexample.trans.modules.zapp.App")
                 .addString(KEY_COLUMNS, String.join(",", new String[]{
                         "appid", "zname", "flag"
                 }))
@@ -120,7 +120,7 @@ public class BatchServiceTest {
                 .addLong("time",System.currentTimeMillis())
                 .addString(KEY_JOB_NAME, "Log")
                 .addString(KEY_FILE_NAME, p.getCsvLog())
-                .addString(KEY_VO_NAME, "com.xncoding.trans.modules.zlog.Log")
+                .addString(KEY_VO_NAME, "com.springbootexample.trans.modules.zlog.Log")
                 .addString(KEY_COLUMNS, String.join(",", new String[]{
                         "logid", "msg", "logtime"
                 }))
@@ -145,7 +145,7 @@ public class BatchServiceTest {
                 .addLong("time",System.currentTimeMillis())
                 .addString(KEY_JOB_NAME, "BscExeOffice")
                 .addString(KEY_FILE_NAME, p.getCsvExeOffice())
-                .addString(KEY_VO_NAME, "com.xncoding.trans.modules.common.vo.BscExeOffice")
+                .addString(KEY_VO_NAME, "com.springbootexample.trans.modules.common.vo.BscExeOffice")
                 .addString(KEY_COLUMNS, String.join(",", new String[]{
                         "id","cantonid","code","name","memcode","supdeptid","comdeptid","contactman","tel","mobil","email","bgofficeid","infomobil","infoman","logpass","startdate","stopdate","status","memo","auditer","audittime","isaudit","edittime","platform_id","isprintbill"
                 }))
@@ -158,7 +158,7 @@ public class BatchServiceTest {
 //                .addLong("time",System.currentTimeMillis())
 //                .addString(KEY_JOB_NAME, "Log")
 //                .addString(KEY_FILE_NAME, p.getCsvLog())
-//                .addString(KEY_VO_NAME, "com.xncoding.trans.modules.zlog.Log")
+//                .addString(KEY_VO_NAME, "com.springbootexample.trans.modules.zlog.Log")
 //                .addString(KEY_COLUMNS, String.join(",", new String[]{
 //                        "logid", "msg", "logtime"
 //                }))

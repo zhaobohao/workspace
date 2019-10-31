@@ -5,7 +5,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <!-- 日志存储级别 -->
     <springProperty scope="context" name="rootlevel" source="logging.level.root" />
-    <springProperty scope="context" name="busilevel" source="logging.level.com.xncoding" />
+    <springProperty scope="context" name="busilevel" source="logging.level.com.springbootexample" />
     <!-- 日志存储路径 -->
     <springProperty scope="context" name="logPath" source="logging.path" />
     <!-- 普通日志 -->
@@ -76,7 +76,7 @@
     <!-- 屏蔽kafka的警告 -->
     <logger name="org.apache.kafka" level="ERROR"/>
     <!-- additivity 避免执行2次 -->
-    <logger name="com.xncoding" level="${busilevel}" additivity="false">
+    <logger name="com.springbootexample" level="${busilevel}" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="INFO_FILE"/>
         <appender-ref ref="ERROR_FILE"/>

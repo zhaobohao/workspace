@@ -14,7 +14,7 @@ import javax.jws.WebService;
  * @since 2018/6/15
  */
 @WebService(name = "CommonService", // 暴露服务名称
-        targetNamespace = "http://model.webservice.xncoding.com/"// 命名空间,一般是接口的包名倒序
+        targetNamespace = "http://model.webservice.springbootexample.com/"// 命名空间,一般是接口的包名倒序
 )
 public interface ICommonService {
     @WebMethod

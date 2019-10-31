@@ -14,7 +14,7 @@ import javax.jws.WebService;
  * @since 2018/6/15
  */
 @WebService(serviceName = "CommonService", // 与接口中指定的name一致
-        targetNamespace = "http://model.webservice.xncoding.com/", // 与接口中的命名空间一致,一般是接口的包名倒
+        targetNamespace = "http://model.webservice.springbootexample.com/", // 与接口中的命名空间一致,一般是接口的包名倒
         endpointInterface = "org.springbootexample.webservice.service.ICommonService"// 接口地址
 )
 @Component

@@ -94,7 +94,7 @@ public class ApplicationTests {
     // @Test
     // public void cl4() {
     //     CommonService_Service c = new CommonService_Service();
-    //     com.xncoding.webservice.client.User user = c.getCommonServiceImplPort().getUser("Tom");
+    //     com.springbootexample.webservice.client.User user = c.getCommonServiceImplPort().getUser("Tom");
     //     assertThat(user.getName(), is("Tom"));
     // }
 

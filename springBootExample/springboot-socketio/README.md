@@ -28,6 +28,6 @@ Sockt.io官网：<https://socket.io/>
 ### WebSocket Java客户端测试
 
 ```
-com.xncoding.pos.socket.client.SocketClient
+com.springbootexample.pos.socket.client.SocketClient
 ```
 

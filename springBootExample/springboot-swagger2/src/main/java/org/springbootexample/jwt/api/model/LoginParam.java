@@ -25,7 +25,7 @@ public class LoginParam {
     /**
      * Application ID
      */
-    @ApiModelProperty(value = "Application ID", name = "appid", example = "com.xncoding.xzpay", required = false)
+    @ApiModelProperty(value = "Application ID", name = "appid", example = "com.springbootexample.xzpay", required = false)
     private String appid;
     /**
      * IMEI码

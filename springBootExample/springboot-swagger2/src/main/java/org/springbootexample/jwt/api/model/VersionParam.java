@@ -20,7 +20,7 @@ public class VersionParam {
     /**
      * 应用ID
      */
-    @ApiModelProperty(value = "APP应用ID，每个APP都有唯一的Application Id", name = "applicationId", example = "com.xncoding.xzpay", required = true)
+    @ApiModelProperty(value = "APP应用ID，每个APP都有唯一的Application Id", name = "applicationId", example = "com.springbootexample.xzpay", required = true)
     private String applicationId;
     /**
      * 当前版本号

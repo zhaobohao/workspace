@@ -16,7 +16,7 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "CommonService", targetNamespace = "http://model.webservice.xncoding.com/")
+@WebService(name = "CommonService", targetNamespace = "http://model.webservice.springbootexample.com/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -27,12 +27,12 @@ public interface CommonService {
      * 
      * @param userName
      * @return
-     *     returns com.xncoding.webservice.client.User
+     *     returns com.springbootexample.webservice.client.User
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getUser", targetNamespace = "http://model.webservice.xncoding.com/", className = "com.xncoding.webservice.client.GetUser")
-    @ResponseWrapper(localName = "getUserResponse", targetNamespace = "http://model.webservice.xncoding.com/", className = "com.xncoding.webservice.client.GetUserResponse")
+    @RequestWrapper(localName = "getUser", targetNamespace = "http://model.webservice.springbootexample.com/", className = "com.springbootexample.webservice.client.GetUser")
+    @ResponseWrapper(localName = "getUserResponse", targetNamespace = "http://model.webservice.springbootexample.com/", className = "com.springbootexample.webservice.client.GetUserResponse")
     public User getUser(
             @WebParam(name = "userName", targetNamespace = "")
                     String userName);
@@ -45,8 +45,8 @@ public interface CommonService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "sayHello", targetNamespace = "http://model.webservice.xncoding.com/", className = "com.xncoding.webservice.client.SayHello")
-    @ResponseWrapper(localName = "sayHelloResponse", targetNamespace = "http://model.webservice.xncoding.com/", className = "com.xncoding.webservice.client.SayHelloResponse")
+    @RequestWrapper(localName = "sayHello", targetNamespace = "http://model.webservice.springbootexample.com/", className = "com.springbootexample.webservice.client.SayHello")
+    @ResponseWrapper(localName = "sayHelloResponse", targetNamespace = "http://model.webservice.springbootexample.com/", className = "com.springbootexample.webservice.client.SayHelloResponse")
     public String sayHello(
             @WebParam(name = "userName", targetNamespace = "")
                     String userName);
