@@ -36,13 +36,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 	@Override
 	public IPage<MenuVO> selectMenuPage(IPage<MenuVO> page, MenuVO menu) {
-		return page.setRecords(baseMapper.selectMenuPage(page, menu));
+		return page.setRecords(SuperMapper.selectMenuPage(page, menu));
 	}
 
 	@Override
 	public List<MenuVO> routes(String roleId) {
-		List<Menu> allMenus = baseMapper.allMenu();
-		List<Menu> roleMenus = baseMapper.roleMenu(Func.toIntList(roleId));
+		List<Menu> allMenus = SuperMapper.allMenu();
+		List<Menu> roleMenus = SuperMapper.roleMenu(Func.toIntList(roleId));
 		List<Menu> routes = new LinkedList<>(roleMenus);
 		roleMenus.forEach(roleMenu -> recursion(allMenus, routes, roleMenu));
 		routes.sort(Comparator.comparing(Menu::getSort));
@@ -61,19 +61,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 	@Override
 	public List<MenuVO> buttons(String roleId) {
-		List<Menu> buttons = baseMapper.buttons(Func.toIntList(roleId));
+		List<Menu> buttons = SuperMapper.buttons(Func.toIntList(roleId));
 		MenuWrapper menuWrapper = new MenuWrapper();
 		return menuWrapper.listNodeVO(buttons);
 	}
 
 	@Override
 	public List<MenuVO> tree() {
-		return ForestNodeMerger.merge(baseMapper.tree());
+		return ForestNodeMerger.merge(SuperMapper.tree());
 	}
 
 	@Override
 	public List<MenuVO> grantTree(SystemUser user) {
-		return ForestNodeMerger.merge(user.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID) ? baseMapper.grantTree() : baseMapper.grantTreeByRole(Func.toIntList(user.getRoleId())));
+		return ForestNodeMerger.merge(user.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID) ? SuperMapper.grantTree() : SuperMapper.grantTreeByRole(Func.toIntList(user.getRoleId())));
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		if (Func.isEmpty(user)) {
 			return null;
 		}
-		List<MenuDTO> routes = baseMapper.authRoutes(Func.toIntList(user.getRoleId()));
+		List<MenuDTO> routes = SuperMapper.authRoutes(Func.toIntList(user.getRoleId()));
 		List<Kv> list = new ArrayList<>();
 		routes.forEach(route -> list.add(Kv.init().set(route.getPath(), Kv.init().set("authority", Func.toStrArray(route.getAlias())))));
 		return list;

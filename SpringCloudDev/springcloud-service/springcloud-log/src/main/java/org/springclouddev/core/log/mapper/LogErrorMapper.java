@@ -1,7 +1,7 @@
 
 package org.springclouddev.core.log.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import org.springclouddev.core.log.model.LogError;
 
 /**
@@ -10,6 +10,6 @@ import org.springclouddev.core.log.model.LogError;
  * @author zhaobohao
  * @since 2018-09-26
  */
-public interface LogErrorMapper extends BaseMapper<LogError> {
+public interface LogErrorMapper extends SuperMapper<LogError> {
 
 }

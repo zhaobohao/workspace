@@ -35,7 +35,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 			.setCommodityCode(commodityCode)
 			.setCount(count)
 			.setMoney(orderMoney);
-		int cnt1 = baseMapper.insert(order);
+		int cnt1 = SuperMapper.insert(order);
 		int cnt2 = storageClient.deduct(commodityCode, count);
 		if (cnt2 < 0) {
 			throw new ServiceException("创建订单失败");

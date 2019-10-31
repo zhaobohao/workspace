@@ -1,7 +1,7 @@
 
 package org.springclouddev.develop.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import org.springclouddev.develop.entity.Datasource;
 
 /**
@@ -9,6 +9,6 @@ import org.springclouddev.develop.entity.Datasource;
  *
  * @author zhaobohao
  */
-public interface DatasourceMapper extends BaseMapper<Datasource> {
+public interface DatasourceMapper extends SuperMapper<Datasource> {
 
 }

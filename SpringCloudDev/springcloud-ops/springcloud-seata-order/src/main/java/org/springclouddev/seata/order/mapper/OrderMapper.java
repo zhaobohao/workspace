@@ -1,6 +1,6 @@
 package org.springclouddev.seata.order.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import org.springclouddev.seata.order.entity.Order;
 
 /**
@@ -8,5 +8,5 @@ import org.springclouddev.seata.order.entity.Order;
  *
  * @author zhaobo
  */
-public interface OrderMapper extends BaseMapper<Order> {
+public interface OrderMapper extends SuperMapper<Order> {
 }

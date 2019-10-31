@@ -1,7 +1,7 @@
 
 package org.springclouddev.system.user.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.springclouddev.system.user.entity.User;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends SuperMapper<User> {
 
 	/**
 	 * 自定义分页

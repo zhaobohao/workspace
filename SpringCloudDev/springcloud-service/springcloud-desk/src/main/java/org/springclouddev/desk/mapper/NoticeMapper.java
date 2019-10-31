@@ -1,7 +1,7 @@
 
 package org.springclouddev.desk.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.desk.entity.Notice;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author zhaobohao
  * @since 2018-09-29
  */
-public interface NoticeMapper extends BaseMapper<Notice> {
+public interface NoticeMapper extends SuperMapper<Notice> {
 
 	/**
 	 * 前N条数据

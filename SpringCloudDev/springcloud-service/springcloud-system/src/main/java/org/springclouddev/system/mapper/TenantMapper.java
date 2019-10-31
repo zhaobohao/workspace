@@ -1,7 +1,7 @@
 
 package org.springclouddev.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.system.entity.Tenant;
 
@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author zhaobohao
  */
-public interface TenantMapper extends BaseMapper<Tenant> {
+public interface TenantMapper extends SuperMapper<Tenant> {
 
 	/**
 	 * 自定义分页

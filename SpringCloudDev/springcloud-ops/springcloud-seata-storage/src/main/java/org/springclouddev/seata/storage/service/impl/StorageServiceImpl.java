@@ -19,12 +19,12 @@ public class StorageServiceImpl extends ServiceImpl<StorageMapper, Storage> impl
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int deduct(String commodityCode, int count) {
-		Storage storage = baseMapper.selectOne(Wrappers.<Storage>query().lambda().eq(Storage::getCommodityCode, commodityCode));
+		Storage storage = SuperMapper.selectOne(Wrappers.<Storage>query().lambda().eq(Storage::getCommodityCode, commodityCode));
 		if (storage.getCount() < count) {
 			throw new RuntimeException("超过库存数，扣除失败！");
 		}
 		storage.setCount(storage.getCount() - count);
-		return baseMapper.updateById(storage);
+		return SuperMapper.updateById(storage);
 	}
 
 }

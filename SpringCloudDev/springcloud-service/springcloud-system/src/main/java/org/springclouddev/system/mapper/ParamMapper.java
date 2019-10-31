@@ -1,7 +1,7 @@
 
 package org.springclouddev.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.system.entity.Param;
 import org.springclouddev.system.vo.ParamVO;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author zhaobohao
  */
-public interface ParamMapper extends BaseMapper<Param> {
+public interface ParamMapper extends SuperMapper<Param> {
 
 	/**
 	 * 自定义分页

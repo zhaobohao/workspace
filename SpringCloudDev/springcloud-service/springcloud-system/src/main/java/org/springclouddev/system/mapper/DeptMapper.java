@@ -1,7 +1,7 @@
 
 package org.springclouddev.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.vo.DeptVO;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author zhaobohao
  */
-public interface DeptMapper extends BaseMapper<Dept> {
+public interface DeptMapper extends SuperMapper<Dept> {
 
 	/**
 	 * 自定义分页

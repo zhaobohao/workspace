@@ -1,6 +1,6 @@
 package org.springclouddev.seata.storage.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import org.springclouddev.seata.storage.entity.Storage;
 
 /**
@@ -8,5 +8,5 @@ import org.springclouddev.seata.storage.entity.Storage;
  *
  * @author zhaobo
  */
-public interface StorageMapper extends BaseMapper<Storage> {
+public interface StorageMapper extends SuperMapper<Storage> {
 }

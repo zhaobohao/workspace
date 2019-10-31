@@ -1,7 +1,7 @@
 
 package org.springclouddev.core.mp.base;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.utils.SecureUtil;
@@ -24,7 +24,7 @@ import java.util.List;
  * @author zhaobohao
  */
 @Validated
-public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements BaseService<T> {
+public class BaseServiceImpl<M extends SuperMapper<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements BaseService<T> {
 
 	private Class<T> modelClass;
 

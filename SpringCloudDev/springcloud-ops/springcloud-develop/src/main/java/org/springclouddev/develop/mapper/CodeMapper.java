@@ -1,7 +1,7 @@
 
 package org.springclouddev.develop.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springclouddev.core.mp.base.SuperMapper;
 import org.springclouddev.develop.entity.Code;
 
 /**
@@ -9,6 +9,6 @@ import org.springclouddev.develop.entity.Code;
  *
  * @author zhaobohao
  */
-public interface CodeMapper extends BaseMapper<Code> {
+public interface CodeMapper extends SuperMapper<Code> {
 
 }
