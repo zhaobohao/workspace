@@ -37,7 +37,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
 	@Override
 	public IPage<RoleVO> selectRolePage(IPage<RoleVO> page, RoleVO role) {
-		return page.setRecords(SuperMapper.selectRolePage(page, role));
+		return page.setRecords(baseMapper.selectRolePage(page, role));
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 		if (!CollectionUtil.contains(Func.toStrArray(userRole), RoleConstant.ADMIN)) {
 			excludeRole = RoleConstant.ADMIN;
 		}
-		return ForestNodeMerger.merge(SuperMapper.tree(tenantId, excludeRole));
+		return ForestNodeMerger.merge(baseMapper.tree(tenantId, excludeRole));
 	}
 
 	@Override

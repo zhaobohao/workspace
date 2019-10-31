@@ -36,14 +36,14 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 
 	@Override
 	public IPage<Tenant> selectTenantPage(IPage<Tenant> page, Tenant tenant) {
-		return page.setRecords(SuperMapper.selectTenantPage(page, tenant));
+		return page.setRecords(baseMapper.selectTenantPage(page, tenant));
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean saveTenant(Tenant tenant) {
 		if (Func.isEmpty(tenant.getId())) {
-			List<Tenant> tenants = SuperMapper.selectList(Wrappers.<Tenant>query().lambda().eq(Tenant::getIsDeleted, ToolConstant.DB_NOT_DELETED));
+			List<Tenant> tenants = baseMapper.selectList(Wrappers.<Tenant>query().lambda().eq(Tenant::getIsDeleted, ToolConstant.DB_NOT_DELETED));
 			List<String> codes = tenants.stream().map(Tenant::getTenantId).collect(Collectors.toList());
 			String tenantId = getTenantId(codes);
 			tenant.setTenantId(tenantId);

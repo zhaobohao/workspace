@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import org.springclouddev.common.constant.CommonConstant;
 import org.springclouddev.core.log.exception.ServiceException;
 import org.springclouddev.core.mp.base.BaseServiceImpl;
+import org.springclouddev.core.mp.base.SuperMapper;
 import org.springclouddev.core.tool.utils.DateUtil;
 import org.springclouddev.core.tool.utils.DigestUtil;
 import org.springclouddev.core.tool.utils.Func;
@@ -17,7 +18,6 @@ import org.springclouddev.system.user.mapper.UserMapper;
 import org.springclouddev.system.user.service.IUserService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -33,7 +33,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		if (Func.isNotEmpty(user.getPassword())) {
 			user.setPassword(DigestUtil.encrypt(user.getPassword()));
 		}
-		Integer cnt = SuperMapper.selectCount(Wrappers.<User>query().lambda().eq(User::getTenantId, user.getTenantId()).eq(User::getAccount, user.getAccount()));
+		Integer cnt = baseMapper.selectCount(Wrappers.<User>query().lambda().eq(User::getTenantId, user.getTenantId()).eq(User::getAccount, user.getAccount()));
 		if (cnt > 0) {
 			throw new ApiException("当前用户已存在!");
 		}
@@ -42,16 +42,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
 	@Override
 	public IPage<User> selectUserPage(IPage<User> page, User user) {
-		return page.setRecords(SuperMapper.selectUserPage(page, user));
+		return page.setRecords(baseMapper.selectUserPage(page, user));
 	}
 
 	@Override
 	public UserInfo userInfo(Long userId) {
 		UserInfo userInfo = new UserInfo();
-		User user = SuperMapper.selectById(userId);
+		User user = baseMapper.selectById(userId);
 		userInfo.setUser(user);
 		if (Func.isNotEmpty(user)) {
-			List<String> roleAlias = SuperMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
+			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
 		}
 		return userInfo;
@@ -60,10 +60,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	@Override
 	public UserInfo userInfo(String tenantId, String account, String password) {
 		UserInfo userInfo = new UserInfo();
-		User user = SuperMapper.getUser(tenantId, account, password);
+		User user = baseMapper.getUser(tenantId, account, password);
 		userInfo.setUser(user);
 		if (Func.isNotEmpty(user)) {
-			List<String> roleAlias = SuperMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
+			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
 		}
 		return userInfo;
@@ -98,12 +98,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
 	@Override
 	public List<String> getRoleName(String roleIds) {
-		return SuperMapper.getRoleName(Func.toStrArray(roleIds));
+		return baseMapper.getRoleName(Func.toStrArray(roleIds));
 	}
 
 	@Override
 	public List<String> getDeptName(String deptIds) {
-		return SuperMapper.getDeptName(Func.toStrArray(deptIds));
+		return baseMapper.getDeptName(Func.toStrArray(deptIds));
 	}
 
 }

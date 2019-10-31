@@ -22,12 +22,12 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
 	@Override
 	public IPage<DeptVO> selectDeptPage(IPage<DeptVO> page, DeptVO dept) {
-		return page.setRecords(SuperMapper.selectDeptPage(page, dept));
+		return page.setRecords(baseMapper.selectDeptPage(page, dept));
 	}
 
 	@Override
 	public List<DeptVO> tree(String tenantId) {
-		return ForestNodeMerger.merge(SuperMapper.tree(tenantId));
+		return ForestNodeMerger.merge(baseMapper.tree(tenantId));
 	}
 
 }

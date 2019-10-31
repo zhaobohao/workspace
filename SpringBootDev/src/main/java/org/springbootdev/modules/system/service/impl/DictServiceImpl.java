@@ -32,31 +32,31 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 
 	@Override
 	public IPage<DictVO> selectDictPage(IPage<DictVO> page, DictVO dict) {
-		return page.setRecords(SuperMapper.selectDictPage(page, dict));
+		return page.setRecords(baseMapper.selectDictPage(page, dict));
 	}
 
 	@Override
 	public List<DictVO> tree() {
-		return ForestNodeMerger.merge(SuperMapper.tree());
+		return ForestNodeMerger.merge(baseMapper.tree());
 	}
 
 	@Override
 	@Cacheable(cacheNames = DICT_VALUE, key = "#code+'_'+#dictKey")
 	public String getValue(String code, Integer dictKey) {
-		return Func.toStr(SuperMapper.getValue(code, dictKey), StringPool.EMPTY);
+		return Func.toStr(baseMapper.getValue(code, dictKey), StringPool.EMPTY);
 	}
 
 	@Override
 	@Cacheable(cacheNames = DICT_LIST, key = "#code")
 	public List<Dict> getList(String code) {
-		return SuperMapper.getList(code);
+		return baseMapper.getList(code);
 	}
 
 	@Override
 	@CacheEvict(cacheNames = {DICT_LIST, DICT_VALUE}, allEntries = true)
 	public boolean submit(Dict dict) {
 		LambdaQueryWrapper<Dict> lqw = Wrappers.<Dict>query().lambda().eq(Dict::getCode, dict.getCode()).eq(Dict::getDictKey, dict.getDictKey());
-		Integer cnt = SuperMapper.selectCount((Func.isEmpty(dict.getId())) ? lqw : lqw.notIn(Dict::getId, dict.getId()));
+		Integer cnt = baseMapper.selectCount((Func.isEmpty(dict.getId())) ? lqw : lqw.notIn(Dict::getId, dict.getId()));
 		if (cnt > 0) {
 			throw new ApiException("当前字典键值已存在!");
 		}
