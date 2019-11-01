@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>springclouddev-core</artifactId>
-       <groupId>org.springclouddev</groupId>
+        <groupId>org.springclouddev</groupId>
         <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -86,6 +86,17 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
             <version>${alibaba.cloud.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba.csp/sentinel-datasource-nacos -->
+        <!--实现原理
+            控制台推送规则到Nacos/远程配置中心
+            Sentinel client 舰艇Nacos配置变化，更新本地缓存
+         -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
     </dependencies>
 
 </project>

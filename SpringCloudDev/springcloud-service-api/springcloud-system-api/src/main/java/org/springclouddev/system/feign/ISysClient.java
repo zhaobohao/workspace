@@ -1,6 +1,7 @@
 
 package org.springclouddev.system.feign;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springclouddev.core.launch.constant.AppConstant;
 import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Role;

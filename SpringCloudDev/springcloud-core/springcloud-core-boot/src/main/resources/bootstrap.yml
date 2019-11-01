@@ -38,6 +38,8 @@ spring:
       validation-query: select 1
       # Oracle校验
       #validation-query: select 1 from dual
+      #oracle下开启，mysql下关闭
+      #max-open-prepared-statements: 100
       validation-query-timeout: 2000
       test-on-borrow: false
       test-on-return: false

@@ -67,7 +67,7 @@ spring:
         filters: stat,wall,slf4j
       # 特别注意：java 9以后需要将com.mysql.jdbc.Driver  改为  com.mysql.cj.jdbc.Driver即可
       # 否则报错：Loading class `com.mysql.jdbc.Driver'. This is deprecated.
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
       #基本属性
       #url: jdbc:mysql://127.0.0.1:3306/apiconf?charset=utf8mb4&useSSL=false
       #username: root

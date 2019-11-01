@@ -7,7 +7,6 @@ import feign.hystrix.HystrixFeign;
 import feign.hystrix.SetterFactory;
 import org.springclouddev.core.cloud.feign.SpringCloudFallbackFactory;
 import org.springframework.lang.Nullable;
-
 /**
  * 添加   默认的 fallbackFactory zhaobo 2019.01.19
  *

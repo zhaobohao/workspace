@@ -19,6 +19,7 @@
         <module>spring-boot-web-dao</module>
         <module>spring-boot-web-service</module>
         <module>nacos-demo</module>
+        <module>sentinel-dashboard</module>
     </modules>
 
 </project>
