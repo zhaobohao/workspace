@@ -32,6 +32,12 @@
             <artifactId>springclouddev-core-cloud</artifactId>
             <version>${project.tool.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <version>3.2.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

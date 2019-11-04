@@ -110,12 +110,6 @@ public abstract class InMemoryRuleRepositoryAdapter<T extends RuleEntity> implem
         return new ArrayList<>(entities.values());
     }
 
-    public void clearAll() {
-        allRules.clear();
-        machineRules.clear();
-        appRules.clear();
-    }
-
     protected T preProcess(T entity) {
         return entity;
     }

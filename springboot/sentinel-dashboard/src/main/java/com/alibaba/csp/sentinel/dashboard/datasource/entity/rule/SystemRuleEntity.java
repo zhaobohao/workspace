@@ -15,9 +15,9 @@
  */
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.rule;
 
-import com.alibaba.csp.sentinel.slots.system.SystemRule;
-
 import java.util.Date;
+
+import com.alibaba.csp.sentinel.slots.system.SystemRule;
 
 /**
  * @author leyou
@@ -29,11 +29,10 @@ public class SystemRuleEntity implements RuleEntity {
     private String app;
     private String ip;
     private Integer port;
-    private Double highestSystemLoad;
+    private Double avgLoad;
     private Long avgRt;
     private Long maxThread;
     private Double qps;
-    private Double highestCpuUsage;
 
     private Date gmtCreate;
     private Date gmtModified;
@@ -43,8 +42,7 @@ public class SystemRuleEntity implements RuleEntity {
         entity.setApp(app);
         entity.setIp(ip);
         entity.setPort(port);
-        entity.setHighestSystemLoad(rule.getHighestSystemLoad());
-        entity.setHighestCpuUsage(rule.getHighestCpuUsage());
+        entity.setAvgLoad(rule.getHighestSystemLoad());
         entity.setAvgRt(rule.getAvgRt());
         entity.setMaxThread(rule.getMaxThread());
         entity.setQps(rule.getQps());
@@ -88,12 +86,12 @@ public class SystemRuleEntity implements RuleEntity {
         this.app = app;
     }
 
-    public Double getHighestSystemLoad() {
-        return highestSystemLoad;
+    public Double getAvgLoad() {
+        return avgLoad;
     }
 
-    public void setHighestSystemLoad(Double highestSystemLoad) {
-        this.highestSystemLoad = highestSystemLoad;
+    public void setAvgLoad(Double avgLoad) {
+        this.avgLoad = avgLoad;
     }
 
     public Long getAvgRt() {
@@ -120,14 +118,6 @@ public class SystemRuleEntity implements RuleEntity {
         this.qps = qps;
     }
 
-    public Double getHighestCpuUsage() {
-        return highestCpuUsage;
-    }
-
-    public void setHighestCpuUsage(Double highestCpuUsage) {
-        this.highestCpuUsage = highestCpuUsage;
-    }
-
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
@@ -148,11 +138,10 @@ public class SystemRuleEntity implements RuleEntity {
     @Override
     public SystemRule toRule() {
         SystemRule rule = new SystemRule();
-        rule.setHighestSystemLoad(highestSystemLoad);
+        rule.setHighestSystemLoad(avgLoad);
         rule.setAvgRt(avgRt);
         rule.setMaxThread(maxThread);
         rule.setQps(qps);
-        rule.setHighestCpuUsage(highestCpuUsage);
         return rule;
     }
 }
