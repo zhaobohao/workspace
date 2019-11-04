@@ -1,0 +1,54 @@
+##########################################################
+##################  所有profile共有的配置  #################
+##########################################################
+
+###################  项目启动端口  ###################
+server.port: 8092
+
+###################  spring配置  ###################
+spring:
+  profiles:
+    active: dev
+
+---
+
+#####################################################################
+########################  开发环境profile  ##########################
+#####################################################################
+spring:
+  profiles: dev
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    lettuce:
+      shutdown-timeout: 200ms
+      pool:
+        max-active: 7
+        max-idle: 7
+        min-idle: 2
+        max-wait: -1ms
+
+logging:
+  level:
+    root: INFO
+    com.springbootexample: DEBUG
+  path: D:/logs/springboot-aop
+
+limit:
+  #限流策略，1：漏桶策略，2：令牌桶策略
+  limit-type: 1
+  #每秒可处理请求数
+  exec-count-perSecond: 10
+  #返回的错误码
+  limitCode: 100
+  #返回的错误信息
+  limitMsg: 接口被限流
+  #令牌桶容量
+  tokenBucketCount: 10
+  #限流过期时间，默认1秒
+  durationSeconds: 1
+  #1:开启，0关闭,
+  limitStatus: 1
+
+

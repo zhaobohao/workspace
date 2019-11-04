@@ -37,5 +37,7 @@
         <module>springboot-websocket</module>
         <module>springboot-t-io</module>
         <module>springboot-t-io2</module>
+        <module>spring-boot-rate-limiter</module>
+        <module>spring-boot-shared-session</module>
     </modules>
 </project>
