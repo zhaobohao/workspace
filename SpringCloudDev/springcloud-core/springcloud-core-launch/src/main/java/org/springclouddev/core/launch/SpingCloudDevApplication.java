@@ -92,37 +92,29 @@ public class SpingCloudDevApplication {
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_flow.nacos.dataId", appName+"-flow-rules");
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_flow.nacos.groupId","SENTINEL_GROUP" );
 		//# 规则类型，取值见：com.alibaba.cloud.sentinel.datasource.RuleType
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_flow.nacos.rule_type", "flow");
+		props.setProperty("spring.cloud.sentinel.datasource.springcloud_flow.nacos.rule-type", "flow");
 
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_degrade.nacos.server-addr",NacosConstant.NACOS_ADDR );
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_degrade.nacos.dataId", appName+"-degrade-rules");
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_degrade.nacos.groupId","SENTINEL_GROUP" );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_degrade.nacos.rule_type", "degrade");
+		props.setProperty("spring.cloud.sentinel.datasource.springcloud_degrade.nacos.rule-type", "degrade");
 
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_param-flow.nacos.server-addr",NacosConstant.NACOS_ADDR );
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_param-flow.nacos.dataId", appName+"-param-flow-rules");
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_param-flow.nacos.groupId","SENTINEL_GROUP" );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_param-flow.nacos.rule_type", "param-flow");
+		props.setProperty("spring.cloud.sentinel.datasource.springcloud_param-flow.nacos.rule-type", "param-flow");
 
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_system.nacos.server-addr",NacosConstant.NACOS_ADDR );
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_system.nacos.dataId", appName+"-system-rules");
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_system.nacos.groupId","SENTINEL_GROUP" );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_system.nacos.rule_type", "system");
+		props.setProperty("spring.cloud.sentinel.datasource.springcloud_system.nacos.rule-type", "system");
 
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.server-addr",NacosConstant.NACOS_ADDR );
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.dataId", appName+"-authority-rules");
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.groupId","SENTINEL_GROUP" );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.rule_type", "authority");
+		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.rule-type", "authority");
 
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-flow.nacos.server-addr",NacosConstant.NACOS_ADDR );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-flow.nacos.dataId", appName+"-gw-flow-rules");
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-flow.nacos.groupId","SENTINEL_GROUP" );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-flow.nacos.rule_type", "gw-flow");
 
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-api-group.nacos.server-addr",NacosConstant.NACOS_ADDR );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-api-group.nacos.dataId", appName+"-gw-api-group-rules");
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-api-group.nacos.groupId","SENTINEL_GROUP" );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-api-group.nacos.rule_type", "gw-api-group");
 
 		props.setProperty("spring.cloud.alibaba.seata.tx-service-group", appName.concat(NacosConstant.NACOS_GROUP_SUFFIX));
 		// 加载自定义组件

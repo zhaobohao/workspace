@@ -24,8 +24,7 @@ public class LauncherServiceImpl implements LauncherService {
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_param-flow.nacos.server-addr",CommonConstant.nacosAddr(profile) );
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_system.nacos.server-addr",CommonConstant.nacosAddr(profile) );
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.server-addr",CommonConstant.nacosAddr(profile) );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-flow.nacos.server-addr",CommonConstant.nacosAddr(profile) );
-		props.setProperty("spring.cloud.sentinel.datasource.springcloud_gw-api-group.nacos.server-addr",CommonConstant.nacosAddr(profile) );
+
 
 		props.setProperty("spring.cloud.sentinel.transport.dashboard", CommonConstant.sentinelAddr(profile));
 	}
