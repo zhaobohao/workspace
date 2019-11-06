@@ -19,7 +19,13 @@ import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
-
+import {
+  iconfontUrl,
+  iconfontVersion
+} from '@/config/env'
+import {
+  loadStyle
+} from './utils/util'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -28,7 +34,9 @@ import * as filters from './filters' // global filters
  * Currently MockJs will be used in the production environment,
  * please remove it before going online! ! !
  */
-import { mockXHR } from '../mock'
+import {
+  mockXHR
+} from '../mock'
 if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
@@ -41,6 +49,11 @@ Vue.use(Element, {
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
+})
+
+// 动态加载阿里云字体库
+iconfontVersion.forEach(ele => {
+  loadStyle(iconfontUrl.replace('$key', ele))
 })
 
 Vue.config.productionTip = false

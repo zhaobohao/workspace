@@ -16,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class SeataOrderApplication {
 
 	public static void main(String[] args) {
-		SpingCloudDevApplication.run("springcloud-seata-order", SeataOrderApplication.class, args);
+		SpingCloudDevApplication.run(AppConstant.APPLICATION_SEATA_ORDER, SeataOrderApplication.class, args);
 	}
 
 }

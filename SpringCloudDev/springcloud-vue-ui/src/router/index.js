@@ -40,7 +40,7 @@ export const constantRoutes = [{
     hidden: true,
     children: [{
       path: '/redirect/:path*',
-      omponent: () => import('@/views/redirect/index')
+      component: () => import('@/views/redirect/index')
     }]
   },
   {

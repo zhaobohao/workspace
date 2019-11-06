@@ -5,16 +5,16 @@
         <i class="vicp-icon4" />
       </div>
 
-      <div v-show="step == 1" class="vicp-step1">
+      <div v-show="step === 1" class="vicp-step1">
         <div class="vicp-drop-area" @dragleave="preventDefault" @dragover="preventDefault" @dragenter="preventDefault" @click="handleClick" @drop="handleChange">
-          <i v-show="loading != 1" class="vicp-icon1">
+          <i v-show="loading !== 1" class="vicp-icon1">
             <i class="vicp-icon1-arrow" />
             <i class="vicp-icon1-body" />
             <i class="vicp-icon1-bottom" />
           </i>
           <span v-show="loading !== 1" class="vicp-hint">{{ lang.hint }}</span>
           <span v-show="!isSupported" class="vicp-no-supported-hint">{{ lang.noSupported }}</span>
-          <input v-show="false" v-if="step == 1" ref="fileinput" type="file" @change="handleChange">
+          <input v-show="false" v-if="step === 1" ref="fileinput" type="file" @change="handleChange">
         </div>
         <div v-show="hasError" class="vicp-error">
           <i class="vicp-icon2" /> {{ errorMsg }}
@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div v-if="step == 2" class="vicp-step2">
+      <div v-if="step === 2" class="vicp-step2">
         <div class="vicp-crop">
           <div v-show="true" class="vicp-crop-left">
             <div class="vicp-img-container">
@@ -84,7 +84,7 @@
         </div>
       </div>
 
-      <div v-if="step == 3" class="vicp-step3">
+      <div v-if="step === 3" class="vicp-step3">
         <div class="vicp-upload">
           <span v-show="loading === 1" class="vicp-loading">{{ lang.loading }}</span>
           <div class="vicp-progress-wrap">
@@ -354,8 +354,8 @@ export default {
       } = this
       const sic = sourceImgContainer
       const sim = sourceImgMasking
-      const w = sim.width == sic.width ? sim.width : (sic.width - sim.width) / 2
-      const h = sim.height == sic.height ? sim.height : (sic.height - sim.height) / 2
+      const w = sim.width === sic.width ? sim.width : (sic.width - sim.width) / 2
+      const h = sim.height === sic.height ? sim.height : (sic.height - sim.height) / 2
       return {
         width: w + 'px',
         height: h + 'px'
@@ -386,7 +386,7 @@ export default {
   },
   watch: {
     value(newValue) {
-      if (newValue && this.loading != 1) {
+      if (newValue && this.loading !== 1) {
         this.reset()
       }
     }
@@ -401,7 +401,7 @@ export default {
       setTimeout(() => {
         this.$emit('input', false)
         this.$emit('close')
-        if (this.step == 3 && this.loading == 2) {
+        if (this.step === 3 && this.loading === 2) {
           this.setStep(1)
         }
       }, 200)
@@ -737,7 +737,7 @@ export default {
       scale.height = nHeight
       scale.range = newRange
       setTimeout(function() {
-        if (scale.range == newRange) {
+        if (scale.range === newRange) {
           that.createImg()
         }
       }, 300)
@@ -841,7 +841,7 @@ export default {
       })
     },
     closeHandler(e) {
-      if (this.value && (e.key == 'Escape' || e.keyCode == 27)) {
+      if (this.value && (e.key === 'Escape' || e.keyCode === 27)) {
         this.off()
       }
     }

@@ -1,24 +1,49 @@
 import request from '@/utils/request'
+import { baseUrl } from '@/config/env'
 
-export function login(data) {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    data
-  })
-}
+export const loginByUsername = (tenantId, account, password, type) => request({
+  url: '/api/springcloud-auth/token',
+  method: 'post',
+  params: {
+    tenantId,
+    account,
+    password,
+    type
+  }
+})
 
-export function getInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
+export const getButtons = () => request({
+  url: '/api/springcloud-system/menu/buttons',
+  method: 'get'
+})
 
-export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'post'
-  })
-}
+export const getUserInfo = () => request({
+  url: baseUrl + '/user/getUserInfo',
+  method: 'get'
+})
+
+export const refeshToken = () => request({
+  url: baseUrl + '/user/refesh',
+  method: 'post'
+})
+
+export const getMenu = () => request({
+  url: '/api/springcloud-system/menu/routes',
+  method: 'get'
+})
+
+export const getTopMenu = () => request({
+  url: baseUrl + '/user/getTopMenu',
+  method: 'get'
+})
+
+export const sendLogs = (list) => request({
+  url: baseUrl + '/user/logout',
+  method: 'post',
+  data: list
+})
+
+export const logout = () => request({
+  url: baseUrl + '/user/logout',
+  method: 'get'
+})

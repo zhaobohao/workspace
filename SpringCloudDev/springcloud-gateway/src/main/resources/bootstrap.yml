@@ -11,8 +11,12 @@ spring:
       retry:
         enabled: true
 
-# 聚合文档配置
+
 springclouddev:
+  #放行API集合
+  secure:
+    - /springcloud-auth
+  # 聚合文档配置
   document:
     resources:
       - name: 授权模块
@@ -21,5 +25,9 @@ springclouddev:
         location: /springcloud-desk
       - name: 系统模块
         location: /springcloud-system
+      - name: 日志模块
+        location: /springcloud-log
+      - name: 用户模块
+        location: /springcloud-user
 
 

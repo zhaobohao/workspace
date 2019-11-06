@@ -62,7 +62,10 @@ public interface AppConstant {
 	 * 测试模块名称
 	 */
 	String APPLICATION_TEST_NAME = APPLICATION_NAME_PREFIX + "test";
-
+	/**
+	 * seata 模块名称
+	 */
+	String APPLICATION_SEATA_STORAGE = APPLICATION_NAME_PREFIX +"seata-storage";
 	/**
 	 * 开发环境
 	 */
@@ -80,5 +83,8 @@ public interface AppConstant {
 	 * 代码部署于 linux 上，工作默认为 mac 和 Windows
 	 */
 	String OS_NAME_LINUX = "LINUX";
-
+	/**
+	 * seata order模块名称
+	 */
+	String APPLICATION_SEATA_ORDER = APPLICATION_NAME_PREFIX+"seata-order";
 }
