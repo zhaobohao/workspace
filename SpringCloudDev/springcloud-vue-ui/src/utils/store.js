@@ -2,7 +2,9 @@ import {
   validatenull
 } from '@/utils/validate'
 import website from '@/config/website'
-
+import {
+  evil
+} from '@utils/util.js'
 const keyName = website.key + '-'
 /**
  * 存储localStorage
@@ -34,7 +36,7 @@ export const getStore = (params = {}) => {
   } = params
   const key = keyName + name
   let obj = {}
-    let content
+  let content
   obj = window.sessionStorage.getItem(key)
   if (validatenull(obj)) obj = window.localStorage.getItem(key)
   if (validatenull(obj)) return
@@ -51,7 +53,7 @@ export const getStore = (params = {}) => {
   } else if (obj.dataType === 'number') {
     content = Number(obj.content)
   } else if (obj.dataType === 'boolean') {
-    content = eval(obj.content)
+    content = evil(obj.content)
   } else if (obj.dataType === 'object') {
     content = obj.content
   }

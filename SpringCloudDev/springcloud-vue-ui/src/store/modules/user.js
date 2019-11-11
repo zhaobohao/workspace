@@ -1,7 +1,8 @@
 import {
   loginByUsername,
   logout,
-  getUserInfo
+  getUserInfo,
+  refeshToken
 } from '@/api/user'
 import {
   getToken,

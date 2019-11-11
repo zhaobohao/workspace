@@ -37,13 +37,13 @@ export default {
   props: {
     list1: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     },
     list2: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     },
@@ -65,13 +65,13 @@ export default {
     }
   },
   methods: {
-    isNotInList1(v) {
+    isNotInList1 (v) {
       return this.list1.every(k => v.id !== k.id)
     },
-    isNotInList2(v) {
+    isNotInList2 (v) {
       return this.list2.every(k => v.id !== k.id)
     },
-    deleteEle(ele) {
+    deleteEle (ele) {
       for (const item of this.list1) {
         if (item.id === ele.id) {
           const index = this.list1.indexOf(item)
@@ -83,7 +83,7 @@ export default {
         this.list2.unshift(ele)
       }
     },
-    pushEle(ele) {
+    pushEle (ele) {
       for (const item of this.list2) {
         if (item.id === ele.id) {
           const index = this.list2.indexOf(item)
@@ -95,7 +95,7 @@ export default {
         this.list1.push(ele)
       }
     },
-    setData(dataTransfer) {
+    setData (dataTransfer) {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
       dataTransfer.setData('Text', '')

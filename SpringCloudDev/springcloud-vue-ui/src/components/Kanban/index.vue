@@ -31,19 +31,19 @@ export default {
     },
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
     list: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     }
   },
   methods: {
-    setData(dataTransfer) {
+    setData (dataTransfer) {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
       dataTransfer.setData('Text', '')

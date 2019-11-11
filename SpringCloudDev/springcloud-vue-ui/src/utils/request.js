@@ -21,7 +21,7 @@ const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
-  validateStatus: function(status) {
+  validateStatus: function (status) {
     return status >= 200 && status <= 500 // 默认的
   },
   withCredentials: true // 跨域请求，允许保存cookie

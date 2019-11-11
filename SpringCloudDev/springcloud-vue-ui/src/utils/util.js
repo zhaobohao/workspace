@@ -105,19 +105,19 @@ export const fullscreenToggel = () => {
  * esc监听全屏
  */
 export const listenfullscreen = (callback) => {
-    function listen() {
+    function listen () {
         callback()
     }
-    document.addEventListener('fullscreenchange', function() {
+    document.addEventListener('fullscreenchange', function () {
         listen()
     })
-    document.addEventListener('mozfullscreenchange', function() {
+    document.addEventListener('mozfullscreenchange', function () {
         listen()
     })
-    document.addEventListener('webkitfullscreenchange', function() {
+    document.addEventListener('webkitfullscreenchange', function () {
         listen()
     })
-    document.addEventListener('msfullscreenchange', function() {
+    document.addEventListener('msfullscreenchange', function () {
         listen()
     })
 }

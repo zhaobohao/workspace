@@ -27,18 +27,18 @@ export default {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       show: false
     }
   },
   computed: {
-    theme() {
+    theme () {
       return this.$store.state.settings.theme
     }
   },
   watch: {
-    show(value) {
+    show (value) {
       if (value && !this.clickNotClose) {
         this.addEventClick()
       }
@@ -49,25 +49,25 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.insertToBody()
   },
-  beforeDestroy() {
+  beforeDestroy () {
     const elx = this.$refs.rightPanel
     elx.remove()
   },
   methods: {
-    addEventClick() {
+    addEventClick () {
       window.addEventListener('click', this.closeSidebar)
     },
-    closeSidebar(evt) {
+    closeSidebar (evt) {
       const parent = evt.target.closest('.rightPanel')
       if (!parent) {
         this.show = false
         window.removeEventListener('click', this.closeSidebar)
       }
     },
-    insertToBody() {
+    insertToBody () {
       const elx = this.$refs.rightPanel
       const body = document.querySelector('body')
       body.insertBefore(elx, body.firstChild)

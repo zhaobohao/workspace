@@ -83,7 +83,7 @@ import { fetchList } from '@/api/article'
 export default {
   name: 'InlineEditTable',
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         published: 'success',
         draft: 'info',
@@ -92,7 +92,7 @@ export default {
       return statusMap[status]
     }
   },
-  data() {
+  data () {
     return {
       list: null,
       listLoading: true,
@@ -102,11 +102,11 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    async getList() {
+    async getList () {
       this.listLoading = true
       const { data } = await fetchList(this.listQuery)
       const items = data.items
@@ -117,7 +117,7 @@ export default {
       })
       this.listLoading = false
     },
-    cancelEdit(row) {
+    cancelEdit (row) {
       row.title = row.originalTitle
       row.edit = false
       this.$message({
@@ -125,7 +125,7 @@ export default {
         type: 'warning'
       })
     },
-    confirmEdit(row) {
+    confirmEdit (row) {
       row.edit = false
       row.originalTitle = row.title
       this.$message({

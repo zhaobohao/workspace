@@ -34,6 +34,9 @@
   import {
     getStore
   } from '@/utils/store.js'
+  import {
+    validatenull
+  } from '@/utils/validate.js'
   export default {
     name: 'Layout',
     components: {
@@ -53,10 +56,6 @@
         refreshTime: ''
       }
     },
-    created () {
-      // 实时检测刷新token
-      this.refreshToken()
-    },
     computed: {
       ...mapState({
         sidebar: state => state.app.sidebar,
@@ -73,6 +72,10 @@
           mobile: this.device === 'mobile'
         }
       }
+    },
+    created () {
+      // 实时检测刷新token
+      this.refreshToken()
     },
     methods: {
       handleClickOutside () {

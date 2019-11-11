@@ -45,13 +45,13 @@
 <script>
 export default {
   name: 'ErrorLog',
-  data() {
+  data () {
     return {
       dialogTableVisible: false
     }
   },
   computed: {
-    errorLogs() {
+    errorLogs () {
       return this.$store.getters.errorLogs
     }
   }

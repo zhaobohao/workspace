@@ -15,7 +15,7 @@ export default {
   props: {
     items: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       }
     },
@@ -24,13 +24,13 @@ export default {
       default: 'vue'
     }
   },
-  data() {
+  data () {
     return {
       isActive: false
     }
   },
   methods: {
-    clickTitle() {
+    clickTitle () {
       this.isActive = !this.isActive
     }
   }

@@ -69,7 +69,7 @@ import Sortable from 'sortablejs'
 export default {
   name: 'DragTable',
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         published: 'success',
         draft: 'info',
@@ -78,7 +78,7 @@ export default {
       return statusMap[status]
     }
   },
-  data() {
+  data () {
     return {
       list: null,
       total: null,
@@ -92,11 +92,11 @@ export default {
       newList: []
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    async getList() {
+    async getList () {
       this.listLoading = true
       const { data } = await fetchList(this.listQuery)
       this.list = data.items
@@ -108,11 +108,11 @@ export default {
         this.setSort()
       })
     },
-    setSort() {
+    setSort () {
       const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
       this.sortable = Sortable.create(el, {
         ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
-        setData: function(dataTransfer) {
+        setData: function (dataTransfer) {
           // to avoid Firefox bug
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
           dataTransfer.setData('Text', '')

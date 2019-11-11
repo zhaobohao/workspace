@@ -23,12 +23,12 @@
 <script>
 export default {
   computed: {
-    language() {
+    language () {
       return this.$store.getters.language
     }
   },
   methods: {
-    handleSetLanguage(lang) {
+    handleSetLanguage (lang) {
       this.$i18n.locale = lang
       this.$store.dispatch('app/setLanguage', lang)
       this.$message({

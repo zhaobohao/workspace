@@ -32,15 +32,15 @@ import ThemePicker from '@/components/ThemePicker'
 
 export default {
   components: { ThemePicker },
-  data() {
+  data () {
     return {}
   },
   computed: {
     fixedHeader: {
-      get() {
+      get () {
         return this.$store.state.settings.fixedHeader
       },
-      set(val) {
+      set (val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'fixedHeader',
           value: val
@@ -48,10 +48,10 @@ export default {
       }
     },
     tagsView: {
-      get() {
+      get () {
         return this.$store.state.settings.tagsView
       },
-      set(val) {
+      set (val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'tagsView',
           value: val
@@ -59,10 +59,10 @@ export default {
       }
     },
     sidebarLogo: {
-      get() {
+      get () {
         return this.$store.state.settings.sidebarLogo
       },
-      set(val) {
+      set (val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'sidebarLogo',
           value: val
@@ -71,7 +71,7 @@ export default {
     }
   },
   methods: {
-    themeChange(val) {
+    themeChange (val) {
       this.$store.dispatch('settings/changeSetting', {
         key: 'theme',
         value: val

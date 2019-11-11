@@ -85,7 +85,7 @@ const avatarPrefix = '?imageView2/1/w/80/h/80'
 const carouselPrefix = '?imageView2/2/h/440'
 
 export default {
-  data() {
+  data () {
     return {
       carouselImages: [
         'https://wpimg.wallstcn.com/9679ffb0-9e0b-4451-9916-e21992218054.jpg',

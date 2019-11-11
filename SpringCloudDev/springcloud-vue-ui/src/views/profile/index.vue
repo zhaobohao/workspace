@@ -45,7 +45,7 @@
       Timeline,
       Account
     },
-    data() {
+    data () {
       return {
         user: {},
         activeTab: 'activity'
@@ -58,11 +58,11 @@
         'roles'
       ])
     },
-    created() {
+    created () {
       this.getUser()
     },
     methods: {
-      getUser() {
+      getUser () {
         this.user = {
           name: this.name,
           role: this.roles.join(' | '),

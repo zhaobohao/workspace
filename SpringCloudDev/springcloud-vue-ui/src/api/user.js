@@ -1,7 +1,7 @@
 import request from '@/utils/request'
-import {
-  baseUrl
-} from '@/config/env'
+// import {
+//   baseUrl
+// } from '@/config/env'
 
 export const loginByUsername = (tenantId, account, password, grantType) => request({
   url: '/springcloud-auth/token',
