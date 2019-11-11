@@ -1,6 +1,6 @@
 import {
   validatenull
-} from '@/util/validate'
+} from '@/utils/validate'
 import website from '@/config/website'
 
 const keyName = website.key + '-'
@@ -9,18 +9,19 @@ const keyName = website.key + '-'
  */
 export const setStore = (params = {}) => {
   const {
+    name,
     content,
     type
   } = params
-  const name = keyName + name
+  const key = keyName + name
   const obj = {
     dataType: typeof (content),
     content: content,
     type: type,
     datetime: new Date().getTime()
   }
-  if (type) window.sessionStorage.setItem(name, JSON.stringify(obj))
-  else window.localStorage.setItem(name, JSON.stringify(obj))
+  if (type) window.sessionStorage.setItem(key, JSON.stringify(obj))
+  else window.localStorage.setItem(key, JSON.stringify(obj))
 }
 /**
  * 获取localStorage
@@ -28,13 +29,14 @@ export const setStore = (params = {}) => {
 
 export const getStore = (params = {}) => {
   const {
+    name,
     debug
   } = params
-  const name = keyName + name
+  const key = keyName + name
   let obj = {}
-  let content
-  obj = window.sessionStorage.getItem(name)
-  if (validatenull(obj)) obj = window.localStorage.getItem(name)
+    let content
+  obj = window.sessionStorage.getItem(key)
+  if (validatenull(obj)) obj = window.localStorage.getItem(key)
   if (validatenull(obj)) return
   try {
     obj = JSON.parse(obj)
@@ -44,13 +46,13 @@ export const getStore = (params = {}) => {
   if (debug) {
     return obj
   }
-  if (obj.dataType === 'string') {
+  if (obj.dataType == 'string') {
     content = obj.content
-  } else if (obj.dataType === 'number') {
+  } else if (obj.dataType == 'number') {
     content = Number(obj.content)
-  } else if (obj.dataType === 'boolean') {
-    content = obj.content
-  } else if (obj.dataType === 'object') {
+  } else if (obj.dataType == 'boolean') {
+    content = eval(obj.content)
+  } else if (obj.dataType == 'object') {
     content = obj.content
   }
   return content
@@ -60,13 +62,14 @@ export const getStore = (params = {}) => {
  */
 export const removeStore = (params = {}) => {
   const {
+    name,
     type
   } = params
-  const name = keyName + name
+  const key = keyName + name
   if (type) {
-    window.sessionStorage.removeItem(name)
+    window.sessionStorage.removeItem(key)
   } else {
-    window.localStorage.removeItem(name)
+    window.localStorage.removeItem(key)
   }
 }
 

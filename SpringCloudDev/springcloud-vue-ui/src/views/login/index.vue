@@ -47,17 +47,7 @@
       </el-button>
 
       <div style="position:relative">
-        <div class="tips">
-          <span>{{ $t('login.username') }} : admin</span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">
-            {{ $t('login.username') }} : editor
-          </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-        </div>
-
+        <div style="height: 50px;"> &nbsp;</div>
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
           {{ $t('login.thirdparty') }}
         </el-button>
@@ -87,7 +77,7 @@
       LangSelect,
       SocialSign
     },
-    data() {
+    data () {
       const validateUsername = (rule, value, callback) => {
         if (!validUsername(value)) {
           callback(new Error('Please enter the correct user name'))
@@ -96,8 +86,8 @@
         }
       }
       const validatePassword = (rule, value, callback) => {
-        if (value.length < 6) {
-          callback(new Error('The password can not be less than 6 digits'))
+        if (value.length < 4) {
+          callback(new Error('The password can not be less than 4 digits'))
         } else {
           callback()
         }
@@ -105,7 +95,7 @@
       return {
         loginForm: {
           username: 'admin',
-          password: '111111'
+          password: 'admin'
         },
         loginRules: {
           username: [{
@@ -129,7 +119,7 @@
     },
     watch: {
       $route: {
-        handler: function(route) {
+        handler: function (route) {
           const query = route.query
           if (query) {
             this.redirect = query.redirect
@@ -139,21 +129,21 @@
         immediate: true
       }
     },
-    created() {
+    created () {
       // window.addEventListener('storage', this.afterQRScan)
     },
-    mounted() {
+    mounted () {
       if (this.loginForm.username === '') {
         this.$refs.username.focus()
       } else if (this.loginForm.password === '') {
         this.$refs.password.focus()
       }
     },
-    destroyed() {
+    destroyed () {
       // window.removeEventListener('storage', this.afterQRScan)
     },
     methods: {
-      checkCapslock({
+      checkCapslock ({
         shiftKey,
         key
       } = {}) {
@@ -168,7 +158,7 @@
           this.capsTooltip = false
         }
       },
-      showPwd() {
+      showPwd () {
         if (this.passwordType === 'password') {
           this.passwordType = ''
         } else {
@@ -178,7 +168,7 @@
           this.$refs.password.focus()
         })
       },
-      handleLogin() {
+      handleLogin () {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
@@ -199,7 +189,7 @@
           }
         })
       },
-      getOtherQuery(query) {
+      getOtherQuery (query) {
         return Object.keys(query).reduce((acc, cur) => {
           if (cur !== 'redirect') {
             acc[cur] = query[cur]

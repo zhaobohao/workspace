@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getUsualList = (current, size) => {
   return request({
-    url: '/api/springcloud-log/usual/list',
+    url: '/springcloud-log/usual/list',
     method: 'get',
     params: {
       current,
@@ -13,7 +13,7 @@ export const getUsualList = (current, size) => {
 
 export const getApiList = (current, size) => {
   return request({
-    url: '/api/springcloud-log/api/list',
+    url: '/springcloud-log/api/list',
     method: 'get',
     params: {
       current,
@@ -24,7 +24,7 @@ export const getApiList = (current, size) => {
 
 export const getErrorList = (current, size) => {
   return request({
-    url: '/api/springcloud-log/error/list',
+    url: '/springcloud-log/error/list',
     method: 'get',
     params: {
       current,
@@ -35,7 +35,7 @@ export const getErrorList = (current, size) => {
 
 export const getUsualLogs = (id) => {
   return request({
-    url: '/api/springcloud-log/usual/detail',
+    url: '/springcloud-log/usual/detail',
     method: 'get',
     params: {
       id
@@ -44,7 +44,7 @@ export const getUsualLogs = (id) => {
 }
 export const getApiLogs = (id) => {
   return request({
-    url: '/api/springcloud-log/api/detail',
+    url: '/springcloud-log/api/detail',
     method: 'get',
     params: {
       id
@@ -53,7 +53,7 @@ export const getApiLogs = (id) => {
 }
 export const getErrorLogs = (id) => {
   return request({
-    url: '/api/springcloud-log/error/detail',
+    url: '/springcloud-log/error/detail',
     method: 'get',
     params: {
       id

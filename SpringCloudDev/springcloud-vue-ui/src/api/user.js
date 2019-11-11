@@ -1,49 +1,50 @@
 import request from '@/utils/request'
-import { baseUrl } from '@/config/env'
+import {
+  baseUrl
+} from '@/config/env'
 
-export const loginByUsername = (tenantId, account, password, type) => request({
-  url: '/api/springcloud-auth/token',
+export const loginByUsername = (tenantId, account, password, grantType) => request({
+  url: '/springcloud-auth/token',
   method: 'post',
   params: {
     tenantId,
     account,
     password,
-    type
+    grantType
   }
 })
 
 export const getButtons = () => request({
-  url: '/api/springcloud-system/menu/buttons',
+  url: '/springcloud-system/menu/buttons',
   method: 'get'
 })
 
 export const getUserInfo = () => request({
-  url: baseUrl + '/user/getUserInfo',
+  url: '/springcloud-user/get-current-user-info',
   method: 'get'
 })
 
-export const refeshToken = () => request({
-  url: baseUrl + '/user/refesh',
-  method: 'post'
+export const refeshToken = (grantType, refreshToken) => request({
+  url: '/springcloud-auth/token',
+  method: 'post',
+  params: {
+    grantType,
+    refreshToken
+  }
 })
 
 export const getMenu = () => request({
-  url: '/api/springcloud-system/menu/routes',
-  method: 'get'
-})
-
-export const getTopMenu = () => request({
-  url: baseUrl + '/user/getTopMenu',
+  url: '/springcloud-system/menu/routes',
   method: 'get'
 })
 
 export const sendLogs = (list) => request({
-  url: baseUrl + '/user/logout',
+  url: '/springcloud-log/saveErrorLog',
   method: 'post',
   data: list
 })
 
 export const logout = () => request({
-  url: baseUrl + '/user/logout',
+  url: '/springcloud-user/logout',
   method: 'get'
 })

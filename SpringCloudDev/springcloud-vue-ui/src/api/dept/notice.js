@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/springcloud-desk/notice/list',
+    url: '/springcloud-desk/notice/list',
     method: 'get',
     params: {
       ...params,
@@ -14,7 +14,7 @@ export const getList = (current, size, params) => {
 
 export const remove = (ids) => {
   return request({
-    url: '/api/springcloud-desk/notice/remove',
+    url: '/springcloud-desk/notice/remove',
     method: 'post',
     params: {
       ids
@@ -24,7 +24,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/springcloud-desk/notice/submit',
+    url: '/springcloud-desk/notice/submit',
     method: 'post',
     data: row
   })
@@ -32,7 +32,7 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/api/springcloud-desk/notice/submit',
+    url: '/springcloud-desk/notice/submit',
     method: 'post',
     data: row
   })
@@ -40,7 +40,7 @@ export const update = (row) => {
 
 export const getNotice = (id) => {
   return request({
-    url: '/api/springcloud-desk/notice/detail',
+    url: '/springcloud-desk/notice/detail',
     method: 'get',
     params: {
       id

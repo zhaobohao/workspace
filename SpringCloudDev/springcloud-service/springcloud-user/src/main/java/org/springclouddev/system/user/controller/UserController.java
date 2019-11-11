@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
+import org.springclouddev.core.secure.utils.SecureUtil;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
@@ -34,6 +35,40 @@ import java.util.Map;
 public class UserController {
 
 	private IUserService userService;
+
+	/**
+	 *
+	 * @return 当前用户的相关信息
+	 */
+	@ApiOperationSupport(order = 11)
+	@ApiOperation(value = "查看当前登录用户详情", notes = "已经登录用户的详细信息")
+	@GetMapping("/get-current-user-info")
+	public R<String> getCurrentUserInfo()
+	{
+		SystemUser systemUser= SecureUtil.getUser();
+        return R.data("{"+
+				"    roles: ['admin'],\n" +
+				"    introduction: 'I am a super administrator',\n" +
+				"    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',\n" +
+				"    name: 'Super Admin'\n" +
+				"  }");
+	}
+
+
+	/**
+	 *
+	 * @return 当前用户退出
+	 */
+	@ApiOperationSupport(order = 12)
+	@ApiOperation(value = "当前用户退出", notes = "用户相关状态信息清理")
+	@GetMapping("/logout")
+	public R<String> logout()
+	{
+		SystemUser systemUser= SecureUtil.getUser();
+		return R.data("{data:true"+
+				"  }");
+	}
+
 
 	/**
 	 * 查询单条

@@ -16,45 +16,95 @@
 </template>
 
 <script>
-import RightPanel from '@/components/RightPanel'
-import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
-import { mapState } from 'vuex'
-
-export default {
-  name: 'Layout',
-  components: {
+  import RightPanel from '@/components/RightPanel'
+  import {
     AppMain,
     Navbar,
-    RightPanel,
     Settings,
     Sidebar,
     TagsView
-  },
-  mixins: [ResizeMixin],
-  computed: {
-    ...mapState({
-      sidebar: state => state.app.sidebar,
-      device: state => state.app.device,
-      showSettings: state => state.settings.showSettings,
-      needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
-    }),
-    classObj() {
+  } from './components'
+  import ResizeMixin from './mixin/ResizeHandler'
+  import {
+    mapState
+  } from 'vuex'
+  import {
+    calcDate
+  } from '@/utils/date.js'
+  import {
+    getStore
+  } from '@/utils/store.js'
+  export default {
+    name: 'Layout',
+    components: {
+      AppMain,
+      Navbar,
+      RightPanel,
+      Settings,
+      Sidebar,
+      TagsView
+    },
+    mixins: [ResizeMixin],
+    data () {
       return {
-        hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
+        // 刷新token锁
+        refreshLock: false,
+        // 刷新token的时间
+        refreshTime: ''
+      }
+    },
+    created () {
+      // 实时检测刷新token
+      this.refreshToken()
+    },
+    computed: {
+      ...mapState({
+        sidebar: state => state.app.sidebar,
+        device: state => state.app.device,
+        showSettings: state => state.settings.showSettings,
+        needTagsView: state => state.settings.tagsView,
+        fixedHeader: state => state.settings.fixedHeader
+      }),
+      classObj () {
+        return {
+          hideSidebar: !this.sidebar.opened,
+          openSidebar: this.sidebar.opened,
+          withoutAnimation: this.sidebar.withoutAnimation,
+          mobile: this.device === 'mobile'
+        }
+      }
+    },
+    methods: {
+      handleClickOutside () {
+        this.$store.dispatch('app/closeSideBar', {
+          withoutAnimation: false
+        })
+      },
+      // 10分钟检测一次token
+      refreshToken () {
+        this.refreshTime = setInterval(() => {
+          const tokenTime = getStore({
+            name: 'tokenTime',
+            debug: true
+          })
+          const date = calcDate(tokenTime, new Date().getTime())
+          if (validatenull(date)) return
+          if (!(date.seconds >= this.website.tokenTime) && !this.refreshLock) {
+            this.refreshLock = true
+            this.$store
+              .dispatch('user/refeshToken')
+              .then(() => {
+                this.refreshLock = false
+              })
+              .catch(() => {
+                this.refreshLock = false
+              })
+          }
+        }, 10000)
       }
     }
-  },
-  methods: {
-    handleClickOutside() {
-      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
-    }
   }
-}
+
 </script>
 
 <style lang="scss" scoped>
@@ -99,4 +149,5 @@ export default {
   .mobile .fixed-header {
     width: 100%;
   }
+
 </style>

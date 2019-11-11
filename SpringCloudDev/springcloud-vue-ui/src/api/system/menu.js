@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/springcloud-system/menu/list',
+    url: '/springcloud-system/menu/list',
     method: 'get',
     params: {
       ...params,
@@ -13,7 +13,7 @@ export const getList = (current, size, params) => {
 }
 export const remove = (ids) => {
   return request({
-    url: '/api/springcloud-system/menu/remove',
+    url: '/springcloud-system/menu/remove',
     method: 'post',
     params: {
       ids
@@ -23,7 +23,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/springcloud-system/menu/submit',
+    url: '/springcloud-system/menu/submit',
     method: 'post',
     data: row
   })
@@ -31,7 +31,7 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/api/springcloud-system/menu/submit',
+    url: '/springcloud-system/menu/submit',
     method: 'post',
     data: row
   })
@@ -39,7 +39,7 @@ export const update = (row) => {
 
 export const getMenu = (id) => {
   return request({
-    url: '/api/springcloud-system/menu/detail',
+    url: '/springcloud-system/menu/detail',
     method: 'get',
     params: {
       id

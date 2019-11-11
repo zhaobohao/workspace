@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'java admin plateform',
+  title: '系统管理后台模板-VUE',
 
   /**
    * @type {boolean} true | false

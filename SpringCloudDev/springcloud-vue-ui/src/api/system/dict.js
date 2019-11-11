@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/springcloud-system/dict/list',
+    url: '/springcloud-system/dict/list',
     method: 'get',
     params: {
       ...params,
@@ -13,7 +13,7 @@ export const getList = (current, size, params) => {
 }
 export const remove = (ids) => {
   return request({
-    url: '/api/springcloud-system/dict/remove',
+    url: '/springcloud-system/dict/remove',
     method: 'post',
     params: {
       ids
@@ -23,7 +23,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/springcloud-system/dict/submit',
+    url: '/springcloud-system/dict/submit',
     method: 'post',
     data: row
   })
@@ -31,7 +31,7 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/api/springcloud-system/dict/submit',
+    url: '/springcloud-system/dict/submit',
     method: 'post',
     data: row
   })
@@ -39,7 +39,7 @@ export const update = (row) => {
 
 export const getDict = (id) => {
   return request({
-    url: '/api/springcloud-system/dict/detail',
+    url: '/springcloud-system/dict/detail',
     method: 'get',
     params: {
       id
@@ -48,7 +48,7 @@ export const getDict = (id) => {
 }
 export const getDictTree = () => {
   return request({
-    url: '/api/springcloud-system/dict/tree?code=DICT',
+    url: '/springcloud-system/dict/tree?code=DICT',
     method: 'get'
   })
 }
