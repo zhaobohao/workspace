@@ -43,15 +43,11 @@ public class UserController {
 	@ApiOperationSupport(order = 11)
 	@ApiOperation(value = "查看当前登录用户详情", notes = "已经登录用户的详细信息")
 	@GetMapping("/get-current-user-info")
-	public R<String> getCurrentUserInfo()
+	public R<UserVO> getCurrentUserInfo()
 	{
 		SystemUser systemUser= SecureUtil.getUser();
-        return R.data("{"+
-				"    roles: ['admin'],\n" +
-				"    introduction: 'I am a super administrator',\n" +
-				"    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',\n" +
-				"    name: 'Super Admin'\n" +
-				"  }");
+		User detail = userService.getById(systemUser.getUserId());
+        return R.data(UserWrapper.build().entityVO(detail));
 	}
 
 

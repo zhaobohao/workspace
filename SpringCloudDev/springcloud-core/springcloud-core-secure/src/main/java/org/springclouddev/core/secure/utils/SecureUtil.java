@@ -70,13 +70,14 @@ public class SecureUtil {
 
 	/**
 	 * 获取用户信息
+	 * @note 如果token过期，返回null.
 	 *
 	 * @param request request
 	 * @return SystemUser
 	 */
 	public static SystemUser getUser(HttpServletRequest request) {
 		Claims claims = getClaims(request);
-		if (claims == null) {
+		if (claims == null || claims.getExpiration().before(new Date())) {
 			return null;
 		}
 		String clientId = Func.toStr(claims.get(SecureUtil.CLIENT_ID));

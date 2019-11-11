@@ -70,6 +70,13 @@ public class User extends TenantEntity {
 	 * 部门id
 	 */
 	private String deptId;
+	/**
+	 * 个人介绍
+	 */
+	private String introduction;
 
-
+	/**
+	 * 个人头像
+	 */
+	private String avatar;
 }

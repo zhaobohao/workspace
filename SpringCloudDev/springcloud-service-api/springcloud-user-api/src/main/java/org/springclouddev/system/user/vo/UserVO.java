@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springclouddev.system.user.entity.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 视图实体类
  *
@@ -36,4 +39,8 @@ public class UserVO extends User {
 	 * 性别
 	 */
 	private String sexName;
+	private List<String> roles=new ArrayList<>();
+	private String introduction;
+	private String avatar;
+	private String name;
 }

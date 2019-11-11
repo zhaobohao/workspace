@@ -38,6 +38,10 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 		UserVO userVO = BeanUtil.copy(user, UserVO.class);
 		List<String> roleName = userService.getRoleName(user.getRoleId());
 		List<String> deptName = userService.getDeptName(user.getDeptId());
+		userVO.setRoles(userService.getRoleAlians(user.getRoleId()));
+		userVO.setAvatar(user.getAvatar());
+		userVO.setIntroduction(user.getIntroduction());
+		userVO.setName(user.getName());
 		userVO.setRoleName(Func.join(roleName));
 		userVO.setDeptName(Func.join(deptName));
 		R<String> dict = dictClient.getValue("sex", Func.toInt(user.getSex()));

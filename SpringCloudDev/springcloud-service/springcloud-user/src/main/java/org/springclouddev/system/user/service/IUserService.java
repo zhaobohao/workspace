@@ -85,7 +85,13 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	List<String> getRoleName(String roleIds);
-
+	/**
+	 * 获取角色名
+	 *
+	 * @param roleIds
+	 * @return
+	 */
+	List<String> getRoleAlians(String roleIds);
 	/**
 	 * 获取部门名
 	 *

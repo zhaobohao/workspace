@@ -102,6 +102,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	}
 
 	@Override
+	public List<String> getRoleAlians(String roleIds) {
+		return baseMapper.getRoleAlias(Func.toStrArray(roleIds));
+	}
+
+	@Override
 	public List<String> getDeptName(String deptIds) {
 		return baseMapper.getDeptName(Func.toStrArray(deptIds));
 	}

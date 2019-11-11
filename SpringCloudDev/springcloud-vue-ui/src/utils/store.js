@@ -4,7 +4,7 @@ import {
 import website from '@/config/website'
 import {
   evil
-} from '@utils/util.js'
+} from '@/utils/util.js'
 const keyName = website.key + '-'
 /**
  * 存储localStorage
