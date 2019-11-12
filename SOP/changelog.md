@@ -1,5 +1,23 @@
 # changelog
 
+## 2.5.3
+
+- 修复JSR-303校验问题
+
+## 2.5.2
+
+- 修复JSR-303校验枚举对象问题
+
+## 2.5.1
+
+- JSR-303支持嵌套校验
+
+## 2.5.0
+
+**（需要执行`sop-2.5.0.sql`升级文件）**
+
+- 网关可校验token [doc](https://durcframework.gitee.io/sop/#/files/10089_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%A1%E9%AA%8Ctoken?t=1572076365259)
+
 ## 2.4.1
 
 - 优化restful接口调用（如果正在使用此功能，必看 [doc](https://durcframework.gitee.io/sop/#/files/10100_%E6%8F%90%E4%BE%9Brestful%E6%8E%A5%E5%8F%A3?t=1571107529449)）

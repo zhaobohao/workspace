@@ -124,12 +124,14 @@ public class ApiArgumentResolver implements SopHandlerMethodArgumentResolver {
             , WebDataBinderFactory webDataBinderFactory
     ) throws Exception {
         if (openApiParams.contains(methodParameter)) {
-            Object paramObj = this.getParamObject(methodParameter, nativeWebRequest);
-            if (paramObj != null) {
-                // JSR-303验证
-                paramValidator.validateBizParam(paramObj);
-                return paramObj;
+            Object ret = this.getParamObject(methodParameter, nativeWebRequest);
+            Object paramObj = ret;
+            if (paramObj instanceof OpenContext) {
+                paramObj = ((OpenContext) paramObj).getBizObject();
             }
+            // JSR-303验证
+            paramValidator.validateBizParam(paramObj);
+            return ret;
         }
         HandlerMethodArgumentResolver resolver = getOtherArgumentResolver(methodParameter);
         if (resolver != null) {

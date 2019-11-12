@@ -35,4 +35,9 @@ public @interface ApiAbility {
      * 指定接口是否需要授权才能访问，可在admin中进行修改
      */
     boolean permission() default false;
+
+    /**
+     * 是否需要appAuthToken，设置为true，网关端会校验token是否存在
+     */
+    boolean needToken() default false;
 }

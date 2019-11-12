@@ -32,12 +32,14 @@ import com.gitee.sop.gatewaycommon.validate.ApiSigner;
 import com.gitee.sop.gatewaycommon.validate.ApiValidator;
 import com.gitee.sop.gatewaycommon.validate.Encrypter;
 import com.gitee.sop.gatewaycommon.validate.Signer;
+import com.gitee.sop.gatewaycommon.validate.TokenValidator;
 import com.gitee.sop.gatewaycommon.validate.Validator;
 import com.gitee.sop.gatewaycommon.zuul.configuration.ZuulErrorController;
 import com.gitee.sop.gatewaycommon.zuul.param.ZuulParamBuilder;
 import com.gitee.sop.gatewaycommon.zuul.result.ZuulResultExecutor;
 import com.netflix.zuul.context.RequestContext;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 import java.util.ArrayList;
@@ -151,6 +153,11 @@ public class ApiConfig {
     private ZuulErrorController zuulErrorController = new ZuulErrorController();
 
     private ParameterFormatter parameterFormatter;
+
+    /**
+     * 校验token
+     */
+    private TokenValidator tokenValidator = apiParam -> apiParam != null && StringUtils.isNotBlank(apiParam.fetchAccessToken());
 
     // -------- fields ---------
 

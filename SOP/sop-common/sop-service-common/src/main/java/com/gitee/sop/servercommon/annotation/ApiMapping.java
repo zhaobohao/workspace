@@ -25,7 +25,7 @@ public @interface ApiMapping {
 
     /**
      * 版本号，默认版本号是""<br>
-     *     改默认版本号：<code>ServiceContext.getSopServerConfig().setDefaultVersion("1.0");</code>
+     *     改默认版本号：<code>ServiceConfig.getInstance().setDefaultVersion("1.0");</code>
      */
     String version() default "";
 
@@ -43,6 +43,11 @@ public @interface ApiMapping {
      * 指定接口是否需要授权才能访问，可在admin中进行修改
      */
     boolean permission() default false;
+
+    /**
+     * 是否需要appAuthToken，设置为true，网关端会校验token是否存在
+     */
+    boolean needToken() default false;
 
     // ------------ 自定义属性 end ------------
 

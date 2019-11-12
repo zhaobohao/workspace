@@ -21,7 +21,12 @@ public enum EnvironmentKeys {
     /**
      * sop.restful.enable=true，开启传统web开发模式
      */
-    SOP_RESTFUL_ENABLE("sop.restful.enable");
+    SOP_RESTFUL_ENABLE("sop.restful.enable"),
+
+    /**
+     * sop.restful.path=/xx ，指定请求前缀，默认/rest
+     */
+    SOP_RESTFUL_PATH("sop.restful.path", "/rest");
 
     private String key;
     private String defaultValue;

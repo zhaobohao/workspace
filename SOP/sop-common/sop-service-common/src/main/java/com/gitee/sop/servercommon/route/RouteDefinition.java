@@ -68,4 +68,9 @@ public class RouteDefinition {
      * 是否需要授权才能访问
      */
     private int permission;
+
+    /**
+     * 是否需要token
+     */
+    private int needToken;
 }

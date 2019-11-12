@@ -227,6 +227,7 @@ CREATE TABLE `config_service_route` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，0：待审核，1：启用，2：禁用',
   `merge_result` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否合并结果',
   `permission` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否需要授权才能访问',
+  `need_token` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否需要token',
   `gmt_create` datetime DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

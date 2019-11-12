@@ -67,6 +67,9 @@
             <el-checkbox v-model="searchFormData.permission">授权接口</el-checkbox>
           </el-form-item>
           <el-form-item>
+            <el-checkbox v-model="searchFormData.needToken">需要token</el-checkbox>
+          </el-form-item>
+          <el-form-item>
             <el-button type="primary" icon="el-icon-search" @click="onSearchTable">查询</el-button>
           </el-form-item>
         </el-form>
@@ -121,6 +124,16 @@
             <template slot-scope="scope">
               <span v-if="scope.row.mergeResult === 1">是</span>
               <span v-if="scope.row.mergeResult === 0" style="color:#E6A23C">否</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="needToken"
+            label="需要token"
+            width="100"
+          >
+            <template slot-scope="scope">
+              <span v-if="scope.row.needToken === 1" style="font-weight: bold;color: #303133;">是</span>
+              <span v-if="scope.row.needToken === 0">否</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -181,6 +194,9 @@
         </el-form-item>
         <el-form-item label="统一格式输出">
           {{ routeDialogFormData.mergeResult === 1 ? '是' : '否' }}
+        </el-form-item>
+        <el-form-item label="需要token">
+          {{ routeDialogFormData.needToken === 1 ? '是' : '否' }}
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group v-model="routeDialogFormData.status">
@@ -269,6 +285,7 @@ export default {
         id: '',
         serviceId: '',
         permission: 0,
+        needToken: 0,
         pageIndex: 1,
         pageSize: 10
       },

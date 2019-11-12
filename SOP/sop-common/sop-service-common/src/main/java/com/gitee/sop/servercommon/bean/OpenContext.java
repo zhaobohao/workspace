@@ -81,11 +81,22 @@ public interface OpenContext<T> extends OpenBeanFactory {
     Date getTimestamp();
 
     /**
+     * 返回token，即access_token.
+     *
+     * @deprecated 废弃，使用getAppAuthToken()
+     * @return 返回token
+     */
+    @Deprecated
+    String appAuthToken();
+
+    /**
      * 返回token，即access_token
      *
      * @return 返回token
      */
-    String appAuthToken();
+     default String getAppAuthToken() {
+         return appAuthToken();
+     }
 
     /**
      * 返回回调地址

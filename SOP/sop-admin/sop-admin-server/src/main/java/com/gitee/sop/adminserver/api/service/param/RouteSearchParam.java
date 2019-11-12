@@ -26,4 +26,8 @@ public class RouteSearchParam extends PageParam {
     @ApiDocField(description = "是否授权接口，1：是")
     @Condition(ignoreValue = "0")
     private Integer permission;
+
+    @ApiDocField(description = "是否需要token接口，1：是")
+    @Condition(ignoreValue = "0")
+    private Integer needToken;
 }

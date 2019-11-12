@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class DubboConsumerController {
 
-    @Reference(version = "1.0.0")
+    @Reference(version = "1.0.0", url = "dubbo://127.0.0.1:12345")
     private DemoService demoService;
 
     // 作为开放接口

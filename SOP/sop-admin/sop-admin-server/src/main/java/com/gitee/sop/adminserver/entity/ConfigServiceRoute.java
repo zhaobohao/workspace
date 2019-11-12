@@ -61,6 +61,9 @@ public class ConfigServiceRoute {
     /** 是否需要授权才能访问, 数据库字段：permission */
     private Byte permission;
 
+    /** 是否需要token, 数据库字段：need_token */
+    private Byte needToken;
+
     /**  数据库字段：gmt_create */
     private Date gmtCreate;
 

@@ -49,6 +49,9 @@ public class RouteVO {
     /** 是否合并结果, 数据库字段：merge_result */
     private Byte mergeResult;
 
+    /** 是否需要token, 数据库字段：need_token */
+    private Byte needToken;
+
     /** 是否需要授权才能访问, 数据库字段：permission */
     private Byte permission;
 

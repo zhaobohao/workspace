@@ -1,15 +1,13 @@
 package com.gitee.sop.gateway.entity;
 
-import com.gitee.fastmybatis.core.annotation.LogicDelete;
 import lombok.Data;
-
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 
 /**
@@ -62,6 +60,9 @@ public class ConfigServiceRoute {
 
     /** 是否需要授权才能访问, 数据库字段：permission */
     private Byte permission;
+
+    /** 是否需要token, 数据库字段：need_token */
+    private Byte needToken;
 
     /**  数据库字段：gmt_create */
     private Date gmtCreate;

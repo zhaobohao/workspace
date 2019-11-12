@@ -83,6 +83,7 @@ public class ApiValidator implements Validator {
         checkFormat(param);
         checkUploadFile(param);
         checkPermission(param);
+        checkToken(param);
     }
 
     /**
@@ -238,7 +239,7 @@ public class ApiValidator implements Validator {
     /**
      * 校验访问权限
      *
-     * @param apiParam
+     * @param apiParam 参数
      */
     protected void checkPermission(ApiParam apiParam) {
         String routeId = apiParam.fetchNameVersion();
@@ -250,6 +251,25 @@ public class ApiValidator implements Validator {
             boolean hasPermission = isvRoutePermissionManager.hasPermission(appKey, routeId);
             if (!hasPermission) {
                 throw ErrorEnum.ISV_ROUTE_NO_PERMISSIONS.getErrorMeta().getException();
+            }
+        }
+    }
+
+    /**
+     * 校验token
+     *
+     * @param apiParam 参数
+     */
+    protected void checkToken(ApiParam apiParam) {
+        String routeId = apiParam.fetchNameVersion();
+        TargetRoute targetRoute = RouteRepositoryContext.getRouteRepository().get(routeId);
+        RouteDefinition routeDefinition = targetRoute.getRouteDefinition();
+        boolean needToken = BooleanUtils.toBoolean(routeDefinition.getNeedToken());
+        if (needToken) {
+            TokenValidator tokenValidator = ApiConfig.getInstance().getTokenValidator();
+            boolean rightToken = tokenValidator.validateToken(apiParam);
+            if (!rightToken) {
+                throw ErrorEnum.AOP_INVALID_APP_AUTH_TOKEN.getErrorMeta().getException();
             }
         }
     }

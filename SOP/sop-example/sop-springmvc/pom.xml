@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.gitee.sop</groupId>
             <artifactId>sop-service-common</artifactId>
-            <version>2.4.1-SNAPSHOT</version>
+            <version>2.5.3-SNAPSHOT</version>
         </dependency>
         <!-- nacos  -->
         <dependency>
@@ -134,7 +134,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <version>1.18.4</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

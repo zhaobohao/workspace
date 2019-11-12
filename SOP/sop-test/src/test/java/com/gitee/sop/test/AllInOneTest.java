@@ -287,6 +287,17 @@ public class AllInOneTest extends TestBase {
         System.out.println("成功次数：" + success);
     }
 
+    public void testToken() {
+        Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
+                .method("story.token.get")
+                .version("1.0")
+                .bizContent(new BizContent().add("id", "1").add("name", "葫芦娃"))
+                .appAuthToken("asdfasdfadsf")
+                .httpMethod(HttpTool.HTTPMethod.GET);
+
+        client.execute(requestBuilder);
+    }
+
     class BizContent extends HashMap<String, String> {
         public BizContent add(String key, String value) {
             this.put(key, value);

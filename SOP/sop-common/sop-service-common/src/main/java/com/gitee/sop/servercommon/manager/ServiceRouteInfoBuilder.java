@@ -50,8 +50,8 @@ public class ServiceRouteInfoBuilder {
         List<ServiceApiInfo.ApiMeta> apis = serviceApiInfo.getApis();
         List<RouteDefinition> routeDefinitionList = new ArrayList<>(apis.size());
         for (ServiceApiInfo.ApiMeta apiMeta : apis) {
-            RouteDefinition gatewayRouteDefinition = this.buildGatewayRouteDefinition(serviceApiInfo, apiMeta);
-            routeDefinitionList.add(gatewayRouteDefinition);
+            RouteDefinition routeDefinition = this.buildGatewayRouteDefinition(serviceApiInfo, apiMeta);
+            routeDefinitionList.add(routeDefinition);
         }
         ServiceRouteInfo serviceRouteInfo = new ServiceRouteInfo();
         serviceRouteInfo.setServiceId(serviceApiInfo.getServiceId());

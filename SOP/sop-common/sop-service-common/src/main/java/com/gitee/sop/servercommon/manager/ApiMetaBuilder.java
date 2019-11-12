@@ -87,6 +87,7 @@ public class ApiMetaBuilder {
             apiMeta.setIgnoreValidate(BooleanUtils.toInteger(apiMappingInfo.isIgnoreValidate()));
             apiMeta.setMergeResult(BooleanUtils.toInteger(apiMappingInfo.isMergeResult()));
             apiMeta.setPermission(BooleanUtils.toInteger(apiMappingInfo.isPermission()));
+            apiMeta.setNeedToken(BooleanUtils.toInteger(apiMappingInfo.isNeedToken()));
             return apiMeta;
         } else {
             if (!ServiceContext.getCurrentContext().getBoolean(ServiceContext.RESTFUL_KEY, false)) {

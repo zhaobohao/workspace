@@ -138,6 +138,7 @@ public class Client {
         private Map<String, String> header;
         private boolean ignoreSign;
         private boolean postJson;
+        private String appAuthToken;
         private List<HttpTool.UploadFile> uploadFileList;
         private Callback callback;
 
@@ -230,6 +231,17 @@ public class Client {
         }
 
         /**
+         * 设置token
+         *
+         * @param appAuthToken 给定的token
+         * @return 返回RequestBuilder
+         */
+        public RequestBuilder appAuthToken(String appAuthToken) {
+            this.appAuthToken = appAuthToken;
+            return this;
+        }
+
+        /**
          * 添加文件
          *
          * @param paramName 表单名称
@@ -309,6 +321,9 @@ public class Client {
             }
             if (version != null) {
                 params.put("version", version);
+            }
+            if (appAuthToken != null) {
+                params.put("app_auth_token", appAuthToken);
             }
             params.put("format", "json");
             params.put("charset", "utf-8");
