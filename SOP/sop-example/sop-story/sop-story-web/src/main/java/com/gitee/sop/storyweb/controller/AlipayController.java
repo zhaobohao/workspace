@@ -1,6 +1,7 @@
 package com.gitee.sop.storyweb.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.servercommon.annotation.ApiAbility;
 import com.gitee.sop.servercommon.annotation.ApiMapping;
 import com.gitee.sop.servercommon.bean.OpenContext;
@@ -17,6 +18,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -132,10 +134,10 @@ public class AlipayController {
     // 遗留接口具备开放平台能力
     @ApiAbility
     @GetMapping("getStory2")
-    public StoryResult getStory2_0() {
+    public StoryResult getStory2_0(@RequestBody JSONObject param) {
         StoryResult story = new StoryResult();
         story.setId(1L);
-        story.setName("海底小纵队(默认版本号)");
+        story.setName("海底小纵队(默认版本号),param:" + param);
         return story;
     }
 
@@ -147,6 +149,16 @@ public class AlipayController {
         StoryResult story = new StoryResult();
         story.setId(1L);
         story.setName("海底小纵队2.1");
+        return story;
+    }
+
+    @ApiAbility(ignoreValidate = true)
+    @GetMapping("/empinfo/get")
+    @ApiOperation(value="遗留接口", notes = "遗留接口")
+    public StoryResult getEmpInfo() {
+        StoryResult story = new StoryResult();
+        story.setId(1L);
+        story.setName("遗留接口");
         return story;
     }
 
@@ -221,6 +233,13 @@ public class AlipayController {
 
         return Arrays.asList(storyVO, storyVO2);
     }
+
+    @ApiAbility
+    @RequestMapping("getJson")
+    public Object getJson(@RequestBody JSONObject param) {
+        return param;
+    }
+
 
     /**
      * 演示文档表格树

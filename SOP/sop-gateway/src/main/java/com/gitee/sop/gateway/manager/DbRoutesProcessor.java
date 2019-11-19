@@ -33,8 +33,7 @@ public class DbRoutesProcessor implements RoutesProcessor {
     }
 
     @Override
-    @Transactional
-    public void saveRoutes(ServiceRouteInfo serviceRouteInfo, InstanceDefinition instance) {
+    public synchronized void saveRoutes(ServiceRouteInfo serviceRouteInfo, InstanceDefinition instance) {
         log.info("保存路由信息到数据库，instance: {}", instance);
         String serviceId = serviceRouteInfo.getServiceId();
         List<ConfigServiceRoute> configServiceRoutes = serviceRouteInfo

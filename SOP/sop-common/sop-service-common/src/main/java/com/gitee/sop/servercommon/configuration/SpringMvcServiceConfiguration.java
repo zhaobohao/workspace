@@ -1,13 +1,16 @@
 package com.gitee.sop.servercommon.configuration;
 
 import com.gitee.sop.servercommon.bean.ServiceConfig;
+import com.gitee.sop.servercommon.manager.EnvironmentContext;
 import com.gitee.sop.servercommon.manager.ServiceRouteController;
 import com.gitee.sop.servercommon.mapping.ApiMappingHandlerMapping;
 import com.gitee.sop.servercommon.message.ServiceErrorFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +27,9 @@ public class SpringMvcServiceConfiguration {
     }
 
     private ApiMappingHandlerMapping apiMappingHandlerMapping = new ApiMappingHandlerMapping();
+
+    @Autowired
+    private Environment environment;
 
     /**
      * 自定义Mapping，详见@ApiMapping
@@ -52,6 +58,7 @@ public class SpringMvcServiceConfiguration {
     @PostConstruct
     public final void after() {
         log.info("-----spring容器加载完毕-----");
+        EnvironmentContext.setEnvironment(environment);
         initMessage();
         doAfter();
     }
