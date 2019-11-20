@@ -351,13 +351,13 @@ public class AlipaySignature {
      *
      * @param params
      * @param alipayPublicKey 支付宝公钥
-     * @param cusPrivateKey   商户私钥
+     * @param pabPrivateKey   商户私钥
      * @param isCheckSign     是否验签
      * @param isDecrypt       是否解密
      * @return 解密后明文，验签失败则异常抛出
      */
     public static String checkSignAndDecrypt(Map<String, String> params, String alipayPublicKey,
-                                             String cusPrivateKey, boolean isCheckSign,
+                                             String pabPrivateKey, boolean isCheckSign,
                                              boolean isDecrypt) {
         String charset = params.get("charset");
         String bizContent = params.get("biz_content");
@@ -369,7 +369,7 @@ public class AlipaySignature {
         }
 
         if (isDecrypt) {
-            return rsaDecrypt(bizContent, cusPrivateKey, charset);
+            return rsaDecrypt(bizContent, pabPrivateKey, charset);
         }
 
         return bizContent;
@@ -390,13 +390,13 @@ public class AlipaySignature {
      *
      * @param params
      * @param alipayPublicKey 支付宝公钥
-     * @param cusPrivateKey   商户私钥
+     * @param pabPrivateKey   商户私钥
      * @param isCheckSign     是否验签
      * @param isDecrypt       是否解密
      * @return 解密后明文，验签失败则异常抛出
      */
     public static String checkSignAndDecrypt(Map<String, String> params, String alipayPublicKey,
-                                             String cusPrivateKey, boolean isCheckSign,
+                                             String pabPrivateKey, boolean isCheckSign,
                                              boolean isDecrypt, String signType) {
         String charset = params.get("charset");
         String bizContent = params.get("biz_content");
@@ -408,7 +408,7 @@ public class AlipaySignature {
         }
 
         if (isDecrypt) {
-            return rsaDecrypt(bizContent, cusPrivateKey, charset);
+            return rsaDecrypt(bizContent, pabPrivateKey, charset);
         }
 
         return bizContent;
@@ -420,7 +420,7 @@ public class AlipaySignature {
      *
      * @param bizContent      待加密、签名内容
      * @param alipayPublicKey 支付宝公钥
-     * @param cusPrivateKey   商户私钥
+     * @param pabPrivateKey   商户私钥
      * @param charset         字符集，如UTF-8, GBK, GB2312
      * @param isEncrypt       是否加密，true-加密  false-不加密
      * @param isSign          是否签名，true-签名  false-不签名
@@ -436,7 +436,7 @@ public class AlipaySignature {
      * </p>
      */
     public static String encryptAndSign(String bizContent, String alipayPublicKey,
-                                        String cusPrivateKey, String charset, boolean isEncrypt,
+                                        String pabPrivateKey, String charset, boolean isEncrypt,
                                         boolean isSign) {
         StringBuilder sb = new StringBuilder();
         if (StringUtils.isEmpty(charset)) {
@@ -449,7 +449,7 @@ public class AlipaySignature {
             sb.append("<response>" + encrypted + "</response>");
             sb.append("<encryption_type>RSA</encryption_type>");
             if (isSign) {
-                String sign = rsaSign(encrypted, cusPrivateKey, charset);
+                String sign = rsaSign(encrypted, pabPrivateKey, charset);
                 sb.append("<sign>" + sign + "</sign>");
                 sb.append("<sign_type>RSA</sign_type>");
             }
@@ -457,7 +457,7 @@ public class AlipaySignature {
         } else if (isSign) {// 不加密，但需要签名
             sb.append("<alipay>");
             sb.append("<response>" + bizContent + "</response>");
-            String sign = rsaSign(bizContent, cusPrivateKey, charset);
+            String sign = rsaSign(bizContent, pabPrivateKey, charset);
             sb.append("<sign>" + sign + "</sign>");
             sb.append("<sign_type>RSA</sign_type>");
             sb.append("</alipay>");
@@ -473,7 +473,7 @@ public class AlipaySignature {
      *
      * @param bizContent      待加密、签名内容
      * @param alipayPublicKey 支付宝公钥
-     * @param cusPrivateKey   商户私钥
+     * @param pabPrivateKey   商户私钥
      * @param charset         字符集，如UTF-8, GBK, GB2312
      * @param isEncrypt       是否加密，true-加密  false-不加密
      * @param isSign          是否签名，true-签名  false-不签名
@@ -489,7 +489,7 @@ public class AlipaySignature {
      * </p>
      */
     public static String encryptAndSign(String bizContent, String alipayPublicKey,
-                                        String cusPrivateKey, String charset, boolean isEncrypt,
+                                        String pabPrivateKey, String charset, boolean isEncrypt,
                                         boolean isSign, String signType) {
         StringBuilder sb = new StringBuilder();
         if (StringUtils.isEmpty(charset)) {
@@ -502,7 +502,7 @@ public class AlipaySignature {
             sb.append("<response>" + encrypted + "</response>");
             sb.append("<encryption_type>RSA</encryption_type>");
             if (isSign) {
-                String sign = rsaSign(encrypted, cusPrivateKey, charset, signType);
+                String sign = rsaSign(encrypted, pabPrivateKey, charset, signType);
                 sb.append("<sign>" + sign + "</sign>");
                 sb.append("<sign_type>");
                 sb.append(signType);
@@ -512,7 +512,7 @@ public class AlipaySignature {
         } else if (isSign) {// 不加密，但需要签名
             sb.append("<alipay>");
             sb.append("<response>" + bizContent + "</response>");
-            String sign = rsaSign(bizContent, cusPrivateKey, charset, signType);
+            String sign = rsaSign(bizContent, pabPrivateKey, charset, signType);
             sb.append("<sign>" + sign + "</sign>");
             sb.append("<sign_type>");
             sb.append(signType);

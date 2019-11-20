@@ -18,6 +18,7 @@ package com.gitee.sop.gatewaycommon.param;
  * @author tanghc
  */
 public class ParamNames {
+    public static final String ENCRYPTION_TYPE_NAME ="encryption_type";
     /** 分配给开发者的应用ID */
     public static String APP_KEY_NAME = "app_id";
     /** 接口名称 */

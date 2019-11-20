@@ -1,6 +1,8 @@
 package com.gitee.sop.gatewaycommon.validate.pab;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.gatewaycommon.message.ErrorEnum;
+import com.gitee.sop.gatewaycommon.param.ParamNames;
 import com.gitee.sop.gatewaycommon.validate.SignConfig;
 import org.apache.commons.codec.binary.Base64;
 
@@ -327,39 +329,28 @@ public class PabSignature {
     }
 
     /**
-     * 验签并解密
-     * <p>
-     * <b>目前适用于公众号</b><br>
-     * params参数示例：
-     * <br>{
-     * <br>biz_content=M0qGiGz+8kIpxe8aF4geWJdBn0aBTuJRQItLHo9R7o5JGhpic/MIUjvXo2BLB++BbkSq2OsJCEQFDZ0zK5AJYwvBgeRX30gvEj6eXqXRt16/IkB9HzAccEqKmRHrZJ7PjQWE0KfvDAHsJqFIeMvEYk1Zei2QkwSQPlso7K0oheo/iT+HYE8aTATnkqD/ByD9iNDtGg38pCa2xnnns63abKsKoV8h0DfHWgPH62urGY7Pye3r9FCOXA2Ykm8X4/Bl1bWFN/PFCEJHWe/HXj8KJKjWMO6ttsoV0xRGfeyUO8agu6t587Dl5ux5zD/s8Lbg5QXygaOwo3Fz1G8EqmGhi4+soEIQb8DBYanQOS3X+m46tVqBGMw8Oe+hsyIMpsjwF4HaPKMr37zpW3fe7xOMuimbZ0wq53YP/jhQv6XWodjT3mL0H5ACqcsSn727B5ztquzCPiwrqyjUHjJQQefFTzOse8snaWNQTUsQS7aLsHq0FveGpSBYORyA90qPdiTjXIkVP7mAiYiAIWW9pCEC7F3XtViKTZ8FRMM9ySicfuAlf3jtap6v2KPMtQv70X+hlmzO/IXB6W0Ep8DovkF5rB4r/BJYJLw/6AS0LZM9w5JfnAZhfGM2rKzpfNsgpOgEZS1WleG4I2hoQC0nxg9IcP0Hs+nWIPkEUcYNaiXqeBc=,
-     * <br>sign=rlqgA8O+RzHBVYLyHmrbODVSANWPXf3pSrr82OCO/bm3upZiXSYrX5fZr6UBmG6BZRAydEyTIguEW6VRuAKjnaO/sOiR9BsSrOdXbD5Rhos/Xt7/mGUWbTOt/F+3W0/XLuDNmuYg1yIC/6hzkg44kgtdSTsQbOC9gWM7ayB4J4c=,
-     * sign_type=RSA,
-     * <br>charset=UTF-8
-     * <br>}
-     * </p>
+     * 验签并解密,使用RSA
      *
      * @param params
-     * @param pabPublicKey 支付宝公钥
-     * @param cusPrivateKey   商户私钥
+     * @param cusPublicKey 支付宝公钥
+     * @param pabPrivateKey   商户私钥
      * @param isCheckSign     是否验签
      * @param isDecrypt       是否解密
      * @return 解密后明文，验签失败则异常抛出
      */
-    public static String checkSignAndDecrypt(Map<String, String> params, String pabPublicKey,
-                                             String cusPrivateKey, boolean isCheckSign,
+    public static String checkSignAndDecrypt(Map<String, String> params, String cusPublicKey,
+                                             String pabPrivateKey, boolean isCheckSign,
                                              boolean isDecrypt) {
-        String charset = params.get("charset");
-        String bizContent = params.get("biz_content");
+        String charset = params.get(ParamNames.CHARSET_NAME);
+        String bizContent = params.get(ParamNames.BIZ_CONTENT_NAME);
         if (isCheckSign) {
-            if (!rsaCheckV2(params, pabPublicKey, charset)) {
+            if (!rsaCheckV2(params, cusPublicKey, charset)) {
                 throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException();
-//                throw new pabApiException("rsaCheck failure:rsaParams=" + params);
             }
         }
 
         if (isDecrypt) {
-            return rsaDecrypt(bizContent, cusPrivateKey, charset);
+            return rsaDecrypt(bizContent, pabPrivateKey, charset);
         }
 
         return bizContent;
@@ -367,38 +358,28 @@ public class PabSignature {
 
     /**
      * 验签并解密
-     * <p>
-     * <b>目前适用于公众号</b><br>
-     * params参数示例：
-     * <br>{
-     * <br>biz_content=M0qGiGz+8kIpxe8aF4geWJdBn0aBTuJRQItLHo9R7o5JGhpic/MIUjvXo2BLB++BbkSq2OsJCEQFDZ0zK5AJYwvBgeRX30gvEj6eXqXRt16/IkB9HzAccEqKmRHrZJ7PjQWE0KfvDAHsJqFIeMvEYk1Zei2QkwSQPlso7K0oheo/iT+HYE8aTATnkqD/ByD9iNDtGg38pCa2xnnns63abKsKoV8h0DfHWgPH62urGY7Pye3r9FCOXA2Ykm8X4/Bl1bWFN/PFCEJHWe/HXj8KJKjWMO6ttsoV0xRGfeyUO8agu6t587Dl5ux5zD/s8Lbg5QXygaOwo3Fz1G8EqmGhi4+soEIQb8DBYanQOS3X+m46tVqBGMw8Oe+hsyIMpsjwF4HaPKMr37zpW3fe7xOMuimbZ0wq53YP/jhQv6XWodjT3mL0H5ACqcsSn727B5ztquzCPiwrqyjUHjJQQefFTzOse8snaWNQTUsQS7aLsHq0FveGpSBYORyA90qPdiTjXIkVP7mAiYiAIWW9pCEC7F3XtViKTZ8FRMM9ySicfuAlf3jtap6v2KPMtQv70X+hlmzO/IXB6W0Ep8DovkF5rB4r/BJYJLw/6AS0LZM9w5JfnAZhfGM2rKzpfNsgpOgEZS1WleG4I2hoQC0nxg9IcP0Hs+nWIPkEUcYNaiXqeBc=,
-     * <br>sign=rlqgA8O+RzHBVYLyHmrbODVSANWPXf3pSrr82OCO/bm3upZiXSYrX5fZr6UBmG6BZRAydEyTIguEW6VRuAKjnaO/sOiR9BsSrOdXbD5Rhos/Xt7/mGUWbTOt/F+3W0/XLuDNmuYg1yIC/6hzkg44kgtdSTsQbOC9gWM7ayB4J4c=,
-     * sign_type=RSA,
-     * <br>charset=UTF-8
-     * <br>}
-     * </p>
      *
      * @param params
-     * @param pabPublicKey 对方的公钥
-     * @param cusPrivateKey   自己的私钥
+     * @param cusPublicKey 对方的公钥
+     * @param pabPrivateKey   自己的私钥
      * @param isCheckSign     是否验签
      * @param isDecrypt       是否解密
+     * @param signType      验签名类型
      * @return 解密后明文，验签失败则异常抛出
      */
-    public static String checkSignAndDecrypt(Map<String, String> params, String pabPublicKey,
-                                             String cusPrivateKey, boolean isCheckSign,
+    public static String checkSignAndDecryptBySignType(Map<String, String> params, String cusPublicKey,
+                                             String pabPrivateKey, boolean isCheckSign,
                                              boolean isDecrypt, String signType) {
-        String charset = params.get("charset");
-        String bizContent = params.get("biz_content");
+        String charset = params.get(ParamNames.CHARSET_NAME);
+        String bizContent = params.get(ParamNames.BIZ_CONTENT_NAME);
         if (isCheckSign) {
-            if (!rsaCheckV2BySignType(params, pabPublicKey, charset, signType)) {
+            if (!rsaCheckV2BySignType(params, cusPublicKey, charset, signType)) {
                 throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException();
-//                throw new pabApiException("rsaCheck failure:rsaParams=" + params);
             }
         }
 
         if (isDecrypt) {
-            return rsaDecrypt(bizContent, cusPrivateKey, charset);
+            return rsaDecrypt(bizContent, pabPrivateKey, charset);
         }
 
         return bizContent;
@@ -406,55 +387,41 @@ public class PabSignature {
 
     /**
      * 加密并签名<br>
-     * <b>目前适用于公众号</b>
+     * <b>目前适用于公众号,使用RSA</b>
      *
      * @param bizContent      待加密、签名内容
-     * @param pabPublicKey 支付宝公钥
-     * @param cusPrivateKey   商户私钥
+     * @param cusPublicKey 支付宝公钥
+     * @param pabPrivateKey   商户私钥
      * @param charset         字符集，如UTF-8, GBK, GB2312
      * @param isEncrypt       是否加密，true-加密  false-不加密
      * @param isSign          是否签名，true-签名  false-不签名
      * @return 加密、签名后xml内容字符串
-     * <p>
-     * 返回示例：
-     * <pab>
-     * <response>密文</response>
-     * <encryption_type>RSA</encryption_type>
-     * <sign>sign</sign>
-     * <sign_type>RSA</sign_type>
-     * </pab>
-     * </p>
      */
-    public static String encryptAndSign(String bizContent, String pabPublicKey,
-                                        String cusPrivateKey, String charset, boolean isEncrypt,
+    public static String encryptAndSign(String bizContent, String cusPublicKey,
+                                        String pabPrivateKey, String charset, boolean isEncrypt,
                                         boolean isSign) {
-        StringBuilder sb = new StringBuilder();
+        JSONObject  finalData= JSONObject.parseObject(bizContent);
         if (StringUtils.isEmpty(charset)) {
             charset = PabConstants.CHARSET_GBK;
         }
-        sb.append("<?xml version=\"1.0\" encoding=\"" + charset + "\"?>");
         if (isEncrypt) {// 加密
-            sb.append("<pab>");
-            String encrypted = rsaEncrypt(bizContent, pabPublicKey, charset);
-            sb.append("<response>" + encrypted + "</response>");
-            sb.append("<encryption_type>RSA</encryption_type>");
+            String data=finalData.getString(ParamNames.BIZ_CONTENT_NAME);
+            String encrypted = rsaEncrypt(data, cusPublicKey, charset);
+            finalData.put(ParamNames.BIZ_CONTENT_NAME,encrypted);
+            finalData.put(ParamNames.ENCRYPTION_TYPE_NAME,"RSA");
             if (isSign) {
-                String sign = rsaSign(encrypted, cusPrivateKey, charset);
-                sb.append("<sign>" + sign + "</sign>");
-                sb.append("<sign_type>RSA</sign_type>");
+                finalData.put(ParamNames.SIGN_TYPE_NAME,"RSA");
+                String sign = rsaSign(getSignCheckContentV2(finalData), pabPrivateKey, charset);
+                finalData.put(ParamNames.SIGN_NAME,sign);
             }
-            sb.append("</pab>");
         } else if (isSign) {// 不加密，但需要签名
-            sb.append("<pab>");
-            sb.append("<response>" + bizContent + "</response>");
-            String sign = rsaSign(bizContent, cusPrivateKey, charset);
-            sb.append("<sign>" + sign + "</sign>");
-            sb.append("<sign_type>RSA</sign_type>");
-            sb.append("</pab>");
+            finalData.put(ParamNames.SIGN_TYPE_NAME,"RSA");
+            String sign = rsaSign(getSignCheckContentV2(finalData), pabPrivateKey, charset);
+            finalData.put(ParamNames.SIGN_NAME,sign);
         } else {// 不加密，不加签
-            sb.append(bizContent);
+           ;
         }
-        return sb.toString();
+        return finalData.toJSONString();
     }
 
     /**
@@ -462,56 +429,39 @@ public class PabSignature {
      * <b>目前适用于公众号</b>
      *
      * @param bizContent      待加密、签名内容
-     * @param pabPublicKey 支付宝公钥
-     * @param cusPrivateKey   商户私钥
+     * @param cusPublicKey 支付宝公钥
+     * @param pabPrivateKey   商户私钥
      * @param charset         字符集，如UTF-8, GBK, GB2312
      * @param isEncrypt       是否加密，true-加密  false-不加密
      * @param isSign          是否签名，true-签名  false-不签名
+     * @param signType        签名类型  RSA   RSA2
      * @return 加密、签名后xml内容字符串
-     * <p>
-     * 返回示例：
-     * <pab>
-     * <response>密文</response>
-     * <encryption_type>RSA</encryption_type>
-     * <sign>sign</sign>
-     * <sign_type>RSA</sign_type>
-     * </pab>
-     * </p>
      */
-    public static String encryptAndSign(String bizContent, String pabPublicKey,
-                                        String cusPrivateKey, String charset, boolean isEncrypt,
+    public static String encryptAndSignBySignType(String bizContent, String cusPublicKey,
+                                        String pabPrivateKey, String charset, boolean isEncrypt,
                                         boolean isSign, String signType) {
-        StringBuilder sb = new StringBuilder();
+        JSONObject  finalData= JSONObject.parseObject(bizContent);
         if (StringUtils.isEmpty(charset)) {
             charset = PabConstants.CHARSET_GBK;
         }
-        sb.append("<?xml version=\"1.0\" encoding=\"" + charset + "\"?>");
         if (isEncrypt) {// 加密
-            sb.append("<pab>");
-            String encrypted = rsaEncrypt(bizContent, pabPublicKey, charset);
-            sb.append("<response>" + encrypted + "</response>");
-            sb.append("<encryption_type>RSA</encryption_type>");
+            String data=finalData.getString(ParamNames.BIZ_CONTENT_NAME);
+            String encrypted = rsaEncrypt(data, cusPublicKey, charset);
+            finalData.put(ParamNames.BIZ_CONTENT_NAME,encrypted);
+            finalData.put(ParamNames.ENCRYPTION_TYPE_NAME,"RSA");
             if (isSign) {
-                String sign = rsaSignBySignType(encrypted, cusPrivateKey, charset, signType);
-                sb.append("<sign>" + sign + "</sign>");
-                sb.append("<sign_type>");
-                sb.append(signType);
-                sb.append("</sign_type>");
+                finalData.put(ParamNames.SIGN_TYPE_NAME,"RSA");
+                String sign = rsaSignBySignType(getSignCheckContentV2(finalData), pabPrivateKey, charset,signType);
+                finalData.put(ParamNames.SIGN_NAME,sign);
             }
-            sb.append("</pab>");
         } else if (isSign) {// 不加密，但需要签名
-            sb.append("<pab>");
-            sb.append("<response>" + bizContent + "</response>");
-            String sign = rsaSignBySignType(bizContent, cusPrivateKey, charset, signType);
-            sb.append("<sign>" + sign + "</sign>");
-            sb.append("<sign_type>");
-            sb.append(signType);
-            sb.append("</sign_type>");
-            sb.append("</pab>");
+            finalData.put(ParamNames.SIGN_TYPE_NAME,"RSA");
+            String sign = rsaSignBySignType(getSignCheckContentV2(finalData), pabPrivateKey, charset,signType);
+            finalData.put(ParamNames.SIGN_NAME,sign);
         } else {// 不加密，不加签
-            sb.append(bizContent);
+            ;
         }
-        return sb.toString();
+        return finalData.toJSONString();
     }
 
     /**
