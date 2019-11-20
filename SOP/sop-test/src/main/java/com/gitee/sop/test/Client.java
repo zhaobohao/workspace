@@ -3,6 +3,7 @@ package com.gitee.sop.test;
 import com.alibaba.fastjson.JSON;
 import com.gitee.sop.test.alipay.AlipayApiException;
 import com.gitee.sop.test.alipay.AlipaySignature;
+import com.gitee.sop.test.pab.StringUtils;
 import lombok.Data;
 
 import java.io.File;
@@ -39,10 +40,14 @@ public class Client {
     private String appId;
 
     /**
-     * 平台提供的私钥
+     * 渠道的私钥
      */
     private String privateKey;
 
+    /**
+     * 服务平台的公钥
+     */
+    private String pabPublicKey;
     /**
      * 请求成功后处理
      */
@@ -75,6 +80,22 @@ public class Client {
         this.privateKey = privateKey;
         this.callback = callback;
     }
+    /**
+     * 创建一个客户端
+     *
+     * @param url        请求url
+     * @param appId      平台提供的appKey
+     * @param privateKey 平台提供的私钥
+     * @param callback   请求成功后处理
+     */
+    public Client(String url, String appId, String privateKey,String pabPublicKey, Callback callback) {
+        this.url = url;
+        this.appId = appId;
+        this.privateKey = privateKey;
+        this.pabPublicKey=pabPublicKey;
+        this.callback = callback;
+    }
+
 
     /**
      * 发送请求
@@ -313,6 +334,9 @@ public class Client {
         }
 
         public RequestInfo build(String appId, String privateKey) {
+            return build( appId,  privateKey,null);
+        }
+        public RequestInfo build(String appId, String privateKey,String pabPublicKey) {
             // 公共请求参数
             Map<String, String> params = new HashMap<String, String>();
             params.put("app_id", appId);
@@ -328,6 +352,10 @@ public class Client {
             params.put("format", "json");
             params.put("charset", "utf-8");
             params.put("sign_type", "RSA2");
+            if(StringUtils.areNotEmpty(pabPublicKey))
+            {
+                params.put(ParamNames.ENCRYPTION_TYPE_NAME,"RSA");
+            }
             params.put("timestamp", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
             // 业务参数

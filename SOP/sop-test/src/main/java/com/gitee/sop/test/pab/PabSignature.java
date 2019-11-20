@@ -1,9 +1,7 @@
-package com.gitee.sop.gatewaycommon.validate.pab;
+package com.gitee.sop.test.pab;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gitee.sop.gatewaycommon.message.ErrorEnum;
-import com.gitee.sop.gatewaycommon.param.ParamNames;
-import com.gitee.sop.gatewaycommon.validate.SignConfig;
+import com.gitee.sop.test.ParamNames;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
@@ -64,7 +62,7 @@ public class PabSignature {
      * @return
      */
     public static String rsaSignBySignType(String content, String publicKey, String charset,
-                                           String signType) {
+                                           String signType) throws PabApiException {
 
         if (PabConstants.SIGN_TYPE_RSA.equals(signType)) {
 
@@ -73,8 +71,7 @@ public class PabSignature {
 
             return rsa256Sign(content, publicKey, charset);
         } else {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE_TYPE.getErrorMeta().getException();
-//            throw new pabApiException("Sign Type is Not Support : signType=" + signType);
+            throw new PabApiException("Sign Type is Not Support : signType=" + signType);
         }
 
     }
@@ -88,7 +85,7 @@ public class PabSignature {
      * @return
      */
     public static String rsa256Sign(String content, String privateKey,
-                                    String charset) {
+                                    String charset) throws PabApiException  {
 
         try {
             PrivateKey priKey = getPrivateKeyFromPKCS8(PabConstants.SIGN_TYPE_RSA,
@@ -109,8 +106,7 @@ public class PabSignature {
 
             return new String(Base64.encodeBase64(signed));
         } catch (Exception e) {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException(e);
-//            throw new pabApiException("RSAcontent = " + content + "; charset = " + charset, e);
+            throw new PabApiException("RSAcontent = " + content + "; charset = " + charset, e);
         }
 
     }
@@ -124,7 +120,7 @@ public class PabSignature {
      * @return
      */
     public static String rsaSign(String content, String publicKey,
-                                           String charset) {
+                                           String charset) throws PabApiException  {
         try {
             PrivateKey priKey = getPrivateKeyFromPKCS8(PabConstants.SIGN_TYPE_RSA,
                     new ByteArrayInputStream(publicKey.getBytes()));
@@ -144,14 +140,14 @@ public class PabSignature {
 
             return new String(Base64.encodeBase64(signed));
         } catch (InvalidKeySpecException ie) {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE_TYPE.getErrorMeta().getException(ie);
+            throw new PabApiException("RSAcontent = " + content + "; charset = " + charset, ie);
         } catch (Exception e) {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException(e);
+            throw new PabApiException("RSAcontent = " + content + "; charset = " + charset, e);
         }
     }
 
     public static String rsaSignBySignType(Map<String, Object> params, String publicKey,
-                                           String charset, String signType) {
+                                           String charset, String signType) throws PabApiException  {
         String signContent = getSignContent(params);
 
         return rsaSignBySignType(signContent, publicKey, charset, signType);
@@ -181,20 +177,20 @@ public class PabSignature {
         params.remove("sign");
         params.remove("sign_type");
 
-        StringBuilder content = new StringBuilder();
+        StringBuffer content = new StringBuffer();
         List<String> keys = new ArrayList<String>(params.keySet());
         Collections.sort(keys);
 
         for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
-            String value = SignConfig.wrapVal(params.get(key));
+            String value = params.get(key);
             content.append((i == 0 ? "" : "&") + key + "=" + value);
         }
 
         return content.toString();
     }
 
-    public static String getSignCheckContentV2(Map<String, ?> params) {
+    public static String getSignCheckContentV2(Map<String, Object> params) {
         if (params == null) {
             return null;
         }
@@ -207,7 +203,7 @@ public class PabSignature {
 
         for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
-            String value = SignConfig.wrapVal(params.get(key));
+            String value = (String) params.get(key);
             content.append((i == 0 ? "" : "&") + key + "=" + value);
         }
 
@@ -215,7 +211,7 @@ public class PabSignature {
     }
 
     public static boolean rsaCheckV1(Map<String, String> params, String publicKey,
-                                     String charset) {
+                                     String charset) throws  PabApiException {
         String sign = params.get("sign");
         String content = getSignCheckContentV1(params);
 
@@ -223,23 +219,23 @@ public class PabSignature {
     }
 
     public static boolean rsaCheckV1(Map<String, String> params, String publicKey,
-                                     String charset, String signType) {
+                                     String charset, String signType) throws  PabApiException{
         String sign = params.get("sign");
         String content = getSignCheckContentV1(params);
 
         return rsaCheckBySignType(content, sign, publicKey, charset, signType);
     }
 
-    public static boolean rsaCheckV2(Map<String, String> params, String publicKey,
-                                     String charset) {
-        String sign = params.get("sign");
+    public static boolean rsaCheckV2(Map<String,Object > params, String publicKey,
+                                     String charset)throws  PabApiException {
+        String sign = (String)params.get("sign");
         String content = getSignCheckContentV2(params);
 
         return rsaCheckContent(content, sign, publicKey, charset);
     }
 
-    public static boolean rsaCheckV2BySignType(Map<String, ?> params, String publicKey,
-                                               String charset, String signType) {
+    public static boolean rsaCheckV2BySignType(Map<String, Object> params, String publicKey,
+                                               String charset, String signType) throws PabApiException {
         String sign = String.valueOf(params.get("sign"));
         String content = getSignCheckContentV2(params);
 
@@ -247,7 +243,7 @@ public class PabSignature {
     }
 
     public static boolean rsaCheckBySignType(String content, String sign, String publicKey, String charset,
-                                             String signType) {
+                                             String signType)throws PabApiException   {
 
         if (PabConstants.SIGN_TYPE_RSA.equals(signType)) {
 
@@ -258,14 +254,13 @@ public class PabSignature {
             return rsa256CheckContent(content, sign, publicKey, charset);
 
         } else {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE_TYPE.getErrorMeta().getException();
-//            throw new pabApiException("Sign Type is Not Support : signType=" + signType);
+            throw new PabApiException("Sign Type is Not Support : signType=" + signType);
         }
 
     }
 
     public static boolean rsa256CheckContent(String content, String sign, String publicKey,
-                                             String charset) {
+                                             String charset) throws PabApiException {
         try {
             PublicKey pubKey = getPublicKeyFromX509("RSA",
                     new ByteArrayInputStream(publicKey.getBytes()));
@@ -283,14 +278,13 @@ public class PabSignature {
 
             return signature.verify(Base64.decodeBase64(sign.getBytes()));
         } catch (Exception e) {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException(e);
-//            throw new pabApiException(
-//                    "RSAcontent = " + content + ",sign=" + sign + ",charset = " + charset, e);
+            throw new PabApiException(
+                    "RSAcontent = " + content + ",sign=" + sign + ",charset = " + charset, e);
         }
     }
 
     public static boolean rsaCheckContent(String content, String sign, String publicKey,
-                                          String charset) {
+                                          String charset)throws PabApiException {
         try {
             PublicKey pubKey = getPublicKeyFromX509("RSA",
                     new ByteArrayInputStream(publicKey.getBytes()));
@@ -308,9 +302,8 @@ public class PabSignature {
 
             return signature.verify(Base64.decodeBase64(sign.getBytes()));
         } catch (Exception e) {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException(e);
-//            throw new pabApiException(
-//                    "RSAcontent = " + content + ",sign=" + sign + ",charset = " + charset, e);
+            throw new PabApiException(
+                    "RSAcontent = " + content + ",sign=" + sign + ",charset = " + charset, e);
         }
     }
 
@@ -332,20 +325,20 @@ public class PabSignature {
      * 验签并解密,使用RSA
      *
      * @param params
-     * @param cusPublicKey 对方的公钥
-     * @param pabPrivateKey   自己的私钥
+     * @param cusPublicKey 支付宝公钥
+     * @param pabPrivateKey   商户私钥
      * @param isCheckSign     是否验签
      * @param isDecrypt       是否解密
      * @return 解密后明文，验签失败则异常抛出
      */
-    public static String checkSignAndDecrypt(Map<String, String> params, String cusPublicKey,
+    public static String checkSignAndDecrypt(Map<String, Object> params, String cusPublicKey,
                                              String pabPrivateKey, boolean isCheckSign,
-                                             boolean isDecrypt) {
-        String charset = params.get(ParamNames.CHARSET_NAME);
-        String bizContent = params.get(ParamNames.BIZ_CONTENT_NAME);
+                                             boolean isDecrypt) throws PabApiException {
+        String charset = (String) params.get(ParamNames.CHARSET_NAME);
+        String bizContent = (String) params.get(ParamNames.BIZ_CONTENT_NAME);
         if (isCheckSign) {
             if (!rsaCheckV2(params, cusPublicKey, charset)) {
-                throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException();
+                throw new PabApiException("Sign check is failed: signType=" + params.toString());
             }
         }
 
@@ -369,12 +362,12 @@ public class PabSignature {
      */
     public static String checkSignAndDecryptBySignType(Map<String, Object> params, String cusPublicKey,
                                              String pabPrivateKey, boolean isCheckSign,
-                                             boolean isDecrypt, String signType) {
+                                             boolean isDecrypt, String signType) throws PabApiException{
         String charset =(String) params.get(ParamNames.CHARSET_NAME);
         String bizContent = (String) params.get(ParamNames.BIZ_CONTENT_NAME);
         if (isCheckSign) {
             if (!rsaCheckV2BySignType(params, cusPublicKey, charset, signType)) {
-                throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException();
+                throw new PabApiException("Sign check is failed: signType=" + params.toString());
             }
         }
 
@@ -390,8 +383,8 @@ public class PabSignature {
      * <b>目前适用于公众号,使用RSA</b>
      *
      * @param bizContent      待加密、签名内容
-     * @param cusPublicKey 对方的公钥
-     * @param pabPrivateKey   自己的私钥
+     * @param cusPublicKey 支付宝公钥
+     * @param pabPrivateKey   商户私钥
      * @param charset         字符集，如UTF-8, GBK, GB2312
      * @param isEncrypt       是否加密，true-加密  false-不加密
      * @param isSign          是否签名，true-签名  false-不签名
@@ -399,7 +392,7 @@ public class PabSignature {
      */
     public static String encryptAndSign(String bizContent, String cusPublicKey,
                                         String pabPrivateKey, String charset, boolean isEncrypt,
-                                        boolean isSign) {
+                                        boolean isSign) throws PabApiException{
         JSONObject  finalData= JSONObject.parseObject(bizContent);
         if (StringUtils.isEmpty(charset)) {
             charset = PabConstants.CHARSET_GBK;
@@ -429,8 +422,8 @@ public class PabSignature {
      * <b>目前适用于公众号</b>
      *
      * @param bizContent      待加密、签名内容
-     * @param cusPublicKey 对方的公钥
-     * @param pabPrivateKey   自己的私钥
+     * @param cusPublicKey 支付宝公钥
+     * @param pabPrivateKey   商户私钥
      * @param charset         字符集，如UTF-8, GBK, GB2312
      * @param isEncrypt       是否加密，true-加密  false-不加密
      * @param isSign          是否签名，true-签名  false-不签名
@@ -439,7 +432,7 @@ public class PabSignature {
      */
     public static String encryptAndSignBySignType(String bizContent, String cusPublicKey,
                                         String pabPrivateKey, String charset, boolean isEncrypt,
-                                        boolean isSign, String signType) {
+                                        boolean isSign, String signType) throws PabApiException{
         JSONObject  finalData= JSONObject.parseObject(bizContent);
         if (StringUtils.isEmpty(charset)) {
             charset = PabConstants.CHARSET_GBK;
@@ -473,7 +466,7 @@ public class PabSignature {
      * @return 密文内容
      */
     public static String rsaEncrypt(String content, String publicKey,
-                                    String charset) {
+                                    String charset) throws PabApiException{
         try {
             PublicKey pubKey = getPublicKeyFromX509(PabConstants.SIGN_TYPE_RSA,
                     new ByteArrayInputStream(publicKey.getBytes()));
@@ -503,9 +496,8 @@ public class PabSignature {
             return StringUtils.isEmpty(charset) ? new String(encryptedData)
                     : new String(encryptedData, charset);
         } catch (Exception e) {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException(e);
-//            throw new pabApiException("EncryptContent = " + content + ",charset = " + charset,
-//                    e);
+            throw new PabApiException("EncryptContent = " + content + ",charset = " + charset,
+                    e);
         }
     }
 
@@ -518,7 +510,7 @@ public class PabSignature {
      * @return 明文内容
      */
     public static String rsaDecrypt(String content, String publicKey,
-                                    String charset) {
+                                    String charset) throws  PabApiException {
         try {
             PrivateKey priKey = getPrivateKeyFromPKCS8(PabConstants.SIGN_TYPE_RSA,
                     new ByteArrayInputStream(publicKey.getBytes()));
@@ -549,8 +541,7 @@ public class PabSignature {
             return StringUtils.isEmpty(charset) ? new String(decryptedData)
                     : new String(decryptedData, charset);
         } catch (Exception e) {
-            throw ErrorEnum.ISV_INVALID_SIGNATURE.getErrorMeta().getException(e);
-//            throw new pabApiException("EncodeContent = " + content + ",charset = " + charset, e);
+            throw new PabApiException("EncodeContent = " + content + ",charset = " + charset, e);
         }
     }
 
