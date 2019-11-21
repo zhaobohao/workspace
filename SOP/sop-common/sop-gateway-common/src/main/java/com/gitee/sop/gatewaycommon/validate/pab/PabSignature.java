@@ -1,5 +1,7 @@
 package com.gitee.sop.gatewaycommon.validate.pab;
 
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
 import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.gatewaycommon.message.ErrorEnum;
 import com.gitee.sop.gatewaycommon.param.ParamNames;
@@ -8,6 +10,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
 import java.io.*;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -513,15 +516,15 @@ public class PabSignature {
      * 私钥解密
      *
      * @param content    待解密内容
-     * @param publicKey 私钥
+     * @param privateKey 私钥
      * @param charset    字符集，如UTF-8, GBK, GB2312
      * @return 明文内容
      */
-    public static String rsaDecrypt(String content, String publicKey,
+    public static String rsaDecrypt(String content, String privateKey,
                                     String charset) {
         try {
             PrivateKey priKey = getPrivateKeyFromPKCS8(PabConstants.SIGN_TYPE_RSA,
-                    new ByteArrayInputStream(publicKey.getBytes()));
+                    new ByteArrayInputStream(privateKey.getBytes()));
             Cipher cipher = Cipher.getInstance(PabConstants.SIGN_TYPE_RSA);
             cipher.init(Cipher.DECRYPT_MODE, priKey);
             byte[] encryptedData = StringUtils.isEmpty(charset)
@@ -553,5 +556,6 @@ public class PabSignature {
 //            throw new pabApiException("EncodeContent = " + content + ",charset = " + charset, e);
         }
     }
+
 
 }

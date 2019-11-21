@@ -1,5 +1,7 @@
 package com.gitee.sop.test.pab;
 
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
 import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.test.ParamNames;
 import org.apache.commons.codec.binary.Base64;
@@ -443,12 +445,12 @@ public class PabSignature {
             finalData.put(ParamNames.BIZ_CONTENT_NAME,encrypted);
             finalData.put(ParamNames.ENCRYPTION_TYPE_NAME,"RSA");
             if (isSign) {
-                finalData.put(ParamNames.SIGN_TYPE_NAME,"RSA");
+                finalData.put(ParamNames.SIGN_TYPE_NAME,signType);
                 String sign = rsaSignBySignType(getSignCheckContentV2(finalData), pabPrivateKey, charset,signType);
                 finalData.put(ParamNames.SIGN_NAME,sign);
             }
         } else if (isSign) {// 不加密，但需要签名
-            finalData.put(ParamNames.SIGN_TYPE_NAME,"RSA");
+            finalData.put(ParamNames.SIGN_TYPE_NAME,signType);
             String sign = rsaSignBySignType(getSignCheckContentV2(finalData), pabPrivateKey, charset,signType);
             finalData.put(ParamNames.SIGN_NAME,sign);
         } else {// 不加密，不加签
@@ -505,15 +507,15 @@ public class PabSignature {
      * 私钥解密
      *
      * @param content    待解密内容
-     * @param publicKey 私钥
+     * @param privateKey 私钥
      * @param charset    字符集，如UTF-8, GBK, GB2312
      * @return 明文内容
      */
-    public static String rsaDecrypt(String content, String publicKey,
+    public static String rsaDecrypt(String content, String privateKey,
                                     String charset) throws  PabApiException {
         try {
             PrivateKey priKey = getPrivateKeyFromPKCS8(PabConstants.SIGN_TYPE_RSA,
-                    new ByteArrayInputStream(publicKey.getBytes()));
+                    new ByteArrayInputStream(privateKey.getBytes()));
             Cipher cipher = Cipher.getInstance(PabConstants.SIGN_TYPE_RSA);
             cipher.init(Cipher.DECRYPT_MODE, priKey);
             byte[] encryptedData = StringUtils.isEmpty(charset)

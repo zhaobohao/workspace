@@ -3,6 +3,7 @@ package com.gitee.sop.test;
 import com.alibaba.fastjson.JSON;
 import com.gitee.sop.test.alipay.AlipayApiException;
 import com.gitee.sop.test.alipay.AlipaySignature;
+import com.gitee.sop.test.pab.PabSignature;
 import com.gitee.sop.test.pab.StringUtils;
 import lombok.Data;
 
@@ -10,12 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 简易客户端
@@ -80,6 +76,7 @@ public class Client {
         this.privateKey = privateKey;
         this.callback = callback;
     }
+
     /**
      * 创建一个客户端
      *
@@ -88,11 +85,11 @@ public class Client {
      * @param privateKey 平台提供的私钥
      * @param callback   请求成功后处理
      */
-    public Client(String url, String appId, String privateKey,String pabPublicKey, Callback callback) {
+    public Client(String url, String appId, String privateKey, String pabPublicKey, Callback callback) {
         this.url = url;
         this.appId = appId;
         this.privateKey = privateKey;
-        this.pabPublicKey=pabPublicKey;
+        this.pabPublicKey = pabPublicKey;
         this.callback = callback;
     }
 
@@ -104,7 +101,12 @@ public class Client {
      * @return 返回结果
      */
     public String execute(RequestBuilder requestBuilder) {
-        RequestInfo requestInfo = requestBuilder.build(appId, privateKey);
+        RequestInfo requestInfo = null;
+        try {
+            requestInfo = requestBuilder.build(appId, privateKey,pabPublicKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         HttpTool.HTTPMethod httpMethod = requestInfo.getHttpMethod();
         boolean postJson = requestInfo.isPostJson();
         Map<String, ?> form = requestInfo.getForm();
@@ -333,10 +335,11 @@ public class Client {
             return callback;
         }
 
-        public RequestInfo build(String appId, String privateKey) {
-            return build( appId,  privateKey,null);
+        public RequestInfo build(String appId, String privateKey) throws Exception {
+            return build(appId, privateKey, null);
         }
-        public RequestInfo build(String appId, String privateKey,String pabPublicKey) {
+
+        public RequestInfo build(String appId, String privateKey, String pabPublicKey) throws Exception {
             // 公共请求参数
             Map<String, String> params = new HashMap<String, String>();
             params.put("app_id", appId);
@@ -352,15 +355,16 @@ public class Client {
             params.put("format", "json");
             params.put("charset", "utf-8");
             params.put("sign_type", "RSA2");
-            if(StringUtils.areNotEmpty(pabPublicKey))
-            {
-                params.put(ParamNames.ENCRYPTION_TYPE_NAME,"RSA");
-            }
+
             params.put("timestamp", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
-            // 业务参数
-            params.put("biz_content", JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent));
-
+            if (StringUtils.areNotEmpty(pabPublicKey)) {
+                params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+                // 业务参数，加密
+                params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent), pabPublicKey, params.get("charset")));
+            } else {
+                // 业务参数,不加密
+                params.put("biz_content", JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent));
+            }
             if (!ignoreSign) {
                 String content = AlipaySignature.getSignContent(params);
                 String sign = null;

@@ -1,11 +1,15 @@
-package com.gitee.sop.test;
+package com.gitee.sop.test.pab;
 
 import com.alibaba.fastjson.JSON;
+import com.gitee.sop.test.ParamNames;
+import com.gitee.sop.test.TestBase;
 import com.gitee.sop.test.alipay.AlipayApiException;
 import com.gitee.sop.test.alipay.AlipaySignature;
+import com.gitee.sop.test.pab.PabSignature;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,12 +17,14 @@ import java.util.Map;
 /**
  * 模仿支付宝客户端请求接口
  */
-public class AlipayClientPostTest extends TestBase {
+public class PabClientPostTest extends TestBase {
 
     String url = "http://localhost:8081";
     String appId = "2019032617262200001";
     // 平台提供的私钥
-  String privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAM4lMCwagCw0Yl3Npabzfma2lxjZjEavg0+OeFCZ9Ss91P5mCLqOab6iVi7KA14Hxw5IAuZPOBeV5/7pJ3B9ElUQxhUA7uGoXQ6h33NM5z6SiWCdYm2pfngKih18AG3RI1L9uyvqEIBa7XtEaduAFor5lokPc1WpdVcTwTfRxgeJAgMBAAECgYAM3XFGL1k0aQiChiUCaEvJKTgAywLgHm/5dRC5JwKP8knqnn+I9P5QcV0jimPvaFjZ4VCdAvCjOC3EUNSvRn7wR2Lb1+BGZZePTdxtHWE2aqJ1W1SvgQTqMsLlPBRPnXo5XH/ng3WEH15ynd5NR035xAluaI0X/y+PsRxE6TlfIQJBAPSYUyXa2yaEqmvIN+ECKALCLLeDdi2YW3Kjahgz0X9V4Y4aTdrHh8y603zXC0Wy8HeOhwGoyciaS8SmjxCMn4UCQQDXweW8xsUreLH8hfVUtyiY/KgUz+R5foJDNXD7TLE9CDoPSHy09qBe99HyVCZg/gNJH4O+tNr6C4916dYaVk01AkBYZ2HOEc8ZmeOaty/zJHtfm9zbqykgi6upwISNINV8Z4bxfHJdO7bKeVANFBBf7a/aFmqXX/EmjxYJioW03o6dAkEAp7ViXJCtJpNU1pNSFZ2hgvmxtSu7zuyVWKSrw8rjYiuI5eRUe13RXsCHgzQB+Ra5exdyEsUGCaL+yosPD73RmQJBALGuM8EQUcBgrpgpeLZ39Ni1DYXYG9aj+u+ar/UL6kI1mCNFgwroO4EVIvXPVxikMxUgiE2tVaBML5nm8VDNJ7s=";
+
+    String privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAM4lMCwagCw0Yl3Npabzfma2lxjZjEavg0+OeFCZ9Ss91P5mCLqOab6iVi7KA14Hxw5IAuZPOBeV5/7pJ3B9ElUQxhUA7uGoXQ6h33NM5z6SiWCdYm2pfngKih18AG3RI1L9uyvqEIBa7XtEaduAFor5lokPc1WpdVcTwTfRxgeJAgMBAAECgYAM3XFGL1k0aQiChiUCaEvJKTgAywLgHm/5dRC5JwKP8knqnn+I9P5QcV0jimPvaFjZ4VCdAvCjOC3EUNSvRn7wR2Lb1+BGZZePTdxtHWE2aqJ1W1SvgQTqMsLlPBRPnXo5XH/ng3WEH15ynd5NR035xAluaI0X/y+PsRxE6TlfIQJBAPSYUyXa2yaEqmvIN+ECKALCLLeDdi2YW3Kjahgz0X9V4Y4aTdrHh8y603zXC0Wy8HeOhwGoyciaS8SmjxCMn4UCQQDXweW8xsUreLH8hfVUtyiY/KgUz+R5foJDNXD7TLE9CDoPSHy09qBe99HyVCZg/gNJH4O+tNr6C4916dYaVk01AkBYZ2HOEc8ZmeOaty/zJHtfm9zbqykgi6upwISNINV8Z4bxfHJdO7bKeVANFBBf7a/aFmqXX/EmjxYJioW03o6dAkEAp7ViXJCtJpNU1pNSFZ2hgvmxtSu7zuyVWKSrw8rjYiuI5eRUe13RXsCHgzQB+Ra5exdyEsUGCaL+yosPD73RmQJBALGuM8EQUcBgrpgpeLZ39Ni1DYXYG9aj+u+ar/UL6kI1mCNFgwroO4EVIvXPVxikMxUgiE2tVaBML5nm8VDNJ7s=";
+    String publicKey="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDOJTAsGoAsNGJdzaWm835mtpcY2YxGr4NPjnhQmfUrPdT+Zgi6jmm+olYuygNeB8cOSALmTzgXlef+6SdwfRJVEMYVAO7hqF0Ood9zTOc+kolgnWJtqX54CoodfABt0SNS/bsr6hCAWu17RGnbgBaK+ZaJD3NVqXVXE8E30cYHiQIDAQAB";
 
     /**
     参数	            类型	    是否必填	    最大长度	    描述	            示例值
@@ -52,7 +58,9 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("id", "1");
         bizContent.put("name", "葫芦娃");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -65,7 +73,7 @@ public class AlipayClientPostTest extends TestBase {
         params.put("sign", sign);
 
         System.out.println("----------- 返回结果 -----------");
-        String responseData = get(url, params);// 发送请求
+        String responseData = post(url, params);// 发送请求
         System.out.println(responseData);
     }
 
@@ -90,7 +98,10 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "葫芦娃");
 //        bizContent.put("name", "葫芦娃1234567890葫芦娃1234567890"); // 超出长度
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -128,7 +139,10 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "葫芦娃");
 //        bizContent.put("name", "葫芦娃1234567890葫芦娃1234567890"); // 超出长度
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -162,7 +176,10 @@ public class AlipayClientPostTest extends TestBase {
         Map<String, String> bizContent = new HashMap<>();
         bizContent.put("id", "222");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -181,7 +198,7 @@ public class AlipayClientPostTest extends TestBase {
 
     // 忽略验证,不校验签名，只需传接口名、版本号、业务参数
     @Test
-    public void testIgnore() {
+    public void testIgnore()throws Exception {
         // 公共请求参数
         Map<String, String> params = new HashMap<String, String>();
         params.put("method", "story.get");
@@ -191,7 +208,10 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("id", "222");
         bizContent.put("name", "忽略验证name");
 
+         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
         params.put("biz_content", JSON.toJSONString(bizContent));
+
 
         System.out.println("----------- 返回结果 -----------");
         String responseData = post(url, params);// 发送请求
@@ -199,7 +219,7 @@ public class AlipayClientPostTest extends TestBase {
     }
 
     @Test
-    public void testStoryget() throws AlipayApiException {
+    public void testStoryget() throws Exception {
         // 公共请求参数
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_id", appId);
@@ -214,7 +234,10 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("id", "222");
         bizContent.put("name", "忽略验证22");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -232,7 +255,7 @@ public class AlipayClientPostTest extends TestBase {
     }
 
     @Test
-    public void testGetStory2() throws AlipayApiException {
+    public void testGetStory2() throws Exception {
         // 公共请求参数
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_id", appId);
@@ -247,7 +270,10 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "Jim");
         bizContent.put("age", "2");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -265,7 +291,7 @@ public class AlipayClientPostTest extends TestBase {
     }
 
     @Test
-    public void testGetJson() throws AlipayApiException {
+    public void testGetJson() throws Exception {
         // 公共请求参数
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_id", appId);
@@ -280,7 +306,10 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "Jim");
         bizContent.put("age", "2");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
