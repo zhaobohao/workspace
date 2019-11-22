@@ -113,16 +113,15 @@ public class AllInOneTest extends TestBase {
      * OpenContext参数绑定
      */
     public void testOpenContext() {
-        Client client = new Client(url, appId, privateKey);
         Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
                 .method("story.get")
                 .version("2.2")
                 .bizContent(new BizContent().add("id", "222").add("name", "openContext"))
-                .httpMethod(HttpTool.HTTPMethod.GET)
+                .httpMethod(HttpTool.HTTPMethod.POST)
                 .callback((requestInfo, responseData) -> {
                     System.out.println(responseData);
                     JSONObject jsonObject = JSON.parseObject(responseData);
-                    String name = jsonObject.getJSONObject(requestInfo.getDataNode()).getString("name");
+                    String name = jsonObject.getJSONObject("data").getString("name");
                     Assert.assertEquals(name, "appId:" + appId + ", openContext");
                 });
 
@@ -146,7 +145,6 @@ public class AllInOneTest extends TestBase {
      * JSR-303参数校验
      */
     public void testJSR303() {
-        Client client = new Client(url, appId, privateKey);
         Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
                 .method("goods.add")
                 .version("1.0")
@@ -155,7 +153,7 @@ public class AllInOneTest extends TestBase {
                 .callback((requestInfo, responseData) -> {
                     System.out.println(responseData);
                     JSONObject jsonObject = JSON.parseObject(responseData);
-                    String sub_msg = jsonObject.getJSONObject(requestInfo.getDataNode()).getString("sub_msg");
+                    String sub_msg = jsonObject.getJSONObject("data").getString("sub_msg");
                     Assert.assertEquals(sub_msg, "商品评论长度必须在3和20之间");
                 });
 
@@ -191,7 +189,6 @@ public class AllInOneTest extends TestBase {
      * 演示文件上传
      */
     public void testFile() {
-        Client client = new Client(url, appId, privateKey);
         String root = System.getProperty("user.dir");
         Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
                 .method("demo.file.upload")
@@ -203,7 +200,7 @@ public class AllInOneTest extends TestBase {
                 .callback((requestInfo, responseData) -> {
                     System.out.println(responseData);
                     JSONObject jsonObject = JSON.parseObject(responseData);
-                    JSONObject data = jsonObject.getJSONObject(requestInfo.getDataNode());
+                    JSONObject data = jsonObject.getJSONObject("data");
                     Assert.assertEquals(data.getString("code"), "10000");
                     Assert.assertEquals(data.getJSONArray("files").size(), 2);
                 })
@@ -216,7 +213,6 @@ public class AllInOneTest extends TestBase {
      * 演示文件上传2
      */
     public void testFile2() {
-        Client client = new Client(url, appId, privateKey);
         String root = System.getProperty("user.dir");
         Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
                 .method("demo.file.upload2")
@@ -227,7 +223,7 @@ public class AllInOneTest extends TestBase {
                 .addFile("file2", new File(root + "/src/main/resources/file2.txt"))
                 .callback((requestInfo, responseData) -> {
                     JSONObject jsonObject = JSON.parseObject(responseData);
-                    JSONObject data = jsonObject.getJSONObject(requestInfo.getDataNode());
+                    JSONObject data = jsonObject.getJSONObject("data");
                     Assert.assertEquals(data.getString("code"), "10000");
                     Assert.assertEquals(data.getJSONArray("files").size(), 2);
                 })
@@ -247,7 +243,7 @@ public class AllInOneTest extends TestBase {
                 .httpMethod(HttpTool.HTTPMethod.GET)
                 .callback((requestInfo, responseData) -> {
                     JSONObject jsonObject = JSON.parseObject(responseData);
-                    JSONObject data = jsonObject.getJSONObject("story_string_get_response");
+                    JSONObject data = jsonObject.getJSONObject("data");
                     Assert.assertEquals("海底小纵队", data.getString("name"));
                 });
 
@@ -316,16 +312,21 @@ public class AllInOneTest extends TestBase {
             return;
         }
         String node = "data";
-        JSONObject jsonObject = JSON.parseObject(responseData).getJSONObject(node);
+        JSONObject jsonObject=JSON.parseObject(responseData);
 
         try {
-            PabSignature.checkSignAndDecryptBySignType(jsonObject,AllInOneTest.publicKey,AllInOneTest.privateKey,true,false,"RSA2");
+            Boolean isCheckSign=Boolean.FALSE;
+            Boolean isDecrypt=Boolean.FALSE;
+            if(jsonObject.containsKey("sign"))
+                isCheckSign=Boolean.TRUE;
+            responseData= PabSignature.checkClientSignAndDecryptBySignType(jsonObject,AllInOneTest.publicKey,AllInOneTest.privateKey,isCheckSign,isDecrypt,"RSA2");
         } catch (PabApiException e) {
             Assert.assertFalse(true);
             e.printStackTrace();
         }
-        String code = Optional.ofNullable(jsonObject).map(json -> json.getString("code")).orElse("20000");
+        String code = Optional.ofNullable(JSON.parseObject(responseData)).map(json -> json.getString("code")).orElse("20000");
         Assert.assertEquals("10000", code);
     }
+
 
 }

@@ -159,7 +159,7 @@ public class Client {
         private Map<String, String> bizContent;
         private HttpTool.HTTPMethod httpMethod;
         private Map<String, String> header;
-        private boolean ignoreSign;
+        private boolean ignoreSign=false;
         private boolean postJson;
         private String appAuthToken;
         private List<HttpTool.UploadFile> uploadFileList;
@@ -357,7 +357,7 @@ public class Client {
             params.put("sign_type", "RSA2");
 
             params.put("timestamp", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            if (StringUtils.areNotEmpty(pabPublicKey)) {
+            if (StringUtils.areNotEmpty(pabPublicKey) && !ignoreSign) {
                 params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
                 // 业务参数，加密
                 params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent), pabPublicKey, params.get("charset")));
@@ -375,7 +375,6 @@ public class Client {
                 }
                 params.put("sign", sign);
             }
-
             RequestInfo requestInfo = new RequestInfo();
             requestInfo.setUrl(url);
             requestInfo.setMethod(method);

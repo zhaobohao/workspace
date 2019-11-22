@@ -3,8 +3,6 @@ package com.gitee.sop.test.pab;
 import com.alibaba.fastjson.JSON;
 import com.gitee.sop.test.ParamNames;
 import com.gitee.sop.test.TestBase;
-import com.gitee.sop.test.alipay.AlipayApiException;
-import com.gitee.sop.test.alipay.AlipaySignature;
 import com.gitee.sop.test.pab.PabSignature;
 import org.junit.Test;
 
@@ -65,9 +63,9 @@ public class PabClientPostTest extends TestBase {
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
         System.out.println("商户秘钥：" + privateKey);
-        String content = AlipaySignature.getSignContent(params);
+        String content = PabSignature.getSignContent(params);
         System.out.println("待签名内容：" + content);
-        String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
+        String sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
         System.out.println("签名(sign)：" + sign);
 
         params.put("sign", sign);
@@ -106,9 +104,9 @@ public class PabClientPostTest extends TestBase {
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
         System.out.println("商户秘钥：" + privateKey);
-        String content = AlipaySignature.getSignContent(params);
+        String content = PabSignature.getSignContent(params);
         System.out.println("待签名内容：" + content);
-        String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
+        String sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
         System.out.println("签名(sign)：" + sign);
 
         params.put("sign", sign);
@@ -147,9 +145,9 @@ public class PabClientPostTest extends TestBase {
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
         System.out.println("商户秘钥：" + privateKey);
-        String content = AlipaySignature.getSignContent(params);
+        String content = PabSignature.getSignContent(params);
         System.out.println("待签名内容：" + content);
-        String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
+        String sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
         System.out.println("签名(sign)：" + sign);
 
         params.put("sign", sign);
@@ -184,9 +182,9 @@ public class PabClientPostTest extends TestBase {
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
         System.out.println("商户秘钥：" + privateKey);
-        String content = AlipaySignature.getSignContent(params);
+        String content = PabSignature.getSignContent(params);
         System.out.println("待签名内容：" + content);
-        String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
+        String sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
         System.out.println("签名(sign)：" + sign);
 
         params.put("sign", sign);
@@ -242,9 +240,9 @@ public class PabClientPostTest extends TestBase {
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
         System.out.println("商户秘钥：" + privateKey);
-        String content = AlipaySignature.getSignContent(params);
+        String content = PabSignature.getSignContent(params);
         System.out.println("待签名内容：" + content);
-        String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
+        String sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
         System.out.println("签名(sign)：" + sign);
 
         params.put("sign", sign);
@@ -278,9 +276,9 @@ public class PabClientPostTest extends TestBase {
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
         System.out.println("商户秘钥：" + privateKey);
-        String content = AlipaySignature.getSignContent(params);
+        String content = PabSignature.getSignContent(params);
         System.out.println("待签名内容：" + content);
-        String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
+        String sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
         System.out.println("签名(sign)：" + sign);
 
         params.put("sign", sign);
@@ -314,9 +312,9 @@ public class PabClientPostTest extends TestBase {
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
         System.out.println("商户秘钥：" + privateKey);
-        String content = AlipaySignature.getSignContent(params);
+        String content = PabSignature.getSignContent(params);
         System.out.println("待签名内容：" + content);
-        String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
+        String sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
         System.out.println("签名(sign)：" + sign);
 
         params.put("sign", sign);

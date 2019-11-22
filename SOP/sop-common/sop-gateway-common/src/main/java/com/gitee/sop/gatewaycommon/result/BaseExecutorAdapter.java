@@ -2,32 +2,27 @@ package com.gitee.sop.gatewaycommon.result;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.gitee.sop.gatewaycommon.bean.ApiConfig;
-import com.gitee.sop.gatewaycommon.bean.ApiContext;
-import com.gitee.sop.gatewaycommon.bean.ErrorDefinition;
-import com.gitee.sop.gatewaycommon.bean.RouteDefinition;
-import com.gitee.sop.gatewaycommon.bean.Isv;
-import com.gitee.sop.gatewaycommon.bean.ServiceRouteInfo;
-import com.gitee.sop.gatewaycommon.bean.SopConstants;
-import com.gitee.sop.gatewaycommon.bean.TargetRoute;
+import com.gitee.sop.gatewaycommon.bean.*;
 import com.gitee.sop.gatewaycommon.manager.RouteRepositoryContext;
 import com.gitee.sop.gatewaycommon.message.ErrorEnum;
 import com.gitee.sop.gatewaycommon.message.ErrorMeta;
+import com.gitee.sop.gatewaycommon.param.PabParameterFormatter;
 import com.gitee.sop.gatewaycommon.param.ParamNames;
 import com.gitee.sop.gatewaycommon.secret.IsvManager;
+import com.gitee.sop.gatewaycommon.validate.SignConfig;
 import com.gitee.sop.gatewaycommon.validate.alipay.AlipayConstants;
 import com.gitee.sop.gatewaycommon.validate.alipay.AlipaySignature;
+import com.gitee.sop.gatewaycommon.validate.pab.PabSignature;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author tanghc
@@ -91,7 +86,7 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
             responseData = JSON.parseObject(serviceResult);
             responseData.put(GATEWAY_CODE_NAME, ISP_BIZ_ERROR.getCode());
             responseData.put(GATEWAY_MSG_NAME, ISP_BIZ_ERROR.getError().getMsg());
-        } else if(responseStatus == HttpStatus.NOT_FOUND.value()) {
+        } else if (responseStatus == HttpStatus.NOT_FOUND.value()) {
             responseData = JSON.parseObject(serviceResult);
             responseData.put(GATEWAY_CODE_NAME, ISV_MISSING_METHOD_META.getCode());
             responseData.put(GATEWAY_MSG_NAME, ISV_MISSING_METHOD_META.getError().getCode());
@@ -197,6 +192,11 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
         DataNameBuilder dataNameBuilder = apiConfig.getDataNameBuilder();
         // alipay_goods_get_response
         String responseDataNodeName = dataNameBuilder.build(name);
+        //TODO:外送的包体结构
+        finalData.put(GATEWAY_CODE_NAME, responseData.getString(GATEWAY_CODE_NAME));
+        finalData.put(GATEWAY_MSG_NAME, responseData.getString(GATEWAY_MSG_NAME));
+        responseData.remove(GATEWAY_CODE_NAME);
+        responseData.remove(GATEWAY_MSG_NAME);
         finalData.put(responseDataNodeName, responseData);
         ResultAppender resultAppender = apiConfig.getResultAppender();
         // 追加额外的结果
@@ -207,7 +207,26 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
         if (apiConfig.isShowReturnSign() && !CollectionUtils.isEmpty(params)) {
             // 添加try...catch，生成sign出错不影响结果正常返回
             try {
-                String responseSignContent = this.buildResponseSignContent(responseDataNodeName, finalData);
+                //如果有pab的ParameterFormatter,则加密data对象。
+                TargetRoute targetRoute = RouteRepositoryContext.getRouteRepository().get((String) params.get(ParamNames.API_NAME) + (String) params.get(ParamNames.VERSION_NAME));
+                if (ApiContext.getApiConfig().getParameterFormatter() instanceof PabParameterFormatter && targetRoute.getRouteDefinition().getIgnoreValidate() == 0) {
+                    //当不忽略签名的时候，加密
+                    IsvManager isvManager = apiConfig.getIsvManager();
+                    // 根据appId获取秘钥
+                    String appKey = this.getParamValue(params, ParamNames.APP_KEY_NAME, "");
+                    if (StringUtils.isEmpty(appKey)) {
+                        return null;
+                    }
+                    Isv isvInfo = isvManager.getIsv(appKey);
+                    String publicKey = isvInfo.getSecretInfo();
+                    String charset = Optional.ofNullable(params.get(ParamNames.CHARSET_NAME))
+                            .map(String::valueOf)
+                            .orElse(SopConstants.UTF8);
+                    //加密后设置到对象里
+                    finalData.put(responseDataNodeName, PabSignature.rsaEncrypt(finalData.getString(responseDataNodeName), publicKey, charset));
+                }
+
+                String responseSignContent = this.buildResponseSignContent(finalData);
                 String sign = this.createResponseSign(apiConfig, params, responseSignContent);
                 if (StringUtils.hasLength(sign)) {
                     finalData.put(ParamNames.RESPONSE_SIGN_NAME, sign);
@@ -222,19 +241,25 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
     /**
      * 获取待签名内容
      *
-     * @param rootNodeName 业务数据节点
-     * @param finalData    最终结果
+     * @param params 最终结果
      * @return 返回待签名内容
      */
-    protected String buildResponseSignContent(String rootNodeName, JSONObject finalData) {
-        String body = finalData.toJSONString();
-        int indexOfRootNode = body.indexOf(rootNodeName);
-        if (indexOfRootNode > 0) {
-            int signDataStartIndex = indexOfRootNode + rootNodeName.length() + 2;
-            int length = body.length() - 1;
-            return body.substring(signDataStartIndex, length);
+    protected String buildResponseSignContent(JSONObject params) {
+        if (params == null) {
+            return null;
         }
-        return null;
+        params.remove(ParamNames.SIGN_NAME);
+        StringBuilder content = new StringBuilder();
+        List<String> keys = new ArrayList<String>(params.keySet());
+        Collections.sort(keys);
+
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i);
+            String value = SignConfig.wrapVal(params.get(key));
+            content.append((i == 0 ? "" : "&") + key + "=" + value);
+        }
+
+        return content.toString();
     }
 
     protected String getParamValue(Map<String, Object> apiParam, String key, String defaultValue) {
