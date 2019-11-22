@@ -1,7 +1,5 @@
 package com.gitee.sop.gatewaycommon.validate.pab;
 
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.asymmetric.KeyType;
 import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.gatewaycommon.message.ErrorEnum;
 import com.gitee.sop.gatewaycommon.param.ParamNames;
@@ -10,7 +8,6 @@ import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
 import java.io.*;
-import java.security.Key;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;

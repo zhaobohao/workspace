@@ -1,14 +1,11 @@
 package com.gitee.sop.gatewaycommon.param;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gitee.sop.gatewaycommon.bean.ApiContext;
 import com.gitee.sop.gatewaycommon.bean.Isv;
-import com.gitee.sop.gatewaycommon.bean.RouteConfig;
 import com.gitee.sop.gatewaycommon.bean.TargetRoute;
 import com.gitee.sop.gatewaycommon.manager.RouteRepositoryContext;
 import com.gitee.sop.gatewaycommon.secret.IsvManager;
 import com.gitee.sop.gatewaycommon.validate.pab.PabSignature;
-import com.gitee.sop.gatewaycommon.zuul.ZuulContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class PabParameterFormatter implements ParameterFormatter {
