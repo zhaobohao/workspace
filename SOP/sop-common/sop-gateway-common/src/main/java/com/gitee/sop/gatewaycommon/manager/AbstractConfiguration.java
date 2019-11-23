@@ -185,8 +185,8 @@ public class AbstractConfiguration implements ApplicationContextAware {
             throw new IllegalArgumentException("RouteRepositoryContext.setRouteRepository()方法未使用");
         }
         String serverName = EnvironmentKeys.SPRING_APPLICATION_NAME.getValue();
-        if (!"api-gateway".equals(serverName)) {
-            throw new IllegalArgumentException("spring.application.name必须为api-gateway");
+        if (!"sop-gateway".equals(serverName)) {
+            throw new IllegalArgumentException("spring.application.name必须为sop-gateway");
         }
         String urlencode = EnvironmentKeys.SIGN_URLENCODE.getValue();
         if ("true".equals(urlencode)) {

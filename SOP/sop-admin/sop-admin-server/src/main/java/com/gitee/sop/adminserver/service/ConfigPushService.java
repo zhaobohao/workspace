@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 public class ConfigPushService {
 
     private static final String GATEWAY_PUSH_URL = "http://%s/configChannelMsg";
-    private static final String API_GATEWAY_SERVICE_ID = "api-gateway";
+    private static final String API_GATEWAY_SERVICE_ID = "sop-gateway";
 
     private static HttpTool httpTool = new HttpTool();
 

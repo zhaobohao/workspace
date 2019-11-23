@@ -35,6 +35,9 @@ public class SwaggerDocParser implements DocParser {
         List<DocItem> docItems = new ArrayList<>();
 
         JSONObject paths = docRoot.getJSONObject("paths");
+        if (paths == null) {
+            paths = new JSONObject();
+        }
         Set<String> pathNameSet = paths.keySet();
         for (String apiPath : pathNameSet) {
             JSONObject pathInfo = paths.getJSONObject(apiPath);
