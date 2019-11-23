@@ -22,6 +22,22 @@ import java.util.Map;
 @Slf4j
 public class ZuulResultExecutor extends BaseExecutorAdapter<RequestContext, String> {
 
+    public static Error getError(Throwable throwable) {
+        Error error = null;
+        if (throwable instanceof ZuulException) {
+            ZuulException ex = (ZuulException) throwable;
+            Throwable cause = ex.getCause();
+            if (cause instanceof ApiException) {
+                ApiException apiException = (ApiException) cause;
+                error = apiException.getError();
+            }
+        }
+        if (error == null) {
+            error = ErrorEnum.ISP_UNKNOWN_ERROR.getErrorMeta().getError();
+        }
+        return error;
+    }
+
     @Override
     public int getResponseStatus(RequestContext requestContext) {
         List<Pair<String, String>> bizHeaders = requestContext.getZuulResponseHeaders();
@@ -62,21 +78,5 @@ public class ZuulResultExecutor extends BaseExecutorAdapter<RequestContext, Stri
         Error error = getError(throwable);
         return isMergeResult(request) ? this.merge(request, (JSONObject) JSON.toJSON(error))
                 : JSON.toJSONString(error);
-    }
-
-    public static Error getError(Throwable throwable) {
-        Error error = null;
-        if (throwable instanceof ZuulException) {
-            ZuulException ex = (ZuulException) throwable;
-            Throwable cause = ex.getCause();
-            if (cause instanceof ApiException) {
-                ApiException apiException = (ApiException) cause;
-                error = apiException.getError();
-            }
-        }
-        if (error == null) {
-            error = ErrorEnum.ISP_UNKNOWN_ERROR.getErrorMeta().getError();
-        }
-        return error;
     }
 }

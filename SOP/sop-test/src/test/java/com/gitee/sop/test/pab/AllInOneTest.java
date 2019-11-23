@@ -317,14 +317,16 @@ public class AllInOneTest extends TestBase {
         try {
             Boolean isCheckSign=Boolean.FALSE;
             Boolean isDecrypt=Boolean.FALSE;
-            if(jsonObject.containsKey("sign"))
+            if(jsonObject.containsKey("sign")){
                 isCheckSign=Boolean.TRUE;
-            responseData= PabSignature.checkClientSignAndDecryptBySignType(jsonObject,AllInOneTest.publicKey,AllInOneTest.privateKey,isCheckSign,isDecrypt,"RSA2");
+                isDecrypt=Boolean.TRUE;
+            jsonObject.put(node,JSON.parseObject(PabSignature.checkClientSignAndDecryptBySignType(jsonObject,AllInOneTest.publicKey,AllInOneTest.privateKey,isCheckSign,isDecrypt,jsonObject.getString(ParamNames.SIGN_TYPE_NAME))));
+            }
+            System.out.println(jsonObject.toJSONString());
         } catch (PabApiException e) {
-            Assert.assertFalse(true);
             e.printStackTrace();
         }
-        String code = Optional.ofNullable(JSON.parseObject(responseData)).map(json -> json.getString("code")).orElse("20000");
+        String code = Optional.ofNullable(jsonObject).map(json -> json.getString("code")).orElse("20000");
         Assert.assertEquals("10000", code);
     }
 

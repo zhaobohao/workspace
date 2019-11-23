@@ -205,7 +205,6 @@ public class PabClientPostTest extends TestBase {
         Map<String, String> bizContent = new HashMap<>();
         bizContent.put("id", "222");
         bizContent.put("name", "忽略验证name");
-
          params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
         params.put("biz_content", JSON.toJSONString(bizContent));

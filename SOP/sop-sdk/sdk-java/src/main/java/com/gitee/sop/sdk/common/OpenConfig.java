@@ -1,11 +1,13 @@
 package com.gitee.sop.sdk.common;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @author tanghc
  */
 @Data
+@Accessors(chain = true)
 public class OpenConfig {
     public static DataNameBuilder DATA_NAME_BUILDER = new DefaultDataNameBuilder();
 
@@ -46,6 +48,8 @@ public class OpenConfig {
     private String locale = "zh-CN";
     /** 响应code名称 */
     private String responseCodeName = "code";
+    /** 响应code名称 */
+    private String responseMsgName = "msg";
     /** 错误响应节点 */
     private String errorResponseName = "error_response";
 
@@ -55,7 +59,10 @@ public class OpenConfig {
     private int readTimeoutSeconds = 60;
     /** http写超时时间 */
     private int writeTimeoutSeconds = 60;
-
+    /**
+     * 是否加密业务包
+     */
+    private Boolean EncrptBizContent=false;
     /**
      * 构建数据节点名称
      */

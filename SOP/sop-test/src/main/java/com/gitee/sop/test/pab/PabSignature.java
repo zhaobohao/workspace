@@ -3,6 +3,7 @@ package com.gitee.sop.test.pab;
 import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.test.ParamNames;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 
 import javax.crypto.Cipher;
 import java.io.*;
@@ -381,19 +382,26 @@ public class PabSignature {
     /**
      * 获取待签名内容
      *
-     * @param rootNodeName 业务数据节点
-     * @param finalData    最终结果
+     * @param params    最终结果
      * @return 返回待签名内容
      */
-    public static String buildResponseSignContent(String rootNodeName, JSONObject finalData) {
-        String body = finalData.toJSONString();
-        int indexOfRootNode = body.indexOf(rootNodeName);
-        if (indexOfRootNode > 0) {
-            int signDataStartIndex = indexOfRootNode + rootNodeName.length() + 2;
-            int length = body.length() - 1;
-            return body.substring(signDataStartIndex, length);
+    public static String buildResponseSignContent( JSONObject params) {
+        if (params == null) {
+            return null;
         }
-        return null;
+        JSONObject finalData =(JSONObject)params.clone();
+        finalData.remove(ParamNames.SIGN_NAME);
+        StringBuilder content = new StringBuilder();
+        List<String> keys = new ArrayList<String>(finalData.keySet());
+        Collections.sort(keys);
+
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i);
+            String value = SignConfig.wrapVal(finalData.get(key));
+            content.append((i == 0 ? "" : "&") + key + "=" + value);
+        }
+
+        return content.toString();
     }
 
     /**
@@ -411,8 +419,8 @@ public class PabSignature {
                                                              String pabPrivateKey, boolean isCheckSign,
                                                              boolean isDecrypt, String signType) throws PabApiException {
         String sign = params.getString("sign");
-        params.remove("sign");
-        String responseSignContent = buildResponseSignContent("data", params);
+//        params.remove("sign");
+        String responseSignContent = buildResponseSignContent( params);
 
         if (!rsaCheckBySignType(responseSignContent, sign, cusPublicKey, "utf-8",
                 signType)) {

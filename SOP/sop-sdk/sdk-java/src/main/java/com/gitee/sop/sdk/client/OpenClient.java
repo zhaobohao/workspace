@@ -5,19 +5,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.sdk.common.DataNameBuilder;
 import com.gitee.sop.sdk.common.OpenConfig;
 import com.gitee.sop.sdk.common.RequestForm;
-import com.gitee.sop.sdk.common.SopSdkConstants;
 import com.gitee.sop.sdk.common.SopSdkErrors;
 import com.gitee.sop.sdk.exception.SdkException;
 import com.gitee.sop.sdk.request.BaseRequest;
 import com.gitee.sop.sdk.response.BaseResponse;
 import com.gitee.sop.sdk.response.ErrorResponse;
-import com.gitee.sop.sdk.sign.SopSignException;
-import com.gitee.sop.sdk.sign.SopSignature;
-import com.gitee.sop.sdk.sign.StringUtils;
+import com.gitee.sop.sdk.sign.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -154,7 +153,13 @@ public class OpenClient {
             form.put(this.openConfig.getAccessTokenName(), accessToken);
         }
         form.put(this.openConfig.getAppKeyName(), this.appId);
-
+        if (openConfig.getEncrptBizContent()) {
+            try {
+                form.put(this.openConfig.getDataName(), SopSignature.rsaEncrypt(form.get(openConfig.getDataName()), publicKeyPlatform, openConfig.getCharset()));
+            } catch (SopSignException e) {
+                throw new SdkException("加密业务包数据错误", e);
+            }
+        }
         String content = SopSignature.getSignContent(form);
         String sign = null;
         try {
@@ -167,13 +172,13 @@ public class OpenClient {
 
         String resp = doExecute(this.url, requestForm, Collections.emptyMap());
         if (log.isDebugEnabled()) {
-            log.debug("----------- 请求信息 -----------"
-                    + "\n请求参数：" + SopSignature.getSignContent(form)
-                    + "\n待签名内容：" + content
-                    + "\n签名(sign)：" + sign
-                    + "\n----------- 返回结果 -----------"
-                    + "\n" + resp
-            );
+        log.info("----------- 请求信息 -----------"
+                + "\n请求参数：" + SopSignature.getSignContent(form)
+                + "\n待签名内容：" + content
+                + "\n签名(sign)：" + sign
+                + "\n----------- 返回结果 -----------"
+                + "\n" + resp
+        );
         }
         return this.parseResponse(resp, request);
     }
@@ -199,11 +204,22 @@ public class OpenClient {
         if (errorResponse) {
             rootNodeName = errorResponseName;
         }
-        JSONObject data = jsonObject.getJSONObject(rootNodeName);
+        String data1 = jsonObject.getString(rootNodeName);
+        JSONObject data = new JSONObject();
+        if (!data1.startsWith("{")) {
+            //需要解密
+            try {
+                data = JSON.parseObject(SopSignature.rsaDecrypt(data1, privateKey, "utf-8"));
+            } catch (SopSignException e) {
+                e.printStackTrace();
+            }
+        } else {
+            data = jsonObject.getJSONObject(rootNodeName);
+        }
         String sign = jsonObject.getString(openConfig.getSignName());
         // 是否要验证返回的sign
         if (StringUtils.areNotEmpty(sign, publicKeyPlatform)) {
-            String signContent = buildBizJson(rootNodeName, resp);
+            String signContent = buildBizJson(resp);
             if (!this.checkResponseSign(signContent, sign, publicKeyPlatform)) {
                 ErrorResponse error = SopSdkErrors.CHECK_RESPONSE_SIGN_ERROR.getErrorResponse();
                 data = JSON.parseObject(JSON.toJSONString(error));
@@ -211,59 +227,36 @@ public class OpenClient {
         }
         T t = data.toJavaObject(request.getResponseClass());
         t.setBody(data.toJSONString());
+        t.setCode(jsonObject.getString(openConfig.getResponseCodeName()));
+        t.setMsg(jsonObject.getString(openConfig.getResponseMsgName()));
         return t;
     }
 
     /**
      * 构建业务json内容。
-     * 假设返回的结果是：<br>
-     * {"alipay_story_get_response":{"msg":"Success","code":"10000","name":"海底小纵队","id":1},"sign":"xxx"}
-     * 将解析得到：<br>
-     * {"msg":"Success","code":"10000","name":"海底小纵队","id":1}
      *
-     * @param rootNodeName 根节点名称
-     * @param body         返回内容
+     * @param body 返回内容
      * @return 返回业务json
      */
-    protected String buildBizJson(String rootNodeName, String body) {
-        int indexOfRootNode = body.indexOf(rootNodeName);
-        if (indexOfRootNode < 0) {
-            rootNodeName = SopSdkConstants.ERROR_RESPONSE_KEY;
-            indexOfRootNode = body.indexOf(rootNodeName);
-        }
-        String result = null;
-        if (indexOfRootNode > 0) {
-            result = buildJsonNodeData(body, rootNodeName, indexOfRootNode);
-        }
-        return result;
-    }
-
-    /**
-     * 获取业务结果，如下结果：<br>
-     * {"alipay_story_get_response":{"msg":"Success","code":"10000","name":"海底小纵队","id":1},"sign":"xxx"}
-     * 将返回：<br>
-     * {"msg":"Success","code":"10000","name":"海底小纵队","id":1}
-     *
-     * @param body            返回内容
-     * @param rootNodeName    根节点名称
-     * @param indexOfRootNode 根节点名称位置
-     * @return 返回业务json内容
-     */
-    protected String buildJsonNodeData(String body, String rootNodeName, int indexOfRootNode) {
-        /*
-          得到起始索引位置。{"alipay_story_get_response":{"msg":"Success","code":"10000","name":"海底小纵队","id":1},"sign":"xxx"}
-          得到第二个`{`索引位置
-         */
-        int signDataStartIndex = indexOfRootNode + rootNodeName.length() + 2;
-        // 然后这里计算出"sign"字符串所在位置
-        int indexOfSign = body.indexOf("\"" + openConfig.getSignName() + "\"");
-        if (indexOfSign < 0) {
+    protected String buildBizJson(String body) {
+        if (body == null) {
             return null;
         }
-        int length = indexOfSign - 1;
-        // 根据起始位置和长度，截取出json：{"msg":"Success","code":"10000","name":"海底小纵队","id":1}
-        return body.substring(signDataStartIndex, length);
+        JSONObject finalData = JSON.parseObject(body);
+        finalData.remove(ParamNames.SIGN_NAME);
+        StringBuilder content = new StringBuilder();
+        List<String> keys = new ArrayList<String>(finalData.keySet());
+        Collections.sort(keys);
+
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i);
+            String value = SignConfig.wrapVal(finalData.get(key));
+            content.append((i == 0 ? "" : "&") + key + "=" + value);
+        }
+
+        return content.toString();
     }
+
 
     /**
      * 校验返回结果中的sign

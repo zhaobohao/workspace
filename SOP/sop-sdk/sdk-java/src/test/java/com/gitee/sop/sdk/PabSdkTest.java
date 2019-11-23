@@ -3,6 +3,8 @@ package com.gitee.sop.sdk;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.sdk.client.OpenClient;
+import com.gitee.sop.sdk.common.CustomDataNameBuilder;
+import com.gitee.sop.sdk.common.OpenConfig;
 import com.gitee.sop.sdk.common.UploadFile;
 import com.gitee.sop.sdk.model.DemoFileUploadModel;
 import com.gitee.sop.sdk.model.GetStoryModel;
@@ -21,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SdkTest extends TestCase {
+public class PabSdkTest extends TestCase {
     String url = "http://localhost:8081";
     String appId = "2019032617262200001";
     /** 开发者私钥 */
@@ -30,7 +32,8 @@ public class SdkTest extends TestCase {
      * 前往SOP-ADMIN，ISV管理--秘钥管理，生成平台提供的公私钥，然后把【平台公钥】放到这里 */
     String publicKeyPlatform="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDOJTAsGoAsNGJdzaWm835mtpcY2YxGr4NPjnhQmfUrPdT+Zgi6jmm+olYuygNeB8cOSALmTzgXlef+6SdwfRJVEMYVAO7hqF0Ood9zTOc+kolgnWJtqX54CoodfABt0SNS/bsr6hCAWu17RGnbgBaK+ZaJD3NVqXVXE8E30cYHiQIDAQAB";
     // 声明一个就行
-    OpenClient client = new OpenClient(url, appId, privateKeyIsv, publicKeyPlatform);
+
+    OpenClient client = new OpenClient(url, appId, privateKeyIsv, publicKeyPlatform,new OpenConfig().setDataNameBuilder(new CustomDataNameBuilder("data")).setEncrptBizContent(true));
 
     // 标准用法
     @Test

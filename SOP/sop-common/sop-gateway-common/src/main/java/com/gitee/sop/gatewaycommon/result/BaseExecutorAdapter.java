@@ -208,7 +208,7 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
             // 添加try...catch，生成sign出错不影响结果正常返回
             try {
                 //如果有pab的ParameterFormatter,则加密data对象。
-                TargetRoute targetRoute = RouteRepositoryContext.getRouteRepository().get((String) params.get(ParamNames.API_NAME) + (String) params.get(ParamNames.VERSION_NAME));
+                TargetRoute targetRoute = RouteRepositoryContext.getRouteRepository().get((String) params.get(ParamNames.API_NAME) + params.get(ParamNames.VERSION_NAME));
                 if (ApiContext.getApiConfig().getParameterFormatter() instanceof PabParameterFormatter && targetRoute.getRouteDefinition().getIgnoreValidate() == 0) {
                     //当不忽略签名的时候，加密
                     IsvManager isvManager = apiConfig.getIsvManager();
@@ -225,11 +225,18 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
                     //加密后设置到对象里
                     finalData.put(responseDataNodeName, PabSignature.rsaEncrypt(finalData.getString(responseDataNodeName), publicKey, charset));
                 }
+                //如果接口是忽略验证的话，不要加签
+                if (targetRoute.getRouteDefinition().getIgnoreValidate() == 0) {
 
-                String responseSignContent = this.buildResponseSignContent(finalData);
-                String sign = this.createResponseSign(apiConfig, params, responseSignContent);
-                if (StringUtils.hasLength(sign)) {
-                    finalData.put(ParamNames.RESPONSE_SIGN_NAME, sign);
+                    String signType = getParamValue(params, ParamNames.SIGN_TYPE_NAME, AlipayConstants.SIGN_TYPE_RSA2);
+                    finalData.put(ParamNames.SIGN_TYPE_NAME, signType);
+                    String responseSignContent = this.buildResponseSignContent(finalData);
+                    String sign = this.createResponseSign(apiConfig, params, responseSignContent);
+                    if (StringUtils.hasLength(sign)) {
+
+                        finalData.put(ParamNames.RESPONSE_SIGN_NAME, sign);
+                    }
+
                 }
             } catch (Exception e) {
                 log.error("生成平台签名失败, params: {}, serviceResult:{}", JSON.toJSONString(params), responseData, e);
@@ -297,15 +304,6 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
         return AlipaySignature.rsaSign(responseSignContent, privateKeyPlatform, charset, signType);
     }
 
-    @Getter
-    @Setter
-    protected static class ApiInfo {
-        private String name;
-        private String version;
-        private String serviceId;
-        private RouteDefinition gatewayRouteDefinition;
-    }
-
     enum ErrorType {
         /**
          * 未知错误
@@ -315,5 +313,14 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
          * 业务错误
          */
         BIZ
+    }
+
+    @Getter
+    @Setter
+    protected static class ApiInfo {
+        private String name;
+        private String version;
+        private String serviceId;
+        private RouteDefinition gatewayRouteDefinition;
     }
 }
