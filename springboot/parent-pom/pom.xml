@@ -22,7 +22,7 @@
         <jwt.version>0.9.1</jwt.version>
         <testng.version>6.14.3</testng.version>
         <fastjson.version>1.2.62</fastjson.version>
-        <hutool-all.version>4.5.10</hutool-all.version>
+        <hutool-all.version>5.0.6</hutool-all.version>
         <caffeine.version>2.7.0</caffeine.version>
         <guava.version>27.1-jre</guava.version>
         <lombok.version>1.18.8</lombok.version>
