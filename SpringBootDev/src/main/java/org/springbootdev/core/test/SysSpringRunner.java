@@ -4,7 +4,7 @@ package org.springbootdev.core.test;
 
 
 import org.junit.runners.model.InitializationError;
-import org.springbootdev.core.launch.SpingCloudDevApplication;
+import org.springbootdev.core.launch.SpingBootDevApplication;
 import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.launch.constant.NacosConstant;
 import org.springbootdev.core.launch.constant.SentinelConstant;
@@ -35,7 +35,7 @@ public class SysSpringRunner extends SpringJUnit4ClassRunner {
 		}
 		String appName = bootTest.appName();
 		String profile = bootTest.profile();
-		boolean isLocalDev = SpingCloudDevApplication.isLocalDev();
+		boolean isLocalDev = SpingBootDevApplication.isLocalDev();
 		Properties props = System.getProperties();
 		props.setProperty("springbootdev.env", profile);
 		props.setProperty("springbootdev.name", appName);

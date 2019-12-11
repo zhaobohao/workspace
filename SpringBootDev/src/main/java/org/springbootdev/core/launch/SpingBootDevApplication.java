@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  *
  * @author zhaobohao
  */
-public class SpingCloudDevApplication {
+public class SpingBootDevApplication {
 
 	/**
 	 * Create an application context
@@ -67,7 +67,7 @@ public class SpingCloudDevApplication {
 			// 同时存在dev、test、prod环境时
 			throw new RuntimeException("同时存在环境变量:[" + StringUtils.arrayToCommaDelimitedString(activeProfiles) + "]");
 		}
-		String startJarPath = SpingCloudDevApplication.class.getResource("/").getPath().split("!")[0];
+		String startJarPath = SpingBootDevApplication.class.getResource("/").getPath().split("!")[0];
 		String activePros = joinFun.apply(activeProfileList.toArray());
 		System.out.println(String.format("----启动中，读取到的环境变量:[%s]，jar地址:[%s]----", activePros, startJarPath));
 		Properties props = System.getProperties();
