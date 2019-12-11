@@ -31,4 +31,10 @@ public interface INode {
 	 */
 	List<INode> getChildren();
 
+	/**
+	 * 是否是叶子节点，0是，1否
+	 * @return
+	 */
+	Integer IsLeaf();
+
 }

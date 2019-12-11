@@ -5,6 +5,7 @@ import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.system.dto.MenuDTO;
 import org.springclouddev.system.entity.Menu;
+import org.springclouddev.system.vo.DictVO;
 import org.springclouddev.system.vo.MenuVO;
 
 import java.util.List;
@@ -26,12 +27,11 @@ public interface MenuMapper extends SuperMapper<Menu> {
 	List<MenuVO> selectMenuPage(IPage page, MenuVO menu);
 
 	/**
-	 * 树形结构
-	 *
+	 *  获取树形节点,获取指定parentId这一层的数据
+	 * @param parentId 如果为空，返回所有树形结构数据
 	 * @return
 	 */
-	List<MenuVO> tree();
-
+	List<MenuVO> tree(String parentId);
 	/**
 	 * 授权树形结构
 	 *

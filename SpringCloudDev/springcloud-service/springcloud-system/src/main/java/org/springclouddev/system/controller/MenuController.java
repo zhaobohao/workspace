@@ -115,8 +115,8 @@ public class MenuController extends AbstractController {
 	@GetMapping("/tree")
 	@ApiOperationSupport(order = 7)
 	@ApiOperation(value = "树形结构", notes = "树形结构")
-	public R<List<MenuVO>> tree() {
-		List<MenuVO> tree = menuService.tree();
+	public R<List<MenuVO>> tree(String parentId) {
+		List<MenuVO> tree = menuService.tree(parentId);
 		return R.data(tree);
 	}
 

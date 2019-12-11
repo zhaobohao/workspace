@@ -6,8 +6,7 @@
     <div class="animation animation4" />
     <div class="animation animation5" />
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on"
-             label-position="left"
-    >
+      label-position="left">
 
       <div class="title-container">
         <h3 class="title">
@@ -21,8 +20,7 @@
           <svg-icon icon-class="user" />
         </span>
         <el-input ref="username" v-model="loginForm.username" :placeholder="$t('login.username')" name="username"
-                  type="text" tabindex="1" autocomplete="on"
-        />
+          type="text" tabindex="1" autocomplete="on" />
       </el-form-item>
 
       <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
@@ -31,9 +29,8 @@
             <svg-icon icon-class="password" />
           </span>
           <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType"
-                    :placeholder="$t('login.password')" name="password" tabindex="2" autocomplete="on"
-                    @keyup.native="checkCapslock" @blur="capsTooltip = false" @keyup.enter.native="handleLogin"
-          />
+            :placeholder="$t('login.password')" name="password" tabindex="2" autocomplete="on"
+            @keyup.native="checkCapslock" @blur="capsTooltip = false" @keyup.enter.native="handleLogin" />
           <span class="show-pwd" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
@@ -41,8 +38,7 @@
       </el-tooltip>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;"
-                 @click.native.prevent="handleLogin"
-      >
+        @click.native.prevent="handleLogin">
         {{ $t('login.logIn') }}
       </el-button>
 
@@ -77,7 +73,7 @@
       LangSelect,
       SocialSign
     },
-    data () {
+    data() {
       const validateUsername = (rule, value, callback) => {
         if (!validUsername(value)) {
           callback(new Error('Please enter the correct user name'))
@@ -129,21 +125,23 @@
         immediate: true
       }
     },
-    created () {
+    created() {
       // window.addEventListener('storage', this.afterQRScan)
+      // body的style
+      document.body.setAttribute('style', 'background: url(img/black_dot.png) 0% 0% / 14px 14px repeat;')
     },
-    mounted () {
+    mounted() {
       if (this.loginForm.username === '') {
         this.$refs.username.focus()
       } else if (this.loginForm.password === '') {
         this.$refs.password.focus()
       }
     },
-    destroyed () {
+    destroyed() {
       // window.removeEventListener('storage', this.afterQRScan)
     },
     methods: {
-      checkCapslock ({
+      checkCapslock({
         shiftKey,
         key
       } = {}) {
@@ -158,7 +156,7 @@
           this.capsTooltip = false
         }
       },
-      showPwd () {
+      showPwd() {
         if (this.passwordType === 'password') {
           this.passwordType = ''
         } else {
@@ -168,7 +166,7 @@
           this.$refs.password.focus()
         })
       },
-      handleLogin () {
+      handleLogin() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
@@ -178,6 +176,7 @@
                   path: this.redirect || '/',
                   query: this.otherQuery
                 })
+                document.body.removeAttribute('style')
                 this.loading = false
               })
               .catch(() => {
@@ -189,7 +188,7 @@
           }
         })
       },
-      getOtherQuery (query) {
+      getOtherQuery(query) {
         return Object.keys(query).reduce((acc, cur) => {
           if (cur !== 'redirect') {
             acc[cur] = query[cur]

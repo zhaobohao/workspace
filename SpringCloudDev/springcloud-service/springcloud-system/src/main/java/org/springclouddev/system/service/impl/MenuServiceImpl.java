@@ -67,8 +67,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	}
 
 	@Override
-	public List<MenuVO> tree() {
-		return ForestNodeMerger.merge(baseMapper.tree());
+	public List<MenuVO> tree(String parentId) {
+		return ForestNodeMerger.merge(baseMapper.tree(parentId));
 	}
 
 	@Override

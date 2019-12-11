@@ -36,3 +36,11 @@ export const update = (row) => {
     data: row
   })
 }
+
+export const selectOption = (row) => {
+  return request({
+    url: '/springcloud-system/tenant/select',
+    method: 'get',
+    data: row
+  })
+}

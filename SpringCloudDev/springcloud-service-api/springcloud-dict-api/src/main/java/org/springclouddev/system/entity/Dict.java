@@ -73,6 +73,10 @@ public class Dict implements Serializable {
 	@TableLogic
 	@ApiModelProperty(value = "是否已删除")
 	private Integer isDeleted;
-
+	/**
+	 * 是否是叶子节点,0是，1不是。
+	 */
+	@ApiModelProperty(value = "是否是叶子节点,0是，1不是。")
+	protected Integer isLeaf;
 
 }

@@ -2,15 +2,20 @@ import {
   loginByUsername,
   logout,
   getUserInfo,
-  refeshToken
+  refeshToken,
+  getMenu
 } from '@/api/user'
 import {
   getToken,
   setToken,
-  removeToken
+  removeToken,
+  getRefreshToken,
+  setRefreshToken,
+  removeRefreshToken
 } from '@/utils/auth'
 import router, {
-  resetRouter
+  resetRouter,
+  componentMap
 } from '@/router'
 import {
   setStore
@@ -20,8 +25,14 @@ const state = {
   name: '',
   avatar: '',
   introduction: '',
-  roles: []
+  roles: [],
+  refreshtoken: ''
 }
+/* Layout */
+import Layout from '@/layout'
+import {
+  TimePicker
+} from 'element-ui'
 
 const mutations = {
   SET_TOKEN: (state, token) => {
@@ -51,8 +62,9 @@ const mutations = {
 
 const actions = {
   // user login
-  login ({
-    commit
+  login({
+    commit,
+    state
   }, userInfo) {
     const {
       username,
@@ -70,6 +82,7 @@ const actions = {
         } = response
         commit('SET_TOKEN', data.accessToken)
         commit('SET_REFRESH_TOKEN', data.refreshToken)
+        setRefreshToken(data.refreshToken)
         setToken(data.accessToken)
         resolve()
       }).catch(error => {
@@ -77,20 +90,22 @@ const actions = {
       })
     })
   },
-  refeshToken ({
+  refeshToken({
     commit,
     state
   }) {
     return new Promise((resolve, reject) => {
+      // console.log(state)
       refeshToken(
         'refresh_token',
-        state.refreshtoken
+        getRefreshToken()
       ).then(response => {
         const {
           data
         } = response
         commit('SET_TOKEN', data.accessToken)
         commit('SET_REFRESH_TOKEN', data.refreshToken)
+        setRefreshToken(data.refreshToken)
         setToken(data.accessToken)
         resolve()
       }).catch(error => {
@@ -99,7 +114,7 @@ const actions = {
     })
   },
   // get user info
-  getInfo ({
+  getInfo({
     commit,
     state
   }) {
@@ -137,7 +152,7 @@ const actions = {
   },
 
   // user logout
-  logout ({
+  logout({
     commit,
     state
   }) {
@@ -147,6 +162,7 @@ const actions = {
         commit('SET_ROLES', [])
         commit('SET_REFRESH_TOKEN')
         removeToken()
+        removeRefreshToken()
         resetRouter()
         resolve()
       }).catch(error => {
@@ -156,7 +172,7 @@ const actions = {
   },
 
   // remove token
-  resetToken ({
+  resetToken({
     commit
   }) {
     return new Promise(resolve => {
@@ -167,9 +183,25 @@ const actions = {
       resolve()
     })
   },
-
+  // 获取系统菜单
+  getMenu({
+    commit,
+    state,
+    dispatch
+  }) {
+    return new Promise((resolve, reject) => {
+      getMenu().then(response => {
+        const {
+          data
+        } = response
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // dynamically modify permissions
-  changeRoles ({
+  changeRoles({
     commit,
     dispatch
   }, role) {
@@ -200,9 +232,54 @@ const actions = {
 
       resolve()
     })
+  },
+  // dynamically modify menu
+  dynamicallyLoadMenu({
+    commit,
+    dispatch
+  }) {
+    return new Promise(async resolve => {
+      const menus = await dispatch('getMenu')
+      resetRouter()
+
+      // generate accessible routes map based on roles
+      const accessRoutes = generateRoutes(menus)
+      dispatch('permission/updateRoutes', accessRoutes, {
+        root: true
+      })
+      resolve(accessRoutes)
+    })
   }
 }
+export function generateRoutes(menus) {
+  const res = []
+  menus.forEach(menu => {
+    const tmp = {
+      path: menu.path,
+      hidden: false,
+      name: menu.code,
+      meta: {
+        title: menu.code,
+        icon: menu.source,
+        noCache: false,
+        breadcrumb: true
+      }
+    }
+    if (menu.children && menu.parentId === 0) {
+      tmp.redirect = menu.path
+      tmp.alwaysShow = true
+      tmp.component = Layout
+    } else {
+      tmp.component = componentMap[menu.code]
+    }
 
+    if (menu.children) {
+      tmp.children = generateRoutes(menu.children)
+    }
+    res.push(tmp)
+  })
+  return res
+}
 export default {
   namespaced: true,
   state,

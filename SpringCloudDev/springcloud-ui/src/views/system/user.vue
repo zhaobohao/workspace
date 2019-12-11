@@ -1,43 +1,21 @@
 <template>
   <basic-container>
-    <avue-crud :option="option"
-               :data="data"
-               ref="crud"
-               v-model="form"
-               :permission="permissionList"
-               @row-del="rowDel"
-               @row-update="rowUpdate"
-               @row-save="rowSave"
-               :before-open="beforeOpen"
-               :page="page"
-               @search-change="searchChange"
-               @search-reset="searchReset"
-               @selection-change="selectionChange"
-               @current-change="currentChange"
-               @size-change="sizeChange"
-               @on-load="onLoad">
+    <avue-crud :option="option" :data="data" ref="crud" v-model="form" :permission="permissionList" @row-del="rowDel"
+      @row-update="rowUpdate" @row-save="rowSave" :before-open="beforeOpen" :page="page" @search-change="searchChange"
+      @search-reset="searchReset" @selection-change="selectionChange" @current-change="currentChange"
+      @size-change="sizeChange" @on-load="onLoad">
       <template slot="menuLeft">
-        <el-button type="danger"
-                   size="small"
-                   icon="el-icon-delete"
-                   plain
-                   v-if="permission.user_delete"
-                   @click="handleDelete">删 除
+        <el-button type="danger" size="small" icon="el-icon-delete" plain v-if="permission.user_delete"
+          @click="handleDelete">删 除
         </el-button>
-        <el-button type="primary"
-                   size="small"
-                   plain
-                   v-if="permission.user_reset"
-                   icon="el-icon-refresh"
-                   @click="handleReset">密码重置
+        <el-button type="primary" size="small" plain v-if="permission.user_reset" icon="el-icon-refresh"
+          @click="handleReset">密码重置
         </el-button>
       </template>
-      <template slot-scope="{row}"
-                slot="roleId">
+      <template slot-scope="{row}" slot="roleId">
         <el-tag>{{row.roleName}}</el-tag>
       </template>
-      <template slot-scope="{row}"
-                slot="deptId">
+      <template slot-scope="{row}" slot="deptId">
         <el-tag>{{row.deptName}}</el-tag>
       </template>
     </avue-crud>
@@ -53,9 +31,15 @@
     add,
     resetPassword
   } from "@/api/system/user";
-  import {getDeptTree} from "@/api/system/dept";
-  import {getRoleTree} from "@/api/system/role";
-  import {mapGetters} from "vuex";
+  import {
+    getDeptTree
+  } from "@/api/system/dept";
+  import {
+    getRoleTree
+  } from "@/api/system/role";
+  import {
+    mapGetters
+  } from "vuex";
   import website from '@/config/website';
 
   export default {
@@ -96,8 +80,7 @@
           selection: true,
           viewBtn: true,
           dialogHeight: 450,
-          column: [
-            {
+          column: [{
               label: "登录账号",
               prop: "account",
               search: true,
@@ -134,7 +117,11 @@
               hide: true,
               editDisplay: false,
               viewDisplay: false,
-              rules: [{required: true, validator: validatePass, trigger: 'blur'}]
+              rules: [{
+                required: true,
+                validator: validatePass,
+                trigger: 'blur'
+              }]
             },
             {
               label: '确认密码',
@@ -142,7 +129,11 @@
               hide: true,
               editDisplay: false,
               viewDisplay: false,
-              rules: [{required: true, validator: validatePass2, trigger: 'blur'}]
+              rules: [{
+                required: true,
+                validator: validatePass2,
+                trigger: 'blur'
+              }]
             },
             {
               label: "用户昵称",
@@ -210,8 +201,7 @@
               label: "用户性别",
               prop: "sex",
               type: "select",
-              dicData: [
-                {
+              dicData: [{
                   label: "男",
                   value: 1
                 },
@@ -310,10 +300,10 @@
       },
       rowDel(row) {
         this.$confirm("确定将选择数据删除?", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
           .then(() => {
             return remove(row.id);
           })
@@ -342,10 +332,10 @@
           return;
         }
         this.$confirm("确定将选择数据删除?", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
           .then(() => {
             return remove(this.ids);
           })
@@ -364,10 +354,10 @@
           return;
         }
         this.$confirm("确定将选择账号密码重置为123456?", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
           .then(() => {
             return resetPassword(this.ids);
           })
@@ -395,10 +385,10 @@
         }
         done();
       },
-      currentChange(currentPage){
+      currentChange(currentPage) {
         this.page.currentPage = currentPage;
       },
-      sizeChange(pageSize){
+      sizeChange(pageSize) {
         this.page.pageSize = pageSize;
       },
       onLoad(page, params = {}) {
@@ -418,6 +408,7 @@
       }
     }
   };
+
 </script>
 
 <style>

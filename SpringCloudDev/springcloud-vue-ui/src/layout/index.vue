@@ -48,7 +48,7 @@
       TagsView
     },
     mixins: [ResizeMixin],
-    data () {
+    data() {
       return {
         // 刷新token锁
         refreshLock: false,
@@ -62,9 +62,10 @@
         device: state => state.app.device,
         showSettings: state => state.settings.showSettings,
         needTagsView: state => state.settings.tagsView,
-        fixedHeader: state => state.settings.fixedHeader
+        fixedHeader: state => state.settings.fixedHeader,
+        website: state => state.settings.website
       }),
-      classObj () {
+      classObj() {
         return {
           hideSidebar: !this.sidebar.opened,
           openSidebar: this.sidebar.opened,
@@ -73,26 +74,26 @@
         }
       }
     },
-    created () {
+    created() {
       // 实时检测刷新token
       this.refreshToken()
     },
     methods: {
-      handleClickOutside () {
+      handleClickOutside() {
         this.$store.dispatch('app/closeSideBar', {
           withoutAnimation: false
         })
       },
       // 10分钟检测一次token
-      refreshToken () {
+      refreshToken() {
         this.refreshTime = setInterval(() => {
           const tokenTime = getStore({
             name: 'tokenTime',
-            debug: true
+            debug: false
           })
           const date = calcDate(tokenTime, new Date().getTime())
           if (validatenull(date)) return
-          if (!(date.seconds >= this.website.tokenTime) && !this.refreshLock) {
+          if ((date.seconds >= this.website.tokenTime) && !this.refreshLock) {
             this.refreshLock = true
             this.$store
               .dispatch('user/refeshToken')
@@ -103,7 +104,7 @@
                 this.refreshLock = false
               })
           }
-        }, 10000)
+        }, 600000)
       }
     }
   }

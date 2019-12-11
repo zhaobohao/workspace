@@ -31,6 +31,6 @@ public interface RoleMapper extends SuperMapper<Role> {
 	 * @param excludeRole
 	 * @return
 	 */
-	List<RoleVO> tree(String tenantId, String excludeRole);
+	List<RoleVO> tree(String tenantId, String excludeRole,String parentId);
 
 }

@@ -29,7 +29,7 @@ public interface IDictService extends IService<Dict> {
 	 *
 	 * @return
 	 */
-	List<DictVO> tree();
+	List<DictVO> tree(String parentId);
 
 	/**
 	 * 获取字典表对应中文

@@ -31,4 +31,14 @@ public class BaseNode implements INode {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	protected List<INode> children = new ArrayList<>();
 
+	/**
+	 * 是否是叶子节点
+	 */
+	protected Integer isLeaf;
+
+	@Override
+	public Integer IsLeaf() {
+		return null;
+	}
+
 }

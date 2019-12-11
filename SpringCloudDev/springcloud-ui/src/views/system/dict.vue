@@ -1,27 +1,12 @@
 <template>
   <basic-container>
-    <avue-crud :option="option"
-               :data="data"
-               ref="crud"
-               v-model="form"
-               :permission="permissionList"
-               :before-open="beforeOpen"
-               @row-del="rowDel"
-               @row-update="rowUpdate"
-               @row-save="rowSave"
-               @search-change="searchChange"
-               @search-reset="searchReset"
-               @selection-change="selectionChange"
-               @current-change="currentChange"
-               @size-change="sizeChange"
-               @on-load="onLoad">
+    <avue-crud :option="option" :data="data" ref="crud" v-model="form" :permission="permissionList"
+      :before-open="beforeOpen" @row-del="rowDel" @row-update="rowUpdate" @row-save="rowSave"
+      @search-change="searchChange" @search-reset="searchReset" @selection-change="selectionChange"
+      @current-change="currentChange" @size-change="sizeChange" @on-load="onLoad">
       <template slot="menuLeft">
-        <el-button type="danger"
-                   size="small"
-                   icon="el-icon-delete"
-                   v-if="permission.dict_delete"
-                   plain
-                   @click="handleDelete">删 除
+        <el-button type="danger" size="small" icon="el-icon-delete" v-if="permission.dict_delete" plain
+          @click="handleDelete">删 除
         </el-button>
       </template>
     </avue-crud>
@@ -29,8 +14,17 @@
 </template>
 
 <script>
-  import {add, getDict, getDictTree, getList, remove, update} from "@/api/system/dict";
-  import {mapGetters} from "vuex";
+  import {
+    add,
+    getDict,
+    getDictTree,
+    getList,
+    remove,
+    update
+  } from "@/api/system/dict";
+  import {
+    mapGetters
+  } from "vuex";
 
   export default {
     data() {
@@ -50,8 +44,7 @@
           index: true,
           selection: true,
           viewBtn: true,
-          column: [
-            {
+          column: [{
               label: "字典编号",
               prop: "code",
               search: true,
@@ -166,10 +159,10 @@
       },
       rowDel(row) {
         this.$confirm("确定将选择数据删除?", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
           .then(() => {
             return remove(row.id);
           })
@@ -198,10 +191,10 @@
           return;
         }
         this.$confirm("确定将选择数据删除?", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
           .then(() => {
             return remove(this.ids);
           })
@@ -222,10 +215,10 @@
         }
         done();
       },
-      currentChange(currentPage){
+      currentChange(currentPage) {
         this.page.currentPage = currentPage;
       },
-      sizeChange(pageSize){
+      sizeChange(pageSize) {
         this.page.pageSize = pageSize;
       },
       onLoad(page, params = {}) {
@@ -240,6 +233,7 @@
       }
     }
   };
+
 </script>
 
 <style>

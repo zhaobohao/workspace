@@ -14,17 +14,23 @@ module.exports = {
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
-    "vue/max-attributes-per-line": [2, {
-      "singleline": 100,
+    "vue/html-closing-bracket-newline": ["error", {
+      "singleline": "never",
+      "multiline": "never"
+    }],
+    "vue/max-attributes-per-line": [0, {
+      "singleline": 250,
       "multiline": {
-        "max": 100,
-        "allowFirstLine": true
+        "max": 50,
+        "allowFirstLine": false
       }
     }],
-    "vue/singleline-html-element-content-newline": "off",
-    "vue/multiline-html-element-content-newline": "off",
-    "vue/name-property-casing": ["error", "PascalCase"],
-    "vue/no-v-html": "off",
+    "vue/singleline-html-element-content-newline": [0],
+    "vue/multiline-html-element-content-newline": [0],
+    "vue/html-indent": [0],
+    "vue/html-self-closing": [0],
+    "vue/valid-template-root": [0],
+    "vue/name-property-casing": [0, "PascalCase"],
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       'before': true,
@@ -47,15 +53,15 @@ module.exports = {
     'curly': [2, 'multi-line'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
-    'eqeqeq': ["error", "always", {
-      "null": "ignore"
-    }],
+    'eqeqeq': [2, 'allow-null'],
     'generator-star-spacing': [2, {
       'before': true,
       'after': true
     }],
     'handle-callback-err': [2, '^(err|error)$'],
-    "indent": ["off", 2],
+    'indent': [0, 0, {
+      'SwitchCase': 1
+    }],
     'jsx-quotes': [2, 'prefer-single'],
     'key-spacing': [2, {
       'beforeColon': false,
@@ -161,7 +167,6 @@ module.exports = {
         ':': 'before'
       }
     }],
-    'linebreak-style': [0, 'error', 'windows'],
     'padded-blocks': [2, 'never'],
     'quotes': [2, 'single', {
       'avoidEscape': true,
@@ -173,7 +178,11 @@ module.exports = {
       'after': true
     }],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'always'],
+    'space-before-function-paren': [2, {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "never"
+    }],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {

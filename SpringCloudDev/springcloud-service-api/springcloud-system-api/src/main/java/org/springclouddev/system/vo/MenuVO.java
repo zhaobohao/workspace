@@ -45,7 +45,15 @@ public class MenuVO extends Menu implements INode {
 		}
 		return this.children;
 	}
+	/**
+	 * 是否是叶子节点
+	 */
+	protected Integer isLeaf;
 
+	@Override
+	public Integer IsLeaf() {
+		return null;
+	}
 	/**
 	 * 上级菜单
 	 */

@@ -8,12 +8,14 @@ import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.tool.api.R;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Param;
 import org.springclouddev.system.service.IParamService;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -63,8 +65,13 @@ public class ParamController extends AbstractController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "新增或修改", notes = "传入param")
-	public R submit(@Valid @RequestBody Param param) {
-		return R.status(paramService.saveOrUpdate(param));
+	public R submit(@Valid @RequestBody Param param){
+
+		if (paramService.saveOrUpdate(param)) {
+			return R.data(param);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, param, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
 
 

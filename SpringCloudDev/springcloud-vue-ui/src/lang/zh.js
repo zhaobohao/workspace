@@ -62,7 +62,28 @@ export default {
     clipboardDemo: 'Clipboard',
     i18n: '国际化',
     externalLink: '外链',
-    profile: '个人中心'
+    profile: '个人中心',
+    desk: '工作台',
+    notice: '通知公告',
+    system: '系统管理',
+    user: '用户管理',
+    dept: '部门管理',
+    dict: '字典管理',
+    menu: '菜单管理',
+    role: '角色管理',
+    params: '参数管理',
+    tenant: '租户管理',
+    client: '应用管理',
+    monitor: '系统监控',
+    doc: '接口文档',
+    admin: '服务治理',
+    log: '日志管理',
+    log_usual: '通用日志',
+    log_api: '接口日志',
+    log_error: '错误日志',
+    tool: '研发工具',
+    code: '代码生成',
+    datasource: '数据源管理'
   },
   navbar: {
     dashboard: '首页',
@@ -132,7 +153,14 @@ export default {
     draft: '草稿',
     delete: '删除',
     cancel: '取 消',
-    confirm: '确 定'
+    confirm: '确 定',
+    select: '选择',
+    reset: '重置',
+    fliter: '筛选',
+    refresh: '刷新',
+    pleaseSelect: '请选择',
+    pleaseInput: '请输入',
+    review: '查 看'
   },
   example: {
     warning: '创建和编辑页面是不能被 keep-alive 缓存的，因为keep-alive 的 include 目前不支持根据路由来缓存，所以目前都是基于 component name 来进行缓存的。如果你想类似的实现缓存效果，可以使用 localStorage 等浏览器缓存方案。或者不要使用 keep-alive 的 include，直接缓存所有页面。详情见'
@@ -171,5 +199,16 @@ export default {
     tagsView: '开启 Tags-View',
     fixedHeader: '固定 Header',
     sidebarLogo: '侧边栏 Logo'
+  },
+  notify: {
+    successTitle: '创建成功',
+    successMessage: '创建数据成功',
+    failTitle: '创建失败',
+    failMessage: '创建数据失败',
+    successEditTitle: '修改成功',
+    successEditMessage: '修改数据成功',
+    failEditTitle: '修改失败',
+    failEditMessage: '修改数据失败'
+
   }
 }

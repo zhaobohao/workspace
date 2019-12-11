@@ -4,13 +4,13 @@
 export default {
   title: '后台管理平台',
   indexTitle: 'System Admin',
-  clientId: 'saber', // 客户端id
-  clientSecret: 'saber_secret', // 客户端密钥
+  clientId: 'systemId', // 客户端id
+  clientSecret: 'system_secret', // 客户端密钥
   tenantMode: true, // 是否开启租户模式
   logo: 'S',
-  key: 'saber', // 配置主键,目前用于存储
+  key: 'adminbar', // 配置主键,目前用于存储
   lockPage: '/lock',
-  tokenTime: 6000,
+  tokenTime: 600,
   // http的status默认放行不才用统一处理的,
   statusWhiteList: [],
   // 配置首页不可关闭

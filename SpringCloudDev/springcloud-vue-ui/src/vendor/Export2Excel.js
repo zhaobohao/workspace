@@ -1,5 +1,7 @@
 /* eslint-disable */
-require('script-loader!file-saver');
+import {
+  saveAs
+} from 'file-saver'
 import XLSX from 'xlsx'
 
 function generateArray(table) {
@@ -15,7 +17,7 @@ function generateArray(table) {
       var colspan = cell.getAttribute('colspan');
       var rowspan = cell.getAttribute('rowspan');
       var cellValue = cell.innerText;
-      if (cellValue !== "" && cellValue === +cellValue) cellValue = +cellValue;
+      if (cellValue !== "" && cellValue == +cellValue) cellValue = +cellValue;
 
       //Skip ranges
       ranges.forEach(function (range) {
@@ -70,8 +72,8 @@ function sheet_from_array_of_arrays(data, opts) {
       r: 0
     }
   };
-  for (var R = 0; R !== data.length; ++R) {
-    for (var C = 0; C !== data[R].length; ++C) {
+  for (var R = 0; R != data.length; ++R) {
+    for (var C = 0; C != data[R].length; ++C) {
       if (range.s.r > R) range.s.r = R;
       if (range.s.c > C) range.s.c = C;
       if (range.e.r < R) range.e.r = R;
@@ -79,7 +81,7 @@ function sheet_from_array_of_arrays(data, opts) {
       var cell = {
         v: data[R][C]
       };
-      if (cell.v === null) continue;
+      if (cell.v == null) continue;
       var cell_ref = XLSX.utils.encode_cell({
         c: C,
         r: R
@@ -109,7 +111,7 @@ function Workbook() {
 function s2ab(s) {
   var buf = new ArrayBuffer(s.length);
   var view = new Uint8Array(buf);
-  for (var i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
   return buf;
 }
 
@@ -151,14 +153,14 @@ export function export_json_to_excel({
   filename,
   merges = [],
   autoWidth = true,
-  bookType=  'xlsx'
+  bookType = 'xlsx'
 } = {}) {
   /* original data */
   filename = filename || 'excel-list'
   data = [...data]
   data.unshift(header);
 
-  for (let i = multiHeader.length-1; i > -1; i--) {
+  for (let i = multiHeader.length - 1; i > -1; i--) {
     data.unshift(multiHeader[i])
   }
 
@@ -177,7 +179,7 @@ export function export_json_to_excel({
     /*设置worksheet每列的最大宽度*/
     const colWidth = data.map(row => row.map(val => {
       /*先判断是否为null/undefined*/
-      if (val === null) {
+      if (val == null) {
         return {
           'wch': 10
         };

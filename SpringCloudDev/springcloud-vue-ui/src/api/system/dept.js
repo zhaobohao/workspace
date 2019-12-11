@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/springcloud-system/dept/list',
+    url: '/springcloud-system/dept/list/page',
     method: 'get',
     params: {
       ...params,
@@ -46,13 +46,14 @@ export const getDept = (id) => {
     }
   })
 }
-export const getDeptTree = (tenantId) => {
+export const getDeptTree = (tenantId, parentId, dt) => {
   return request({
     url: '/springcloud-system/dept/tree',
     method: 'get',
     params: {
-      tenantId
+      tenantId,
+      parentId,
+      dt
     }
   })
 }
-

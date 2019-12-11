@@ -100,12 +100,31 @@ export const constantRoutes = [{
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
-export const asyncRoutes = [{
-  path: '*',
-  redirect: '/404',
-  hidden: true
-}]
-
+export const asyncRoutes = [
+  // 404 page must be placed at the end !!!
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
+]
+export const componentMap = {
+  notice: () => import('@/views/desk/notice/index'),
+  user: () => import('@/views/system/user/index'),
+  dept: () => import('@/views/system/dept/index'),
+  dict: () => import('@/views/system/dict/index'),
+  menu: () => import('@/views/system/menu/index'),
+  role: () => import('@/views/system/role/index'),
+  params: () => import('@/views/system/param/index'),
+  tenant: () => import('@/views/system/tenant/index'),
+  client: () => import('@/views/system/client/index'),
+  log: () => import('@/views/monitor/log/index'),
+  log_usual: () => import('@/views/monitor/log/usual/index'),
+  log_api: () => import('@/views/monitor/log/api/index'),
+  log_error: () => import('@/views/monitor/log/error/index'),
+  code: () => import('@/views/tool/code/index'),
+  datasource: () => import('@/views/tool/datasource/index')
+}
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({
@@ -117,7 +136,7 @@ const createRouter = () => new Router({
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-export function resetRouter () {
+export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }

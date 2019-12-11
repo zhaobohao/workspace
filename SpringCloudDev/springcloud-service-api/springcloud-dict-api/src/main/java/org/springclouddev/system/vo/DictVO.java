@@ -45,7 +45,15 @@ public class DictVO extends Dict implements INode {
 		}
 		return this.children;
 	}
+	/**
+	 * 是否是叶子节点
+	 */
+	protected Integer isLeaf;
 
+	@Override
+	public Integer IsLeaf() {
+		return null;
+	}
 	/**
 	 * 上级字典
 	 */

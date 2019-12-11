@@ -16,7 +16,7 @@ NProgress.configure({
 
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   // start progress bar
   NProgress.start()
 
@@ -48,9 +48,11 @@ router.beforeEach(async (to, from, next) => {
 
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
-
+          const dynamicaRoutes = await store.dispatch('user/dynamicallyLoadMenu', {
+            root: true
+          })
           // dynamically add accessible routes
-          router.addRoutes(accessRoutes)
+          router.addRoutes(dynamicaRoutes.concat(accessRoutes))
 
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record

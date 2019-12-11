@@ -50,5 +50,13 @@ public class DeptVO extends Dept implements INode {
 	 * 上级部门
 	 */
 	private String parentName;
+	/**
+	 * 是否是叶子节点
+	 */
+	protected Integer isLeaf;
 
+	@Override
+	public Integer IsLeaf() {
+		return null;
+	}
 }

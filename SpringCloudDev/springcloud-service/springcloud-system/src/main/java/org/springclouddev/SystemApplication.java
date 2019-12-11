@@ -1,5 +1,5 @@
 
-package org.springclouddev.system;
+package org.springclouddev;
 
 import org.springclouddev.core.launch.SpingCloudDevApplication;
 import org.springclouddev.core.launch.constant.AppConstant;

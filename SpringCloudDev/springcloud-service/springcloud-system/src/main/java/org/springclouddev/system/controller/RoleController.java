@@ -68,8 +68,8 @@ public class RoleController extends AbstractController {
 	@GetMapping("/tree")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "树形结构", notes = "树形结构")
-	public R<List<RoleVO>> tree(String tenantId, SystemUser systemUser) {
-		List<RoleVO> tree = roleService.tree(Func.toStr(tenantId, systemUser.getTenantId()));
+	public R<List<RoleVO>> tree(String tenantId,String parentId, SystemUser systemUser) {
+		List<RoleVO> tree = roleService.tree(Func.toStr(tenantId, systemUser.getTenantId()),parentId);
 		return R.data(tree);
 	}
 
