@@ -1,6 +1,6 @@
 let callbacks = []
 
-function loadedTinymce () {
+function loadedTinymce() {
   // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2144
   // check is successfully downloaded script
   return window.tinymce
@@ -28,7 +28,7 @@ const dynamicLoadScript = (src, callback) => {
     }
   }
 
-  function stdOnEnd (script) {
+  function stdOnEnd(script) {
     script.onload = function () {
       // this.onload = null here is necessary
       // because even IE9 works not like others
@@ -44,7 +44,7 @@ const dynamicLoadScript = (src, callback) => {
     }
   }
 
-  function ieOnEnd (script) {
+  function ieOnEnd(script) {
     script.onreadystatechange = function () {
       if (this.readyState !== 'complete' && this.readyState !== 'loaded') return
       this.onreadystatechange = null

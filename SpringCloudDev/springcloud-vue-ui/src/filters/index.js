@@ -90,9 +90,16 @@ export function uppercaseFirst(string) {
 
 export function translateVlaue2Lable(value, datasource) {
   if (datasource) {
-    const tmp = datasource.filter(item => item.value === value)
-    if (tmp.length > 0) {
-      return tmp[0].label
+    if (datasource[0].value) {
+      const tmp = datasource.filter(item => item.value === value)
+      if (tmp.length > 0) {
+        return tmp[0].label
+      }
+    } else if (datasource[0].dictValue) {
+      const tmp = datasource.filter(item => item.dictKey === value)
+      if (tmp.length > 0) {
+        return tmp[0].dictValue
+      }
     }
   }
   return ''

@@ -10,6 +10,7 @@ import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
+import org.springclouddev.core.tool.constant.RoleConstant;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.INode;
 import org.springclouddev.core.tool.utils.Func;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.Soundbank;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -90,7 +93,12 @@ public class DeptController extends AbstractController {
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "树形结构", notes = "树形结构")
     public R<List<DeptVO>> tree(String tenantId, String parentId, SystemUser systemUser) {
-        List<DeptVO> tree = deptService.tree(Func.toStr(tenantId, systemUser.getTenantId()), parentId);
+        List<DeptVO> tree = new ArrayList<DeptVO>();
+        if (RoleConstant.HAS_ROLE_ADMIN.equals(systemUser.getRoleName())) {
+            tree = deptService.tree(null, parentId);
+        } else {
+            tree = deptService.tree(Func.toStr(tenantId, systemUser.getTenantId()), parentId);
+        }
         return R.data(tree);
     }
 

@@ -10,7 +10,8 @@
         @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.query.paramValue" placeholder="参数键值" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.title" placeholder="备注" style="width: 200px;" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.query.remark" placeholder="备注" style="width: 200px;"
+        @keyup.enter.native="handleFilter" />
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{
         $t('table.search') }}</el-button>
       <el-button v-waves style="margin: 10px;" icon="el-icon-delete" round @click="resetListQuery()">{{

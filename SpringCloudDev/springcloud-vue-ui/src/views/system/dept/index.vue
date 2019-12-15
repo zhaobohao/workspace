@@ -31,7 +31,6 @@
   // 引入相应的工具来处理数据转换需求
 
   // 分页组件
-  import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
   import listTable from './components/listTable' // 列表组件
   import dataForm from './components/dataForm' // form表单组件
 
@@ -39,7 +38,6 @@
     // TODO:本页面的名称
     name: 'dept',
     components: {
-      Pagination,
       listTable,
       dataForm
     },
@@ -57,7 +55,7 @@
       return {
         treeProps: {
           label: 'title',
-          isLeaf: 'isLeaf',
+          leaf: 'isLeaf',
           children: 'children'
         },
         treeData: []

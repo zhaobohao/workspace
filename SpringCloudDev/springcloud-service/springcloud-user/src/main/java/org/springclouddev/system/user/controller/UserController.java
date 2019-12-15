@@ -20,6 +20,7 @@ import org.springclouddev.system.user.wrapper.UserWrapper;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +111,11 @@ public class UserController {
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入User")
 	public R submit(@Valid @RequestBody User user) {
-		return R.status(userService.submit(user));
+		if (userService.submit(user)) {
+			return R.data(user);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, user, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
 
 	/**

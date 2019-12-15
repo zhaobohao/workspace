@@ -4,13 +4,17 @@
     <!--查询条件区域-->
     <div class="filter-container">
       <!--具体的查询条件，使用placeholder来显示标题-->
-      <el-input v-model="listQuery.query.paramName" placeholder="参数名称" style="width: 200px;"
+      <el-input v-model="listQuery.query.tenantId" placeholder="租户ID" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.query.paramKey" placeholder="参数键名" style="width: 200px;"
+      <el-input v-model="listQuery.query.tenantName" placeholder="租户名称" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.query.paramValue" placeholder="参数键值" style="width: 200px;"
+      <el-input v-model="listQuery.query.linkman" placeholder="联系人" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.title" placeholder="备注" style="width: 200px;" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.query.contactNumber" placeholder="联系电话" style="width: 200px;"
+        @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.query.address" placeholder="联系地址" style="width: 200px;"
+        @keyup.enter.native="handleFilter" />
+
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{
         $t('table.search') }}</el-button>
       <el-button v-waves style="margin: 10px;" icon="el-icon-delete" round @click="resetListQuery()">{{
@@ -21,13 +25,13 @@
 </template>
 <script>
   // 调用相应的api文件中的方法，来操纵数据
-  import listQuery from '@/entitys/param'
+  import listQuery from '@/entitys/tenant'
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
   // model 文件
   export default {
     // TODO:本页面的名称
-    name: 'params-searchCard',
+    name: 'tenant-searchCard',
     directives: {
       waves
     },

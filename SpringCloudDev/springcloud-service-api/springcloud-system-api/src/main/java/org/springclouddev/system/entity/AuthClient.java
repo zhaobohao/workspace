@@ -17,7 +17,7 @@ import org.springclouddev.core.mp.base.BaseEntity;
  * @since 2019-03-24
  */
 @Data
-@TableName("mk_dict")
+@TableName("mk_client")
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "Client对象", description = "Client对象")
 public class AuthClient extends BaseEntity {

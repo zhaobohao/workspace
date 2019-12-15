@@ -4,7 +4,7 @@
     <search-card ref="searchCard" :is-search-card-show="isSearchCardShow" />
 
     <listTable ref="listTable" :is-search-card-show.sync="isSearchCardShow" />
-    <dataForm ref=" dataForm" />
+    <dataForm ref="dataForm" />
   </div>
 </template>
 
@@ -16,15 +16,13 @@
   // 引入相应的工具来处理数据转换需求
 
   // 分页组件
-  import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
   import searchCard from './components/searchCard' // 搜索组件
   import listTable from './components/listTable' // 列表组件
   import dataForm from './components/dataForm' // form表单组件
   export default {
     // TODO:本页面的名称
-    name: 'params',
+    name: 'tenant',
     components: {
-      Pagination,
       searchCard,
       listTable,
       dataForm
@@ -57,3 +55,12 @@
   }
 
 </script>
+<style scoped>
+  #aside-style {
+    min-width: 160px;
+    max-width: 280px;
+    background: #ffffff;
+    padding: 0;
+  }
+
+</style>

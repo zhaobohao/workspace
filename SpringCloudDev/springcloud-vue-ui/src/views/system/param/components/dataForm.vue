@@ -1,20 +1,20 @@
 <template>
   <!--form 表单，用来显示和编辑数据 -->
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-    <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px"
-      style="width: 400px; margin-left:50px;">
+  <el-dialog v-el-drag-dialog :width="dialogWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-form ref="dataForm" :inline="true" :rules="rules" :model="temp" label-position="left" label-width="120px"
+      style="width: 1000px; margin-left:10px;">
 
       <el-form-item label="参数名称" prop="paramName">
-        <el-input v-model="temp.paramName" />
+        <el-input style="width: 305px;" v-model="temp.paramName" />
       </el-form-item>
       <el-form-item label="参数键名" prop="paramKey">
-        <el-input v-model="temp.paramKey" />
+        <el-input style="width: 305px;" v-model="temp.paramKey" />
       </el-form-item>
       <el-form-item label="参数键值" prop="paramValue">
-        <el-input v-model="temp.paramValue" />
+        <el-input style="width: 305px;" v-model="temp.paramValue" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input v-model="temp.remark" />
+        <el-input style="width: 305px;" v-model="temp.remark" />
       </el-form-item>
 
     </el-form>
@@ -38,6 +38,7 @@
   import listQuery from '@/entitys/param'
   // 引入相关utils
   import notify from '@/utils/notify'
+  import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
   export default {
     // TODO:本页面的名称
     name: 'params-dataForm',
@@ -45,7 +46,8 @@
 
     },
     directives: {
-      waves
+      waves,
+      elDragDialog
     },
     filters: {
 
@@ -56,6 +58,7 @@
     data() {
       // 初始化整个页面用到的数据
       return {
+        dialogWidth: '1000px',
         dialogFormVisible: false, // form表格对话框是否显示
         dialogStatus: '', // 当前操作的状态，控制form表单的Title,form表单submit的方法
         textMap: {
@@ -79,10 +82,23 @@
 
     },
     mounted() {
-
+      window.onresize = () => {
+        return (() => {
+          this.setDialogWidth()
+        })()
+      }
     },
     methods: {
-
+      setDialogWidth() {
+        console.log(document.body.clientWidth)
+        var val = document.body.clientWidth
+        const def = 1000 // 默认宽度
+        if (val < def) {
+          this.dialogWidth = val + 'px'
+        } else {
+          this.dialogWidth = def + 'px'
+        }
+      },
       resetTemp() {
         this.temp = listQuery().query
       },
@@ -146,3 +162,20 @@
   }
 
 </script>
+<style lang="scss" scoped>
+  .el-form-item__label {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+  }
+
+  .el-table th>.cell {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+  }
+
+  .el-table th,
+  .el-table tr {
+    background-color: #fafafa;
+  }
+
+</style>

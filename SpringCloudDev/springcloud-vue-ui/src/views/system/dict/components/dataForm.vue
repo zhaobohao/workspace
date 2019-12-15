@@ -1,6 +1,6 @@
 <template>
   <!--form 表单，用来显示和编辑数据 -->
-  <el-dialog :width="dialogWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+  <el-dialog v-el-drag-dialog :width="dialogWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
 
     <el-form ref="dataForm" :inline="true" :rules="rules" :model="temp" label-position="left" label-width="120px"
       style="width: 1000px; margin-left:10px;">
@@ -9,12 +9,12 @@
       <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="字典编号" prop="code">
-            <el-input v-model="temp.code" />
+            <el-input v-model="temp.code" style="width: 305px;" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="字典名称" prop="dictValue">
-            <el-input v-model="temp.dictValue" />
+            <el-input v-model="temp.dictValue" style="width: 305px;" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -23,12 +23,12 @@
         <el-col :span="12">
           <el-form-item label="上级字典" prop="parentId">
             <el-cascader v-model="dictParentIds" :show-all-levels="true" :options="dictOptions" :props="props"
-              :change-on-select="true" :clearable="true" filterable @change="handleDicttemChange"></el-cascader>
+              :clearable="true" filterable @change="handleDictItemChange"></el-cascader>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="字典键值" prop="dictKey">
-            <el-input v-model="temp.dictKey" />
+            <el-input v-model="temp.dictKey" style="width: 305px;" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -36,12 +36,12 @@
       <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="排序" prop="sort">
-            <el-input v-model="temp.sort" />
+            <el-input v-model="temp.sort" type="number" style="width: 305px;" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="备注" prop="remark">
-            <el-input v-model="temp.remark" />
+            <el-input v-model="temp.remark" style="width: 305px;" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -71,17 +71,18 @@
   import notify from '@/utils/notify'
   import {
     iteratorTreeData,
-    deepClone,
     getLoadingOptions
   } from '@/utils/index'
+  import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
   export default {
     // TODO:本页面的名称
-    name: 'dept-dataform',
+    name: 'dict-dataform',
     components: {
 
     },
     directives: {
-      waves
+      waves,
+      elDragDialog
     },
     filters: {
       // 一些数据转换的函数写在这里，根据key显示value
@@ -106,8 +107,9 @@
         props: {
           value: 'id',
           label: 'title',
-          isLeaf: 'isLeaf',
-          children: 'children'
+          leaf: 'isLeaf',
+          children: 'children',
+          checkStrictly: true
         },
         dictOptions: []
       }
@@ -120,7 +122,7 @@
     },
     // 初始化所有的数据
     created() {
-      this.initDictOptions()
+      this.initTreeOptions()
     },
     mounted() {
       window.onresize = () => {
@@ -130,14 +132,14 @@
       }
     },
     methods: {
-      initDictOptions() {
+      initTreeOptions() {
         getDictTree(
           '000000'
         ).then(response => {
           this.dictOptions = response.data
         })
       },
-      handleDicttemChange(val) {
+      handleDictItemChange(val) {
         // val为选中项的id数组
         // console.log(this.temp)
         this.temp.parentId = val.pop()

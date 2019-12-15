@@ -1,6 +1,6 @@
 <template>
   <!--form 表单，用来显示和编辑数据 -->
-  <el-dialog :width="dialogWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+  <el-dialog v-el-drag-dialog :width="dialogWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
 
     <el-form ref="dataForm" :inline="true" :rules="rules" :model="temp" label-position="left" label-width="120px"
       style="width: 1000px; margin-left:10px;">
@@ -9,7 +9,7 @@
       <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="部门名称" prop="deptName">
-            <el-input v-model="temp.deptName" />
+            <el-input v-model="temp.deptName" style="width: 305px;" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -25,13 +25,13 @@
       <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="部门全称" prop="fullName">
-            <el-input v-model="temp.fullName" />
+            <el-input v-model="temp.fullName" style="width: 305px;" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="上级部门" prop="parentId">
             <el-cascader v-model="depParentIds" :show-all-levels="true" :options="departmentOptions" :props="props"
-              :change-on-select="true" :clearable="true" filterable @change="handleDepartmentItemChange"></el-cascader>
+              :clearable="true" filterable @change="handleDepartmentItemChange"></el-cascader>
           </el-form-item>
         </el-col>
       </el-row>
@@ -39,12 +39,12 @@
       <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="排序" prop="sort">
-            <el-input v-model="temp.sort" />
+            <el-input v-model="temp.sort" type="number" style="width: 305px;" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="备注" prop="remark">
-            <el-input v-model="temp.remark" />
+            <el-input v-model="temp.remark" style="width: 305px;" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -77,9 +77,9 @@
   import listQuery from '@/entitys/dept'
   // 引入相关utils
   import notify from '@/utils/notify'
+  import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
   import {
     iteratorTreeData,
-    deepClone,
     getLoadingOptions
   } from '@/utils/index'
   export default {
@@ -89,7 +89,8 @@
 
     },
     directives: {
-      waves
+      waves,
+      elDragDialog
     },
     filters: {
       // 一些数据转换的函数写在这里，根据key显示value
@@ -114,8 +115,9 @@
         props: {
           value: 'id',
           label: 'title',
-          isLeaf: 'isLeaf',
-          children: 'children'
+          leaf: 'isLeaf',
+          children: 'children',
+          checkStrictly: true
         },
         departmentOptions: [],
         tenantOptions: []
@@ -129,8 +131,7 @@
     },
     // 初始化所有的数据
     created() {
-      this.initdepartmentOptions()
-      this.inittenantOptions()
+      this.initTreeOptions()
     },
     mounted() {
       window.onresize = () => {
@@ -140,14 +141,12 @@
       }
     },
     methods: {
-      initdepartmentOptions() {
+      initTreeOptions() {
         getDeptTree(
           '000000'
         ).then(response => {
           this.departmentOptions = response.data
         })
-      },
-      inittenantOptions() {
         selectOption().then(response => {
           this.tenantOptions = response.data
         })

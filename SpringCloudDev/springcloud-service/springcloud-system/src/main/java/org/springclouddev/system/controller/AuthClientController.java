@@ -13,12 +13,14 @@ import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.annotation.PreAuth;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.RoleConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.AuthClient;
 import org.springclouddev.system.service.IAuthClientService;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -85,7 +87,12 @@ public class AuthClientController extends AbstractController {
 	@ApiOperationSupport(order = 5)
 	@ApiOperation(value = "新增或修改", notes = "传入client")
 	public R submit(@Valid @RequestBody AuthClient authClient) {
-		return R.status(clientService.saveOrUpdate(authClient));
+		if(clientService.saveOrUpdate(authClient))
+		{
+		return 	R.data(authClient);
+		}else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, authClient, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
 
 	

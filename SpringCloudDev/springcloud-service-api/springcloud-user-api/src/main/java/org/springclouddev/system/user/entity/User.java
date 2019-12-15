@@ -79,4 +79,5 @@ public class User extends TenantEntity {
 	 * 个人头像
 	 */
 	private String avatar;
+
 }

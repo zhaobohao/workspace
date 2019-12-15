@@ -51,7 +51,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="230"
+      <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-waves type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}

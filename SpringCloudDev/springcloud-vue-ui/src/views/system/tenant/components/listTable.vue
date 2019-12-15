@@ -29,29 +29,34 @@
           <span>{{ scope.row.id }}</span>
         </template>
 </el-table-column>-->
-      <el-table-column label="参数名称" min-width="150px">
+      <el-table-column label="租户ID" min-width="150px">
         <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row)">{{ scope.row.paramName }}</span>
+          <span class="link-type" @click="handleUpdate(scope.row)">{{ scope.row.tenantId }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="参数键名" width="180px">
+      <el-table-column label="租户名称" width="180px">
         <template slot-scope="scope">
-          <span class="">{{ scope.row.paramKey }}</span>
+          <span class="">{{ scope.row.tenantName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="参数键值" width="180px">
+      <el-table-column label="联系人" width="180px">
         <template slot-scope="scope">
-          <span class="">{{ scope.row.paramValue }}</span>
+          <span class="">{{ scope.row.linkman }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注" width="180px">
+      <el-table-column label="联系电话" width="180px">
         <template slot-scope="scope">
-          <span class="">{{ scope.row.remark }}</span>
+          <span class="">{{ scope.row.contactNumber }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="联系地址" width="180px">
+        <template slot-scope="scope">
+          <span class="">{{ scope.row.address }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="230"
+      <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-waves type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}
@@ -73,7 +78,7 @@
   import {
     getList,
     remove
-  } from '@/api/system/param'
+  } from '@/api/system/tenant'
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
   // 引入相应的工具来处理数据转换需求
@@ -86,7 +91,7 @@
   import notify from '@/utils/notify'
   export default {
     // TODO:本页面的名称
-    name: 'params-listTable',
+    name: 'tenant-listTable',
     components: {
       Pagination
     },
@@ -255,15 +260,14 @@
       // excel文件下载函数
       handleDownload() {
         this.downloadLoading = true
-
         import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = ['id', '参数名称', '参数键名', '参数键值', '备注']
-          const filterVal = ['id', 'paramName', 'paramKey', 'paramValue', 'remark']
+          const tHeader = ['id', '租户ID', '租户名称', '联系人', '联系电话', '联系地址']
+          const filterVal = ['id', 'tenantId', 'tenantName', 'linkman', 'contactNumber', 'address']
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({
             header: tHeader,
             data,
-            filename: 'param-list'
+            filename: 'tenant-list'
           })
           this.downloadLoading = false
         })
