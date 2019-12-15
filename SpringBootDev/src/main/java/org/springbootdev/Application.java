@@ -2,7 +2,7 @@
 package org.springbootdev;
 
 import org.springbootdev.common.constant.CommonConstant;
-import org.springbootdev.core.launch.SpingCloudDevApplication;
+import org.springbootdev.core.launch.SpingBootDevApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
@@ -16,7 +16,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class Application {
 
 	public static void main(String[] args) {
-		SpingCloudDevApplication.run(CommonConstant.APPLICATION_NAME, Application.class, args);
+		SpingBootDevApplication.run(CommonConstant.APPLICATION_NAME, Application.class, args);
 	}
 
 }

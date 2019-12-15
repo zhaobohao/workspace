@@ -12,7 +12,7 @@ import org.springbootdev.core.secure.annotation.PreAuth;
 import org.springbootdev.core.tool.api.R;
 import org.springbootdev.core.tool.constant.RoleConstant;
 import org.springbootdev.core.tool.utils.Func;
-import org.springbootdev.develop.support.SpringCloudDEmoCodeGenerator;
+import org.springbootdev.develop.support.SpringBootDemoCodeGenerator;
 import org.springbootdev.modules.develop.entity.Code;
 import org.springbootdev.modules.develop.entity.Datasource;
 import org.springbootdev.modules.develop.service.ICodeService;
@@ -110,7 +110,7 @@ public class CodeController extends AbstractController {
 	public R genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "sword") String system) {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
 		codes.forEach(code -> {
-			SpringCloudDEmoCodeGenerator generator = new SpringCloudDEmoCodeGenerator();
+			SpringBootDemoCodeGenerator generator = new SpringBootDemoCodeGenerator();
 			// 设置数据源
 			Datasource datasource = datasourceService.getById(code.getDatasourceId());
 			generator.setDriverName(datasource.getDriverClass());

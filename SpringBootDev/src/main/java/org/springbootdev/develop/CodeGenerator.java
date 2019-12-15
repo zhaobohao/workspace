@@ -2,7 +2,7 @@
 package org.springbootdev.develop;
 
 
-import org.springbootdev.develop.support.SpringCloudDEmoCodeGenerator;
+import org.springbootdev.develop.support.SpringBootDemoCodeGenerator;
 
 /**
  * 代码生成器
@@ -57,7 +57,7 @@ public class CodeGenerator {
 	 * RUN THIS
 	 */
 	public static void run() {
-		SpringCloudDEmoCodeGenerator generator = new SpringCloudDEmoCodeGenerator();
+		SpringBootDemoCodeGenerator generator = new SpringBootDemoCodeGenerator();
 		generator.setCodeName(CODE_NAME);
 		generator.setServiceName(SERVICE_NAME);
 		generator.setSystemName(SYSTEM_NAME);

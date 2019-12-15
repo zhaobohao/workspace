@@ -33,7 +33,7 @@ import java.util.*;
  */
 @Data
 @Slf4j
-public class SpringCloudDEmoCodeGenerator {
+public class SpringBootDemoCodeGenerator {
 	/**
 	 * 代码所在系统
 	 */
