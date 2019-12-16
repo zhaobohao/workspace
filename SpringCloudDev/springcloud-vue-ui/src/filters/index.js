@@ -100,6 +100,16 @@ export function translateVlaue2Lable(value, datasource) {
       if (tmp.length > 0) {
         return tmp[0].dictValue
       }
+    } else if (datasource[0].tenantId) {
+      const tmp = datasource.filter(item => item.tenantId === value)
+      if (tmp.length > 0) {
+        return tmp[0].tenantName
+      }
+    } else if (datasource[0].name) {
+      const tmp = datasource.filter(item => item.id === value)
+      if (tmp.length > 0) {
+        return tmp[0].name
+      }
     }
   }
   return ''

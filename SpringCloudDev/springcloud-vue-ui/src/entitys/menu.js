@@ -16,7 +16,7 @@ export default function dict() {
       // 菜单编号
       code: undefined,
       // 菜单类型
-      category: 1,
+      category: undefined,
       // 菜单别名
       alias: undefined,
       // 按钮功能

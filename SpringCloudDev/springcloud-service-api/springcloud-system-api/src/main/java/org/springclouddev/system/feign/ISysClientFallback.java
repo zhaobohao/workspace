@@ -5,6 +5,8 @@ import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Role;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Feign失败配置
  *
@@ -34,6 +36,11 @@ public class ISysClientFallback implements ISysClient {
 
 	@Override
 	public Role getRole(Integer id) {
+		return null;
+	}
+
+	@Override
+	public List<String> getPermission(String id) {
 		return null;
 	}
 }

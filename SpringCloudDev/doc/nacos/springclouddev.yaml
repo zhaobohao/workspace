@@ -20,10 +20,10 @@ spring:
 
 #feign配置
 feign:
-  #hystrix:
-    #enabled: true
-  sentinel:
+  hystrix:
     enabled: true
+  #sentinel:
+    #enabled: true
   okhttp:
     enabled: true
   httpclient:
@@ -42,7 +42,7 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
-
+        strategy: Semaphore
 #ribbon配置
 ribbon:
   #对当前实例的重试次数
@@ -85,6 +85,6 @@ springclouddev:
   tenant:
     column: tenant_id
     tables:
-      - blade_notice
+      - mk_notice
 
 

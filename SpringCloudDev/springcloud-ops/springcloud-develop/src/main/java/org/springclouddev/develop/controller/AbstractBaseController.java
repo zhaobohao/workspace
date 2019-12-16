@@ -10,6 +10,7 @@ import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.annotation.PreAuth;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.RoleConstant;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.develop.entity.Code;
 import org.springclouddev.develop.entity.Datasource;
@@ -19,6 +20,7 @@ import org.springclouddev.develop.support.SpringCloudDEmoCodeGenerator;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
@@ -97,7 +99,11 @@ public class AbstractBaseController extends AbstractController {
 		Code code = codeService.getById(id);
 		code.setId(null);
 		code.setCodeName(code.getCodeName() + "-copy");
-		return R.status(codeService.save(code));
+		if (codeService.saveOrUpdate(code)) {
+			return R.data(code);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, code, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
 
 	/**

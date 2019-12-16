@@ -28,7 +28,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="字典键值" prop="dictKey">
-            <el-input v-model="temp.dictKey" style="width: 305px;" />
+            <el-input v-model="temp.dictKey" type="number" style="width: 305px;" />
           </el-form-item>
         </el-col>
       </el-row>

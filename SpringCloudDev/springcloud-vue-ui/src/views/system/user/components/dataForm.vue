@@ -13,7 +13,8 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="所属租户" prop="tenantId">
-            <el-select v-model="temp.tenantId" :placeholder="$t('table.pleaseSelect')" class="filter-item">
+            <el-select v-model="temp.tenantId" :placeholder="$t('table.pleaseSelect')" class="filter-item"
+              style="width: 305px;">
               <el-option v-for="item in tenantOptions" :key="parseInt(item.tenantId)" :label="item.tenantName"
                 :value="item.tenantId" />
             </el-select>
@@ -36,8 +37,7 @@
         <el-col :span="12">
           <el-form-item label="所属角色" prop="roleId">
             <el-cascader v-model="roleParentIds" :show-all-levels="true" :options="roleOptions" :props="props"
-              :clearable="true" filterable style="width:
-              305px;" @change="handleRoleIdItemChange"></el-cascader>
+              :clearable="true" filterable style="width:305px;" @change="handleRoleIdItemChange"></el-cascader>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -107,7 +107,7 @@
   } from '@/api/system/dept'
   import {
     getRoleTree
-  } from '@/api/system/role'
+  } from '@/api/permission/role'
 
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive

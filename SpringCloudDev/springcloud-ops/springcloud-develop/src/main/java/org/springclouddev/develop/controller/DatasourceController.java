@@ -1,6 +1,7 @@
 
 package org.springclouddev.develop.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,13 +12,17 @@ import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.tool.api.R;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.develop.entity.Datasource;
 import org.springclouddev.develop.service.IDatasourceService;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 数据源配置表 控制器
@@ -49,8 +54,8 @@ public class DatasourceController extends AbstractController {
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
 	@ApiOperation(value = "分页", notes = "传入datasource")
-	public R<IPage<Datasource>> list(Datasource datasource, Query query) {
-		IPage<Datasource> pages = datasourceService.page(Condition.getPage(query), Condition.getQueryWrapper(datasource));
+	public R<IPage<Datasource>> list(@ApiIgnore @RequestParam Map<String, Object> datasource, Query query) {
+		IPage<Datasource> pages = datasourceService.page(Condition.getPage(query),Condition.getQueryWrapper(datasource, Datasource.class));
 		return R.data(pages);
 	}
 
@@ -82,7 +87,11 @@ public class DatasourceController extends AbstractController {
 	@ApiOperation(value = "新增或修改", notes = "传入datasource")
 	public R submit(@Valid @RequestBody Datasource datasource) {
 		datasource.setUrl(datasource.getUrl().replace("&amp;", "&"));
-		return R.status(datasourceService.saveOrUpdate(datasource));
+		if (datasourceService.saveOrUpdate(datasource)) {
+			return R.data(datasource);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, datasource, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
 
 

@@ -4,18 +4,17 @@
     <!--查询条件区域-->
     <div class="filter-container">
       <!--具体的查询条件，使用placeholder来显示标题-->
-      <el-input  style="width: 305px;" v-model="listQuery.query.clientId" placeholder="应用id" 
+      <el-input v-model="listQuery.query.clientId" placeholder="应用id" style="width: 305px;"
         @keyup.enter.native="handleFilter" />
-      <el-input  style="width: 305px;" v-model="listQuery.query.clientSecret" placeholder="应用密钥" 
+      <el-input v-model="listQuery.query.clientSecret" placeholder="应用密钥" style="width: 305px;"
         @keyup.enter.native="handleFilter" />
-      <el-input  v-model="listQuery.query.authorizedGrantTypesc" placeholder="授权类型" style="width: 410px;"
+      <el-input v-model="listQuery.query.authorizedGrantTypesc" placeholder="授权类型" style="width: 410px;"
         @keyup.enter.native="handleFilter" />
-
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{
-        $t('table.search') }}</el-button>
+    $t('table.search') }}</el-button>
       <el-button v-waves style="margin: 10px;" icon="el-icon-delete" round @click="resetListQuery()">{{
-        $t('table.reset')
-        }}</el-button>
+    $t('table.reset')
+    }}</el-button>
     </div>
   </el-card>
 </template>

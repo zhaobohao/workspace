@@ -31,7 +31,12 @@ export const remove = (ids) => {
     }
   })
 }
-
+export const selectDatasource = () => {
+  return request({
+    url: '/springcloud-develop/datasource/select',
+    method: 'get'
+  })
+}
 export const add = (row) => {
   return request({
     url: '/springcloud-develop/code/submit',

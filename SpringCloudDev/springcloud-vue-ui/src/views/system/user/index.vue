@@ -23,7 +23,6 @@
   </div>
 </template>
 <script>
-  import {} from '@/utils/index'
   // 调用相应的api文件中的方法，来操纵数据
   import {
     getDeptTree

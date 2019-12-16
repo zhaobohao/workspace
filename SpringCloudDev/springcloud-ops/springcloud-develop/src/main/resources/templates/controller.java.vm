@@ -2,12 +2,14 @@
 package $!{package.Controller};
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiOperationSupport;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import javax.validation.Valid;
 
+import Condition;
+import Query;
 import org.springframework.web.bind.annotation.*;
 #if($!{superEntityClass})
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +18,9 @@ import $!{package.Entity}.$!{entity};
 #set($voPackage=$package.Entity.replace("entity","vo"))
 import $!{voPackage}.$!{entity}VO;
 #set($wrapperPackage=$package.Entity.replace("entity","wrapper"))
+#if($!{cfg.hasWrapper})
 import $!{wrapperPackage}.$!{entity}Wrapper;
+#end
 import $!{package.Service}.$!{table.serviceName};
 #if($!{superControllerClassPackage})
 import $!{superControllerClassPackage};
@@ -40,95 +44,148 @@ public class $!{table.controllerName} extends $!{superControllerClass} {
 public class $!{table.controllerName} {
 #end
 
-	private $!{table.serviceName} $!{table.entityPath}Service;
+private $!{table.serviceName} $!{table.entityPath}Service;
 
-	/**
-	* 详情
-	*/
-	@GetMapping("/detail")
-    @ApiOperationSupport(order = 1)
-	@ApiOperation(value = "详情", notes = "传入$!{table.entityPath}")
-	public R<$!{entity}VO> detail($!{entity} $!{table.entityPath}) {
-		$!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
+#if($!{cfg.hasWrapper})
+/**
+ * 详情
+ */
+@GetMapping("/detail")
+@ApiOperationSupport(order = 1)
+@ApiOperation(value = "详情", notes = "传入$!{table.entityPath}")
+public R<$!{entity}VO> detail($!{entity} $!{table.entityPath}) {
+	$!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
 		return R.data($!{entity}Wrapper.build().entityVO(detail));
-	}
+		}
 
-	/**
-	* 分页 $!{table.comment}
-	*/
-	@GetMapping("/list")
-    @ApiOperationSupport(order = 2)
-	@ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
-	public R<IPage<$!{entity}VO>> list($!{entity} $!{table.entityPath}, Query query) {
+/**
+ * 分页 $!{table.comment}
+ */
+@GetMapping("/list")
+@ApiOperationSupport(order = 2)
+@ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
+public R<IPage<$!{entity}VO>> list($!{entity} $!{table.entityPath}, Query query) {
 		IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), Condition.getQueryWrapper($!{table.entityPath}));
 		return R.data($!{entity}Wrapper.build().pageVO(pages));
-	}
+		}
 
-	/**
-	* 自定义分页 $!{table.comment}
-	*/
-	@GetMapping("/page")
-    @ApiOperationSupport(order = 3)
-	@ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
-	public R<IPage<$!{entity}VO>> page($!{entity}VO $!{table.entityPath}, Query query) {
+#else
+/**
+ * 详情
+ */
+@GetMapping("/detail")
+@ApiOperationSupport(order = 1)
+@ApiOperation(value = "详情", notes = "传入$!{table.entityPath}")
+public R<$!{entity}> detail($!{entity} $!{table.entityPath}) {
+	$!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
+		return R.data(detail);
+		}
+
+/**
+ * 分页 $!{table.comment}
+ */
+@GetMapping("/list")
+@ApiOperationSupport(order = 2)
+@ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
+public R<IPage<$!{entity}>> list($!{entity} $!{table.entityPath}, Query query) {
+		IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), Condition.getQueryWrapper($!{table.entityPath}));
+		return R.data(pages);
+		}
+#end
+
+/**
+ * 自定义分页 $!{table.comment}
+ */
+@GetMapping("/page")
+@ApiOperationSupport(order = 3)
+@ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
+public R<IPage<$!{entity}VO>> page($!{entity}VO $!{table.entityPath}, Query query) {
 		IPage<$!{entity}VO> pages = $!{table.entityPath}Service.select$!{entity}Page(Condition.getPage(query), $!{table.entityPath});
 		return R.data(pages);
-	}
-
-	/**
-	* 新增 $!{table.comment}
-	*/
-	@PostMapping("/save")
-    @ApiOperationSupport(order = 4)
-	@ApiOperation(value = "新增", notes = "传入$!{table.entityPath}")
-	public R save(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
+		}
+/**
+     * 列表
+     */
+@GetMapping("/list/page")
+@ApiImplicitParams({
+		@ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
+})
+@ApiOperationSupport(order = 2)
+@ApiOperation(value = "列表", notes = "传入$!{table.entityPath}")
+public R<IPage<$!{entity}>> list(@ApiIgnore @RequestParam Map<String, Object> $!{table.entityPath}, Query query, SystemUser systemUser) {
+		QueryWrapper<$!{entity}> queryWrapper = Condition.getQueryWrapper($!{table.entityPath}, $!{entity}.class);
+		IPage<$!{entity}> pages = roleService.page(Condition.getPage(query), queryWrapper);
+		return R.data(pages);
+		}
+/**
+ * 新增 $!{table.comment}
+ */
+@PostMapping("/save")
+@ApiOperationSupport(order = 4)
+@ApiOperation(value = "新增", notes = "传入$!{table.entityPath}")
+public R save(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 		return R.status($!{table.entityPath}Service.save($!{table.entityPath}));
-	}
+		}
 
-	/**
-	* 修改 $!{table.comment}
-	*/
-	@PostMapping("/update")
-    @ApiOperationSupport(order = 5)
-	@ApiOperation(value = "修改", notes = "传入$!{table.entityPath}")
-	public R update(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
+/**
+ * 修改 $!{table.comment}
+ */
+@PostMapping("/update")
+@ApiOperationSupport(order = 5)
+@ApiOperation(value = "修改", notes = "传入$!{table.entityPath}")
+public R update(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 		return R.status($!{table.entityPath}Service.updateById($!{table.entityPath}));
-	}
+		}
 
-	/**
-	* 新增或修改 $!{table.comment}
-	*/
-	@PostMapping("/submit")
-    @ApiOperationSupport(order = 6)
-	@ApiOperation(value = "新增或修改", notes = "传入$!{table.entityPath}")
-	public R submit(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-		return R.status($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath}));
-	}
+/**
+ * 新增或修改 $!{table.comment}
+ */
+@PostMapping("/submit")
+@ApiOperationSupport(order = 6)
+@ApiOperation(value = "新增或修改", notes = "传入$!{table.entityPath}")
+public R submit(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
+		if ($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath})) {
+		return R.data($!{table.entityPath});
+		} else {
+		return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, $!{table.entityPath}, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
+		}
 
-	#if($!{superEntityClass})
+#if($!{superEntityClass})
 
-	/**
-	* 删除 $!{table.comment}
-	*/
-	@PostMapping("/remove")
-    @ApiOperationSupport(order = 7)
-	@ApiOperation(value = "逻辑删除", notes = "传入ids")
-	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+/**
+ * 删除 $!{table.comment}
+ */
+@PostMapping("/remove")
+@ApiOperationSupport(order = 7)
+@ApiOperation(value = "逻辑删除", notes = "传入ids")
+public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status($!{table.entityPath}Service.deleteLogic(Func.toLongList(ids)));
-	}
+		}
 
-	#else
+#else
 
-	/**
-	* 删除 $!{table.comment}
-	*/
-	@PostMapping("/remove")
-    @ApiOperationSupport(order = 7)
-	@ApiOperation(value = "删除", notes = "传入ids")
-	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+/**
+ * 删除 $!{table.comment}
+ */
+@PostMapping("/remove")
+@ApiOperationSupport(order = 8)
+@ApiOperation(value = "删除", notes = "传入ids")
+public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status($!{table.entityPath}Service.removeByIds(Func.toIntList(ids)));
-	}
+		}
 
-	#end
-
-}
+#end
+/**
+     * 数据源列表
+     */
+@GetMapping("/select")
+@ApiOperationSupport(order = 8)
+@ApiOperation(value = "下拉数据源", notes = "查询列表")
+public R<List<$!{entity}>> select() {
+		List<$!{entity}> list = $!{table.entityPath}Service.list();
+		return R.data(list);
+		}
+		}

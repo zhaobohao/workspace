@@ -9,48 +9,48 @@
           <el-row type="flex" class="row-bg">
             <el-col :span="12">
               <el-form-item label="应用id" prop="clientId">
-                <el-input style="width: 305px;" v-model="temp.clientId" />
+                <el-input v-model="temp.clientId" style="width: 305px;" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="应用密钥" prop="clientSecret">
-                <el-input style="width: 305px;" v-model="temp.clientSecret" />
+                <el-input v-model="temp.clientSecret" style="width: 305px;" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row type="flex" class="row-bg">
             <el-col :span="12">
               <el-form-item label="授权类型" prop="authorizedGrantTypes">
-                <el-input style="width: 305px;" v-model="temp.authorizedGrantTypes" />
+                <el-input v-model="temp.authorizedGrantTypes" style="width: 305px;" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="授权范围" prop="scope">
-                <el-input style="width: 305px;" v-model="temp.scope" />
+                <el-input v-model="temp.scope" style="width: 305px;" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row type="flex" class="row-bg">
             <el-col :span="12">
               <el-form-item label="令牌秒数" prop="accessTokenValidity">
-                <el-input style="width: 305px;" v-model="temp.accessTokenValidity" />
+                <el-input v-model="temp.accessTokenValidity" style="width: 305px;" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="刷新秒数" prop="refreshTokenValidity">
-                <el-input style="width: 305px;" v-model="temp.refreshTokenValidity" />
+                <el-input v-model="temp.refreshTokenValidity" style="width: 305px;" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row type="flex" class="row-bg">
             <el-col :span="12">
               <el-form-item label="回调地址" prop="webServerRedirectUri">
-                <el-input style="width: 305px;" v-model="temp.webServerRedirectUri" />
+                <el-input v-model="temp.webServerRedirectUri" style="width: 305px;" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="资源集合" prop="resourceIds">
-                <el-input style="width: 305px;" v-model="temp.resourceIds" />
+                <el-input v-model="temp.resourceIds" style="width: 305px;" />
               </el-form-item>
             </el-col>
           </el-row>

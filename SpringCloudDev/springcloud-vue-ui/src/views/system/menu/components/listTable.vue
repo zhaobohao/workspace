@@ -2,11 +2,11 @@
 
   <el-card>
 
-    <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="primary" icon="el-icon-edit"
-      @click="handleCreateAction">{{
+    <el-button v-wavess v-permission="['37']" class="filter-item" style="margin-left: 10px;" round type="primary"
+      icon="el-icon-edit" @click="handleCreateAction">{{
       $t('table.add') }}</el-button>
-    <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="danger" icon="el-icon-delete"
-      @click="handleBatchDeleteAction">{{
+    <el-button v-waves v-permission="['39']" class="filter-item" style="margin-left: 10px;" round type="danger"
+      icon="el-icon-delete" @click="handleBatchDeleteAction">{{
       $t('table.delete') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="warning" icon="el-icon-refresh"
       @click="getList">{{
@@ -22,7 +22,7 @@
       <!--表格行的多选-->
       <el-table-column type="selection" fixed width="55"></el-table-column>
       <!--表格的序号-->
-      <el-table-column :label="$t('table.id')" type="index" width="50"></el-table-column>
+      <el-table-column :label="$t('table.id')" type="index" width="50px"></el-table-column>
       <el-table-column label="菜单名称" min-width="150px">
         <template slot-scope="scope">
           <span class="link-type" @click="handleUpdate(scope.row)">{{ scope.row.name }}</span>
@@ -66,9 +66,10 @@
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-waves type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}
+          <el-button v-permission="['38']" v-waves type="primary" size="mini" @click="handleUpdate(scope.row)">
+            {{ $t('table.edit') }}
           </el-button>
-          <el-button v-if="scope.row.isDeleted!='1'" v-waves size="mini" type="danger"
+          <el-button v-if="scope.row.isDeleted!='1'" v-permission="['39']" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">{{
             $t('table.delete') }}
           </el-button>
@@ -97,6 +98,8 @@
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
   // 引入相关utils
   import notify from '@/utils/notify'
+  // 引入指令
+  import permission from '@/directive/permission/index.js' // 权限判断指令
   export default {
     // TODO:本页面的名称
     name: 'menu-list',
@@ -104,7 +107,8 @@
       Pagination
     },
     directives: {
-      waves
+      waves,
+      permission
     },
     filters: {
 
@@ -190,7 +194,7 @@
             this.listLoading = false
             notify.error(this, {
               title: '获取表格数据失败',
-              message: response.message
+              message: response.msg
             })
           }
         })
@@ -208,7 +212,6 @@
               title: '删除失败',
               message: '请选择要删除的数据项'
             })
-            console.log('return mutily')
             return ''
           }
           this.multipleSelection.forEach(item => ids.push(item.id))

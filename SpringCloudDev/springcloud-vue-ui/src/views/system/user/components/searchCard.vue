@@ -10,8 +10,6 @@
         <el-option v-for="item in tenantOptions" :key="parseInt(item.tenantId)" :label="item.tenantName"
           :value="item.tenantId" />
       </el-select>
-      <el-input v-model="listQuery.query.tenantId" placeholder="所属租户" style="width: 200px;"
-        @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.query.realName" placeholder="用户姓名" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{

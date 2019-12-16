@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/springcloud-system/role/list',
+    url: '/springcloud-system/role/list/page',
     method: 'get',
     params: {
       ...params,

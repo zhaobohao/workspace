@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * Feign接口类
  *
@@ -67,4 +69,12 @@ public interface ISysClient {
 	@GetMapping(API_PREFIX + "/getRole")
     Role getRole(@RequestParam("id") Integer id);
 
+	/**
+	 * 获取角色
+	 *
+	 * @param id 主键
+	 * @return Role
+	 */
+	@GetMapping(API_PREFIX + "/getPermission")
+	List<String> getPermission(@RequestParam("id") String id);
 }

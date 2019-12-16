@@ -7,6 +7,7 @@ import org.springclouddev.core.tool.utils.BeanUtil;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.core.tool.utils.SpringUtil;
 import org.springclouddev.system.feign.IDictClient;
+import org.springclouddev.system.feign.ISysClient;
 import org.springclouddev.system.user.entity.User;
 import org.springclouddev.system.user.service.IUserService;
 import org.springclouddev.system.user.vo.UserVO;
@@ -24,9 +25,12 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 
 	private static IDictClient dictClient;
 
+	private static ISysClient sysClient;
+
 	static {
 		userService = SpringUtil.getBean(IUserService.class);
 		dictClient = SpringUtil.getBean(IDictClient.class);
+		sysClient= SpringUtil.getBean(ISysClient.class);
 	}
 
 	public static UserWrapper build() {
@@ -38,7 +42,9 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 		UserVO userVO = BeanUtil.copy(user, UserVO.class);
 		List<String> roleName = userService.getRoleName(user.getRoleId());
 		List<String> deptName = userService.getDeptName(user.getDeptId());
-		userVO.setRoles(userService.getRoleAlians(user.getRoleId()));
+		// 当前将roles更换成menu code,来控制前端的各种资源显示
+		userVO.setRoles(sysClient.getPermission(user.getRoleId()));
+		//userVO.setRoles(userService.getRoleAlians(user.getRoleId()));
 		userVO.setAvatar(user.getAvatar());
 		userVO.setIntroduction(user.getIntroduction());
 		userVO.setName(user.getName());
