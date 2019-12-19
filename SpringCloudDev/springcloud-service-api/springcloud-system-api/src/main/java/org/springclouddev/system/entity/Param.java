@@ -28,7 +28,7 @@ public class Param extends BaseEntity {
 	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	@ApiModelProperty(value = "主键id")
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 参数名

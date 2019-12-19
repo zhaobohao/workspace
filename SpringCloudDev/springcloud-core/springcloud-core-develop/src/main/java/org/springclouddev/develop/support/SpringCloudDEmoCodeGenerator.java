@@ -161,6 +161,7 @@ public class SpringCloudDEmoCodeGenerator {
 		if (hasSuperEntity) {
 			strategy.setSuperEntityClass("org.springclouddev.core.mp.base.BaseEntity");
 			strategy.setSuperEntityColumns(superEntityColumns);
+			strategy.setSuperMapperClass("org.springclouddev.core.mp.base.SuperMapper");
 			strategy.setSuperServiceClass("org.springclouddev.core.mp.base.BaseService");
 			strategy.setSuperServiceImplClass("org.springclouddev.core.mp.base.BaseServiceImpl");
 		} else {

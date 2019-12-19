@@ -68,6 +68,10 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    if (response.headers['content-type'].indexOf('octet-stream') > 0) {
+      console.log(response.headers['content-disposition'])
+      return response
+    }
     const res = response.data
     NProgress.done()
     // if the custom code is not 20000, it is judged as an error.

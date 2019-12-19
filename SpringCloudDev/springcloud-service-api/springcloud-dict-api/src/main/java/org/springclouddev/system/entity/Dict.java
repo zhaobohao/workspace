@@ -29,13 +29,13 @@ public class Dict implements Serializable {
 	 */
 	@ApiModelProperty(value = "主键")
 	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 父主键
 	 */
 	@ApiModelProperty(value = "父主键")
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 字典码

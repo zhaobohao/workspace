@@ -84,8 +84,8 @@ export default {
     tool: '研发工具',
     codes: '代码生成',
     datasource: '数据源管理',
-    database: '数据库管理',
-    tables: '创建数据库',
+    dbinstance: '数据库管理',
+    tableinfo: '表元数据管理',
     permissions: '权限管理',
     datarole: '数据权限',
     interfacerole: '接口权限'

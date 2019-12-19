@@ -115,6 +115,8 @@ export const componentMap = {
   dict: () => import('@/views/system/dict/index'),
   menu: () => import('@/views/system/menu/index'),
   role: () => import('@/views/permission/role/index'),
+  datarole: () => import('@/views/permission/datarole/index'),
+  interfacerole: () => import('@/views/permission/interfacerole/index'),
   params: () => import('@/views/system/param/index'),
   tenant: () => import('@/views/system/tenant/index'),
   client: () => import('@/views/system/client/index'),
@@ -123,7 +125,9 @@ export const componentMap = {
   log_api: () => import('@/views/monitor/log/api/index'),
   log_error: () => import('@/views/monitor/log/error/index'),
   codes: () => import('@/views/tool/code/index'),
-  datasource: () => import('@/views/tool/datasource/index')
+  datasource: () => import('@/views/tool/datasource/index'),
+  dbinstance: () => import('@/views/tool/dbinstance/index'),
+  tableinfo: () => import('@/views/tool/tableinfo/index')
 }
 const createRouter = () => new Router({
   // mode: 'history', // require service support

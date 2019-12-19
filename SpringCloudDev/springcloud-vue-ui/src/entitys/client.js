@@ -1,7 +1,4 @@
-import {
-  formatDate
-} from '@/utils/date'
-export default function tenant() {
+export default function client() {
   return {
     current: 1,
     size: 20,

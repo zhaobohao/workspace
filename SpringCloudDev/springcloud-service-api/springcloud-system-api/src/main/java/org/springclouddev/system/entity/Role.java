@@ -28,7 +28,7 @@ public class Role implements Serializable {
 	 */
 	@ApiModelProperty(value = "主键")
 	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 租户ID
@@ -40,7 +40,7 @@ public class Role implements Serializable {
 	 * 父主键
 	 */
 	@ApiModelProperty(value = "父主键")
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 角色名

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.develop.mapper.TableInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="tableInfoResultMap" type="org.springclouddev.develop.entity.TableInfo">
+        <id column="id" property="id"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="name" property="name"/>
+        <result column="type_key" property="typeKey"/>
+        <result column="type_value" property="typeValue"/>
+        <result column="is_empty" property="isEmpty"/>
+        <result column="default_value" property="defaultValue"/>
+        <result column="comment" property="comment"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="category" property="category"/>
+        <result column="db_instance_id" property="dbInstanceId"/>
+        <result column="is_leaf" property="isLeaf"/>
+    </resultMap>
+
+
+    <select id="selectTableInfoPage" resultMap="tableInfoResultMap">
+        select * from db_table_info where is_deleted = 0
+    </select>
+
+</mapper>

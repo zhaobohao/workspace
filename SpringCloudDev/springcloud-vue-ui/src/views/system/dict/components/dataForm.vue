@@ -213,6 +213,9 @@
               if (response.code === 200) {
                 this.$parent.$parent.$parent.$parent.initTreeData()
                 this.$parent.$parent.$parent.$parent.$refs.listTable.list.unshift(response.data)
+                if (response.data.parentId === -1) {
+                  this.initTreeOptions()
+                }
                 this.dialogFormVisible = false
                 notify.success(this)
               } else {

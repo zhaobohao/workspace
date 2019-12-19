@@ -114,7 +114,6 @@
         rules: listQuery().rules,
         // 部门多选择时使用
         roleParentIds: undefined,
-        deptParentIds: undefined,
         props: {
           value: 'id',
           label: 'title',
@@ -168,7 +167,6 @@
       resetTemp() {
         this.temp = listQuery().query
         this.roleParentIds = undefined
-        this.deptParentIds = undefined
       },
       handleCreateAction() {
         this.resetTemp()
@@ -183,8 +181,7 @@
         this.temp.password = undefined
         this.temp.password2 = undefined
         // 开始计算几个cascade控件需要显示的值
-        this.roleParentIds = this.temp.roleId.split(',')
-        this.deptParentIds = this.temp.deptId.split(',')
+        this.roleParentIds = this.temp.parentId
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
         this.$nextTick(() => {

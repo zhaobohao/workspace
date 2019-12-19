@@ -404,7 +404,8 @@ export function initTreeData(data, title) {
     'isLeaf': 1,
     'title': title || 'root',
     'key': 0,
-    'value': 0
+    'value': 0,
+    'name': title || 'root'
   }]
   temp[0].children = data
   return temp

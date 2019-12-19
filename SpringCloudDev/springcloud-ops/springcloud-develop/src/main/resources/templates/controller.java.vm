@@ -8,8 +8,8 @@ import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import javax.validation.Valid;
 
-import Condition;
-import Query;
+import org.springclouddev.core.mp.support.Condition;
+import org.springclouddev.core.mp.support.Query;
 import org.springframework.web.bind.annotation.*;
 #if($!{superEntityClass})
 import org.springframework.web.bind.annotation.RequestParam;
@@ -116,7 +116,7 @@ public R<IPage<$!{entity}VO>> page($!{entity}VO $!{table.entityPath}, Query quer
 @ApiOperation(value = "列表", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}>> list(@ApiIgnore @RequestParam Map<String, Object> $!{table.entityPath}, Query query, SystemUser systemUser) {
 		QueryWrapper<$!{entity}> queryWrapper = Condition.getQueryWrapper($!{table.entityPath}, $!{entity}.class);
-		IPage<$!{entity}> pages = roleService.page(Condition.getPage(query), queryWrapper);
+		IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), queryWrapper);
 		return R.data(pages);
 		}
 /**

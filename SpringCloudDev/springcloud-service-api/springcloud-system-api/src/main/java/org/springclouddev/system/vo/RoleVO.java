@@ -25,12 +25,12 @@ public class RoleVO extends Role implements INode {
 	/**
 	 * 主键ID
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 父节点ID
 	 */
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 子孙节点

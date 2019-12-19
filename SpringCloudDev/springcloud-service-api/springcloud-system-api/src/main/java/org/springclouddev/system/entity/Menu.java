@@ -29,13 +29,13 @@ public class Menu implements Serializable {
 	 */
 	@ApiModelProperty(value = "主键")
 	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 菜单父主键
 	 */
 	@ApiModelProperty(value = "菜单父主键")
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 菜单编号

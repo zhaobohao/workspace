@@ -18,12 +18,12 @@ public class BaseNode implements INode {
 	/**
 	 * 主键ID
 	 */
-	protected Integer id;
+	protected Long id;
 
 	/**
 	 * 父节点ID
 	 */
-	protected Integer parentId;
+	protected Long parentId;
 
 	/**
 	 * 子孙节点

@@ -1,4 +1,4 @@
-export default function tenant() {
+export default function code() {
   return {
     current: 1,
     size: 20,

@@ -15,14 +15,14 @@ public interface INode {
 	 *
 	 * @return Integer
 	 */
-	Integer getId();
+	Long getId();
 
 	/**
 	 * 父主键
 	 *
 	 * @return Integer
 	 */
-	Integer getParentId();
+	Long getParentId();
 
 	/**
 	 * 子孙节点
