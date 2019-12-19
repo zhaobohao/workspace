@@ -32,7 +32,7 @@ import java.util.Map;
 @ApiIgnore
 @RestController
 @AllArgsConstructor
-@RequestMapping(AppConstant.APPLICATION_DEVELOP_NAME + "/code")
+@RequestMapping("/"+AppConstant.APPLICATION_DEVELOP_NAME + "/code")
 @Api(value = "代码生成", tags = "代码生成")
 @PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 public class CodeController extends AbstractController {

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springbootdev.core.boot.ctrl.AbstractController;
+import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.core.mp.support.Query;
 import org.springbootdev.core.secure.SystemUser;
@@ -17,6 +18,7 @@ import org.springbootdev.modules.system.service.ITenantService;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +26,11 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/system/tenant")
+@RequestMapping("/"+AppConstant.APPLICATION_SYSTEM_NAME +"/tenant")
 @ApiIgnore
 @Api(value = "租户管理", tags = "接口")
 public class TenantController extends AbstractController {
@@ -88,7 +90,12 @@ public class TenantController extends AbstractController {
 	@PostMapping("/submit")
 	@ApiOperation(value = "新增或修改", notes = "传入tenant")
 	public R submit(@Valid @RequestBody Tenant tenant) {
-		return R.status(tenantService.saveTenant(tenant));
+		if(tenantService.saveTenant(tenant))
+		{
+			return R.data(tenant);
+		}else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, tenant, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
 
 

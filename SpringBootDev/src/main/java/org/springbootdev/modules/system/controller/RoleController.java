@@ -2,10 +2,13 @@
 package org.springbootdev.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springbootdev.core.boot.ctrl.AbstractController;
+import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
+import org.springbootdev.core.mp.support.Query;
 import org.springbootdev.core.secure.SystemUser;
 import org.springbootdev.core.tool.api.R;
 import org.springbootdev.core.tool.constant.ToolConstant;
@@ -18,6 +21,7 @@ import org.springbootdev.modules.system.wrapper.RoleWrapper;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +29,11 @@ import java.util.Map;
 /**
  * 控制器
  *
- * @author merryChen
+ * @author zhaobohao
  */
-@ApiIgnore
 @RestController
 @AllArgsConstructor
-@RequestMapping("/system/role")
+@RequestMapping("/"+AppConstant.APPLICATION_SYSTEM_NAME +"/role")
 @Api(value = "角色", tags = "角色")
 public class RoleController extends AbstractController {
 
@@ -62,15 +65,30 @@ public class RoleController extends AbstractController {
 		List<Role> list = roleService.list((!systemUser.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Role::getTenantId, systemUser.getTenantId()) : queryWrapper);
 		return R.data(RoleWrapper.build().listNodeVO(list));
 	}
-
+	/**
+	 * 列表
+	 */
+	@GetMapping("/list/page")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
+			@ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
+			@ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
+	})
+	@ApiOperationSupport(order = 2)
+	@ApiOperation(value = "列表", notes = "传入role")
+	public R<IPage<Role>> list(@ApiIgnore @RequestParam Map<String, Object> role, Query query, SystemUser systemUser) {
+		QueryWrapper<Role> queryWrapper = Condition.getQueryWrapper(role, Role.class);
+		IPage<Role> pages = roleService.page(Condition.getPage(query), (!systemUser.getTenantId().equals(ToolConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Role::getTenantId, systemUser.getTenantId()) : queryWrapper);
+		return R.data(pages);
+	}
 	/**
 	 * 获取角色树形结构
 	 */
 	@GetMapping("/tree")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "树形结构", notes = "树形结构")
-	public R<List<RoleVO>> tree(String tenantId, SystemUser systemUser) {
-		List<RoleVO> tree = roleService.tree(Func.toStr(tenantId, systemUser.getTenantId()));
+	public R<List<RoleVO>> tree(String tenantId,String parentId, SystemUser systemUser) {
+		List<RoleVO> tree = roleService.tree(Func.toStr(tenantId, systemUser.getTenantId()),parentId);
 		return R.data(tree);
 	}
 
@@ -81,11 +99,16 @@ public class RoleController extends AbstractController {
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入role")
 	public R submit(@Valid @RequestBody Role role, SystemUser user) {
-		if (Func.isEmpty(role.getId())) {
+		if (Func.isEmpty(role.getId()) && Func.isEmpty(role.getTenantId())) {
 			role.setTenantId(user.getTenantId());
 		}
-		return R.status(roleService.saveOrUpdate(role));
+		if (roleService.saveOrUpdate(role)) {
+			return R.data(role);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, role, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
+
 
 	/**
 	 * 删除
@@ -94,6 +117,7 @@ public class RoleController extends AbstractController {
 	@ApiOperationSupport(order = 5)
 	@ApiOperation(value = "删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+
 		return R.status(roleService.removeByIds(Func.toIntList(ids)));
 	}
 

@@ -1,8 +1,8 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import org.springbootdev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.modules.system.dto.MenuDTO;
 import org.springbootdev.modules.system.entity.Menu;
 import org.springbootdev.modules.system.vo.MenuVO;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Mapper 接口
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface MenuMapper extends SuperMapper<Menu> {
 
@@ -26,12 +26,11 @@ public interface MenuMapper extends SuperMapper<Menu> {
 	List<MenuVO> selectMenuPage(IPage page, MenuVO menu);
 
 	/**
-	 * 树形结构
-	 *
+	 *  获取树形节点,获取指定parentId这一层的数据
+	 * @param parentId 如果为空，返回所有树形结构数据
 	 * @return
 	 */
-	List<MenuVO> tree();
-
+	List<MenuVO> tree(String parentId);
 	/**
 	 * 授权树形结构
 	 *
@@ -42,6 +41,7 @@ public interface MenuMapper extends SuperMapper<Menu> {
 	/**
 	 * 授权树形结构
 	 *
+	 * @param roleId
 	 * @return
 	 */
 	List<MenuVO> grantTreeByRole(List<Integer> roleId);
@@ -79,6 +79,7 @@ public interface MenuMapper extends SuperMapper<Menu> {
 
 	/**
 	 * 获取配置的角色权限
+	 *
 	 * @param roleIds
 	 * @return
 	 */

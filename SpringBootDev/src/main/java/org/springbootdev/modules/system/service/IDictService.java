@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface IDictService extends IService<Dict> {
 
@@ -29,7 +29,7 @@ public interface IDictService extends IService<Dict> {
 	 *
 	 * @return
 	 */
-	List<DictVO> tree();
+	List<DictVO> tree(String parentId);
 
 	/**
 	 * 获取字典表对应中文

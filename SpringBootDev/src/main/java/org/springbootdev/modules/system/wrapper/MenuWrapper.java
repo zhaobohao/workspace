@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * 包装类,返回视图层所需的字段
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public class MenuWrapper extends BaseEntityWrapper<Menu, MenuVO> {
 
@@ -44,9 +44,12 @@ public class MenuWrapper extends BaseEntityWrapper<Menu, MenuVO> {
 			Menu parent = menuService.getById(menu.getParentId());
 			menuVO.setParentName(parent.getName());
 		}
-		menuVO.setCategoryName(dictService.getValue("menu_category", Func.toInt(menuVO.getCategory())));
-		menuVO.setActionName(dictService.getValue("button_func", Func.toInt(menuVO.getAction())));
-		menuVO.setIsOpenName(dictService.getValue("yes_no", Func.toInt(menuVO.getIsOpen())));
+		String d1 = dictService.getValue("menu_category", Func.toInt(menuVO.getCategory()));
+		String d2 = dictService.getValue("button_func", Func.toInt(menuVO.getAction()));
+		String d3 = dictService.getValue("yes_no", Func.toInt(menuVO.getIsOpen()));
+			menuVO.setCategoryName(d1);
+			menuVO.setActionName(d2);
+			menuVO.setIsOpenName(d3);
 		return menuVO;
 	}
 

@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 用户信息
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Data
 @ApiModel(description = "用户信息")

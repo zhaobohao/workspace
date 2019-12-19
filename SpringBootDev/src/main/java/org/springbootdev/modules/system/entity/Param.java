@@ -8,16 +8,18 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import org.springbootdev.core.mp.base.BaseEntity;
 
 /**
  * 实体类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Data
 @TableName("mk_param")
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @ApiModel(value = "Param对象", description = "Param对象")
 public class Param extends BaseEntity {
 
@@ -28,7 +30,7 @@ public class Param extends BaseEntity {
 	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	@ApiModelProperty(value = "主键id")
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 参数名

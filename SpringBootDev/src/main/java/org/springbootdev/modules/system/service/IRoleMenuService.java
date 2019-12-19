@@ -7,7 +7,7 @@ import org.springbootdev.modules.system.entity.RoleMenu;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface IRoleMenuService extends IService<RoleMenu> {
 

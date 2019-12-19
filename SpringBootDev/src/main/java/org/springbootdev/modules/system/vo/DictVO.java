@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * 视图实体类
  *
- * @author merryChen
+ * @author zhaobohao
+ * @since 2018-12-24
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -24,12 +25,12 @@ public class DictVO extends Dict implements INode {
 	/**
 	 * 主键ID
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 父节点ID
 	 */
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 子孙节点
@@ -44,7 +45,15 @@ public class DictVO extends Dict implements INode {
 		}
 		return this.children;
 	}
+	/**
+	 * 是否是叶子节点
+	 */
+	protected Integer isLeaf;
 
+	@Override
+	public Integer IsLeaf() {
+		return null;
+	}
 	/**
 	 * 上级字典
 	 */

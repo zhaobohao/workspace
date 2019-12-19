@@ -1,8 +1,9 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import org.springbootdev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.ibatis.annotations.Mapper;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.modules.system.entity.User;
 
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.List;
 /**
  * Mapper 接口
  *
- * @author merryChen
+ * @author zhaobohao
  */
+
+@Mapper
 public interface UserMapper extends SuperMapper<User> {
 
 	/**

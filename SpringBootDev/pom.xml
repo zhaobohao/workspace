@@ -22,8 +22,8 @@
         <spring.boot.admin.version>2.1.5</spring.boot.admin.version>
         <alibaba.seata.version>0.8.1</alibaba.seata.version>
         <testng.version>6.14.3</testng.version>
-        <fastjson.version>1.2.62</fastjson.version>
-        <hutool-all.version>4.5.10</hutool-all.version>
+        <fastjson.version>1.2.60</fastjson.version>
+        <hutool-all.version>5.0.7</hutool-all.version>
         <caffeine.version>2.7.0</caffeine.version>
         <guava.version>27.1-jre</guava.version>
         <bouncycastle.version>1.62</bouncycastle.version>
@@ -37,6 +37,7 @@
         <docker.registry.url>10.10.10.0</docker.registry.url>
         <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
         <docker.plugin.version>1.2.1</docker.plugin.version>
+        <commons-io.version>2.6</commons-io.version>
     </properties>
 
     <dependencyManagement>
@@ -143,7 +144,12 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis.plus.version}</version>
         </dependency>
-
+        <!--Velocity-->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
         <!-- Druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -233,6 +239,12 @@
             <artifactId>hutool-all</artifactId>
             <version>${hutool-all.version}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>

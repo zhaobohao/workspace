@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AppConstant.APPLICATION_DEVELOP_NAME + "/datasource")
+@RequestMapping("/"+AppConstant.APPLICATION_DEVELOP_NAME + "/datasource")
 @Api(value = "数据源配置表", tags = "数据源配置表接口")
 public class DatasourceController extends AbstractController {
 

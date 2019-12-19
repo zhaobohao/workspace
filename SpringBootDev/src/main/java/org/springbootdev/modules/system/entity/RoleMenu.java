@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  * 实体类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Data
 @TableName("mk_role_menu")
@@ -27,7 +27,7 @@ public class RoleMenu implements Serializable {
 	 */
 	@ApiModelProperty(value = "主键")
 	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 菜单id

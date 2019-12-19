@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * 实体类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Data
 @TableName("mk_user")
@@ -28,7 +28,7 @@ public class User extends TenantEntity {
 	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	@ApiModelProperty(value = "主键id")
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 账号
@@ -46,10 +46,6 @@ public class User extends TenantEntity {
 	 * 真名
 	 */
 	private String realName;
-	/**
-	 * 头像
-	 */
-	private String avatar;
 	/**
 	 * 邮箱
 	 */
@@ -74,6 +70,14 @@ public class User extends TenantEntity {
 	 * 部门id
 	 */
 	private String deptId;
+	/**
+	 * 个人介绍
+	 */
+	private String introduction;
 
+	/**
+	 * 个人头像
+	 */
+	private String avatar;
 
 }

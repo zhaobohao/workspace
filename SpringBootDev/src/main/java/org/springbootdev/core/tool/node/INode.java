@@ -15,14 +15,14 @@ public interface INode {
 	 *
 	 * @return Integer
 	 */
-	Integer getId();
+	Long getId();
 
 	/**
 	 * 父主键
 	 *
 	 * @return Integer
 	 */
-	Integer getParentId();
+	Long getParentId();
 
 	/**
 	 * 子孙节点
@@ -30,5 +30,11 @@ public interface INode {
 	 * @return List
 	 */
 	List<INode> getChildren();
+
+	/**
+	 * 是否是叶子节点，0是，1否
+	 * @return
+	 */
+	Integer IsLeaf();
 
 }

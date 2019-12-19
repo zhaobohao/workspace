@@ -10,7 +10,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springbootdev.core.mp.base.BaseEntity;
 
-
+/**
+ * 实体类
+ *
+ * @author zhaobohao
+ * @since 2019-03-24
+ */
 @Data
 @TableName("mk_client")
 @EqualsAndHashCode(callSuper = true)
@@ -24,7 +29,7 @@ public class AuthClient extends BaseEntity {
 	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	@ApiModelProperty(value = "主键id")
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 客户端id

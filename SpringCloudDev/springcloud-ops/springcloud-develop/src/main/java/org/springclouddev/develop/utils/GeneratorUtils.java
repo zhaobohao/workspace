@@ -62,12 +62,13 @@ public class GeneratorUtils {
         sw.append("grant select,insert,update,delete on ").append(table.getName()).append(" to ").append(dbInstance.getOprUser()).append(";\n");
         sw.append("grant select,insert,update,delete on ").append(table.getName()).append(" to ").append(dbInstance.getRptUser()).append(";\n");
         //创建sequnce
-        sw.append("create sequence SEQ_").append(table.getName()).append("\n")
+        sw.append("create sequence").append(dbInstance.getDataUser()).append(".SEQ_").append(table.getName()).append("\n")
                 .append("minvalue 1\n")
                 .append("maxvalue 9999999999999999999999999999\n")
                 .append("start with 1\n")
                 .append("increment by 1\n")
                 .append("noorder\n")
+                .append("cycle\n")
                 .append("cache 1000;\n");
          //创建sequence的同议词
         sw.append("create or replace public synonym SEQ_").append(table.getName()).append(" for SEQ_").append(table.getName()).append(";\n");

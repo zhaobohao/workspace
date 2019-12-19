@@ -14,7 +14,8 @@ import java.io.Serializable;
 /**
  * 实体类
  *
- * @author merryChen
+ * @author zhaobohao
+ * @since 2018-12-24
  */
 @Data
 @TableName("mk_dict")
@@ -28,13 +29,13 @@ public class Dict implements Serializable {
 	 */
 	@ApiModelProperty(value = "主键")
 	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 父主键
 	 */
 	@ApiModelProperty(value = "父主键")
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 字典码
@@ -72,6 +73,10 @@ public class Dict implements Serializable {
 	@TableLogic
 	@ApiModelProperty(value = "是否已删除")
 	private Integer isDeleted;
-
+	/**
+	 * 是否是叶子节点,0是，1不是。
+	 */
+	@ApiModelProperty(value = "是否是叶子节点,0是，1不是。")
+	protected Integer isLeaf;
 
 }

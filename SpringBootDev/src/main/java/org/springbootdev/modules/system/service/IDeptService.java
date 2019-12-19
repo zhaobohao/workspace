@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface IDeptService extends IService<Dept> {
 
@@ -30,6 +30,11 @@ public interface IDeptService extends IService<Dept> {
 	 * @param tenantId
 	 * @return
 	 */
-	List<DeptVO> tree(String tenantId);
-
+	List<DeptVO> tree(String tenantId, String parentId);
+	/**
+	 * 新增或修改
+	 * @param dept
+	 * @return
+	 */
+	boolean submit(Dept dept);
 }

@@ -9,7 +9,7 @@ import org.springbootdev.modules.system.vo.ParamVO;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface IParamService extends BaseService<Param> {
 
@@ -21,4 +21,6 @@ public interface IParamService extends BaseService<Param> {
 	 */
 	IPage<ParamVO> selectParamPage(IPage<ParamVO> page, ParamVO param);
 
+	String getParamValueByKey(String key);
 }
+

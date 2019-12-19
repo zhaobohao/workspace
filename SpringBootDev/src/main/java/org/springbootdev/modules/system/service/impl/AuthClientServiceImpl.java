@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 /**
  *  服务实现类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Service
 public class AuthClientServiceImpl extends BaseServiceImpl<AuthClientMapper, AuthClient> implements IAuthClientService {

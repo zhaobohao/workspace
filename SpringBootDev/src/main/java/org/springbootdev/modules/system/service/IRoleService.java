@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface IRoleService extends IService<Role> {
 
@@ -31,7 +31,7 @@ public interface IRoleService extends IService<Role> {
 	 * @param tenantId
 	 * @return
 	 */
-	List<RoleVO> tree(String tenantId);
+	List<RoleVO> tree(String tenantId, String parentId);
 
 	/**
 	 * 权限配置

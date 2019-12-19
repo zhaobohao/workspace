@@ -38,6 +38,9 @@
         <if test="param2!=null">
             and role_alias &lt;&gt; #{param2}
         </if>
+        <if test="param3!=null">
+            and parent_id = #{param3}
+        </if>
     </select>
 
 </mapper>

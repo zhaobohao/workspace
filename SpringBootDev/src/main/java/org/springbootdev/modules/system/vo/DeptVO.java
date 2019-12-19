@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 视图实体类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -25,12 +25,12 @@ public class DeptVO extends Dept implements INode {
 	/**
 	 * 主键ID
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 父节点ID
 	 */
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 子孙节点
@@ -50,5 +50,13 @@ public class DeptVO extends Dept implements INode {
 	 * 上级部门
 	 */
 	private String parentName;
+	/**
+	 * 是否是叶子节点
+	 */
+	protected Integer isLeaf;
 
+	@Override
+	public Integer IsLeaf() {
+		return null;
+	}
 }

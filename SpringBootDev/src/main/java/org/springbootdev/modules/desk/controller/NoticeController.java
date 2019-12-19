@@ -6,6 +6,7 @@ import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springbootdev.common.cache.CacheNames;
 import org.springbootdev.core.boot.ctrl.AbstractController;
+import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.core.mp.support.Query;
 import org.springbootdev.core.tool.api.R;
@@ -28,7 +29,7 @@ import java.util.Map;
  * @author merryChen
  */
 @RestController
-@RequestMapping("/desk/notice")
+@RequestMapping("/"+AppConstant.APPLICATION_DESK_NAME +"/notice")
 @AllArgsConstructor
 @ApiSort(2)
 @Api(value = "用户博客", tags = "博客接口")

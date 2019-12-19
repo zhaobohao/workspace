@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * 包装类,返回视图层所需的字段
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public class RoleWrapper extends BaseEntityWrapper<Role, RoleVO> {
 
@@ -43,7 +43,6 @@ public class RoleWrapper extends BaseEntityWrapper<Role, RoleVO> {
 		}
 		return roleVO;
 	}
-
 
 	public List<INode> listNodeVO(List<Role> list) {
 		List<INode> collect = list.stream().map(this::entityVO).collect(Collectors.toList());

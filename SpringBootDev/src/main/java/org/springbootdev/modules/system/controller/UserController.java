@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.core.mp.support.Query;
 import org.springbootdev.core.secure.SystemUser;
+import org.springbootdev.core.secure.utils.SecureUtil;
 import org.springbootdev.core.tool.api.R;
 import org.springbootdev.core.tool.constant.ToolConstant;
 import org.springbootdev.core.tool.utils.Func;
@@ -19,6 +21,7 @@ import org.springbootdev.modules.system.wrapper.UserWrapper;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +33,29 @@ import java.util.Map;
  */
 @ApiIgnore
 @RestController
-@RequestMapping("user")
+@RequestMapping("/"+AppConstant.APPLICATION_USER_NAME )
 @AllArgsConstructor
 public class UserController {
 
 	private IUserService userService;
+
+
+
+
+	/**
+	 *
+	 * @return 当前用户退出
+	 */
+	@ApiOperationSupport(order = 12)
+	@ApiOperation(value = "当前用户退出", notes = "用户相关状态信息清理")
+	@GetMapping("/logout")
+	public R<String> logout()
+	{
+		SystemUser systemUser= SecureUtil.getUser();
+		return R.data("{data:true"+
+			"  }");
+	}
+
 
 	/**
 	 * 查询单条
@@ -46,15 +67,14 @@ public class UserController {
 		User detail = userService.getOne(Condition.getQueryWrapper(user));
 		return R.data(UserWrapper.build().entityVO(detail));
 	}
-
 	/**
 	 * 查询单条
 	 */
 	@ApiOperationSupport(order =2)
 	@ApiOperation(value = "查看详情", notes = "传入id")
 	@GetMapping("/info")
-	public R<UserVO> info(SystemUser user) {
-		User detail = userService.getById(user.getUserId());
+	public R<UserVO> info(SystemUser systemUser) {
+		User detail = userService.getById(systemUser.getUserId());
 		return R.data(UserWrapper.build().entityVO(detail));
 	}
 
@@ -81,7 +101,11 @@ public class UserController {
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入User")
 	public R submit(@Valid @RequestBody User user) {
-		return R.status(userService.submit(user));
+		if (userService.submit(user)) {
+			return R.data(user);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, user, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
 	}
 
 	/**
@@ -128,7 +152,6 @@ public class UserController {
 		boolean temp = userService.resetPassword(userIds);
 		return R.status(temp);
 	}
-
 	/**
 	 * 修改密码
 	 *
@@ -140,10 +163,10 @@ public class UserController {
 	@PostMapping("/update-password")
 	@ApiOperationSupport(order = 9)
 	@ApiOperation(value = "修改密码", notes = "传入密码")
-	public R updatePassword(SystemUser user, @ApiParam(value = "旧密码", required = true) @RequestParam String oldPassword,
+	public R updatePassword(SystemUser systemUser, @ApiParam(value = "旧密码", required = true) @RequestParam String oldPassword,
 							@ApiParam(value = "新密码", required = true) @RequestParam String newPassword,
 							@ApiParam(value = "新密码", required = true) @RequestParam String newPassword1) {
-		boolean temp = userService.updatePassword(user.getUserId(), oldPassword, newPassword, newPassword1);
+		boolean temp = userService.updatePassword(systemUser.getUserId(), oldPassword, newPassword, newPassword1);
 		return R.status(temp);
 	}
 
@@ -160,4 +183,20 @@ public class UserController {
 		List<User> list = userService.list(Condition.getQueryWrapper(user));
 		return R.data(list);
 	}
+
+
+	/**
+	 *
+	 * @return 当前用户的相关信息
+	 */
+	@ApiOperationSupport(order = 11)
+	@ApiOperation(value = "查看当前登录用户详情", notes = "已经登录用户的详细信息")
+	@GetMapping("/get-current-user-info")
+	public R<UserVO> getCurrentUserInfo()
+	{
+		SystemUser systemUser= SecureUtil.getUser();
+		User detail = userService.getById(systemUser.getUserId());
+		return R.data(UserWrapper.build().entityVO(detail));
+	}
 }
+

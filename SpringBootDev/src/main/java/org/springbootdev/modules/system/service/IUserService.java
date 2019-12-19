@@ -12,12 +12,13 @@ import java.util.List;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface IUserService extends BaseService<User> {
 
 	/**
 	 * 新增或修改用户
+	 *
 	 * @param user
 	 * @return
 	 */
@@ -66,7 +67,6 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	boolean resetPassword(String userIds);
-
 	/**
 	 * 修改密码
 	 *
@@ -85,7 +85,13 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	List<String> getRoleName(String roleIds);
-
+	/**
+	 * 获取角色名
+	 *
+	 * @param roleIds
+	 * @return
+	 */
+	List<String> getRoleAlians(String roleIds);
 	/**
 	 * 获取部门名
 	 *

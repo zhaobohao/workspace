@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import org.springclouddev.core.mp.base.BaseEntity;
 
 /**
@@ -18,6 +19,7 @@ import org.springclouddev.core.mp.base.BaseEntity;
 @Data
 @TableName("mk_param")
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @ApiModel(value = "Param对象", description = "Param对象")
 public class Param extends BaseEntity {
 

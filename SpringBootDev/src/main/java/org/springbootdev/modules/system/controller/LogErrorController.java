@@ -5,6 +5,7 @@ package org.springbootdev.modules.system.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
+import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.log.model.LogError;
 import org.springbootdev.core.log.model.LogErrorVo;
 import org.springbootdev.core.mp.support.Condition;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 @ApiIgnore
 @RestController
 @AllArgsConstructor
-@RequestMapping("/log/error")
+@RequestMapping("/"+AppConstant.APPLICATION_LOG_NAME +"/error")
 public class LogErrorController {
 
 	private ILogErrorService errorLogService;

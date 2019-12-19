@@ -1,8 +1,8 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import org.springbootdev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.modules.system.entity.Dict;
 import org.springbootdev.modules.system.vo.DictVO;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Mapper 接口
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface DictMapper extends SuperMapper<Dict> {
 
@@ -42,10 +42,9 @@ public interface DictMapper extends SuperMapper<Dict> {
 	List<Dict> getList(String code);
 
 	/**
-	 * 获取树形节点
-	 *
+	 *  获取树形节点,获取指定parentId这一层的数据
+	 * @param parentId 如果为空，返回所有树形结构数据
 	 * @return
 	 */
-	List<DictVO> tree();
-
+	List<DictVO> tree(String parentId);
 }

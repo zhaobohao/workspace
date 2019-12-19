@@ -9,7 +9,7 @@ import org.springbootdev.modules.system.entity.RoleMenu;
 /**
  * 视图实体类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

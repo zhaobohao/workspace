@@ -21,4 +21,5 @@ public interface IParamService extends BaseService<Param> {
 	 */
 	IPage<ParamVO> selectParamPage(IPage<ParamVO> page, ParamVO param);
 
+    String getParamValueByKey(String key);
 }

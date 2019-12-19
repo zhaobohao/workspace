@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface IMenuService extends IService<Menu> {
 
@@ -47,7 +47,7 @@ public interface IMenuService extends IService<Menu> {
 	 *
 	 * @return
 	 */
-	List<MenuVO> tree();
+	List<MenuVO> tree(String parentId);
 
 	/**
 	 * 授权树形结构

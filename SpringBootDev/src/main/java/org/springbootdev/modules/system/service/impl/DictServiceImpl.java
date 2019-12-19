@@ -25,7 +25,7 @@ import static org.springbootdev.common.cache.CacheNames.DICT_VALUE;
 /**
  * 服务实现类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {
@@ -36,8 +36,8 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 	}
 
 	@Override
-	public List<DictVO> tree() {
-		return ForestNodeMerger.merge(baseMapper.tree());
+	public List<DictVO> tree(String parentId) {
+		return ForestNodeMerger.merge(baseMapper.tree(parentId));
 	}
 
 	@Override
@@ -60,6 +60,13 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 		if (cnt > 0) {
 			throw new ApiException("当前字典键值已存在!");
 		}
+		if(dict.getParentId()!=null && 0!=dict.getParentId())
+		{
+	      Dict parent=baseMapper.selectById(dict.getParentId());
+	      parent.setIsLeaf(1);
+	      baseMapper.updateById(parent);
+		}
+
 		return saveOrUpdate(dict);
 	}
 }

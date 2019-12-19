@@ -7,7 +7,7 @@ import org.springbootdev.modules.system.entity.AuthClient;
 /**
  * Mapper 接口
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface AuthClientMapper extends SuperMapper<AuthClient> {
 

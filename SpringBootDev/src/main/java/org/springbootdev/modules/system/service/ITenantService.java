@@ -8,7 +8,7 @@ import org.springbootdev.modules.system.entity.Tenant;
 /**
  * 服务类
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface ITenantService extends BaseService<Tenant> {
 

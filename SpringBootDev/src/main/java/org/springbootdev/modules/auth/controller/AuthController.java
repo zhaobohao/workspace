@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.secure.AuthInfo;
 import org.springbootdev.core.tool.api.R;
 import org.springbootdev.core.tool.utils.Func;
@@ -26,11 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("auth")
+@RequestMapping("/"+AppConstant.APPLICATION_AUTH_NAME )
 @Api(value = "用户授权认证", tags = "授权接口")
 public class AuthController {
 
-	@PostMapping("token")
+	@PostMapping("/token")
 	@ApiOperation(value = "获取认证token", notes = "传入租户ID:tenantId,账号:account,密码:password")
 	public R<AuthInfo> token(@ApiParam(value = "授权类型", required = true) @RequestParam(defaultValue = "password", required = false) String grantType,
 							 @ApiParam(value = "刷新令牌") @RequestParam(required = false) String refreshToken,

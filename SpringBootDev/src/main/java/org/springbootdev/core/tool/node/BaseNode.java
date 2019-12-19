@@ -18,17 +18,27 @@ public class BaseNode implements INode {
 	/**
 	 * 主键ID
 	 */
-	protected Integer id;
+	protected Long id;
 
 	/**
 	 * 父节点ID
 	 */
-	protected Integer parentId;
+	protected Long parentId;
 
 	/**
 	 * 子孙节点
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	protected List<INode> children = new ArrayList<>();
+
+	/**
+	 * 是否是叶子节点
+	 */
+	protected Integer isLeaf;
+
+	@Override
+	public Integer IsLeaf() {
+		return null;
+	}
 
 }

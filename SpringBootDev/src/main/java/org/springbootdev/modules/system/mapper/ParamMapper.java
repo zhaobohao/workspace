@@ -1,8 +1,8 @@
 
 package org.springbootdev.modules.system.mapper;
 
-import org.springbootdev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springbootdev.core.mp.base.SuperMapper;
 import org.springbootdev.modules.system.entity.Param;
 import org.springbootdev.modules.system.vo.ParamVO;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Mapper 接口
  *
- * @author merryChen
+ * @author zhaobohao
  */
 public interface ParamMapper extends SuperMapper<Param> {
 
