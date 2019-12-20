@@ -32,7 +32,7 @@ public interface DictMapper extends SuperMapper<Dict> {
 	 * @param dictKey 字典序号
 	 * @return
 	 */
-	String getValue(String code, Integer dictKey);
+	String getValue(String code, String dictKey);
 
 	/**
 	 * 获取字典表
