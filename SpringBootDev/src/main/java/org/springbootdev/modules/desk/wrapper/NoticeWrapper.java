@@ -3,6 +3,7 @@ package org.springbootdev.modules.desk.wrapper;
 
 import org.springbootdev.core.mp.support.BaseEntityWrapper;
 import org.springbootdev.core.tool.utils.BeanUtil;
+import org.springbootdev.core.tool.utils.Func;
 import org.springbootdev.core.tool.utils.SpringUtil;
 import org.springbootdev.modules.desk.entity.Notice;
 import org.springbootdev.modules.desk.vo.NoticeVO;
@@ -28,7 +29,7 @@ public class NoticeWrapper extends BaseEntityWrapper<Notice, NoticeVO> {
 	@Override
 	public NoticeVO entityVO(Notice notice) {
 		NoticeVO noticeVO = BeanUtil.copy(notice, NoticeVO.class);
-		String categoryName = dictService.getValue("notice", noticeVO.getCategory());
+		String categoryName = dictService.getValue("notice", Func.toStr( noticeVO.getCategory()));
 		noticeVO.setCategoryName(categoryName);
 		return noticeVO;
 	}

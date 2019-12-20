@@ -44,9 +44,9 @@ public class MenuWrapper extends BaseEntityWrapper<Menu, MenuVO> {
 			Menu parent = menuService.getById(menu.getParentId());
 			menuVO.setParentName(parent.getName());
 		}
-		String d1 = dictService.getValue("menu_category", Func.toInt(menuVO.getCategory()));
-		String d2 = dictService.getValue("button_func", Func.toInt(menuVO.getAction()));
-		String d3 = dictService.getValue("yes_no", Func.toInt(menuVO.getIsOpen()));
+		String d1 = dictService.getValue("menu_category", Func.toStr(menuVO.getCategory()));
+		String d2 = dictService.getValue("button_func", Func.toStr(menuVO.getAction()));
+		String d3 = dictService.getValue("yes_no", Func.toStr(menuVO.getIsOpen()));
 			menuVO.setCategoryName(d1);
 			menuVO.setActionName(d2);
 			menuVO.setIsOpenName(d3);

@@ -4,6 +4,7 @@ package org.springclouddev.desk.wrapper;
 import org.springclouddev.core.mp.support.BaseEntityWrapper;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.utils.BeanUtil;
+import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.core.tool.utils.SpringUtil;
 import org.springclouddev.desk.entity.Notice;
 import org.springclouddev.desk.vo.NoticeVO;
@@ -29,7 +30,7 @@ public class NoticeWrapper extends BaseEntityWrapper<Notice, NoticeVO> {
 	@Override
 	public NoticeVO entityVO(Notice notice) {
 		NoticeVO noticeVO = BeanUtil.copy(notice, NoticeVO.class);
-		R<String> dict = dictClient.getValue("notice", noticeVO.getCategory());
+		R<String> dict = dictClient.getValue("notice", Func.toStr(noticeVO.getCategory()));
 		if (dict.isSuccess()) {
 			String categoryName = dict.getData();
 			noticeVO.setCategoryName(categoryName);

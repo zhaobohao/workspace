@@ -32,7 +32,7 @@ public interface IDictClient {
 	 * @return
 	 */
 	@GetMapping(API_PREFIX + "/getValue")
-	R<String> getValue(@RequestParam("code") String code, @RequestParam("dictKey") Integer dictKey);
+	R<String> getValue(@RequestParam("code") String code, @RequestParam("dictKey") String dictKey);
 
 	/**
 	 * 获取字典表

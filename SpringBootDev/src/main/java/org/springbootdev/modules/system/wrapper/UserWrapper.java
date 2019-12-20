@@ -49,7 +49,7 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 		userVO.setName(user.getName());
 		userVO.setRoleName(Func.join(roleName));
 		userVO.setDeptName(Func.join(deptName));
-		String dict = dictService.getValue("sex", Func.toInt(user.getSex()));
+		String dict = dictService.getValue("sex", Func.toStr(user.getSex()));
 		userVO.setSexName(dict);
 		return userVO;
 	}

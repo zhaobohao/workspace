@@ -42,7 +42,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 
 	@Override
 	@Cacheable(cacheNames = DICT_VALUE, key = "#code+'_'+#dictKey")
-	public String getValue(String code, Integer dictKey) {
+	public String getValue(String code, String dictKey) {
 		return Func.toStr(baseMapper.getValue(code, dictKey), StringPool.EMPTY);
 	}
 

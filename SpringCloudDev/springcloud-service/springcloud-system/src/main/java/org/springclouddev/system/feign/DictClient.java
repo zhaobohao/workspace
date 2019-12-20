@@ -27,7 +27,7 @@ public class DictClient implements IDictClient {
 
 	@Override
 	@GetMapping(API_PREFIX + "/getValue")
-	public R<String> getValue(String code, Integer dictKey) {
+	public R<String> getValue(String code, String dictKey) {
 		return R.data(service.getValue(code, dictKey));
 	}
 
