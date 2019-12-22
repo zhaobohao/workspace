@@ -26,11 +26,11 @@ public class CodeGenerator {
 	/**
 	 * 前端代码生成所属系统
 	 */
-	public static String SYSTEM_NAME = "saber";
+	public static String SYSTEM_NAME = "vue";
 	/**
 	 * 前端代码生成地址
 	 */
-	public static String PACKAGE_WEB_DIR = "/Users/firewan/Workspaces/product/Saber";
+	public static String PACKAGE_WEB_DIR = "/Users/";
 	/**
 	 * 需要去掉的表前缀
 	 */

@@ -8,12 +8,8 @@ package org.springclouddev.develop.constant;
  */
 public interface DevelopConstant {
 	/**
-	 * sword 系统名
+	 * vue element admin 系统名
 	 */
-	String SWORD_NAME = "sword";
+	String WEB_VUE_NAME = "vue element admin";
 
-	/**
-	 * saber 系统名
-	 */
-	String SABER_NAME = "saber";
 }

@@ -79,9 +79,9 @@ springclouddev:
     - client-id: sword
       path-patterns:
         - /sword/**
-    - client-id: saber
+    - client-id: vue
       path-patterns:
-        - /saber/**
+        - /vue/**
   tenant:
     column: tenant_id
     tables:

@@ -11,5 +11,5 @@ public interface IGeneratorService {
       * @param ids
      * @return
      */
-    byte[] generatorDdlFile(String ids);
+    byte[] generatorDdlFile(String ids) throws Exception;
 }

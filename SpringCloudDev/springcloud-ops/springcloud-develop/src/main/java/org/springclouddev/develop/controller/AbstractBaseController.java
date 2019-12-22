@@ -4,6 +4,7 @@ package org.springclouddev.develop.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
@@ -17,13 +18,18 @@ import org.springclouddev.develop.entity.Datasource;
 import org.springclouddev.develop.service.ICodeService;
 import org.springclouddev.develop.service.IDatasourceService;
 import org.springclouddev.develop.support.SpringCloudDEmoCodeGenerator;
+import org.springclouddev.develop.templateengine.VelocityTemplateZipEngine;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 控制器
@@ -112,31 +118,41 @@ public class AbstractBaseController extends AbstractController {
 	@PostMapping("/gen-code")
 	@ApiOperationSupport(order = 6)
 	@ApiOperation(value = "代码生成", notes = "传入ids")
-	public R genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "sword") String system) {
+	public void genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "vue element admin") String system, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
-		codes.forEach(code -> {
-			SpringCloudDEmoCodeGenerator generator = new SpringCloudDEmoCodeGenerator();
-			// 设置数据源
-			Datasource datasource = datasourceService.getById(code.getDatasourceId());
-			generator.setDriverName(datasource.getDriverClass());
-			generator.setUrl(datasource.getUrl());
-			generator.setUsername(datasource.getUsername());
-			generator.setPassword(datasource.getPassword());
-			// 设置基础配置
-			generator.setSystemName(system);
-			generator.setServiceName(code.getServiceName());
-			generator.setPackageName(code.getPackageName());
-			generator.setPackageDir(code.getApiPath());
-			generator.setPackageWebDir(code.getWebPath());
-			generator.setTablePrefix(Func.toStrArray(code.getTablePrefix()));
-			generator.setIncludeTables(Func.toStrArray(code.getTableName()));
-			// 设置是否继承基础业务字段
-			generator.setHasSuperEntity(code.getBaseMode() == 2);
-			// 设置是否开启包装器模式
-			generator.setHasWrapper(code.getWrapMode() == 2);
-			generator.run();
-		});
-		return R.success("代码生成成功");
-	}
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		ZipOutputStream zip = new ZipOutputStream(outputStream);){
+		codes.forEach(code -> { SpringCloudDEmoCodeGenerator generator = new SpringCloudDEmoCodeGenerator();
+		// 设置数据源
+		Datasource datasource = datasourceService.getById(code.getDatasourceId());
+		generator.setDriverName(datasource.getDriverClass());
+		generator.setUrl(datasource.getUrl());
+		generator.setUsername(datasource.getUsername());
+		generator.setPassword(datasource.getPassword());
+		// 设置基础配置
+		generator.setSystemName(system);
+		generator.setServiceName(code.getServiceName());
+		generator.setPackageName(code.getPackageName());
+		generator.setPackageDir(code.getApiPath());
+		generator.setPackageWebDir(code.getWebPath());
+		generator.setTablePrefix(Func.toStrArray(code.getTablePrefix()));
+		generator.setIncludeTables(Func.toStrArray(code.getTableName()));
+		// 设置是否继承基础业务字段
+		generator.setHasSuperEntity(code.getBaseMode() == 2);
+		// 设置是否开启包装器模式
+		generator.setHasWrapper(code.getWrapMode() == 2);
+		// 设置新的模板引擎，直接将生成的文件流通过流的形式输出到web系统。
+		generator.setTemplateEngine(new VelocityTemplateZipEngine(zip));
+		generator.run();
+	});
+		// 将zip数据流输出到页面，并通过SaveAs的js代码完成下载
+		byte[] data =  outputStream.toByteArray();
+		response.reset();
+		response.setHeader("Content-Disposition", "attachment; filename=\"auto-code.zip\"");
+		response.addHeader("Content-Length", "" + data.length);
+		response.setContentType("application/octet-stream; charset=UTF-8");
+
+		IOUtils.write(data, response.getOutputStream());
+		}}
 
 }

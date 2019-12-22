@@ -8,7 +8,7 @@
     <username>admin</username>
     <password>Harbor12345</password>
     <configuration>
-      <email>smallfirewan@163.com</email>
+      <email>zhaobohao@sohu.com</email>
     </configuration>
   </server>
 </servers>
@@ -45,7 +45,7 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
       <artifactId>docker-maven-plugin</artifactId>
       <version>${docker.plugin.version}</version>
       <configuration>
-        <imageName>${docker.registry.url}/blade/${project.artifactId}:${project.version}</imageName>
+        <imageName>${docker.registry.url}/springclouddeve/${project.artifactId}:${project.version}</imageName>
         <dockerDirectory>${project.basedir}</dockerDirectory>
         <dockerHost>${docker.registry.host}</dockerHost>
         <resources>
@@ -69,11 +69,11 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
 ```
 FROM anapsix/alpine-java:8_server-jre_unlimited
 
-MAINTAINER smallfirewan@163.com
+MAINTAINER zhaobohao@sohu.com
 
-RUN mkdir -p /blade/gateway
+RUN mkdir -p /springclouddeve/gateway
 
-WORKDIR /blade/gateway
+WORKDIR /springclouddeve/gateway
 
 EXPOSE 80
 
@@ -86,7 +86,7 @@ CMD java -Djava.security.egd=file:/dev/./urandom -jar app.jar --spring.profiles.
 ###5. 在工程根目录的docker-compose.yml下加入配置，内容可参考如下
 ```
 springcloud-gateway:
-  image: "${REGISTER}/blade/springcloud-gateway:${TAG}"
+  image: "${REGISTER}/springclouddeve/springcloud-gateway:${TAG}"
   ports:
   - 80:80
   networks:

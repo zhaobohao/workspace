@@ -8,12 +8,8 @@ package org.springbootdev.develop.constant;
  */
 public interface DevelopConstant {
 	/**
-	 * vue 系统名
+	 * vue element admin 系统名
 	 */
-	String SWORD_NAME = "vue";
+	String WEB_VUE_NAME = "vue element admin";
 
-	/**
-	 * react 系统名
-	 */
-	String SABER_NAME = "react";
 }

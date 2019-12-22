@@ -4,6 +4,7 @@ package org.springbootdev.modules.develop.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springbootdev.core.boot.ctrl.AbstractController;
 import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
@@ -17,12 +18,18 @@ import org.springbootdev.modules.develop.entity.Code;
 import org.springbootdev.modules.develop.entity.Datasource;
 import org.springbootdev.modules.develop.service.ICodeService;
 import org.springbootdev.modules.develop.service.IDatasourceService;
+import org.springbootdev.modules.develop.templateengine.VelocityTemplateZipEngine;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 控制器
@@ -107,8 +114,10 @@ public class CodeController extends AbstractController {
 	@PostMapping("/gen-code")
 	@ApiOperationSupport(order = 6)
 	@ApiOperation(value = "代码生成", notes = "传入ids")
-	public R genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "sword") String system) {
+	public void genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "vue element admin") String system, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			ZipOutputStream zip = new ZipOutputStream(outputStream);){
 		codes.forEach(code -> {
 			SpringBootDemoCodeGenerator generator = new SpringBootDemoCodeGenerator();
 			// 设置数据源
@@ -129,9 +138,18 @@ public class CodeController extends AbstractController {
 			generator.setHasSuperEntity(code.getBaseMode() == 2);
 			// 设置是否开启包装器模式
 			generator.setHasWrapper(code.getWrapMode() == 2);
+			// 设置新的模板引擎，直接将生成的文件流通过流的形式输出到web系统。
+			generator.setTemplateEngine(new VelocityTemplateZipEngine(zip));
 			generator.run();
 		});
-		return R.success("代码生成成功");
-	}
+			// 将zip数据流输出到页面，并通过SaveAs的js代码完成下载
+			byte[] data =  outputStream.toByteArray();
+			response.reset();
+			response.setHeader("Content-Disposition", "attachment; filename=\"auto-code.zip\"");
+			response.addHeader("Content-Length", "" + data.length);
+			response.setContentType("application/octet-stream; charset=UTF-8");
+
+			IOUtils.write(data, response.getOutputStream());
+		}}
 
 }

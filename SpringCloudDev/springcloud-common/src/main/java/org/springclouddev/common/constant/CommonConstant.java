@@ -14,9 +14,9 @@ public interface CommonConstant {
 	String SWORD_NAME = "sword";
 
 	/**
-	 * saber 系统名
+	 * vue 系统名
 	 */
-	String SABER_NAME = "saber";
+	String SABER_NAME = "vue";
 
 	/**
 	 * 顶级父节点id

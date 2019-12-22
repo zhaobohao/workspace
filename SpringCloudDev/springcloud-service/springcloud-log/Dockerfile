@@ -1,10 +1,10 @@
 FROM anapsix/alpine-java:8_server-jre_unlimited
 
-MAINTAINER smallfirewan@163.com
+MAINTAINER zhaobohao@sohu.com
 
-RUN mkdir -p /blade/log
+RUN mkdir -p /springclouddeve/log
 
-WORKDIR /blade/log
+WORKDIR /springclouddeve/log
 
 EXPOSE 8103
 

@@ -63,7 +63,7 @@ services:
     - blade_net
 
   springcloud-admin:
-    image: "${REGISTER}/blade/springcloud-admin:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-admin:${TAG}"
     ports:
     - 7002:7002
     privileged: true
@@ -72,7 +72,7 @@ services:
     - blade_net
 
   springcloud-gateway1:
-    image: "${REGISTER}/blade/springcloud-gateway:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-gateway:${TAG}"
     privileged: true
     restart: always
     networks:
@@ -80,7 +80,7 @@ services:
         ipv4_address: 172.30.0.81
 
   springcloud-gateway2:
-    image: "${REGISTER}/blade/springcloud-gateway:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-gateway:${TAG}"
     privileged: true
     restart: always
     networks:
@@ -88,7 +88,7 @@ services:
         ipv4_address: 172.30.0.82
 
   springcloud-auth1:
-    image: "${REGISTER}/blade/springcloud-auth:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-auth:${TAG}"
     privileged: true
     restart: always
     networks:
@@ -96,7 +96,7 @@ services:
         ipv4_address: 172.30.0.91
 
   springcloud-auth2:
-    image: "${REGISTER}/blade/springcloud-auth:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-auth:${TAG}"
     privileged: true
     restart: always
     networks:
@@ -104,35 +104,35 @@ services:
         ipv4_address: 172.30.0.92
 
   springcloud-log:
-    image: "${REGISTER}/blade/springcloud-log:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-log:${TAG}"
     privileged: true
     restart: always
     networks:
     - blade_net
 
   springcloud-desk:
-    image: "${REGISTER}/blade/springcloud-desk:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-desk:${TAG}"
     privileged: true
     restart: always
     networks:
     - blade_net
 
   springcloud-user:
-    image: "${REGISTER}/blade/springcloud-user:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-user:${TAG}"
     privileged: true
     restart: always
     networks:
     - blade_net
 
   springcloud-system:
-    image: "${REGISTER}/blade/springcloud-system:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-system:${TAG}"
     privileged: true
     restart: always
     networks:
     - blade_net
 
   springcloud-resource:
-    image: "${REGISTER}/blade/springcloud-resource:${TAG}"
+    image: "${REGISTER}/springclouddeve/springcloud-resource:${TAG}"
     privileged: true
     restart: always
     networks:

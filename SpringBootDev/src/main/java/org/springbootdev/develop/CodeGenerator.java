@@ -22,15 +22,15 @@ public class CodeGenerator {
 	/**
 	 * 代码生成的包名
 	 */
-	public static String PACKAGE_NAME = "org.springbootdev.system";
+	public static String PACKAGE_NAME = "org.springclouddev.system";
 	/**
 	 * 前端代码生成所属系统
 	 */
-	public static String SYSTEM_NAME = "saber";
+	public static String SYSTEM_NAME = "vue";
 	/**
 	 * 前端代码生成地址
 	 */
-	public static String PACKAGE_WEB_DIR = "/Users/firewan/Workspaces/product/Saber";
+	public static String PACKAGE_WEB_DIR = "/Users/";
 	/**
 	 * 需要去掉的表前缀
 	 */
@@ -51,6 +51,7 @@ public class CodeGenerator {
 	 * 基础业务字段
 	 */
 	public static String[] SUPER_ENTITY_COLUMNS = {"create_time", "create_user", "update_time", "update_user", "status", "is_deleted"};
+
 
 
 	/**

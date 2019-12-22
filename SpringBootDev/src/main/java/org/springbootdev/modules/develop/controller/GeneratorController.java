@@ -31,7 +31,7 @@ public class GeneratorController {
     @GetMapping("/exportDdl")
     @ApiOperationSupport(order = 12)
     @ApiOperation(value = "导出DDL文件", notes = "导出DDL文件")
-    public void exportDdl(@ApiParam(value = "主键集合", required = true) @RequestParam String ids , HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void exportDdl(@ApiParam(value = "主键集合", required = true) @RequestParam String ids , HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         byte[] data = generatorService.generatorDdlFile(ids);
 

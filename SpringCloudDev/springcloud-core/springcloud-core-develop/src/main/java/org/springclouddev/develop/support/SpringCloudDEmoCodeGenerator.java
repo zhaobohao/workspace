@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.PostgreSqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.tool.utils.Func;
@@ -37,7 +38,7 @@ public class SpringCloudDEmoCodeGenerator {
 	/**
 	 * 代码所在系统
 	 */
-	private String systemName = DevelopConstant.SWORD_NAME;
+	private String systemName = DevelopConstant.WEB_VUE_NAME;
 	/**
 	 * 代码模块名称
 	 */
@@ -107,9 +108,17 @@ public class SpringCloudDEmoCodeGenerator {
 	 */
 	private String password;
 
+	/**
+	 * 外部注入新的模板引擎
+	 */
+	private AbstractTemplateEngine templateEngine;
+
 	public void run() {
 		Properties props = getProperties();
 		AutoGenerator mpg = new AutoGenerator();
+		if (null != templateEngine) {
+			mpg.setTemplateEngine(templateEngine);
+		}
 		GlobalConfig gc = new GlobalConfig();
 		String outputDir = getOutputDir();
 		String author = props.getProperty("author");
@@ -236,57 +245,14 @@ public class SpringCloudDEmoCodeGenerator {
 			});
 		}
 		if (Func.isNotBlank(packageWebDir)) {
-			if (Func.equals(systemName, DevelopConstant.SWORD_NAME)) {
-				focList.add(new FileOutConfig("/templates/sword/action.js.vm") {
-					@Override
-					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/actions" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
-					}
-				});
-				focList.add(new FileOutConfig("/templates/sword/model.js.vm") {
-					@Override
-					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/models" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
-					}
-				});
-				focList.add(new FileOutConfig("/templates/sword/service.js.vm") {
-					@Override
-					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/services" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
-					}
-				});
-				focList.add(new FileOutConfig("/templates/sword/list.js.vm") {
-					@Override
-					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + ".js";
-					}
-				});
-				focList.add(new FileOutConfig("/templates/sword/add.js.vm") {
-					@Override
-					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Add.js";
-					}
-				});
-				focList.add(new FileOutConfig("/templates/sword/edit.js.vm") {
-					@Override
-					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Edit.js";
-					}
-				});
-				focList.add(new FileOutConfig("/templates/sword/view.js.vm") {
-					@Override
-					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "View.js";
-					}
-				});
-			} else if (Func.equals(systemName, DevelopConstant.SABER_NAME)) {
-				focList.add(new FileOutConfig("/templates/saber/api.js.vm") {
+			if (Func.equals(systemName, DevelopConstant.WEB_VUE_NAME)) {
+				focList.add(new FileOutConfig("/templates/vue/api.js.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
 						return getOutputWebDir() + "/api" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
 					}
 				});
-				focList.add(new FileOutConfig("/templates/saber/crud.vue.vm") {
+				focList.add(new FileOutConfig("/templates/vue/crud.vue.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
 						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".vue";

@@ -29,23 +29,22 @@ public class GeneratorService implements IGeneratorService {
     private TableInfoMapper tableInfoMapper;
 
     private DbInstanceMapper dbInstanceMapper;
-    @Override
-    public byte[] generatorDdlFile(String ids) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ZipOutputStream zip = new ZipOutputStream(outputStream);
+	@Override
+	public byte[] generatorDdlFile(String ids) throws Exception {
+		try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			 ZipOutputStream zip = new ZipOutputStream(outputStream);) {
 
-        for(String id : ids.split(",")){
-            //查询表信息
-            TableInfo table = tableInfoMapper.selectById(id);
-            //查询数据账户信息
-            DbInstance dbInstance= dbInstanceMapper.selectById(table.getDbInstanceId());
-            //查询列信息
-            List<TableInfo> columns =tableInfoMapper.selectList(Condition.getQueryWrapper(new TableInfo().setParentId(Long.valueOf(id))));
-            //生成代码
-            GeneratorUtils.generatorDdlCode(dbInstance,table, columns, zip);
-        }
-        IOUtils.closeQuietly(zip);
-
-        return outputStream.toByteArray();
-    }
+			for (String id : ids.split(",")) {
+				//查询表信息
+				TableInfo table = tableInfoMapper.selectById(id);
+				//查询数据账户信息
+				DbInstance dbInstance = dbInstanceMapper.selectById(table.getDbInstanceId());
+				//查询列信息
+				List<TableInfo> columns = tableInfoMapper.selectList(Condition.getQueryWrapper(new TableInfo().setParentId(Long.valueOf(id))));
+				//生成代码
+				GeneratorUtils.generatorDdlCode(dbInstance, table, columns, zip);
+			}
+			return outputStream.toByteArray();
+		}
+	}
 }

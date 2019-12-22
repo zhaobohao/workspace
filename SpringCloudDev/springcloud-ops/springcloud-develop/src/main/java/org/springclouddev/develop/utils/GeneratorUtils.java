@@ -1,8 +1,6 @@
 package org.springclouddev.develop.utils;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.app.Velocity;
 import org.springclouddev.develop.entity.DbInstance;
 import org.springclouddev.develop.entity.TableInfo;
 import org.springframework.util.StringUtils;
@@ -13,6 +11,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * @author zhaoyiyang
+ * @since
+ */
 public class GeneratorUtils {
     /**
      * 生成ddl代码
@@ -21,9 +23,9 @@ public class GeneratorUtils {
      * @param columns
      * @param zip
      */
-    public static void generatorDdlCode(DbInstance dbInstance, TableInfo table, List<TableInfo> columns, ZipOutputStream zip) {
+    public static void generatorDdlCode(DbInstance dbInstance, TableInfo table, List<TableInfo> columns, ZipOutputStream zip) throws Exception {
         //渲染模板
-        StringWriter sw = new StringWriter();
+        try(StringWriter sw = new StringWriter()){
         // 开始生成ddl文件内容
         // 1.开始输出 创建表的语句
         sw.append("create table ").append(" ").append(table.getName()).append("\n");
@@ -34,7 +36,7 @@ public class GeneratorUtils {
             sw.append(column.getName()).append("   ")
                     .append(column.getTypeKey())
                     .append("(").append(column.getTypeValue())
-                    .append(column.getTypeKey().equals("varchar2")?" CHAR":" ")
+                    .append("varchar2".equals(column.getTypeKey())?" CHAR":" ")
                     .append(") ")
                     .append(column.getIsEmpty()==2?"NOT NULL":"")
                     .append(StringUtils.isEmpty(column.getDefaultValue())?"":" default ")
@@ -81,10 +83,9 @@ public class GeneratorUtils {
             //添加到zip
             zip.putNextEntry(new ZipEntry(table.getName()+"ddl.sql"));
             IOUtils.write(sw.toString(), zip, "UTF-8");
-            IOUtils.closeQuietly(sw);
             zip.closeEntry();
         } catch (IOException e) {
             throw new RuntimeException("渲染模板失败，表名：" + table.getName(), e);
-        }
+        }}
     }
 }
