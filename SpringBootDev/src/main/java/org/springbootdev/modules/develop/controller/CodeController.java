@@ -116,40 +116,41 @@ public class CodeController extends AbstractController {
 	@ApiOperation(value = "代码生成", notes = "传入ids")
 	public void genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "vue element admin") String system, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
-		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			ZipOutputStream zip = new ZipOutputStream(outputStream);){
-		codes.forEach(code -> {
-			SpringBootDemoCodeGenerator generator = new SpringBootDemoCodeGenerator();
-			// 设置数据源
-			Datasource datasource = datasourceService.getById(code.getDatasourceId());
-			generator.setDriverName(datasource.getDriverClass());
-			generator.setUrl(datasource.getUrl());
-			generator.setUsername(datasource.getUsername());
-			generator.setPassword(datasource.getPassword());
-			// 设置基础配置
-			generator.setSystemName(system);
-			generator.setServiceName(code.getServiceName());
-			generator.setPackageName(code.getPackageName());
-			generator.setPackageDir(code.getApiPath());
-			generator.setPackageWebDir(code.getWebPath());
-			generator.setTablePrefix(Func.toStrArray(code.getTablePrefix()));
-			generator.setIncludeTables(Func.toStrArray(code.getTableName()));
-			// 设置是否继承基础业务字段
-			generator.setHasSuperEntity(code.getBaseMode() == 2);
-			// 设置是否开启包装器模式
-			generator.setHasWrapper(code.getWrapMode() == 2);
-			// 设置新的模板引擎，直接将生成的文件流通过流的形式输出到web系统。
-			generator.setTemplateEngine(new VelocityTemplateZipEngine(zip));
-			generator.run();
-		});
-			// 将zip数据流输出到页面，并通过SaveAs的js代码完成下载
-			byte[] data =  outputStream.toByteArray();
-			response.reset();
-			response.setHeader("Content-Disposition", "attachment; filename=\"auto-code.zip\"");
-			response.addHeader("Content-Length", "" + data.length);
-			response.setContentType("application/octet-stream; charset=UTF-8");
-
-			IOUtils.write(data, response.getOutputStream());
-		}}
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		try (
+			ZipOutputStream zip = new ZipOutputStream(outputStream);) {
+			codes.forEach(code -> {
+				SpringBootDemoCodeGenerator generator = new SpringBootDemoCodeGenerator();
+				// 设置数据源
+				Datasource datasource = datasourceService.getById(code.getDatasourceId());
+				generator.setDriverName(datasource.getDriverClass());
+				generator.setUrl(datasource.getUrl());
+				generator.setUsername(datasource.getUsername());
+				generator.setPassword(datasource.getPassword());
+				// 设置基础配置
+				generator.setSystemName(system);
+				generator.setServiceName(code.getServiceName());
+				generator.setPackageName(code.getPackageName());
+				generator.setPackageDir(code.getApiPath());
+				generator.setPackageWebDir(code.getWebPath());
+				generator.setTablePrefix(Func.toStrArray(code.getTablePrefix()));
+				generator.setIncludeTables(Func.toStrArray(code.getTableName()));
+				// 设置是否继承基础业务字段
+				generator.setHasSuperEntity(code.getBaseMode() == 2);
+				// 设置是否开启包装器模式
+				generator.setHasWrapper(code.getWrapMode() == 2);
+				// 设置新的模板引擎，直接将生成的文件流通过流的形式输出到web系统。
+				generator.setTemplateEngine(new VelocityTemplateZipEngine(zip));
+				generator.run();
+			});
+		}
+		// 将zip数据流输出到页面，并通过SaveAs的js代码完成下载
+		byte[] data = outputStream.toByteArray();
+		response.reset();
+		response.setHeader("Content-Disposition", "attachment; filename=\"auto-code.zip\"");
+		response.addHeader("Content-Length", "" + data.length);
+		response.setContentType("application/octet-stream; charset=UTF-8");
+		IOUtils.write(data, response.getOutputStream());
+	}
 
 }

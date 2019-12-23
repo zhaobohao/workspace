@@ -32,8 +32,9 @@ public class GeneratorService implements IGeneratorService {
 
     @Override
     public byte[] generatorDdlFile(String ids) throws Exception {
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-             ZipOutputStream zip = new ZipOutputStream(outputStream);) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        try (ZipOutputStream zip = new ZipOutputStream(outputStream)) {
 
             for (String id : ids.split(",")) {
                 //查询表信息
@@ -45,7 +46,7 @@ public class GeneratorService implements IGeneratorService {
                 //生成代码
                 GeneratorUtils.generatorDdlCode(dbInstance, table, columns, zip);
             }
-            return outputStream.toByteArray();
         }
+        return outputStream.toByteArray();
     }
 }

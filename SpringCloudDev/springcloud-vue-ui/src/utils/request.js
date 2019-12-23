@@ -69,7 +69,7 @@ service.interceptors.response.use(
    */
   response => {
     if (response.headers['content-type'].indexOf('octet-stream') > 0) {
-      console.log(response.headers['content-disposition'])
+      // console.log(response.headers['content-disposition'])
       return response
     }
     const res = response.data

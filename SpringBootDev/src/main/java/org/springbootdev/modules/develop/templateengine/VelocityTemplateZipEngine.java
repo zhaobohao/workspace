@@ -39,17 +39,17 @@ public class VelocityTemplateZipEngine extends VelocityTemplateEngine {
     }
     @Override
     public void writer(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {
-        if (StringUtils.isBlank(templatePath)) {
-            return;
-        }
-        Template template = velocityEngine.getTemplate(templatePath, ConstVal.UTF8);
-        try (StringWriter sw = new StringWriter()) {
-            template.merge(new VelocityContext(objectMap), sw);
-            //添加到zip
-            zip.putNextEntry(new ZipEntry(outputFile));
-            IOUtils.write(sw.toString(), zip, "UTF-8");
-            zip.closeEntry();
-        }
-        logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
-    }
+		if (StringUtils.isBlank(templatePath)) {
+			return;
+		}
+		Template template = velocityEngine.getTemplate(templatePath, ConstVal.UTF8);
+		try (StringWriter sw = new StringWriter()) {
+			template.merge(new VelocityContext(objectMap), sw);
+			//添加到zip
+			zip.putNextEntry(new ZipEntry(outputFile));
+			IOUtils.write(sw.toString(), zip, "UTF-8");
+		}
+		zip.closeEntry();
+		logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
+	}
 }

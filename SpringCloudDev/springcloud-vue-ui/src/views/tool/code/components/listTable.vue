@@ -93,6 +93,9 @@
   import {
     parseTime
   } from '@/utils'
+  import {
+    saveAs
+  } from 'file-saver'
   // 分页组件
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
   // 引入相关utils
@@ -262,18 +265,24 @@
         build(
           ids.join(',')
         ).then(response => {
-          if (response.code === 200) {
-            this.listLoading = false
-            notify.success(this, {
-              title: '生成代码成功',
-              message: response.msg
-            })
+          const blob = new Blob([response.data], {
+            type: response.headers['content-type']
+          })
+          var explorer = navigator.userAgent
+          var fileName = response.headers['content-disposition'].split(';')[1].split('=')[1].replace(/\"/g,
+            '') // 获取文件名
+          // 响应头中的内容如果包含中文会出现乱码，需要解码才能正常显示
+          if (explorer.indexOf('MSIE') >= 0 || explorer.indexOf('Chrome') >= 0) { // IE和google浏览器
+            fileName = decodeURIComponent(fileName)
           } else {
-            notify.error(this, {
-              title: '生成代码失败',
-              message: response.msg
-            })
+            fileName = decodeURI(escape(fileName))
           }
+          saveAs(blob, fileName)
+          this.listLoading = false
+          notify.success(this, {
+            title: '生成代码成功',
+            message: response.msg
+          })
         })
       },
       // 处理复制功能

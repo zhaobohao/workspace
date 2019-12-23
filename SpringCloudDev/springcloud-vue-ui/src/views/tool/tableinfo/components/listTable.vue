@@ -272,7 +272,6 @@
         exportDdl(
           ids.join(',')
         ).then(response => {
-          this.listLoading = false
           const blob = new Blob([response.data], {
             type: response.headers['content-type']
           })
@@ -286,6 +285,7 @@
             fileName = decodeURI(escape(fileName))
           }
           saveAs(blob, fileName)
+          this.listLoading = false
           notify.success(this, {
             title: '复制成功',
             message: response.msg

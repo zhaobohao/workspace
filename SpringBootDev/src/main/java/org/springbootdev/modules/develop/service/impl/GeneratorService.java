@@ -2,7 +2,6 @@ package org.springbootdev.modules.develop.service.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.modules.develop.entity.DbInstance;
 import org.springbootdev.modules.develop.entity.TableInfo;
@@ -18,6 +17,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * 代码自动生成器
+ *
  * @author zhaobo
  * @since 2019-12-17
  */
@@ -26,13 +26,15 @@ import java.util.zip.ZipOutputStream;
 @AllArgsConstructor
 public class GeneratorService implements IGeneratorService {
 
-    private TableInfoMapper tableInfoMapper;
+	private TableInfoMapper tableInfoMapper;
 
-    private DbInstanceMapper dbInstanceMapper;
+	private DbInstanceMapper dbInstanceMapper;
+
 	@Override
 	public byte[] generatorDdlFile(String ids) throws Exception {
-		try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			 ZipOutputStream zip = new ZipOutputStream(outputStream);) {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+		try (ZipOutputStream zip = new ZipOutputStream(outputStream)) {
 
 			for (String id : ids.split(",")) {
 				//查询表信息
@@ -44,7 +46,7 @@ public class GeneratorService implements IGeneratorService {
 				//生成代码
 				GeneratorUtils.generatorDdlCode(dbInstance, table, columns, zip);
 			}
-			return outputStream.toByteArray();
 		}
+		return outputStream.toByteArray();
 	}
 }

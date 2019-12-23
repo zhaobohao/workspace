@@ -48,8 +48,8 @@ public class VelocityTemplateZipEngine extends VelocityTemplateEngine {
             //添加到zip
             zip.putNextEntry(new ZipEntry(outputFile));
             IOUtils.write(sw.toString(), zip, "UTF-8");
-            zip.closeEntry();
         }
+        zip.closeEntry();
         logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
     }
 }

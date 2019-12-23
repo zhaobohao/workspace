@@ -16,9 +16,9 @@ export const build = (ids) => {
   return request({
     url: '/springcloud-develop/code/gen-code',
     method: 'post',
+    responseType: 'blob',
     params: {
-      ids,
-      system: 'vue'
+      ids
     }
   })
 }
