@@ -26,7 +26,24 @@
     </resultMap>
 
 #end
+    #foreach($field in $!{table.fields})
+        #if($!{field.name}=="parent_id")
 
+            <resultMap id="treeNodeResultMap" type="org.springclouddev.core.tool.node.TreeNode">
+                <id column="id" property="id"/>
+                <result column="parent_id" property="parentId"/>
+                <result column="title" property="title"/>
+                <result column="value" property="value"/>
+                <result column="key" property="key"/>
+            </resultMap>
+            <select id="tree" resultMap="treeNodeResultMap">
+                select id, parent_id, name as title, id as 'value', id as 'key' from $!{table.name} where is_deleted = 0
+                <if test="_parameter!=null">
+                    and parent_id = #{_parameter}
+                </if>
+            </select>
+        #end
+    #end
     <select id="select$!{entity}Page" resultMap="$!{table.entityPath}ResultMap">
         select * from $!{table.name} where is_deleted = 0
     </select>

@@ -243,13 +243,13 @@ public class SpringBootDemoCodeGenerator {
 		}
 		if (Func.isNotBlank(packageWebDir)) {
 			 if (Func.equals(systemName, DevelopConstant.WEB_VUE_NAME)) {
-				focList.add(new FileOutConfig("/templates/saber/api.js.vm") {
+				focList.add(new FileOutConfig("/templates/vue/api.js.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
 						return getOutputWebDir() + "/api" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
 					}
 				});
-				focList.add(new FileOutConfig("/templates/saber/crud.vue.vm") {
+				focList.add(new FileOutConfig("/templates/vue/crud.vue.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
 						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".vue";

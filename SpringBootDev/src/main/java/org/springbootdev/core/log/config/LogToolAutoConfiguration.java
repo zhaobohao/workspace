@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springbootdev.core.launch.props.SystemProperties;
 import org.springbootdev.core.launch.server.ServerInfo;
 import org.springbootdev.core.log.aspect.ApiLogAspect;
+import org.springbootdev.core.log.aspect.UsualLogAspect;
 import org.springbootdev.core.log.event.ApiLogListener;
 import org.springbootdev.core.log.event.ErrorLogListener;
 import org.springbootdev.core.log.event.UsualLogListener;
@@ -32,6 +33,11 @@ public class LogToolAutoConfiguration {
 	@Bean
 	public ApiLogAspect apiLogAspect() {
 		return new ApiLogAspect();
+	}
+
+	@Bean
+	public UsualLogAspect usualLogAspect() {
+		return new UsualLogAspect();
 	}
 
 	@Bean

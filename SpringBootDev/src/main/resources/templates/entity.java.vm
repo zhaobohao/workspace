@@ -86,6 +86,9 @@ public class $!{entity} implements Serializable {
 #if($!{logicDeleteFieldName}==$!{field.name})
   @TableLogic
 #end
+    #if($!{field.keyFlag})
+    private Long $!{field.propertyName};
+        #end
   private $!{field.propertyType} $!{field.propertyName};
 #end
 #end
