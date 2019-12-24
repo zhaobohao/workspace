@@ -3,12 +3,14 @@ package org.springclouddev.develop.templateengine;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import java.io.File;
 import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
@@ -51,5 +53,20 @@ public class VelocityTemplateZipEngine extends VelocityTemplateEngine {
         }
         zip.closeEntry();
         logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
+    }
+    @Override
+    public AbstractTemplateEngine mkdirs() {
+//   由于当前使用了直接下载生成的代码文件的模式，所以这里不生成相关的文件夹了。
+//        this.getConfigBuilder().getPathInfo().forEach((key, value) -> {
+//            File dir = new File(value);
+//            if (!dir.exists()) {
+//                boolean result = dir.mkdirs();
+//                if (result) {
+//                    logger.debug("创建目录： [" + value + "]");
+//                }
+//            }
+//
+//        });
+        return this;
     }
 }

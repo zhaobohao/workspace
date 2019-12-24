@@ -9,6 +9,7 @@ import org.springclouddev.auth.granter.ITokenGranter;
 import org.springclouddev.auth.granter.TokenGranterBuilder;
 import org.springclouddev.auth.granter.TokenParameter;
 import org.springclouddev.auth.utils.TokenUtil;
+import org.springclouddev.core.log.annotation.UsualLog;
 import org.springclouddev.core.secure.AuthInfo;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.utils.Func;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
 	@PostMapping("token")
+	@UsualLog("用户请求登录")
 	@ApiOperation(value = "获取认证token", notes = "传入租户ID:tenantId,账号:account,密码:password")
 	public R<AuthInfo> token(@ApiParam(value = "授权类型", required = true) @RequestParam(defaultValue = "password", required = false) String grantType,
 							 @ApiParam(value = "刷新令牌") @RequestParam(required = false) String refreshToken,

@@ -33,7 +33,7 @@ public class ForestNodeManager<T extends INode> {
 	 */
 	public INode getTreeNodeAT(Long id) {
 		for (INode forestNode : list) {
-			if (forestNode.getId() == id) {
+			if (forestNode.getId().equals(id)) {
 				return forestNode;
 			}
 		}

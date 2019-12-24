@@ -19,10 +19,22 @@
         <result column="area_type" property="areaType"/>
         <result column="remarks" property="remarks"/>
     </resultMap>
-
+    <resultMap id="treeNodeResultMap" type="org.springclouddev.core.tool.node.TreeNode">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="title" property="title"/>
+        <result column="value" property="value"/>
+        <result column="key" property="key"/>
+    </resultMap>
 
     <select id="selectAreaPage" resultMap="areaResultMap">
         select * from mk_area where is_deleted = 0
     </select>
 
+    <select id="tree" resultMap="treeNodeResultMap">
+        select area_code as id, parent_id, area_name as title, area_code as 'value', area_code as 'key' from mk_area where is_deleted = 0
+        <if test="_parameter!=null">
+            and parent_id = #{_parameter}
+        </if>
+    </select>
 </mapper>

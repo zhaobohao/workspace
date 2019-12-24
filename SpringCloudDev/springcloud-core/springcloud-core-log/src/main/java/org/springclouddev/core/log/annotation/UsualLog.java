@@ -5,14 +5,14 @@ package org.springclouddev.core.log.annotation;
 import java.lang.annotation.*;
 
 /**
- * 操作日志注解
+ * 普通日志注解
  *
  * @author zhaobohao
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ApiLog {
+public @interface UsualLog {
 
 	/**
 	 * 日志描述
@@ -20,4 +20,10 @@ public @interface ApiLog {
 	 * @return {String}
 	 */
 	String value() default "日志记录";
+
+	/**
+	 * 日志等级
+	 * @return
+	 */
+    String level() default "info";
 }

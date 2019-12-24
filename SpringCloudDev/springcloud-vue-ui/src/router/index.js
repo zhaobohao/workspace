@@ -127,7 +127,8 @@ export const componentMap = {
   codes: () => import('@/views/tool/code/index'),
   datasource: () => import('@/views/tool/datasource/index'),
   dbinstance: () => import('@/views/tool/dbinstance/index'),
-  tableinfo: () => import('@/views/tool/tableinfo/index')
+  tableinfo: () => import('@/views/tool/tableinfo/index'),
+  areas: () => import('@/views/system/area/index')
 }
 const createRouter = () => new Router({
   // mode: 'history', // require service support

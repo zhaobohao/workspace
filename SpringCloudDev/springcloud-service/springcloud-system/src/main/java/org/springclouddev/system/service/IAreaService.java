@@ -5,6 +5,9 @@ import org.springclouddev.system.entity.Area;
 import org.springclouddev.system.vo.AreaVO;
 import org.springclouddev.core.mp.base.BaseService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springclouddev.system.vo.MenuVO;
+
+import java.util.List;
 
 /**
  * 行政区划 服务类
@@ -22,5 +25,10 @@ public interface IAreaService extends BaseService<Area> {
 	 * @return
 	 */
 	IPage<AreaVO> selectAreaPage(IPage<AreaVO> page, AreaVO area);
-
+	/**
+	 * 树形结构
+	 *
+	 * @return
+	 */
+	List<AreaVO> tree(String parentId);
 }

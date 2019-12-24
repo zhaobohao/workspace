@@ -144,4 +144,14 @@ public class AreaController extends AbstractController {
         List<Area> list = areaService.list();
         return R.data(list);
     }
+    /**
+     * 获取菜单树形结构
+     */
+    @GetMapping("/tree")
+    @ApiOperationSupport(order = 7)
+    @ApiOperation(value = "树形结构", notes = "树形结构")
+    public R<List<AreaVO>> tree(String parentId) {
+        List<AreaVO> tree = areaService.tree(parentId);
+        return R.data(tree);
+    }
 }

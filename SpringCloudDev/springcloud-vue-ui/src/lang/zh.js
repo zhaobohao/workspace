@@ -89,7 +89,7 @@ export default {
     permissions: '权限管理',
     datarole: '数据权限',
     interfacerole: '接口权限',
-    area: '区域设置'
+    areas: '区域设置'
   },
   navbar: {
     dashboard: '首页',

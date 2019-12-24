@@ -26,6 +26,16 @@ public interface $!{table.serviceName} extends $!{superServiceClass}<$!{entity}>
 	 * @return
 	 */
 	IPage<$!{entity}VO> select$!{entity}Page(IPage<$!{entity}VO> page, $!{entity}VO $!{table.entityPath});
+    #foreach($field in $!{table.fields})
+        #if($!{field.name}=="parent_id")
 
+            /**
+            * 树形结构
+            *
+            * @return
+            */
+            List<<$!{entity}VO> tree(String parentId);
+        #end
+    #end
 }
 #end

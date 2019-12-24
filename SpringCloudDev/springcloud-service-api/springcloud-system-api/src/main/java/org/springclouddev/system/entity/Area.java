@@ -1,16 +1,16 @@
 
 package org.springclouddev.system.entity;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.springclouddev.core.mp.base.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springclouddev.core.mp.base.BaseEntity;
 
 /**
  * 行政区划实体类
@@ -32,27 +32,27 @@ public class Area extends BaseEntity {
      */
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
-  private Integer id;
+  private Long id;
     /**
      * 区域编码
      */
     @ApiModelProperty(value = "区域编码")
-    private String areaCode;
+    private Long areaCode;
     /**
      * 父级编号
      */
     @ApiModelProperty(value = "父级编号")
-    private String parentId;
+    private Long parentId;
     /**
      * 本级排序号（升序）
      */
     @ApiModelProperty(value = "本级排序号（升序）")
-    private BigDecimal sort;
+    private Integer sort;
     /**
      * 是否叶子节点
      */
     @ApiModelProperty(value = "是否叶子节点")
-    private String isLeaf;
+    private Integer isLeaf;
     /**
      * 区域名称
      */
@@ -68,6 +68,4 @@ public class Area extends BaseEntity {
      */
     @ApiModelProperty(value = "备注信息")
     private String remarks;
-
-
 }

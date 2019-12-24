@@ -1,11 +1,13 @@
 <template>
 
   <el-card>
-
-    <el-button v-waves v-permission="['37']" class="filter-item" style="margin-left: 10px;" round type="primary"
+    <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="alert" icon="el-icon-search"
+      @click="handleIsSearchCardShow">
+      {{ $t('table.fliter') }}</el-button>
+    <el-button v-waves v-permission="['23']" class="filter-item" style="margin-left: 10px;" round type="primary"
       icon="el-icon-edit" @click="handleCreateAction">{{
       $t('table.add') }}</el-button>
-    <el-button v-waves v-permission="['39']" class="filter-item" style="margin-left: 10px;" round type="danger"
+    <el-button v-waves v-permission="['25']" class="filter-item" style="margin-left: 10px;" round type="danger"
       icon="el-icon-delete" @click="handleBatchDeleteAction">{{
       $t('table.delete') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="warning" icon="el-icon-refresh"
@@ -23,53 +25,38 @@
       <el-table-column type="selection" fixed width="55"></el-table-column>
       <!--表格的序号-->
       <el-table-column :label="$t('table.id')" type="index" width="50px"></el-table-column>
-      <el-table-column label="菜单名称" min-width="150px">
+      <el-table-column label="区域名称" min-width="150px">
         <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row)">{{ scope.row.name }}</span>
+          <span class="link-type" @click="handleUpdate(scope.row)">{{ scope.row.areaName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="路由地址" min-width="150px">
+      <el-table-column label="区域编码" min-width="150px">
         <template slot-scope="scope">
-          {{ scope.row.path }}
+          {{ scope.row.areaCode }}
         </template>
       </el-table-column>
-      <el-table-column label="菜单图标" min-width="150px">
+      <el-table-column label="区域类型" min-width="150px">
         <template slot-scope="scope">
-          {{ scope.row.source }}
+          {{ scope.row.areaType |translateVlaue2Lable(areatypeOptions) }}
         </template>
       </el-table-column>
-      <el-table-column label="菜单编号" min-width="150px">
+      <el-table-column label="备注信息" min-width="150px">
         <template slot-scope="scope">
-          {{ scope.row.code }}
+          {{ scope.row.remarks }}
         </template>
       </el-table-column>
-      <el-table-column label="菜单类型" min-width="150px">
-        <template slot-scope="scope">
-          {{ scope.row.category |translateVlaue2Lable(categoryOptions) }}
-        </template>
-      </el-table-column>
-      <el-table-column label="菜单别名" min-width="80px">
-        <template slot-scope="scope">
-          {{ scope.row.alias }}
-        </template>
-      </el-table-column>
-      <el-table-column label="排序" min-width="60px">
+      <el-table-column label="排序" min-width="150px">
         <template slot-scope="scope">
           {{ scope.row.sort }}
-        </template>
-      </el-table-column>
-      <el-table-column label="备注" min-width="150px">
-        <template slot-scope="scope">
-          {{ scope.row.remark }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-permission="['38']" v-waves type="primary" size="mini" @click="handleUpdate(scope.row)">
+          <el-button v-waves v-permission="['24']" type="primary" size="mini" @click="handleUpdate(scope.row)">
             {{ $t('table.edit') }}
           </el-button>
-          <el-button v-if="scope.row.isDeleted!='1'" v-permission="['39']" v-waves size="mini" type="danger"
+          <el-button v-if="scope.row.isDeleted!='1'" v-permission="['25']" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">{{
             $t('table.delete') }}
           </el-button>
@@ -81,13 +68,14 @@
       style="margin-top:0px;padding:10px 26px" @pagination="getList" />
   </el-card>
 </template>
+
 <script>
   // 调用相应的api文件中的方法，来操纵数据
   import {
     getList,
     remove
-  } from '@/api/system/menu'
-  import listQuery from '@/entitys/menu'
+  } from '@/api/system/area'
+  import listQuery from '@/entitys/area'
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
   // 引入相应的工具来处理数据转换需求
@@ -102,7 +90,7 @@
   import permission from '@/directive/permission/index.js' // 权限判断指令
   export default {
     // TODO:本页面的名称
-    name: 'menu-list',
+    name: 'area-list',
     components: {
       Pagination
     },
@@ -118,13 +106,7 @@
         type: Boolean,
         default: false
       },
-      typeOptions: {
-        type: Array,
-        default: function () {
-          return []
-        }
-      },
-      categoryOptions: {
+      areatypeOptions: {
         type: Array,
         default: function () {
           return []
@@ -170,6 +152,10 @@
       })
     },
     methods: {
+      // 控制searchCard的显示与否
+      handleIsSearchCardShow() {
+        this.$emit('update:isSearchCardShow', !this.isSearchCardShow)
+      },
       // 重新初始化listQuery
       resetListQuery() {
         this.listQuery = listQuery()
@@ -233,7 +219,7 @@
           if (response.code === 200) {
             this.list = this.list.filter(item => !ids.includes(item.id))
             this.listLoading = false
-            this.$parent.$parent.$parent.$parent.initTreeData()
+            // this.$parent.$parent.$parent.$parent.initTreeData()
             notify.success(this, {
               title: '删除成功',
               message: response.msg
@@ -279,17 +265,18 @@
       },
       // excel文件下载函数
       handleDownload() {
+        remarks: undefined,
         this.downloadLoading = true
         import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = ['id', '菜单名称', '路由地址', '菜单图标', '上级菜单', '菜单编号', '菜单类型', '菜单别名', '菜单排序', '菜单备注']
-          const filterVal = ['id', 'name', 'path', 'source', 'parentId', 'code', 'category', 'alias', 'sort',
-            'remark'
+          const tHeader = ['id', '区域编码', '父级编号', '是否叶子节点', '用户区域名称姓名', '排序', '区域类型', '备注信息']
+          const filterVal = ['id', 'areaCode', 'parentId', 'isLeaf', 'areaName', 'sort',
+            'areaType'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({
             header: tHeader,
             data,
-            filename: 'menu-list'
+            filename: 'table-list'
           })
           this.downloadLoading = false
         })

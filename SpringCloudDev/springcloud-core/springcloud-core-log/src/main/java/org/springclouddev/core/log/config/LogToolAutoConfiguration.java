@@ -4,6 +4,7 @@ package org.springclouddev.core.log.config;
 
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.log.aspect.ApiLogAspect;
+import org.springclouddev.core.log.aspect.UsualLogAspect;
 import org.springclouddev.core.log.event.ApiLogListener;
 import org.springclouddev.core.log.event.UsualLogListener;
 import org.springclouddev.core.log.event.ErrorLogListener;
@@ -32,6 +33,10 @@ public class LogToolAutoConfiguration {
 	@Bean
 	public ApiLogAspect apiLogAspect() {
 		return new ApiLogAspect();
+	}
+	@Bean
+	public UsualLogAspect usualLogAspect() {
+		return new UsualLogAspect();
 	}
 
 	@Bean

@@ -1,13 +1,12 @@
-
-
 package org.springclouddev.core.log.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springclouddev.core.log.annotation.ApiLog;
-import org.springclouddev.core.log.publisher.ApiLogPublisher;
+import org.springclouddev.core.log.annotation.UsualLog;
+import org.springclouddev.core.log.logger.SystemLogger;
+import org.springclouddev.core.log.publisher.UsualLogPublisher;
 
 /**
  * 操作日志使用spring event异步入库
@@ -16,10 +15,10 @@ import org.springclouddev.core.log.publisher.ApiLogPublisher;
  */
 @Slf4j
 @Aspect
-public class ApiLogAspect {
+public class UsualLogAspect {
 
-	@Around("@annotation(apiLog)")
-	public Object around(ProceedingJoinPoint point, ApiLog apiLog) throws Throwable {
+	@Around("@annotation(usualLog)")
+	public Object around(ProceedingJoinPoint point, UsualLog usualLog) throws Throwable {
 		//获取类名
 		String className = point.getTarget().getClass().getName();
 		//获取方法
@@ -31,7 +30,7 @@ public class ApiLogAspect {
 		//执行时长(毫秒)
 		long time = System.currentTimeMillis() - beginTime;
 		//记录日志
-		ApiLogPublisher.publishEvent(methodName, className, apiLog, time);
+		UsualLogPublisher.publishEvent(usualLog.level(),usualLog.value(),result.toString());
 		return result;
 	}
 
