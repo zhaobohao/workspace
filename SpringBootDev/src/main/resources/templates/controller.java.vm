@@ -74,7 +74,7 @@ public R<IPage<$!{entity}VO>> list($!{entity} $!{table.entityPath}, Query query)
  * 详情
  */
 @GetMapping("/detail")
-@ApiOperationSupport(order = 1)
+@ApiOperationSupport(order = 3)
 @ApiOperation(value = "详情", notes = "传入$!{table.entityPath}")
 public R<$!{entity}> detail($!{entity} $!{table.entityPath}) {
 	$!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
@@ -85,7 +85,7 @@ public R<$!{entity}> detail($!{entity} $!{table.entityPath}) {
  * 分页 $!{table.comment}
  */
 @GetMapping("/list")
-@ApiOperationSupport(order = 2)
+@ApiOperationSupport(order = 4)
 @ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}>> list($!{entity} $!{table.entityPath}, Query query) {
 		IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), Condition.getQueryWrapper($!{table.entityPath}));
@@ -97,7 +97,7 @@ public R<IPage<$!{entity}>> list($!{entity} $!{table.entityPath}, Query query) {
  * 自定义分页 $!{table.comment}
  */
 @GetMapping("/page")
-@ApiOperationSupport(order = 3)
+@ApiOperationSupport(order = 5)
 @ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}VO>> page($!{entity}VO $!{table.entityPath}, Query query) {
 		IPage<$!{entity}VO> pages = $!{table.entityPath}Service.select$!{entity}Page(Condition.getPage(query), $!{table.entityPath});
@@ -112,7 +112,7 @@ public R<IPage<$!{entity}VO>> page($!{entity}VO $!{table.entityPath}, Query quer
 		@ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
 		@ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
 })
-@ApiOperationSupport(order = 2)
+@ApiOperationSupport(order = 6)
 @ApiOperation(value = "列表", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}>> list(@ApiIgnore @RequestParam Map<String, Object> $!{table.entityPath}, Query query, SystemUser systemUser) {
 		QueryWrapper<$!{entity}> queryWrapper = Condition.getQueryWrapper($!{table.entityPath}, $!{entity}.class);
@@ -123,7 +123,7 @@ public R<IPage<$!{entity}>> list(@ApiIgnore @RequestParam Map<String, Object> $!
  * 新增 $!{table.comment}
  */
 @PostMapping("/save")
-@ApiOperationSupport(order = 4)
+@ApiOperationSupport(order = 7)
 @ApiOperation(value = "新增", notes = "传入$!{table.entityPath}")
 public R save(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 		return R.status($!{table.entityPath}Service.save($!{table.entityPath}));
@@ -133,7 +133,7 @@ public R save(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
  * 修改 $!{table.comment}
  */
 @PostMapping("/update")
-@ApiOperationSupport(order = 5)
+@ApiOperationSupport(order = 8)
 @ApiOperation(value = "修改", notes = "传入$!{table.entityPath}")
 public R update(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 		return R.status($!{table.entityPath}Service.updateById($!{table.entityPath}));
@@ -143,7 +143,7 @@ public R update(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
  * 新增或修改 $!{table.comment}
  */
 @PostMapping("/submit")
-@ApiOperationSupport(order = 6)
+@ApiOperationSupport(order = 9)
 @ApiOperation(value = "新增或修改", notes = "传入$!{table.entityPath}")
 public R submit(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 		if ($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath})) {
@@ -159,7 +159,7 @@ public R submit(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
  * 删除 $!{table.comment}
  */
 @PostMapping("/remove")
-@ApiOperationSupport(order = 7)
+@ApiOperationSupport(order = 10)
 @ApiOperation(value = "逻辑删除", notes = "传入ids")
 public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status($!{table.entityPath}Service.deleteLogic(Func.toLongList(ids)));
@@ -171,7 +171,7 @@ public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam
  * 删除 $!{table.comment}
  */
 @PostMapping("/remove")
-@ApiOperationSupport(order = 8)
+@ApiOperationSupport(order = 11)
 @ApiOperation(value = "删除", notes = "传入ids")
 public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status($!{table.entityPath}Service.removeByIds(Func.toIntList(ids)));
@@ -182,7 +182,7 @@ public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam
      * 数据源列表
      */
 @GetMapping("/select")
-@ApiOperationSupport(order = 8)
+@ApiOperationSupport(order = 12)
 @ApiOperation(value = "下拉数据源", notes = "查询列表")
 public R<List<$!{entity}>> select() {
 		List<$!{entity}> list = $!{table.entityPath}Service.list();

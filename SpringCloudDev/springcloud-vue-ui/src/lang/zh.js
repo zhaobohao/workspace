@@ -88,7 +88,8 @@ export default {
     tableinfo: '表元数据管理',
     permissions: '权限管理',
     datarole: '数据权限',
-    interfacerole: '接口权限'
+    interfacerole: '接口权限',
+    area: '区域设置'
   },
   navbar: {
     dashboard: '首页',

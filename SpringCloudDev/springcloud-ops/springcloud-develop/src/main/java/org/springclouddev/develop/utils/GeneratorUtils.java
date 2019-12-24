@@ -33,7 +33,7 @@ public class GeneratorUtils {
                 sw.append(column.getName()).append("   ")
                         .append(column.getTypeKey())
                         .append("(").append(column.getTypeValue())
-                        .append("varchar2".equals(column.getTypeKey()) ? " CHAR" : " ")
+                        .append("varchar2".equalsIgnoreCase(column.getTypeKey()) ? " CHAR" : " ")
                         .append(") ")
                         .append(column.getIsEmpty() == 2 ? "NOT NULL" : "")
                         .append(StringUtils.isEmpty(column.getDefaultValue()) ? "" : " default ")

@@ -16,7 +16,8 @@ export const getList = (current, size, params) => {
     params: {
       ...params,
       current,
-      size
+      size,
+      descs: 'id'
     }
   })
 }

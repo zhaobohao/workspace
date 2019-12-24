@@ -54,6 +54,8 @@ public class Condition {
 	public static <T> QueryWrapper<T> getQueryWrapper(Map<String, Object> query, Class<T> clazz) {
 		query.remove("current");
 		query.remove("size");
+		query.remove("aescs");
+		query.remove("descs");
 		QueryWrapper<T> qw = new QueryWrapper<>();
 		qw.setEntity(BeanUtil.newInstance(clazz));
 		SqlKeyword.buildCondition(query, qw);
