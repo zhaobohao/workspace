@@ -19,6 +19,7 @@ Thumbs.db
 # idea #
 .idea
 *.iml
+rebel.xml
 
 # Package Files #
 *.jar
