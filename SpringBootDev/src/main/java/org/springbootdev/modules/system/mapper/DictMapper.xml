@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.springbootdev.modules.system.mapper.DictMapper">
+<mapper namespace="org.springclouddev.system.mapper.DictMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="dictResultMap" type="org.springbootdev.modules.system.entity.Dict">
+    <resultMap id="dictResultMap" type="org.springclouddev.system.entity.Dict">
         <id column="id" property="id"/>
         <result column="parent_id" property="parentId"/>
         <result column="code" property="code"/>
@@ -14,7 +14,7 @@
         <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
-    <resultMap id="treeNodeResultMap" type="org.springbootdev.core.tool.node.TreeNode">
+    <resultMap id="treeNodeResultMap" type="org.springclouddev.core.tool.node.TreeNode">
         <id column="id" property="id"/>
         <result column="parent_id" property="parentId"/>
         <result column="title" property="title"/>
@@ -46,11 +46,11 @@
     </select>-->
 
     <select id="getList" resultMap="dictResultMap">
-        select code, dict_key, dict_value, sort, remark from mk_dict where code = #{param1} and dict_key >= 0 and is_deleted = 0
+    select code, dict_key, dict_value, sort, remark from mk_dict where code = #{param1} and dict_key !='-1' and is_deleted = 0
     </select>
 
     <select id="tree" resultMap="treeNodeResultMap">
-        select id, parent_id, dict_value as title, id as 'value', id as 'key' from mk_dict where is_deleted = 0 and dict_key=-1
+        select id, parent_id, dict_value as title, id as 'value', id as 'key' from mk_dict where is_deleted = 0 and dict_key='-1'
         <if test="_parameter!=null">
             and parent_id = #{_parameter}
         </if>

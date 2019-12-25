@@ -50,7 +50,7 @@ public class SpringBootDemoCodeGenerator {
 	/**
 	 * 代码生成的包名
 	 */
-	private String packageName = "org.springbootdev.test";
+	private String packageName = "org.springclouddev.test";
 	/**
 	 * 代码后端生成的地址
 	 */
@@ -107,10 +107,12 @@ public class SpringBootDemoCodeGenerator {
 	 * 数据库密码
 	 */
 	private String password;
+
 	/**
 	 * 外部注入新的模板引擎
 	 */
 	private AbstractTemplateEngine templateEngine;
+
 	public void run() {
 		Properties props = getProperties();
 		AutoGenerator mpg = new AutoGenerator();
@@ -166,16 +168,17 @@ public class SpringBootDemoCodeGenerator {
 			strategy.setExclude(excludeTables);
 		}
 		if (hasSuperEntity) {
-			strategy.setSuperEntityClass("org.springbootdev.core.mp.base.BaseEntity");
+			strategy.setSuperEntityClass("org.springclouddev.core.mp.base.BaseEntity");
 			strategy.setSuperEntityColumns(superEntityColumns);
-			strategy.setSuperServiceClass("org.springbootdev.core.mp.base.BaseService");
-			strategy.setSuperServiceImplClass("org.springbootdev.core.mp.base.BaseServiceImpl");
+			strategy.setSuperMapperClass("org.springclouddev.core.mp.base.SuperMapper");
+			strategy.setSuperServiceClass("org.springclouddev.core.mp.base.BaseService");
+			strategy.setSuperServiceImplClass("org.springclouddev.core.mp.base.BaseServiceImpl");
 		} else {
 			strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
 			strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
 		}
 		// 自定义 controller 父类
-		strategy.setSuperControllerClass("org.springbootdev.core.boot.ctrl.AbstractController");
+		strategy.setSuperControllerClass("org.springclouddev.core.boot.ctrl.AbstractController");
 		strategy.setEntityBuilderModel(false);
 		strategy.setEntityLombokModel(true);
 		strategy.setControllerMappingHyphenStyle(true);
@@ -242,17 +245,41 @@ public class SpringBootDemoCodeGenerator {
 			});
 		}
 		if (Func.isNotBlank(packageWebDir)) {
-			 if (Func.equals(systemName, DevelopConstant.WEB_VUE_NAME)) {
+			if (Func.equals(systemName, DevelopConstant.WEB_VUE_NAME)) {
 				focList.add(new FileOutConfig("/templates/vue/api.js.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
 						return getOutputWebDir() + "/api" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
 					}
 				});
-				focList.add(new FileOutConfig("/templates/vue/crud.vue.vm") {
+				focList.add(new FileOutConfig("/templates/vue/entity.js.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".vue";
+						return getOutputWebDir() + "/entitys" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/index.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/index.vue";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/components/searchCard.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/components/searchCard.vue";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/components/listTable.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/components/listTable.vue";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/components/dataForm.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/components/dataForm.vue";
 					}
 				});
 			}

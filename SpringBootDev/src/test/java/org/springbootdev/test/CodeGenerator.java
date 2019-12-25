@@ -26,7 +26,7 @@ public class CodeGenerator {
 	/**
 	 * 前端代码生成所属系统
 	 */
-	public static String SYSTEM_NAME = "sword";
+	public static String SYSTEM_NAME = "vue";
 	/**
 	 * 前端代码生成地址
 	 */

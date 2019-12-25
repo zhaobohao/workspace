@@ -1,0 +1,35 @@
+#set($istree=false)
+#foreach($field in $!{table.fields})
+    #if($!{field.name}=="parent_id")
+        #set($istree=true)
+    #end
+#end
+export default function area() {
+  return {
+    current: 1,
+    size: 20,
+    isNewRecord: false,
+    query: {
+#foreach($field in $!{table.fields})
+  #if($!{field.name}!=$!{cfg.tenantColumn})
+  // $!{field.comment}
+  $!{field.propertyName}: undefined,
+  #end
+#end
+    #if($istree)
+    parentId_equal: 0
+    #end
+    },
+    rules: {
+#foreach($field in $!{table.fields})
+  #if($!{field.name}!=$!{cfg.tenantColumn})
+      $!{field.propertyName}: [{
+  required: true,
+  message: '请输入$!{field.comment}',
+  trigger: 'blur'
+  }],
+  #end
+#end
+    }
+  }
+}

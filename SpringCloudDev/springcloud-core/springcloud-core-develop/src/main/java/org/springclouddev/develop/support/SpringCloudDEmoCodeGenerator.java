@@ -252,10 +252,34 @@ public class SpringCloudDEmoCodeGenerator {
 						return getOutputWebDir() + "/api" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
 					}
 				});
-				focList.add(new FileOutConfig("/templates/vue/crud.vue.vm") {
+				focList.add(new FileOutConfig("/templates/vue/entity.js.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".vue";
+						return getOutputWebDir() + "/entitys" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/index.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/index.vue";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/components/searchCard.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/components/searchCard.vue";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/components/listTable.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/components/listTable.vue";
+					}
+				});
+				focList.add(new FileOutConfig("/templates/vue/components/dataForm.vue.vm") {
+					@Override
+					public String outputFile(TableInfo tableInfo) {
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/components/dataForm.vue";
 					}
 				});
 			}
