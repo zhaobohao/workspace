@@ -127,7 +127,7 @@ springbootdev:
   tenant:
     column: tenant_id
     tables:
-      - notice
+      - mk_notice
 #########j2cache integeration
 #########useage:@Autowired
 ##########private CacheChannel cacheChannel;

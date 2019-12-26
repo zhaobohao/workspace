@@ -34,14 +34,14 @@ public class AuthController {
 	@ApiOperation(value = "获取认证token", notes = "传入租户ID:tenantId,账号:account,密码:password")
 	public R<AuthInfo> token(@ApiParam(value = "授权类型", required = true) @RequestParam(defaultValue = "password", required = false) String grantType,
 							 @ApiParam(value = "刷新令牌") @RequestParam(required = false) String refreshToken,
-							 @ApiParam(value = "租户ID", required = true) @RequestParam(defaultValue = "000000", required = false) String tenantId,
+							 @ApiParam(value = "租户ID", required = true) @RequestParam(defaultValue = "000000", required = true) String tenantId,
 							 @ApiParam(value = "账号") @RequestParam(required = false) String account,
 							 @ApiParam(value = "密码") @RequestParam(required = false) String password) {
 
 		String userType = Func.toStr(WebUtil.getRequest().getHeader(TokenUtil.USER_TYPE_HEADER_KEY), TokenUtil.DEFAULT_USER_TYPE);
 
 		TokenParameter tokenParameter = new TokenParameter();
-		tokenParameter.getArgs().set("tenantId", tenantId).set("account", account).set("password", password).set("grantType", grantType).set("refreshToken", refreshToken).set("userType", userType);
+		tokenParameter.getArgs().set("tenantId", "000000").set("account", account).set("password", password).set("grantType", grantType).set("refreshToken", refreshToken).set("userType", userType);
 
 		ITokenGranter granter = TokenGranterBuilder.getGranter(grantType);
 		UserInfo userInfo = granter.grant(tokenParameter);

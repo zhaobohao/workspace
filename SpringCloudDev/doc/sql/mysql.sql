@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 24/12/2019 20:15:13
+ Date: 26/12/2019 15:09:41
 */
 
 SET NAMES utf8mb4;
@@ -106,7 +106,7 @@ CREATE TABLE `mk_area`  (
   INDEX `idx_sys_area_pc`(`parent_id`) USING BTREE,
   INDEX `idx_sys_area_ts`(`sort`) USING BTREE,
   INDEX `idx_sys_area_status`(`status`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3257 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '行政区划' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3259 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '行政区划' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_area
@@ -3481,6 +3481,7 @@ CREATE TABLE `mk_dept`  (
 INSERT INTO `mk_dept` VALUES (1, '000000', 0, '软竹科技', '上海软件竹科技有限公司', 1, '2222', 0, 1, NULL);
 INSERT INTO `mk_dept` VALUES (2, '000000', 1, '北京软竹', '北京软竹科技有限公司', 1, '', 0, 1, NULL);
 INSERT INTO `mk_dept` VALUES (3, '000000', 1, '深圳软竹', '深圳软竹科技有限公司', 1, '32342', 0, 0, NULL);
+INSERT INTO `mk_dept` VALUES (20, '058431', 0, '2', '2', 2, NULL, 0, 0, NULL);
 
 -- ----------------------------
 -- Table structure for mk_dict
@@ -3490,7 +3491,7 @@ CREATE TABLE `mk_dict`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `parent_id` int(11) NULL DEFAULT 0 COMMENT '父主键',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典码',
-  `dict_key` int(2) NULL DEFAULT NULL COMMENT '字典值',
+  `dict_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典值',
   `dict_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典名称',
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典备注',
@@ -3502,37 +3503,37 @@ CREATE TABLE `mk_dict`  (
 -- ----------------------------
 -- Records of mk_dict
 -- ----------------------------
-INSERT INTO `mk_dict` VALUES (1, 0, 'sex', -1, '性别', 1, NULL, 0, 1);
-INSERT INTO `mk_dict` VALUES (2, 1, 'sex', 1, '男', 1, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (3, 1, 'sex', 2, '女', 2, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (4, 0, 'notice', -1, '通知类型', 2, NULL, 0, 1);
-INSERT INTO `mk_dict` VALUES (5, 4, 'notice', 1, '发布通知', 1, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (6, 4, 'notice', 2, '批转通知', 2, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (7, 4, 'notice', 3, '转发通知', 3, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (8, 4, 'notice', 4, '指示通知', 4, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (9, 4, 'notice', 5, '任免通知', 5, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (10, 4, 'notice', 6, '事务通知', 6, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (11, 0, 'menu_category', -1, '菜单类型', 3, NULL, 0, 1);
-INSERT INTO `mk_dict` VALUES (12, 11, 'menu_category', 1, '菜单', 1, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (13, 11, 'menu_category', 2, '按钮', 2, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (14, 0, 'button_func', -1, '按钮功能', 4, NULL, 0, 1);
-INSERT INTO `mk_dict` VALUES (15, 14, 'button_func', 1, '工具栏', 1, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (16, 14, 'button_func', 2, '操作栏', 2, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (17, 14, 'button_func', 3, '工具操作栏', 3, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (18, 0, 'yes_no', -1, '是否', 5, NULL, 0, 1);
-INSERT INTO `mk_dict` VALUES (19, 18, 'yes_no', 1, '否', 1, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (20, 18, 'yes_no', 2, '是', 2, NULL, 0, 0);
-INSERT INTO `mk_dict` VALUES (22, 0, 'validDate', -1, '有效期', 7, '产品的有效期选项', 0, 1);
-INSERT INTO `mk_dict` VALUES (23, 22, 'validDate', 1, '一年', 1, '一年有效期', 0, 0);
-INSERT INTO `mk_dict` VALUES (24, 22, 'validDate', 2, '半年', 2, '半年有效期', 0, 0);
-INSERT INTO `mk_dict` VALUES (26, 0, 'tableinfo', -1, '表元数据类型', 7, '表元数据类型', 0, 1);
-INSERT INTO `mk_dict` VALUES (27, 26, 'tableinfo', 1, '数据表', 1, '数据表', 0, 0);
-INSERT INTO `mk_dict` VALUES (28, 26, 'tableinfo', 2, '表字段', 2, '表字段', 0, 0);
-INSERT INTO `mk_dict` VALUES (32, 0, 'area_type', -1, ' 区域类型', 1, ' 区域类型', 0, 1);
-INSERT INTO `mk_dict` VALUES (33, 32, 'area_type', 1, '国家', 1, '国家', 0, 0);
-INSERT INTO `mk_dict` VALUES (34, 32, 'area_type', 2, '省份直辖市', 2, '省份直辖市', 0, 0);
-INSERT INTO `mk_dict` VALUES (35, 32, 'area_type', 3, '地市', 3, '地市', 0, 0);
-INSERT INTO `mk_dict` VALUES (36, 32, 'area_type', 4, '区县', 4, '区县', 0, 0);
+INSERT INTO `mk_dict` VALUES (1, 0, 'sex', '-1', '性别', 1, NULL, 0, 1);
+INSERT INTO `mk_dict` VALUES (2, 1, 'sex', '1', '男', 1, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (3, 1, 'sex', '2', '女', 2, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (4, 0, 'notice', '-1', '通知类型', 2, NULL, 0, 1);
+INSERT INTO `mk_dict` VALUES (5, 4, 'notice', '1', '发布通知', 1, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (6, 4, 'notice', '2', '批转通知', 2, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (7, 4, 'notice', '3', '转发通知', 3, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (8, 4, 'notice', '4', '指示通知', 4, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (9, 4, 'notice', '5', '任免通知', 5, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (10, 4, 'notice', '6', '事务通知', 6, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (11, 0, 'menu_category', '-1', '菜单类型', 3, NULL, 0, 1);
+INSERT INTO `mk_dict` VALUES (12, 11, 'menu_category', '1', '菜单', 1, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (13, 11, 'menu_category', '2', '按钮', 2, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (14, 0, 'button_func', '-1', '按钮功能', 4, NULL, 0, 1);
+INSERT INTO `mk_dict` VALUES (15, 14, 'button_func', '1', '工具栏', 1, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (16, 14, 'button_func', '2', '操作栏', 2, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (17, 14, 'button_func', '3', '工具操作栏', 3, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (18, 0, 'yes_no', '-1', '是否', 5, NULL, 0, 1);
+INSERT INTO `mk_dict` VALUES (19, 18, 'yes_no', '1', '否', 1, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (20, 18, 'yes_no', '2', '是', 2, NULL, 0, 0);
+INSERT INTO `mk_dict` VALUES (22, 0, 'validDate', '-1', '有效期', 7, '产品的有效期选项', 0, 1);
+INSERT INTO `mk_dict` VALUES (23, 22, 'validDate', '1', '一年', 1, '一年有效期', 0, 0);
+INSERT INTO `mk_dict` VALUES (24, 22, 'validDate', '2', '半年', 2, '半年有效期', 0, 0);
+INSERT INTO `mk_dict` VALUES (26, 0, 'tableinfo', '-1', '表元数据类型', 7, '表元数据类型', 0, 1);
+INSERT INTO `mk_dict` VALUES (27, 26, 'tableinfo', '1', '数据表', 1, '数据表', 0, 0);
+INSERT INTO `mk_dict` VALUES (28, 26, 'tableinfo', '2', '表字段', 2, '表字段', 0, 0);
+INSERT INTO `mk_dict` VALUES (32, 0, 'area_type', '-1', ' 区域类型', 1, ' 区域类型', 0, 1);
+INSERT INTO `mk_dict` VALUES (33, 32, 'area_type', '1', '国家', 1, '国家', 0, 0);
+INSERT INTO `mk_dict` VALUES (34, 32, 'area_type', '2', '省份直辖市', 2, '省份直辖市', 0, 0);
+INSERT INTO `mk_dict` VALUES (35, 32, 'area_type', '3', '地市', 3, '地市', 0, 0);
+INSERT INTO `mk_dict` VALUES (36, 32, 'area_type', '4', '区县', 4, '区县', 0, 0);
 
 -- ----------------------------
 -- Table structure for mk_log_api
@@ -3590,6 +3591,11 @@ CREATE TABLE `mk_log_error`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '错误日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of mk_log_error
+-- ----------------------------
+INSERT INTO `mk_log_error` VALUES (1210056637816004610, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'GET', '/springcloud-user/list', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: \r\n### Error querying database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: Method queryTotal execution error of sql : \n SELECT COUNT(1) FROM mk_user WHERE is_deleted = 0 AND (descs LIKE ?) \n\r\n### The error may exist in org/springbootdev/modules/system/mapper/UserMapper.java (best guess)\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: Method queryTotal execution error of sql : \n SELECT COUNT(1) FROM mk_user WHERE is_deleted = 0 AND (descs LIKE ?) \n\r\n	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:92)\r\n	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:440)\r\n	at com.sun.proxy.$Proxy123.selectList(Unknown Source)\r\n	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:223)\r\n	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForIPage(MybatisMapperMethod.java:134)\r\n	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:96)\r\n	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:96)\r\n	at com.sun.proxy.$Proxy133.selectPage(Unknown Source)\r\n	at com.baomidou.mybatisplus.extension.service.impl.ServiceImpl.page(ServiceImpl.java:289)\r\n	at com.baomidou.mybatisplus.extension.service.impl.ServiceImpl$$FastClassBySpringCGLIB$$76535273.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:119)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)\r\n	at org.springbootdev.modules.system.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$3c4970ce.page(<generated>)\r\n	at org.springbootdev.modules.system.controller.UserController.list(UserController.java:93)\r\n	at org.springbootdev.modules.system.controller.UserController$$FastClassBySpringCGLIB$$16d31103.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)\r\n	at org.springbootdev.core.boot.logger.RequestLogAspect.aroundApi(RequestLogAspect.java:143)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)\r\n	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)\r\n	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)\r\n	at org.springbootdev.modules.system.controller.UserController$$EnhancerBySpringCGLIB$$ed656b2f.list(<generated>)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)\r\n	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)\r\n	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)\r\n	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.github.xiaoymin.swaggerbootstrapui.filter.SecurityBasicAuthFilter.doFilter(SecurityBasicAuthFilter.java:84)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.github.xiaoymin.swaggerbootstrapui.filter.ProductionSecurityFilter.doFilter(ProductionSecurityFilter.java:53)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:124)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springbootdev.core.tool.support.xss.XssFilter.doFilter(XssFilter.java:32)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)\r\n	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)\r\n	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\r\n	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\r\n	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:748)\r\nCaused by: org.apache.ibatis.exceptions.PersistenceException: \r\n### Error querying database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: Method queryTotal execution error of sql : \n SELECT COUNT(1) FROM mk_user WHERE is_deleted = 0 AND (descs LIKE ?) \n\r\n### The error may exist in org/springbootdev/modules/system/mapper/UserMapper.java (best guess)\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: Method queryTotal execution error of sql : \n SELECT COUNT(1) FROM mk_user WHERE is_deleted = 0 AND (descs LIKE ?) \n\r\n	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)\r\n	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:149)\r\n	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)\r\n	... 100 more\r\nCaused by: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: Method queryTotal execution error of sql : \n SELECT COUNT(1) FROM mk_user WHERE is_deleted = 0 AND (descs LIKE ?) \n\r\n	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:39)\r\n	at com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor.queryTotal(PaginationInterceptor.java:252)\r\n	at com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor.intercept(PaginationInterceptor.java:201)\r\n	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)\r\n	at com.sun.proxy.$Proxy210.prepare(Unknown Source)\r\n	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.prepareStatement(MybatisSimpleExecutor.java:92)\r\n	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doQuery(MybatisSimpleExecutor.java:66)\r\n	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)\r\n	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)\r\n	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:136)\r\n	at sun.reflect.GeneratedMethodAccessor145.invoke(Unknown Source)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)\r\n	at com.sun.proxy.$Proxy209.query(Unknown Source)\r\n	at sun.reflect.GeneratedMethodAccessor145.invoke(Unknown Source)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)\r\n	at com.sun.proxy.$Proxy209.query(Unknown Source)\r\n	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)\r\n	... 106 more\r\nCaused by: java.sql.SQLSyntaxErrorException: Unknown column \'descs\' in \'where clause\'\r\n	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)\r\n	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)\r\n	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)\r\n	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)\r\n	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:1003)\r\n	at com.alibaba.druid.pool.DruidPooledPreparedStatement.executeQuery(DruidPooledPreparedStatement.java:227)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:56)\r\n	at com.sun.proxy.$Proxy212.executeQuery(Unknown Source)\r\n	at com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor.queryTotal(PaginationInterceptor.java:241)\r\n	... 125 more\r\n', 'org.mybatis.spring.MyBatisSystemException', 'nested exception is org.apache.ibatis.exceptions.PersistenceException: \r\n### Error querying database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: Method queryTotal execution error of sql : \n SELECT COUNT(1) FROM mk_user WHERE is_deleted = 0 AND (descs LIKE ?) \n\r\n### The error may exist in org/springbootdev/modules/system/mapper/UserMapper.java (best guess)\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: Method queryTotal execution error of sql : \n SELECT COUNT(1) FROM mk_user WHERE is_deleted = 0 AND (descs LIKE ?) \n', 92, '127.0.0.1', 'org.mybatis.spring.MyBatisExceptionTranslator', 'MyBatisExceptionTranslator.java', 'translateExceptionIfPossible', 'descs=id', NULL, 'admin', '2019-12-26 12:35:59');
+
+-- ----------------------------
 -- Table structure for mk_log_usual
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_log_usual`;
@@ -3617,12 +3623,30 @@ CREATE TABLE `mk_log_usual`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通用日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of mk_log_usual
+-- ----------------------------
+INSERT INTO `mk_log_usual` VALUES (1209467234483703809, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjEiLCJyb2xlX2lkIjoiMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImFjY291bnQiOiJhZG1pbiIsImNsaWVudF9pZCI6InN5c3RlbUlkIiwiZXhwIjoxNTc3MTk4MDM0LCJuYmYiOjE1NzcxOTQ0MzR9.TmozOVh0vS6QVhhESQ8ngjtVnO3b3aDMhsK4TwJaueI, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc3OTkyMzQsIm5iZiI6MTU3NzE5NDQzNH0.M_TOnhTpOnVsK2UTrcLlmqtiPfvTcBw7RDNieqYzE9s, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'tenantId=000000&account=admin&password=admin&grantType=password', NULL, '', '2019-12-24 21:33:54');
+INSERT INTO `mk_log_usual` VALUES (1210056590407786498, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjEiLCJyb2xlX2lkIjoiMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImFjY291bnQiOiJhZG1pbiIsImNsaWVudF9pZCI6InN5c3RlbUlkIiwiZXhwIjoxNTc3MzM4NTQ3LCJuYmYiOjE1NzczMzQ5NDd9.cgZVD8amQs_otrqbATtzbjh8CXPxT8rMd01FcLP6O10, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5Mzk3NDcsIm5iZiI6MTU3NzMzNDk0N30.pIL9DMPiYtxN7JN5nvBYz6AHsgCH1NbnmOuzKD4hZgQ, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '127.0.0.1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'tenantId=000000&account=admin&password=admin&grantType=password', NULL, '', '2019-12-26 12:35:48');
+INSERT INTO `mk_log_usual` VALUES (1210077121228103681, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjEiLCJyb2xlX2lkIjoiMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImFjY291bnQiOiJhZG1pbiIsImNsaWVudF9pZCI6InN5c3RlbUlkIiwiZXhwIjoxNTc3MzQzNDQyLCJuYmYiOjE1NzczMzk4NDJ9.an83hmvC1-qVIW0jwR95JpgjtQKJo8xtdf9Qu86dPrw, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDQ2NDIsIm5iZiI6MTU3NzMzOTg0Mn0.2VN5y2jyolXHzX7Vb6iDbg_ylUaM57k1-hLYedoE3qk, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'tenantId=000000&account=admin&password=admin&grantType=password', NULL, '', '2019-12-26 13:57:22');
+INSERT INTO `mk_log_usual` VALUES (1210079639765049345, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjEiLCJyb2xlX2lkIjoiMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImFjY291bnQiOiJhZG1pbiIsImNsaWVudF9pZCI6InN5c3RlbUlkIiwiZXhwIjoxNTc3MzQ0MDQyLCJuYmYiOjE1NzczNDA0NDJ9.Q6f8FcyJi_kNRSoPxoJkndka3IGeppR9HE1A83zaFNU, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDUyNDIsIm5iZiI6MTU3NzM0MDQ0Mn0.S5PT7TKgxahgxaNCJW2IP2flmKhtJg6QRqLYQz--nC8, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'grantType=refresh_token&refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDQ2NDIsIm5iZiI6MTU3NzMzOTg0Mn0.2VN5y2jyolXHzX7Vb6iDbg_ylUaM57k1-hLYedoE3qk', NULL, 'admin', '2019-12-26 14:07:23');
+INSERT INTO `mk_log_usual` VALUES (1210082156322283521, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjEiLCJyb2xlX2lkIjoiMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImFjY291bnQiOiJhZG1pbiIsImNsaWVudF9pZCI6InN5c3RlbUlkIiwiZXhwIjoxNTc3MzQ0NjQyLCJuYmYiOjE1NzczNDEwNDJ9.1O3qoCrHJxAluU0zNjm-lxohwKufNAEO6wIPQWUYs9M, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDU4NDIsIm5iZiI6MTU3NzM0MTA0Mn0.gXbDAo_Qs6GdR0H_oz2BhDjJK44Hari6dxxX5TamKpw, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'grantType=refresh_token&refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDUyNDIsIm5iZiI6MTU3NzM0MDQ0Mn0.S5PT7TKgxahgxaNCJW2IP2flmKhtJg6QRqLYQz--nC8', NULL, 'admin', '2019-12-26 14:17:23');
+INSERT INTO `mk_log_usual` VALUES (1210084672908877826, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjEiLCJyb2xlX2lkIjoiMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImFjY291bnQiOiJhZG1pbiIsImNsaWVudF9pZCI6InN5c3RlbUlkIiwiZXhwIjoxNTc3MzQ1MjQyLCJuYmYiOjE1NzczNDE2NDJ9.kmNxZt76yqGBCrz97NOqtfln7Gcv_LI3heEVW_m0HZ0, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDY0NDIsIm5iZiI6MTU3NzM0MTY0Mn0.PJBAsMQLwEWu1wkTilni0sKq69oJLxeHf65EYLPdCpI, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'grantType=refresh_token&refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDU4NDIsIm5iZiI6MTU3NzM0MTA0Mn0.gXbDAo_Qs6GdR0H_oz2BhDjJK44Hari6dxxX5TamKpw', NULL, 'admin', '2019-12-26 14:27:23');
+INSERT INTO `mk_log_usual` VALUES (1210087188522393601, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjEiLCJyb2xlX2lkIjoiMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImFjY291bnQiOiJhZG1pbiIsImNsaWVudF9pZCI6InN5c3RlbUlkIiwiZXhwIjoxNTc3MzQ1ODQyLCJuYmYiOjE1NzczNDIyNDJ9.jwTbTTAgH0eNHLlrQuS1WOnsVj5dwvC2i-GXo5J2sz4, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDcwNDIsIm5iZiI6MTU3NzM0MjI0Mn0.lqDyhN6eVierIXcexgWQQ-pyDRfT_FowntvW3mS8TWo, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'grantType=refresh_token&refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDY0NDIsIm5iZiI6MTU3NzM0MTY0Mn0.PJBAsMQLwEWu1wkTilni0sKq69oJLxeHf65EYLPdCpI', NULL, 'admin', '2019-12-26 14:37:23');
+INSERT INTO `mk_log_usual` VALUES (1210089706069483522, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yLHVzZXIiLCJ1c2VyX2lkIjoiMSIsInJvbGVfaWQiOiIxLDIiLCJ1c2VyX25hbWUiOiJhZG1pbiIsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhY2NvdW50IjoiYWRtaW4iLCJjbGllbnRfaWQiOiJzeXN0ZW1JZCIsImV4cCI6MTU3NzM0NjQ0MiwibmJmIjoxNTc3MzQyODQyfQ.NQRgIAhCVBqE_KkMUO5lAvHN0JXYx2m1Th4rYxkKeIw, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDc2NDIsIm5iZiI6MTU3NzM0Mjg0Mn0.DSeQ_frM103fflxvIFllMunC5G9oFZiuqxu5I-jnh5k, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator,user, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'grantType=refresh_token&refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDcwNDIsIm5iZiI6MTU3NzM0MjI0Mn0.lqDyhN6eVierIXcexgWQQ-pyDRfT_FowntvW3mS8TWo', NULL, 'admin', '2019-12-26 14:47:23');
+INSERT INTO `mk_log_usual` VALUES (1210092221641056258, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=400, success=false, data=null, msg=用户名或密码错误)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'grantType=refresh_token', NULL, '', '2019-12-26 14:57:23');
+INSERT INTO `mk_log_usual` VALUES (1210092373177065473, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yLHVzZXIiLCJ1c2VyX2lkIjoiMSIsInJvbGVfaWQiOiIxLDIiLCJ1c2VyX25hbWUiOiJhZG1pbiIsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhY2NvdW50IjoiYWRtaW4iLCJjbGllbnRfaWQiOiJzeXN0ZW1JZCIsImV4cCI6MTU3NzM0NzA3OCwibmJmIjoxNTc3MzQzNDc4fQ.b4xSRAixAVBe2QHTiT9ttr0Fdk9-OAPZrW6o6uREEA4, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDgyNzgsIm5iZiI6MTU3NzM0MzQ3OH0.DmsL-ZUknt1kWFHiulgyOdf-73lWkQQlsmVexEtDJug, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator,user, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'tenantId=000000&account=admin&password=admin&grantType=password', NULL, '', '2019-12-26 14:57:59');
+INSERT INTO `mk_log_usual` VALUES (1210092381834108930, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yLHVzZXIiLCJ1c2VyX2lkIjoiMSIsInJvbGVfaWQiOiIxLDIiLCJ1c2VyX25hbWUiOiJhZG1pbiIsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhY2NvdW50IjoiYWRtaW4iLCJjbGllbnRfaWQiOiJzeXN0ZW1JZCIsImV4cCI6MTU3NzM0NzA4MCwibmJmIjoxNTc3MzQzNDgwfQ.NOIRhh62SLt1c_MH8LNqX7zrWPOkpuv1xfXcZs6YnZc, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDgyODAsIm5iZiI6MTU3NzM0MzQ4MH0.2bC47lRWnLsV-a1cNcDDUpEphhta8Vk2rgjhTpARiR8, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator,user, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'tenantId=000000&account=admin&password=admin&grantType=password', NULL, '', '2019-12-26 14:58:01');
+INSERT INTO `mk_log_usual` VALUES (1210092400289046529, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yLHVzZXIiLCJ1c2VyX2lkIjoiMSIsInJvbGVfaWQiOiIxLDIiLCJ1c2VyX25hbWUiOiJhZG1pbiIsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhY2NvdW50IjoiYWRtaW4iLCJjbGllbnRfaWQiOiJzeXN0ZW1JZCIsImV4cCI6MTU3NzM0NzA4NSwibmJmIjoxNTc3MzQzNDg1fQ.w0iTLOzTQy5-UxGwPQ46qZR2ZfjIGyrDOt0YMLO6ldU, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDgyODUsIm5iZiI6MTU3NzM0MzQ4NX0.FkJTWswnyf1NihYA3yg4wDorcQM2qyCxELbMqiPmK8o, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator,user, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'tenantId=000000&account=admin&password=admin&grantType=password', NULL, '', '2019-12-26 14:58:05');
+INSERT INTO `mk_log_usual` VALUES (1210094917571936258, '000000', 'springbootDemoApplication', 'DESKTOP-MPI274I', '192.168.1.3:80', 'dev', 'info', '用户请求登录', 'R(code=200, success=true, data=AuthInfo(accessToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yLHVzZXIiLCJ1c2VyX2lkIjoiMSIsInJvbGVfaWQiOiIxLDIiLCJ1c2VyX25hbWUiOiJhZG1pbiIsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhY2NvdW50IjoiYWRtaW4iLCJjbGllbnRfaWQiOiJzeXN0ZW1JZCIsImV4cCI6MTU3NzM0NzY4NSwibmJmIjoxNTc3MzQ0MDg1fQ.JKxcLO_9jHQZQf9mb4JBwgB9uALcS0CrOwY1-g77vsk, tokenType=bearer, refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDg4ODUsIm5iZiI6MTU3NzM0NDA4NX0.9e_kx-Bp1ZlqTkr4NLswXsit5Cb682m9k_4Z8w3rF5M, avatar=https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png, authority=administrator,user, userName=管理员, account=admin, expiresIn=3600, license=powered by springCloud), msg=操作成功)', 'POST', '/springcloud-auth/token', '0:0:0:0:0:0:0:1', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36', 'grantType=refresh_token&refreshToken=eyJ0eXAiOiJKc29uV2ViVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic3lzdGVtSWQiLCJleHAiOjE1Nzc5NDgyODUsIm5iZiI6MTU3NzM0MzQ4NX0.FkJTWswnyf1NihYA3yg4wDorcQM2qyCxELbMqiPmK8o', NULL, 'admin', '2019-12-26 15:08:05');
+
+-- ----------------------------
 -- Table structure for mk_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_menu`;
 CREATE TABLE `mk_menu`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级菜单',
+  `tenant_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户ID',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单编号',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单名称',
   `alias` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单别名',
@@ -3636,102 +3660,102 @@ CREATE TABLE `mk_menu`  (
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   `is_leaf` int(2) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否是叶子节点，0是，1不是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 94 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_menu
 -- ----------------------------
-INSERT INTO `mk_menu` VALUES (1, 0, 'desk', '工作台', 'menu', '/desk', 'table', 1, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (2, 1, 'notice', '通知公告', 'menu', '/desk/notice', 'email', 1, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (3, 0, 'system', '系统管理', 'menu', '/system', 'list', 2, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (4, 3, 'user', '用户管理', 'menu', '/system/user', 'user', 1, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (5, 3, 'dept', '部门管理', 'menu', '/system/dept', 'peoples', 2, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (6, 3, 'dict', '字典管理', 'menu', '/system/dict', 'excel', 3, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (7, 3, 'menu', '菜单管理', 'menu', '/system/menu', 'tree-table', 4, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (8, 3, 'role', '角色管理', 'menu', '/permission/role', 'people', 5, 1, 0, 1, '', 1, 1);
-INSERT INTO `mk_menu` VALUES (9, 3, 'params', '参数管理', 'menu', '/system/param', '306', 6, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (10, 0, 'monitor', '系统监控', 'menu', '/monitor', 'international', 6, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (11, 10, 'doc', '接口文档', 'menu', 'http://localhost/doc.html', 'excel', 1, 1, 0, 2, '', 0, 0);
-INSERT INTO `mk_menu` VALUES (12, 10, 'admin', '服务治理', 'menu', 'http://localhost:7002', 'component', 2, 1, 0, 2, '', 0, 0);
-INSERT INTO `mk_menu` VALUES (13, 10, 'log', '日志管理', 'menu', '/monitor/log', 'form', 3, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (14, 13, 'log_usual', '通用日志', 'menu', '/monitor/log/usual', 'attention', 1, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (15, 13, 'log_api', '接口日志', 'menu', '/monitor/log/api', 'nested', 2, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (16, 13, 'log_error', '错误日志', 'menu', '/monitor/log/error', '404', 3, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (17, 0, 'tool', '研发工具', 'menu', '/tool', 'eye-open', 7, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (18, 17, 'codes', '代码生成', 'menu', '/tool/code', 'rainm', 10, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (19, 2, 'notice_add', '新增', 'add', '/desk/notice/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (20, 2, 'notice_edit', '修改', 'edit', '/desk/notice/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (21, 2, 'notice_delete', '删除', 'delete', '/api/springcloud-desk/notice/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (22, 2, 'notice_view', '查看', 'view', '/desk/notice/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (23, 4, 'user_add', '新增', 'add', '/system/user/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (24, 4, 'user_edit', '修改', 'edit', '/system/user/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (25, 4, 'user_delete', '删除', 'delete', '/api/springcloud-user/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (26, 4, 'user_role', '角色配置', 'role', NULL, 'user-add', 4, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (27, 4, 'user_reset', '密码重置', 'reset-password', '/api/springcloud-user/reset-password', 'retweet', 5, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (28, 4, 'user_view', '查看', 'view', '/system/user/view', 'file-text', 6, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (29, 5, 'dept_add', '新增', 'add', '/system/dept/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (30, 5, 'dept_edit', '修改', 'edit', '/system/dept/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (31, 5, 'dept_delete', '删除', 'delete', '/api/springcloud-system/dept/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (32, 5, 'dept_view', '查看', 'view', '/system/dept/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (33, 6, 'dict_add', '新增', 'add', '/system/dict/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (34, 6, 'dict_edit', '修改', 'edit', '/system/dict/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (35, 6, 'dict_delete', '删除', 'delete', '/api/springcloud-system/dict/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (36, 6, 'dict_view', '查看', 'view', '/system/dict/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (37, 7, 'menu_add', '新增', 'add', '/system/menu/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (38, 7, 'menu_edit', '修改', 'edit', '/system/menu/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (39, 7, 'menu_delete', '删除', 'delete', '/api/springcloud-system/menu/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (40, 7, 'menu_view', '查看', 'view', '/system/menu/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (41, 8, 'role_add', '新增', 'add', '/system/role/add', 'plus', 1, 2, 1, 1, NULL, 1, 0);
-INSERT INTO `mk_menu` VALUES (42, 8, 'role_edit', '修改', 'edit', '/system/role/edit', 'form', 2, 2, 2, 1, NULL, 1, 0);
-INSERT INTO `mk_menu` VALUES (43, 8, 'role_delete', '删除', 'delete', '/api/springcloud-system/role/remove', 'delete', 3, 2, 3, 1, NULL, 1, 0);
-INSERT INTO `mk_menu` VALUES (44, 8, 'role_view', '查看', 'view', '/system/role/view', 'file-text', 4, 2, 2, 1, NULL, 1, 0);
-INSERT INTO `mk_menu` VALUES (45, 9, 'param_add', '新增', 'add', '/system/param/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (46, 9, 'param_edit', '修改', 'edit', '/system/param/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (47, 9, 'param_delete', '删除', 'delete', '/api/springcloud-system/param/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (48, 9, 'param_view', '查看', 'view', '/system/param/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (49, 14, 'log_usual_view', '查看', 'view', '/monitor/log/usual/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (50, 15, 'log_api_view', '查看', 'view', '/monitor/log/api/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (51, 16, 'log_error_view', '查看', 'view', '/monitor/log/error/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (52, 18, 'code_add', '新增', 'add', '/tool/code/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (53, 18, 'code_edit', '修改', 'edit', '/tool/code/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (54, 18, 'code_delete', '删除', 'delete', '/api/springcloud-system/code/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (55, 18, 'code_view', '查看', 'view', '/tool/code/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (56, 3, 'tenant', '租户管理', 'menu', '/system/tenant', 'tree', 7, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (57, 56, 'tenant_add', '新增', 'add', '/system/tenant/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (58, 56, 'tenant_edit', '修改', 'edit', '/system/tenant/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (59, 56, 'tenant_delete', '删除', 'delete', '/api/springcloud-system/tenant/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (60, 56, 'tenant_view', '查看', 'view', '/system/tenant/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (61, 3, 'client', '应用管理', 'menu', '/system/client', 'exit-fullscreen', 8, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (62, 61, 'client_add', '新增', 'add', '/system/client/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (63, 61, 'client_edit', '修改', 'edit', '/system/client/edit', 'form', 2, 2, 2, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (64, 61, 'client_delete', '删除', 'delete', '/api/springcloud-system/client/remove', 'delete', 3, 2, 3, 3, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (65, 61, 'client_view', '查看', 'view', '/system/client/view', 'file-text', 4, 2, 2, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (66, 17, 'datasource', '数据源管理', 'menu', '/tool/datasource', 'carderror', 9, 1, 0, 1, '', 0, 1);
-INSERT INTO `mk_menu` VALUES (67, 66, 'datasource_add', '新增', 'add', '/tool/datasource/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (68, 66, 'datasource_edit', '修改', 'edit', '/tool/datasource/edit', 'form', 2, 2, 2, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (69, 66, 'datasource_delete', '删除', 'delete', '/api/springcloud-develop/datasource/remove', 'delete', 3, 2, 3, 3, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (70, 66, 'datasource_view', '查看', 'view', '/tool/datasource/view', 'file-text', 4, 2, 2, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (71, 17, 'dbinstance', '数据库管理', 'menu', '/tool/database', 'charge', 1, 1, 0, 1, '管理数据库的各种用户', 0, 0);
-INSERT INTO `mk_menu` VALUES (72, 17, 'tableinfo', '创建数据表', 'menu', '/tool/tables', 'chart', 2, 1, 0, 1, '对数据库中的表结构进行管理，创建并生成dml语句和ddl语句', 0, 0);
-INSERT INTO `mk_menu` VALUES (73, 0, 'permissions', '权限管理', 'menu', '/permission', 'documentation', 3, 1, 0, 1, '系统权限管理功能', 0, 0);
-INSERT INTO `mk_menu` VALUES (74, 73, 'role', '角色管理', 'menu', '/permission/role', 'theme', 1, 1, 0, 1, '系统角色管理', 0, 0);
-INSERT INTO `mk_menu` VALUES (75, 73, 'datarole', '数据权限', 'menu', '/permission/datarole', 'skin', 2, 1, 0, 1, '可访问数据的权限', 0, 0);
-INSERT INTO `mk_menu` VALUES (76, 73, 'interfacerole', '接口权限', 'menu', '/permission/interfacerole', 'eye', 3, 1, 0, 1, '系统的接口权限管理', 0, 0);
-INSERT INTO `mk_menu` VALUES (79, 0, 'dbinstance', '', 'menu', '/develop/dbinstance', NULL, 1, 1, 0, 1, NULL, 1, 0);
-INSERT INTO `mk_menu` VALUES (80, 71, 'dbinstance_add', '新增', 'add', '/develop/dbinstance/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (81, 71, 'dbinstance_edit', '修改', 'edit', '/develop/dbinstance/edit', 'form', 2, 2, 1, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (82, 71, 'dbinstance_delete', '删除', 'delete', '/api/springcloud-develop/dbinstance/remove', 'delete', 3, 2, 1, 3, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (83, 71, 'dbinstance_view', '查看', 'view', '/develop/dbinstance/view', 'file-text', 4, 2, 1, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (84, 0, 'tableinfo', '', 'menu', '/develop/tableinfo', NULL, 1, 1, 0, 1, NULL, 1, 0);
-INSERT INTO `mk_menu` VALUES (85, 72, 'tableinfo_add', '新增', 'add', '/develop/tableinfo/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (86, 72, 'tableinfo_edit', '修改', 'edit', '/develop/tableinfo/edit', 'form', 2, 2, 1, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (87, 72, 'tableinfo_delete', '删除', 'delete', '/api/springcloud-develop/tableinfo/remove', 'delete', 3, 2, 1, 3, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (88, 72, 'tableinfo_view', '导出DDL', 'view', '/develop/tableinfo/view', 'file-text', 4, 2, 1, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (89, 3, 'areas', '区域管理', 'menu', '/system/area', 'fullscreen', 5, 1, 0, 1, '区域管理管理省市 区数据 ', 0, 0);
-INSERT INTO `mk_menu` VALUES (90, 89, 'areas_add', '新增', 'add', '/system/area/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (91, 89, 'areas_edit', '修改', 'edit', '/system/area/edit', 'form', 2, 2, 1, 2, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (92, 89, 'areas_delete', '删除', 'delete', '/system/area/remove', 'delete', 3, 2, 1, 3, '', 0, 0);
-INSERT INTO `mk_menu` VALUES (93, 89, 'areas_view', '查看', 'view', '/system/area/view', 'file-text', 4, 2, 1, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (1, 0, '000000', 'desk', '工作台', 'menu', '/desk', 'table', 1, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (2, 1, '000000', 'notice', '通知公告', 'menu', '/desk/notice', 'email', 1, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (3, 0, '000000', 'system', '系统管理', 'menu', '/system', 'list', 2, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (4, 3, '000000', 'user', '用户管理', 'menu', '/system/user', 'user', 1, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (5, 3, '000000', 'dept', '部门管理', 'menu', '/system/dept', 'peoples', 2, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (6, 3, '000000', 'dict', '字典管理', 'menu', '/system/dict', 'excel', 3, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (7, 3, '000000', 'menu', '菜单管理', 'menu', '/system/menu', 'tree-table', 4, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (8, 3, '000000', 'role', '角色管理', 'menu', '/permission/role', 'people', 5, 1, 0, 1, '', 1, 1);
+INSERT INTO `mk_menu` VALUES (9, 3, '000000', 'params', '参数管理', 'menu', '/system/param', '306', 6, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (10, 0, '000000', 'monitor', '系统监控', 'menu', '/monitor', 'international', 6, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (11, 10, '000000', 'doc', '接口文档', 'menu', 'http://localhost/doc.html', 'excel', 1, 1, 0, 2, '', 0, 0);
+INSERT INTO `mk_menu` VALUES (12, 10, '000000', 'admin', '服务治理', 'menu', 'http://localhost:7002', 'component', 2, 1, 0, 2, '', 0, 0);
+INSERT INTO `mk_menu` VALUES (13, 10, '000000', 'log', '日志管理', 'menu', '/monitor/log', 'form', 3, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (14, 13, '000000', 'log_usual', '通用日志', 'menu', '/monitor/log/usual', 'attention', 1, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (15, 13, '000000', 'log_api', '接口日志', 'menu', '/monitor/log/api', 'nested', 2, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (16, 13, '000000', 'log_error', '错误日志', 'menu', '/monitor/log/error', '404', 3, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (17, 0, '000000', 'tool', '研发工具', 'menu', '/tool', 'eye-open', 7, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (18, 17, '000000', 'codes', '代码生成', 'menu', '/tool/code', 'rainm', 10, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (19, 2, '000000', 'notice_add', '新增', 'add', '/desk/notice/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (20, 2, '000000', 'notice_edit', '修改', 'edit', '/desk/notice/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (21, 2, '000000', 'notice_delete', '删除', 'delete', '/api/springcloud-desk/notice/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (22, 2, '000000', 'notice_view', '查看', 'view', '/desk/notice/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (23, 4, '000000', 'user_add', '新增', 'add', '/system/user/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (24, 4, '000000', 'user_edit', '修改', 'edit', '/system/user/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (25, 4, '000000', 'user_delete', '删除', 'delete', '/api/springcloud-user/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (26, 4, '000000', 'user_role', '角色配置', 'role', NULL, 'user-add', 4, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (27, 4, '000000', 'user_reset', '密码重置', 'reset-password', '/api/springcloud-user/reset-password', 'retweet', 5, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (28, 4, '000000', 'user_view', '查看', 'view', '/system/user/view', 'file-text', 6, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (29, 5, '000000', 'dept_add', '新增', 'add', '/system/dept/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (30, 5, '000000', 'dept_edit', '修改', 'edit', '/system/dept/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (31, 5, '000000', 'dept_delete', '删除', 'delete', '/api/springcloud-system/dept/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (32, 5, '000000', 'dept_view', '查看', 'view', '/system/dept/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (33, 6, '000000', 'dict_add', '新增', 'add', '/system/dict/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (34, 6, '000000', 'dict_edit', '修改', 'edit', '/system/dict/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (35, 6, '000000', 'dict_delete', '删除', 'delete', '/api/springcloud-system/dict/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (36, 6, '000000', 'dict_view', '查看', 'view', '/system/dict/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (37, 7, '000000', 'menu_add', '新增', 'add', '/system/menu/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (38, 7, '000000', 'menu_edit', '修改', 'edit', '/system/menu/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (39, 7, '000000', 'menu_delete', '删除', 'delete', '/api/springcloud-system/menu/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (40, 7, '000000', 'menu_view', '查看', 'view', '/system/menu/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (41, 8, '000000', 'role_add', '新增', 'add', '/system/role/add', 'plus', 1, 2, 1, 1, NULL, 1, 0);
+INSERT INTO `mk_menu` VALUES (42, 8, '000000', 'role_edit', '修改', 'edit', '/system/role/edit', 'form', 2, 2, 2, 1, NULL, 1, 0);
+INSERT INTO `mk_menu` VALUES (43, 8, '000000', 'role_delete', '删除', 'delete', '/api/springcloud-system/role/remove', 'delete', 3, 2, 3, 1, NULL, 1, 0);
+INSERT INTO `mk_menu` VALUES (44, 8, '000000', 'role_view', '查看', 'view', '/system/role/view', 'file-text', 4, 2, 2, 1, NULL, 1, 0);
+INSERT INTO `mk_menu` VALUES (45, 9, '000000', 'param_add', '新增', 'add', '/system/param/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (46, 9, '000000', 'param_edit', '修改', 'edit', '/system/param/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (47, 9, '000000', 'param_delete', '删除', 'delete', '/api/springcloud-system/param/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (48, 9, '000000', 'param_view', '查看', 'view', '/system/param/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (49, 14, '000000', 'log_usual_view', '查看', 'view', '/monitor/log/usual/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (50, 15, '000000', 'log_api_view', '查看', 'view', '/monitor/log/api/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (51, 16, '000000', 'log_error_view', '查看', 'view', '/monitor/log/error/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (52, 18, '000000', 'code_add', '新增', 'add', '/tool/code/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (53, 18, '000000', 'code_edit', '修改', 'edit', '/tool/code/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (54, 18, '000000', 'code_delete', '删除', 'delete', '/api/springcloud-system/code/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (55, 18, '000000', 'code_view', '查看', 'view', '/tool/code/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (56, 3, '000000', 'tenant', '租户管理', 'menu', '/system/tenant', 'tree', 7, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (57, 56, '000000', 'tenant_add', '新增', 'add', '/system/tenant/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (58, 56, '000000', 'tenant_edit', '修改', 'edit', '/system/tenant/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (59, 56, '000000', 'tenant_delete', '删除', 'delete', '/api/springcloud-system/tenant/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (60, 56, '000000', 'tenant_view', '查看', 'view', '/system/tenant/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (61, 3, '000000', 'client', '应用管理', 'menu', '/system/client', 'exit-fullscreen', 8, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (62, 61, '000000', 'client_add', '新增', 'add', '/system/client/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (63, 61, '000000', 'client_edit', '修改', 'edit', '/system/client/edit', 'form', 2, 2, 2, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (64, 61, '000000', 'client_delete', '删除', 'delete', '/api/springcloud-system/client/remove', 'delete', 3, 2, 3, 3, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (65, 61, '000000', 'client_view', '查看', 'view', '/system/client/view', 'file-text', 4, 2, 2, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (66, 17, '000000', 'datasource', '数据源管理', 'menu', '/tool/datasource', 'carderror', 9, 1, 0, 1, '', 0, 1);
+INSERT INTO `mk_menu` VALUES (67, 66, '000000', 'datasource_add', '新增', 'add', '/tool/datasource/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (68, 66, '000000', 'datasource_edit', '修改', 'edit', '/tool/datasource/edit', 'form', 2, 2, 2, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (69, 66, '000000', 'datasource_delete', '删除', 'delete', '/api/springcloud-develop/datasource/remove', 'delete', 3, 2, 3, 3, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (70, 66, '000000', 'datasource_view', '查看', 'view', '/tool/datasource/view', 'file-text', 4, 2, 2, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (71, 17, '000000', 'dbinstance', '数据库管理', 'menu', '/tool/database', 'charge', 1, 1, 0, 1, '管理数据库的各种用户', 0, 0);
+INSERT INTO `mk_menu` VALUES (72, 17, '000000', 'tableinfo', '创建数据表', 'menu', '/tool/tables', 'chart', 2, 1, 0, 1, '对数据库中的表结构进行管理，创建并生成dml语句和ddl语句', 0, 0);
+INSERT INTO `mk_menu` VALUES (73, 0, '000000', 'permissions', '权限管理', 'menu', '/permission', 'documentation', 3, 1, 0, 1, '系统权限管理功能', 0, 0);
+INSERT INTO `mk_menu` VALUES (74, 73, '000000', 'role', '角色管理', 'menu', '/permission/role', 'theme', 1, 1, 0, 1, '系统角色管理', 0, 0);
+INSERT INTO `mk_menu` VALUES (75, 73, '000000', 'datarole', '数据权限', 'menu', '/permission/datarole', 'skin', 2, 1, 0, 1, '可访问数据的权限', 0, 0);
+INSERT INTO `mk_menu` VALUES (76, 73, '000000', 'interfacerole', '接口权限', 'menu', '/permission/interfacerole', 'eye', 3, 1, 0, 1, '系统的接口权限管理', 0, 0);
+INSERT INTO `mk_menu` VALUES (79, 0, '000000', 'dbinstance', '', 'menu', '/develop/dbinstance', NULL, 1, 1, 0, 1, NULL, 1, 0);
+INSERT INTO `mk_menu` VALUES (80, 71, '000000', 'dbinstance_add', '新增', 'add', '/develop/dbinstance/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (81, 71, '000000', 'dbinstance_edit', '修改', 'edit', '/develop/dbinstance/edit', 'form', 2, 2, 1, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (82, 71, '000000', 'dbinstance_delete', '删除', 'delete', '/api/springcloud-develop/dbinstance/remove', 'delete', 3, 2, 1, 3, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (83, 71, '000000', 'dbinstance_view', '查看', 'view', '/develop/dbinstance/view', 'file-text', 4, 2, 1, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (84, 0, '000000', 'tableinfo', '', 'menu', '/develop/tableinfo', NULL, 1, 1, 0, 1, NULL, 1, 0);
+INSERT INTO `mk_menu` VALUES (85, 72, '000000', 'tableinfo_add', '新增', 'add', '/develop/tableinfo/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (86, 72, '000000', 'tableinfo_edit', '修改', 'edit', '/develop/tableinfo/edit', 'form', 2, 2, 1, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (87, 72, '000000', 'tableinfo_delete', '删除', 'delete', '/api/springcloud-develop/tableinfo/remove', 'delete', 3, 2, 1, 3, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (88, 72, '000000', 'tableinfo_view', '导出DDL', 'view', '/develop/tableinfo/view', 'file-text', 4, 2, 1, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (89, 3, '000000', 'areas', '区域管理', 'menu', '/system/area', 'fullscreen', 5, 1, 0, 1, '区域管理管理省市 区数据 ', 0, 0);
+INSERT INTO `mk_menu` VALUES (90, 89, '000000', 'areas_add', '新增', 'add', '/system/area/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (91, 89, '000000', 'areas_edit', '修改', 'edit', '/system/area/edit', 'form', 2, 2, 1, 2, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (92, 89, '000000', 'areas_delete', '删除', 'delete', '/system/area/remove', 'delete', 3, 2, 1, 3, '', 0, 0);
+INSERT INTO `mk_menu` VALUES (93, 89, '000000', 'areas_view', '查看', 'view', '/system/area/view', 'file-text', 4, 2, 1, 2, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for mk_notice
@@ -3806,6 +3830,7 @@ CREATE TABLE `mk_role`  (
 -- ----------------------------
 INSERT INTO `mk_role` VALUES (1, '000000', 0, '超级管理员', 1, 'administrator', 0, 1);
 INSERT INTO `mk_role` VALUES (2, '000000', 0, '用户', 2, 'user', 0, 1);
+INSERT INTO `mk_role` VALUES (17, '058431', 0, '管理员', 2, 'admin', 0, 0);
 
 -- ----------------------------
 -- Table structure for mk_role_menu
@@ -3816,7 +3841,7 @@ CREATE TABLE `mk_role_menu`  (
   `menu_id` int(11) NULL DEFAULT NULL COMMENT '菜单id',
   `role_id` int(11) NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 645 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 706 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_role_menu
@@ -3953,6 +3978,6 @@ CREATE TABLE `mk_user`  (
 -- ----------------------------
 -- Records of mk_user
 -- ----------------------------
-INSERT INTO `mk_user` VALUES (1, '000000', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', '管理员', '管理员', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 'admin@xxxxxx.vip', '22233322', '2018-08-08 00:00:00', 1, '1', '1', 1, '2018-08-08 00:00:00', 1, '2018-08-08 00:00:00', 1, 0, '我是超级管理员');
+INSERT INTO `mk_user` VALUES (1, '000000', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', '管理员', '管理员', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 'admin@xxxxxx.vip', '22233322', '2018-08-08 00:00:00', 1, '1,2', '1', 1, '2018-08-08 00:00:00', 1, '2019-12-26 14:37:47', 1, 0, '我是超级管理员');
 
 SET FOREIGN_KEY_CHECKS = 1;
