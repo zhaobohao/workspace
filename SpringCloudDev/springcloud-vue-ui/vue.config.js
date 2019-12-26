@@ -32,7 +32,8 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    }
+    },
+    proxy: 'http://localhost' // 代理到gateway的地址
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -89,7 +90,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

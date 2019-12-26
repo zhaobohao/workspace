@@ -3423,10 +3423,10 @@ CREATE TABLE `mk_code`  (
 -- ----------------------------
 -- Records of mk_code
 -- ----------------------------
-INSERT INTO `mk_code` VALUES (1, 1, 'springcloud-demo', '通知公告', 'mk_notice', 'mk_', 'id', 'org.springclouddev.desktop', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
-INSERT INTO `mk_code` VALUES (9, 1, 'springcloud-develop', '数据库管理', 'db_db_instance', 'db_', 'id', 'org.springclouddev.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 1);
-INSERT INTO `mk_code` VALUES (10, 1, 'springcloud-develop', '表元数据管理', 'db_table_info', 'db_', 'id', 'org.springclouddev.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
-INSERT INTO `mk_code` VALUES (11, 1, 'springcloud-system', '行政地区模块', 'mk_area', 'mk_', 'id', 'org.springclouddev.system', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
+INSERT INTO `mk_code` VALUES (1, 1, 'springcloud-demo', '通知公告', 'mk_notice', 'mk_', 'id', 'org.springbootdev.desktop', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
+INSERT INTO `mk_code` VALUES (9, 1, 'springcloud-develop', '数据库管理', 'db_db_instance', 'db_', 'id', 'org.springbootdev.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 1);
+INSERT INTO `mk_code` VALUES (10, 1, 'springcloud-develop', '表元数据管理', 'db_table_info', 'db_', 'id', 'org.springbootdev.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
+INSERT INTO `mk_code` VALUES (11, 1, 'springcloud-system', '行政地区模块', 'mk_area', 'mk_', 'id', 'org.springbootdev.system', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
 
 -- ----------------------------
 -- Table structure for mk_datasource

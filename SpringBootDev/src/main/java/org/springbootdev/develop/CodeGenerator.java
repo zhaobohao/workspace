@@ -22,7 +22,7 @@ public class CodeGenerator {
 	/**
 	 * 代码生成的包名
 	 */
-	public static String PACKAGE_NAME = "org.springclouddev.system";
+	public static String PACKAGE_NAME = "org.springbootdev.system";
 	/**
 	 * 前端代码生成所属系统
 	 */

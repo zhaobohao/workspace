@@ -50,7 +50,7 @@ public class SpringBootDemoCodeGenerator {
 	/**
 	 * 代码生成的包名
 	 */
-	private String packageName = "org.springclouddev.test";
+	private String packageName = "org.springbootdev.test";
 	/**
 	 * 代码后端生成的地址
 	 */
@@ -168,17 +168,17 @@ public class SpringBootDemoCodeGenerator {
 			strategy.setExclude(excludeTables);
 		}
 		if (hasSuperEntity) {
-			strategy.setSuperEntityClass("org.springclouddev.core.mp.base.BaseEntity");
+			strategy.setSuperEntityClass("org.springbootdev.core.mp.base.BaseEntity");
 			strategy.setSuperEntityColumns(superEntityColumns);
-			strategy.setSuperMapperClass("org.springclouddev.core.mp.base.SuperMapper");
-			strategy.setSuperServiceClass("org.springclouddev.core.mp.base.BaseService");
-			strategy.setSuperServiceImplClass("org.springclouddev.core.mp.base.BaseServiceImpl");
+			strategy.setSuperMapperClass("org.springbootdev.core.mp.base.SuperMapper");
+			strategy.setSuperServiceClass("org.springbootdev.core.mp.base.BaseService");
+			strategy.setSuperServiceImplClass("org.springbootdev.core.mp.base.BaseServiceImpl");
 		} else {
 			strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
 			strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
 		}
 		// 自定义 controller 父类
-		strategy.setSuperControllerClass("org.springclouddev.core.boot.ctrl.AbstractController");
+		strategy.setSuperControllerClass("org.springbootdev.core.boot.ctrl.AbstractController");
 		strategy.setEntityBuilderModel(false);
 		strategy.setEntityLombokModel(true);
 		strategy.setControllerMappingHyphenStyle(true);
