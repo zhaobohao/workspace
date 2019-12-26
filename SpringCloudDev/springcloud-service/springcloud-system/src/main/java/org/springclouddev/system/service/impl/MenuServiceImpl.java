@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.secure.SystemUser;
+import org.springclouddev.core.secure.utils.SecureUtil;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.ForestNodeMerger;
 import org.springclouddev.core.tool.support.Kv;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.dto.MenuDTO;
+import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Menu;
 import org.springclouddev.system.entity.RoleMenu;
 import org.springclouddev.system.mapper.MenuMapper;
@@ -91,6 +93,20 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		List<Kv> list = new ArrayList<>();
 		routes.forEach(route -> list.add(Kv.init().set(route.getPath(), Kv.init().set("authority", Func.toStrArray(route.getAlias())))));
 		return list;
+	}
+
+	@Override
+	public boolean submit(Menu menu) {
+		if(null==menu.getId())
+		{
+			menu.setIsLeaf(0);
+			//维护父组件的isleaf字段
+			Menu parent=new Menu();
+			parent.setId(menu.getParentId());
+			parent.setIsLeaf(1);
+			updateById(parent);
+		}
+		return saveOrUpdate(menu);
 	}
 
 }

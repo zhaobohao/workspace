@@ -1,4 +1,15 @@
-
+#set($istree=false)
+#foreach($field in $!{table.fields})
+#if($!{field.name}=="parent_id")
+#set($istree=true)
+#end
+#end
+#set($isTenant=false)
+#foreach($field in $!{table.fields})
+#if($!{field.name}=="tenant_id")
+#set($isTenant=true)
+#end
+#end
 package $!{package.Entity};
 
 #foreach($pkg in $!{table.importPackages})
@@ -9,6 +20,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 #end
+
 #if($!{swagger2})
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,7 +46,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "$!{entity}对象", description = #if ("$!{table.comment}"=="")"$!{entity}对象"#else"$!{table.comment}"#end)
 #end
 #if($!{superEntityClass})
-public class $!{entity} extends $!{superEntityClass}#if($!{activeRecord})<$!{entity}>#end {
+public class $!{entity} extends $!{superEntityClass}#if($!{activeRecord})<$!{entity}>#end#if($!{istree} && $!{isTenant}) implements TreeEntity,TenantEntity#elseif($!{istree}) implements TreeEntity #elseif($!{isTenant}) implements TenantEntity #end  {
 #elseif($!{activeRecord})
 @Accessors(chain = true)
 public class $!{entity} extends Model<$!{entity}> {

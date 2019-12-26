@@ -2,21 +2,21 @@
 package org.springclouddev.core.mp.base;
 
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
 /**
  * 租户基础实体类
  *
  * @author zhaobohao
  */
-@Data
-public class TenantEntity extends BaseEntity {
+public interface TenantEntity   {
+	/**
+	 * 获取租户的tenantId值
+	 * @return
+	 */
+	public String getTenantId();
 
 	/**
-	 * 租户ID
+	 * 设置租户的tenantId
+	 * @param tenantId
 	 */
-	@ApiModelProperty(value = "租户ID")
-	private String tenantId;
-
+	public void setTenantId(String tenantId);
 }

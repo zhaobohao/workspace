@@ -2,6 +2,7 @@
 package org.springbootdev.develop.support;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.PostgreSqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
@@ -161,6 +163,20 @@ public class SpringBootDemoCodeGenerator {
 		strategy.setNaming(NamingStrategy.underline_to_camel);
 		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 		strategy.setTablePrefix(tablePrefix);
+		// 设置自动填充字段
+		List<TableFill> tableFillList=new LinkedList<>();
+		tableFillList.add(new TableFill("create_user", FieldFill.INSERT));
+		tableFillList.add(new TableFill("create_time", FieldFill.INSERT));
+		tableFillList.add(new TableFill("update_user", FieldFill.UPDATE));
+		tableFillList.add(new TableFill("update_time", FieldFill.UPDATE));
+		tableFillList.add(new TableFill("status", FieldFill.INSERT));
+		tableFillList.add(new TableFill("is_deleted", FieldFill.INSERT));
+		tableFillList.add(new TableFill("tenant_id", FieldFill.INSERT_UPDATE));
+		tableFillList.add(new TableFill("is_leaf", FieldFill.INSERT));
+		tableFillList.add(new TableFill("parent_id", FieldFill.INSERT));
+		tableFillList.add(new TableFill("sort", FieldFill.INSERT));
+
+		strategy.setTableFillList(tableFillList);
 		if (includeTables.length > 0) {
 			strategy.setInclude(includeTables);
 		}

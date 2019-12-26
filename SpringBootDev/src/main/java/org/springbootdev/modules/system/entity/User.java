@@ -1,12 +1,11 @@
 
 package org.springbootdev.modules.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springbootdev.core.mp.base.BaseEntity;
 import org.springbootdev.core.mp.base.TenantEntity;
 
 import java.util.Date;
@@ -19,7 +18,7 @@ import java.util.Date;
 @Data
 @TableName("mk_user")
 @EqualsAndHashCode(callSuper = true)
-public class User extends TenantEntity {
+public class User extends BaseEntity implements TenantEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +28,12 @@ public class User extends TenantEntity {
 	@TableId(value = "id", type = IdType.AUTO)
 	@ApiModelProperty(value = "主键id")
 	private Long id;
-
+	/**
+	 * 租户ID
+	 */
+	@ApiModelProperty(value = "租户ID")
+	@TableField(fill = FieldFill.INSERT)
+	private String tenantId;
 	/**
 	 * 账号
 	 */

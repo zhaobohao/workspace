@@ -1,13 +1,12 @@
 
 package org.springclouddev.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springclouddev.core.mp.base.TenantEntity;
+import org.springclouddev.core.mp.base.TreeEntity;
 
 import java.io.Serializable;
 
@@ -19,7 +18,7 @@ import java.io.Serializable;
 @Data
 @TableName("mk_dept")
 @ApiModel(value = "Dept对象", description = "Dept对象")
-public class Dept implements Serializable {
+public class Dept implements Serializable, TenantEntity, TreeEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +33,7 @@ public class Dept implements Serializable {
 	 * 租户ID
 	 */
 	@ApiModelProperty(value = "租户ID")
+	@TableField(fill = FieldFill.INSERT)
 	private String tenantId;
 
 	/**
@@ -41,6 +41,18 @@ public class Dept implements Serializable {
 	 */
 	@ApiModelProperty(value = "父主键")
 	private Long parentId;
+
+	/**
+	 * 排序
+	 */
+	@ApiModelProperty(value = "排序")
+	private Integer sort;
+
+	/**
+	 * 是否是叶子节点,0是，1不是。
+	 */
+	@ApiModelProperty(value = "是否是叶子节点,0是，1不是。")
+	protected Integer isLeaf;
 
 	/**
 	 * 部门名
@@ -55,12 +67,6 @@ public class Dept implements Serializable {
 	private String fullName;
 
 	/**
-	 * 排序
-	 */
-	@ApiModelProperty(value = "排序")
-	private Integer sort;
-
-	/**
 	 * 备注
 	 */
 	@ApiModelProperty(value = "备注")
@@ -72,10 +78,5 @@ public class Dept implements Serializable {
 	@TableLogic
 	@ApiModelProperty(value = "是否已删除")
 	private Integer isDeleted;
-	/**
-	 * 是否是叶子节点,0是，1不是。
-	 */
-	@ApiModelProperty(value = "是否是叶子节点,0是，1不是。")
-	protected Integer isLeaf;
 
 }

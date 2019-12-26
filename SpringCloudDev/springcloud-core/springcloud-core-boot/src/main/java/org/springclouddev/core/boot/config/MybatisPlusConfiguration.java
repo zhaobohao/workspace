@@ -1,6 +1,7 @@
 
 package org.springclouddev.core.boot.config;
 
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.incrementer.H2KeyGenerator;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springclouddev.core.mp.base.MyLogicSqlInjector;
+import org.springclouddev.core.mp.base.MyMetaObjectHandler;
 import org.springclouddev.core.mp.base.TableNameHandleSample;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,6 +57,15 @@ public class MybatisPlusConfiguration {
 		return new MyLogicSqlInjector();
 	}
 
+	/**
+	 * 自定义 SqlInjector
+	 * 里面包含自定义的全局方法
+	 * 需要在superMapper里声明，才能够使用。
+	 */
+	@Bean
+	public MetaObjectHandler myMetaObjectHandler() {
+		return new MyMetaObjectHandler();
+	}
 
 	/**
 	 * sequence主键，需要配置一个主键生成器

@@ -35,35 +35,7 @@ public class BaseServiceImpl<M extends SuperMapper<T>, T extends BaseEntity> ext
 	}
 
 	@Override
-	public boolean save(T entity) {
-		SystemUser user = SecureUtil.getUser();
-		if (user != null) {
-			entity.setCreateUser(user.getUserId());
-			entity.setUpdateUser(user.getUserId());
-		}
-		Date now = DateUtil.now();
-		entity.setCreateTime(now);
-		entity.setUpdateTime(now);
-		if (entity.getStatus() == null) {
-			entity.setStatus(ToolConstant.DB_STATUS_NORMAL);
-		}
-		entity.setIsDeleted(ToolConstant.DB_NOT_DELETED);
-		return super.save(entity);
-	}
-
-	@Override
-	public boolean updateById(T entity) {
-		SystemUser user = SecureUtil.getUser();
-		if (user != null) {
-			entity.setUpdateUser(user.getUserId());
-		}
-		entity.setUpdateTime(DateUtil.now());
-		return super.updateById(entity);
-	}
-
-	@Override
 	public boolean deleteLogic(@NotEmpty List<Long> ids) {
 		return super.removeByIds(ids);
 	}
-
 }

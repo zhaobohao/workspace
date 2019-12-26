@@ -85,7 +85,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	}
 
 	@Override
-	public boolean updatePassword(Integer userId, String oldPassword, String newPassword, String newPassword1) {
+	public boolean updatePassword(Long userId, String oldPassword, String newPassword, String newPassword1) {
 		User user = getById(userId);
 		if (!newPassword.equals(newPassword1)) {
 			throw new ServiceException("请输入正确的确认密码!");

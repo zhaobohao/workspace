@@ -73,4 +73,10 @@ public interface IMenuService extends IService<Menu> {
 	 */
 	List<Kv> authRoutes(SystemUser user);
 
+	/**
+	 * 新增或修改
+	 * @param menu
+	 * @return
+	 */
+	boolean submit(Menu menu);
 }

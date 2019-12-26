@@ -3,6 +3,9 @@ package org.springclouddev.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springclouddev.core.secure.SystemUser;
+import org.springclouddev.core.secure.utils.SecureUtil;
+import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.ForestNodeMerger;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Dept;
@@ -33,7 +36,6 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
 	@Override
 	public boolean submit(Dept dept) {
-
 		if(null==dept.getId())
 		{
 			dept.setIsLeaf(0);

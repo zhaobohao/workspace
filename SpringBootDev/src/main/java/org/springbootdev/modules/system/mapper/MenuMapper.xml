@@ -6,6 +6,7 @@
     <resultMap id="menuResultMap" type="org.springbootdev.modules.system.entity.Menu">
         <id column="id" property="id"/>
         <result column="code" property="code"/>
+        <result column="tenant_id" property="tenantId"/>
         <result column="parent_id" property="parentId"/>
         <result column="name" property="name"/>
         <result column="alias" property="alias"/>
@@ -30,7 +31,7 @@
     <!-- 通用查询结果列 -->
     <sql id="baseColumnList">
         select
-            id, code, parent_id, name, alias, path, source, sort, category, action, is_open, remark, is_deleted
+            id, tenant_id, code, parent_id, name, alias, path, source, sort, category, action, is_open, remark, is_deleted
     </sql>
 
     <select id="selectMenuPage" resultMap="menuResultMap">

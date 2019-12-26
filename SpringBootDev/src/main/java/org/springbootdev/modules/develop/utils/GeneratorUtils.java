@@ -34,7 +34,7 @@ public class GeneratorUtils {
 				sw.append(column.getName()).append("   ")
 					.append(column.getTypeKey())
 					.append("(").append(column.getTypeValue())
-					.append("varchar2".equals(column.getTypeKey()) ? " CHAR" : " ")
+					.append("varchar2".equalsIgnoreCase(column.getTypeKey()) ? " CHAR" : " ")
 					.append(") ")
 					.append(column.getIsEmpty() == 2 ? "NOT NULL" : "")
 					.append(StringUtils.isEmpty(column.getDefaultValue()) ? "" : " default ")
@@ -50,7 +50,7 @@ public class GeneratorUtils {
 			//创建表的同义词
 			sw.append("create or replace public synonym ").append(table.getName()).append(" for ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append(";\n");
 			//先创建索引，在创建主键
-			sw.append("create unique index PK_").append(table.getName()).append("_ID").append(" on ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append("(").append(table.getName()).append("Id").append(");\n");
+			sw.append("create unique index PK_").append(table.getName()).append("_ID").append(" on ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append("(").append(table.getName()).append("Id").append(")INITRANS 16;\n");
 			sw.append("alter table ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append(" add constraint PK_").append(table.getName()).append("_ID").append(" primary key(").append(table.getName()).append("Id) using index ").append("PK_").append(table.getName()).append("_ID;\n");
 			//创建注解
 			sw.append("comment on table ").append(table.getName()).append(" is ").append("'").append(table.getComment()).append("';\n");

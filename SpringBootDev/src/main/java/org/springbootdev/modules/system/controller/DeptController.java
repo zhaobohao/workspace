@@ -108,11 +108,7 @@ public class DeptController extends AbstractController {
     @PostMapping("/submit")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "新增或修改", notes = "传入dept")
-    public R submit(@Valid @RequestBody Dept dept, SystemUser user) {
-        if (Func.isEmpty(dept.getId())) {
-            dept.setTenantId(user.getTenantId());
-        }
-
+    public R submit(@Valid @RequestBody Dept dept, SystemUser systemUser) {
         if (deptService.submit(dept)) {
             return R.data(dept);
         } else {

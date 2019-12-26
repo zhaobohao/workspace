@@ -1,8 +1,10 @@
-
 package org.springbootdev.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springbootdev.core.secure.SystemUser;
+import org.springbootdev.core.secure.utils.SecureUtil;
+import org.springbootdev.core.tool.constant.ToolConstant;
 import org.springbootdev.core.tool.node.ForestNodeMerger;
 import org.springbootdev.modules.system.entity.Dept;
 import org.springbootdev.modules.system.mapper.DeptMapper;
@@ -32,7 +34,6 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
 	@Override
 	public boolean submit(Dept dept) {
-
 		if(null==dept.getId())
 		{
 			dept.setIsLeaf(0);

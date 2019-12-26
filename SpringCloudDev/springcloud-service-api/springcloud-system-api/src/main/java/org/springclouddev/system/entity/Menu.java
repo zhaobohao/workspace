@@ -1,13 +1,12 @@
 
 package org.springclouddev.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springclouddev.core.mp.base.TenantEntity;
+import org.springclouddev.core.mp.base.TreeEntity;
 import org.springclouddev.core.tool.utils.Func;
 
 import java.io.Serializable;
@@ -20,9 +19,9 @@ import java.io.Serializable;
 @Data
 @TableName("mk_menu")
 @ApiModel(value = "Menu对象", description = "Menu对象")
-public class Menu implements Serializable {
+public class Menu implements Serializable, TenantEntity, TreeEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 123449871335649873L;
 
 	/**
 	 * 主键
@@ -31,11 +30,31 @@ public class Menu implements Serializable {
 	@TableId(value = "id", type = IdType.AUTO)
 	private Long id;
 
+
+	/**
+	 * 租户ID
+	 */
+	@ApiModelProperty(value = "租户ID")
+	@TableField(fill = FieldFill.INSERT)
+	private String tenantId;
+
 	/**
 	 * 菜单父主键
 	 */
 	@ApiModelProperty(value = "菜单父主键")
 	private Long parentId;
+
+	/**
+	 * 是否是叶子节点,0是，1不是。
+	 */
+	@ApiModelProperty(value = "是否是叶子节点,0是，1不是。")
+	protected Integer isLeaf;
+
+	/**
+	 * 排序
+	 */
+	@ApiModelProperty(value = "排序")
+	private Integer sort;
 
 	/**
 	 * 菜单编号
@@ -68,12 +87,6 @@ public class Menu implements Serializable {
 	private String source;
 
 	/**
-	 * 排序
-	 */
-	@ApiModelProperty(value = "排序")
-	private Integer sort;
-
-	/**
 	 * 菜单类型
 	 */
 	@ApiModelProperty(value = "菜单类型")
@@ -103,11 +116,6 @@ public class Menu implements Serializable {
 	@TableLogic
 	@ApiModelProperty(value = "是否已删除")
 	private Integer isDeleted;
-	/**
-	 * 是否是叶子节点,0是，1不是。
-	 */
-	@ApiModelProperty(value = "是否是叶子节点,0是，1不是。")
-	protected Integer isLeaf;
 
 	@Override
 	public boolean equals(Object obj) {

@@ -1,13 +1,12 @@
 
 package org.springclouddev.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springclouddev.core.mp.base.TenantEntity;
+import org.springclouddev.core.mp.base.TreeEntity;
 
 import java.io.Serializable;
 
@@ -19,7 +18,7 @@ import java.io.Serializable;
 @Data
 @TableName("mk_role")
 @ApiModel(value = "Role对象", description = "Role对象")
-public class Role implements Serializable {
+public class Role implements Serializable, TenantEntity, TreeEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +33,7 @@ public class Role implements Serializable {
 	 * 租户ID
 	 */
 	@ApiModelProperty(value = "租户ID")
+	@TableField(fill = FieldFill.INSERT)
 	private String tenantId;
 
 	/**

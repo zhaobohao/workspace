@@ -1,4 +1,9 @@
-
+#set($istree=false)
+#foreach($field in $!{table.fields})
+#if($!{field.name}=="parent_id")
+#set($istree=true)
+#end
+#end
 package $!{package.Controller};
 
 import io.swagger.annotations.Api;
@@ -189,8 +194,7 @@ public R<List<$!{entity}>> select() {
 		return R.data(list);
 		}
 
-#foreach($field in $!{table.fields})
-    #if($!{field.name}=="parent_id")
+#if($istree)
     /**
         * 获取菜单树形结构,
         * 如果parentId为空，刚返回所有的数据
@@ -202,7 +206,6 @@ public R<List<$!{entity}>> select() {
         List<$!{entity}VO> tree = $!{table.entityPath}Service.tree(parentId);
         return R.data(tree);
         }
-    #end
 #end
 
 

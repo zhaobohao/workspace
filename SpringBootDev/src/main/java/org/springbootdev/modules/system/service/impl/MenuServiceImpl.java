@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springbootdev.core.secure.SystemUser;
+import org.springbootdev.core.secure.utils.SecureUtil;
 import org.springbootdev.core.tool.constant.ToolConstant;
 import org.springbootdev.core.tool.node.ForestNodeMerger;
 import org.springbootdev.core.tool.support.Kv;
@@ -91,6 +92,20 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		List<Kv> list = new ArrayList<>();
 		routes.forEach(route -> list.add(Kv.init().set(route.getPath(), Kv.init().set("authority", Func.toStrArray(route.getAlias())))));
 		return list;
+	}
+
+	@Override
+	public boolean submit(Menu menu) {
+		if(null==menu.getId())
+		{
+			menu.setIsLeaf(0);
+			//维护父组件的isleaf字段
+			Menu parent=new Menu();
+			parent.setId(menu.getParentId());
+			parent.setIsLeaf(1);
+			updateById(parent);
+		}
+		return saveOrUpdate(menu);
 	}
 
 }

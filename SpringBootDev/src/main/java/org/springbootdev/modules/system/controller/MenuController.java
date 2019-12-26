@@ -95,7 +95,7 @@ public class MenuController extends AbstractController {
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "新增或修改", notes = "传入menu")
     public R submit(@Valid @RequestBody Menu menu) {
-        if (menuService.saveOrUpdate(menu)) {
+		if (menuService.submit(menu)) {
             return R.data(menu);
         } else {
             return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, menu, ToolConstant.DEFAULT_FAILURE_MESSAGE);

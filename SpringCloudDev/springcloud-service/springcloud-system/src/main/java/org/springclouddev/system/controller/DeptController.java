@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.boot.ctrl.AbstractController;
+import org.springclouddev.core.boot.tenant.TenantConstant;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
@@ -108,11 +109,7 @@ public class DeptController extends AbstractController {
     @PostMapping("/submit")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "新增或修改", notes = "传入dept")
-    public R submit(@Valid @RequestBody Dept dept, SystemUser user) {
-        if (Func.isEmpty(dept.getId())) {
-            dept.setTenantId(user.getTenantId());
-        }
-
+    public R submit(@Valid @RequestBody Dept dept, SystemUser systemUser) {
         if (deptService.submit(dept)) {
             return R.data(dept);
         } else {

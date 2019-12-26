@@ -78,4 +78,17 @@ public interface ToolConstant {
 	 */
 	String DEFAULT_UNAUTHORIZED_MESSAGE = "签名认证失败";
 
+	/**
+	 * 默认是否是叶子结点0是，1不是
+	 */
+	Integer DEFAULT_IS_LEAF=0;
+	Integer DEFAULT_IS_NOT_LEAF=1;
+	/**
+	 * 树形结构根结点的父id
+	 */
+	Integer DEFAULT_TREE_ROOT_PARENT_ID=0;
+	/**
+	 * 默认排序字段
+	 */
+	Integer DEFAULT_SORT=0;
 }

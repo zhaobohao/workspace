@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
  *
  * @author zhaobohao
  */
-@Slf4j
 @Component
 public class LogClientFallback implements ILogClient {
 
