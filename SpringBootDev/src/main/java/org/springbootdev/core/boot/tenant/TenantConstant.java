@@ -9,8 +9,8 @@ package org.springbootdev.core.boot.tenant;
 public interface TenantConstant {
 
 	/**
-	 * 默认租户ID
+	 * 默认租户ID,防止程序 出错.默认为一个nobody的租户
 	 */
-	String DEFAULT_TENANT_ID = "000000";
+	String DEFAULT_TENANT_ID = "0000001";
 
 }

@@ -95,9 +95,9 @@ public class DeptController extends AbstractController {
     public R<List<DeptVO>> tree(String tenantId, String parentId, SystemUser systemUser) {
         List<DeptVO> tree = new ArrayList<DeptVO>();
         if (RoleConstant.HAS_ROLE_ADMIN.equals(systemUser.getRoleName())) {
-            tree = deptService.tree(null, parentId);
+            tree = deptService.tree( parentId);
         } else {
-            tree = deptService.tree(Func.toStr(tenantId, systemUser.getTenantId()), parentId);
+            tree = deptService.tree( parentId);
         }
         return R.data(tree);
     }

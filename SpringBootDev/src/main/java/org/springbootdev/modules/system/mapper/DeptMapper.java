@@ -26,9 +26,8 @@ public interface DeptMapper extends SuperMapper<Dept> {
 
 	/**
 	 *  获取树形节点,获取指定parentId这一层的数据
-	 * @param tenantId
 	 * @param parentId 如果为空，返回所有树形结构数据
 	 * @return
 	 */
-	List<DeptVO> tree(String tenantId, String parentId);
+	List<DeptVO> tree( String parentId);
 }

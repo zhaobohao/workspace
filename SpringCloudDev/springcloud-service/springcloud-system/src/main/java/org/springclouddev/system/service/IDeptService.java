@@ -28,10 +28,10 @@ public interface IDeptService extends IService<Dept> {
 	/**
 	 * 树形结构
 	 *
-	 * @param tenantId
+	 * @param parentId
 	 * @return
 	 */
-	List<DeptVO> tree(String tenantId,String parentId);
+	List<DeptVO> tree(String parentId);
 	/**
 	 * 新增或修改
 	 * @param dept

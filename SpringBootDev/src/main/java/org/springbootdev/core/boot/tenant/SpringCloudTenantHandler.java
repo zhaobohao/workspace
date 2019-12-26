@@ -54,7 +54,7 @@ public class SpringCloudTenantHandler implements TenantHandler {
 				(properties.getTables().size() > 0 && properties.getTables().contains(tableName))
 					|| properties.getMkTable().contains(tableName)
 			)
-				&& StringUtil.isNotBlank(SecureUtil.getTenantId())
+				&& StringUtil.isNotBlank(SecureUtil.getTenantId()) && !"000000".equals(SecureUtil.getTenantId())
 		);
 	}
 }

@@ -27,10 +27,10 @@ public interface RoleMapper extends SuperMapper<Role> {
 	/**
 	 * 获取树形节点
 	 *
-	 * @param tenantId
+	 * @param parentId
 	 * @param excludeRole
 	 * @return
 	 */
-	List<RoleVO> tree(String tenantId, String excludeRole,String parentId);
+	List<RoleVO> tree( String excludeRole,String parentId);
 
 }
