@@ -8,12 +8,12 @@
   import {
     mapGetters
   } from 'vuex'
-
   export default {
     name: 'Dashboard',
     components: {},
     data() {
       return {
+
         currentRole: 'adminDashboard'
       }
     },
@@ -22,10 +22,16 @@
         'roles'
       ])
     },
+    mounted() {
+
+    },
     created() {
       if (!this.roles.includes('admin')) {
         this.currentRole = 'editorDashboard'
       }
+    },
+    methods: {
+
     }
   }
 

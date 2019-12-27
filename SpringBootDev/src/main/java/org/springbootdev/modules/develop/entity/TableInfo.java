@@ -1,9 +1,7 @@
 
 package org.springbootdev.modules.develop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -80,8 +78,9 @@ public class TableInfo extends BaseEntity {
     /**
      * 是否是叶子节点，0是，1不是
      */
-    @ApiModelProperty(value = "是否是叶子节点，0是，1不是")
-    private Integer isLeaf;
+	@ApiModelProperty(value = "是否是叶子节点，0是，1不是")
+	@TableField(fill = FieldFill.INSERT)
+	protected Integer isLeaf;
 
 
 }

@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
+const webpack = require('webpack')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -43,12 +44,18 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+      plugins: [
+            new webpack.ProvidePlugin({
+                jQuery: 'jquery',
+                $: 'jquery'
+            })
+        ]
   },
+
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
-
     // set svg-sprite-loader
     config.module
       .rule('svg')

@@ -1,10 +1,13 @@
 
 package org.springbootdev.modules.develop.controller;
 
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springbootdev.core.boot.ctrl.AbstractController;
 import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
@@ -18,10 +21,12 @@ import org.springbootdev.modules.develop.service.ITableInfoService;
 import org.springbootdev.modules.develop.vo.TableInfoVO;
 import org.springbootdev.modules.develop.wrapper.TableInfoWrapper;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,146 +38,215 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/"+AppConstant.APPLICATION_DEVELOP_NAME+"/tableinfo")
+@Slf4j
+@RequestMapping("/" + AppConstant.APPLICATION_DEVELOP_NAME + "/tableinfo")
 @Api(value = "表元数据", tags = "接口")
 public class TableInfoController extends AbstractController {
 
-    private ITableInfoService tableInfoService;
+	private ITableInfoService tableInfoService;
 
-    /**
-     * 详情
-     */
-    @GetMapping("/detail")
-    @ApiOperationSupport(order = 1)
-    @ApiOperation(value = "详情", notes = "传入tableInfo")
-    public R<TableInfoVO> detail(TableInfo tableInfo) {
-        TableInfo detail = tableInfoService.getOne(Condition.getQueryWrapper(tableInfo));
-        return R.data(TableInfoWrapper.build().entityVO(detail));
-    }
+	/**
+	 * 详情
+	 */
+	@GetMapping("/detail")
+	@ApiOperationSupport(order = 1)
+	@ApiOperation(value = "详情", notes = "传入tableInfo")
+	public R<TableInfoVO> detail(TableInfo tableInfo) {
+		TableInfo detail = tableInfoService.getOne(Condition.getQueryWrapper(tableInfo));
+		return R.data(TableInfoWrapper.build().entityVO(detail));
+	}
 
-    /**
-     * 分页
-     */
-    @GetMapping("/list")
-    @ApiOperationSupport(order = 2)
-    @ApiOperation(value = "分页", notes = "传入tableInfo")
-    public R<IPage<TableInfoVO>> list(TableInfo tableInfo, Query query) {
-        IPage<TableInfo> pages = tableInfoService.page(Condition.getPage(query), Condition.getQueryWrapper(tableInfo));
-        return R.data(TableInfoWrapper.build().pageVO(pages));
-    }
-
-
-    /**
-     * 自定义分页
-     */
-    @GetMapping("/page")
-    @ApiOperationSupport(order = 3)
-    @ApiOperation(value = "分页", notes = "传入tableInfo")
-    public R<IPage<TableInfoVO>> page(TableInfoVO tableInfo, Query query) {
-        IPage<TableInfoVO> pages = tableInfoService.selectTableInfoPage(Condition.getPage(query), tableInfo);
-        return R.data(pages);
-    }
-
-    /**
-     * 列表
-     */
-    @GetMapping("/list/page")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
-            @ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
-            @ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
-    })
-    @ApiOperationSupport(order = 4)
-    @ApiOperation(value = "列表", notes = "传入tableInfo")
-    public R<IPage<TableInfo>> list(@ApiIgnore @RequestParam Map<String, Object> tableInfo, Query query, SystemUser systemUser) {
-        QueryWrapper<TableInfo> queryWrapper = Condition.getQueryWrapper(tableInfo, TableInfo.class);
-        IPage<TableInfo> pages = tableInfoService.page(Condition.getPage(query), queryWrapper);
-        return R.data(pages);
-    }
-
-    /**
-     * 新增
-     */
-    @PostMapping("/save")
-    @ApiOperationSupport(order = 5)
-    @ApiOperation(value = "新增", notes = "传入tableInfo")
-    public R save(@Valid @RequestBody TableInfo tableInfo) {
-        return R.status(tableInfoService.save(tableInfo));
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    @ApiOperationSupport(order = 6)
-    @ApiOperation(value = "修改", notes = "传入tableInfo")
-    public R update(@Valid @RequestBody TableInfo tableInfo) {
-        return R.status(tableInfoService.updateById(tableInfo));
-    }
-
-    /**
-     * 新增或修改
-     */
-    @PostMapping("/submit")
-    @ApiOperationSupport(order = 7)
-    @ApiOperation(value = "新增或修改", notes = "传入tableInfo")
-    public R submit(@Valid @RequestBody TableInfo tableInfo) {
-        if (tableInfoService.saveOrUpdate(tableInfo)) {
-            return R.data(tableInfo);
-        } else {
-            return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, tableInfo, ToolConstant.DEFAULT_FAILURE_MESSAGE);
-        }
-    }
+	/**
+	 * 分页
+	 */
+	@GetMapping("/list")
+	@ApiOperationSupport(order = 2)
+	@ApiOperation(value = "分页", notes = "传入tableInfo")
+	public R<IPage<TableInfoVO>> list(TableInfo tableInfo, Query query) {
+		IPage<TableInfo> pages = tableInfoService.page(Condition.getPage(query), Condition.getQueryWrapper(tableInfo));
+		return R.data(TableInfoWrapper.build().pageVO(pages));
+	}
 
 
-    /**
-     * 删除
-     */
-    @PostMapping("/remove")
-    @ApiOperationSupport(order = 8)
-    @ApiOperation(value = "逻辑删除", notes = "传入ids")
-    public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-        return R.status(tableInfoService.deleteLogic(Func.toLongList(ids)));
-    }
+	/**
+	 * 自定义分页
+	 */
+	@GetMapping("/page")
+	@ApiOperationSupport(order = 3)
+	@ApiOperation(value = "分页", notes = "传入tableInfo")
+	public R<IPage<TableInfoVO>> page(TableInfoVO tableInfo, Query query) {
+		IPage<TableInfoVO> pages = tableInfoService.selectTableInfoPage(Condition.getPage(query), tableInfo);
+		return R.data(pages);
+	}
 
-    /**
-     * 数据源列表
-     */
-    @GetMapping("/select")
-    @ApiOperationSupport(order = 9)
-    @ApiOperation(value = "下拉数据源", notes = "查询列表")
-    public R<List<TableInfo>> select() {
-        List<TableInfo> list = tableInfoService.list();
-        return R.data(list);
-    }
+	/**
+	 * 列表
+	 */
+	@GetMapping("/list/page")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
+	})
+	@ApiOperationSupport(order = 4)
+	@ApiOperation(value = "列表", notes = "传入tableInfo")
+	public R<IPage<TableInfo>> list(@ApiIgnore @RequestParam Map<String, Object> tableInfo, Query query, SystemUser systemUser) {
+		QueryWrapper<TableInfo> queryWrapper = Condition.getQueryWrapper(tableInfo, TableInfo.class);
+		IPage<TableInfo> pages = tableInfoService.page(Condition.getPage(query), queryWrapper);
+		return R.data(pages);
+	}
+
+	/**
+	 * 新增
+	 */
+	@PostMapping("/save")
+	@ApiOperationSupport(order = 5)
+	@ApiOperation(value = "新增", notes = "传入tableInfo")
+	public R save(@Valid @RequestBody TableInfo tableInfo) {
+		return R.status(tableInfoService.save(tableInfo));
+	}
+
+	/**
+	 * 修改
+	 */
+	@PostMapping("/update")
+	@ApiOperationSupport(order = 6)
+	@ApiOperation(value = "修改", notes = "传入tableInfo")
+	public R update(@Valid @RequestBody TableInfo tableInfo) {
+		return R.status(tableInfoService.updateById(tableInfo));
+	}
+
+	/**
+	 * 新增或修改
+	 */
+	@PostMapping("/submit")
+	@ApiOperationSupport(order = 7)
+	@ApiOperation(value = "新增或修改", notes = "传入tableInfo")
+	public R submit(@Valid @RequestBody TableInfo tableInfo) {
+		if (tableInfoService.saveOrUpdate(tableInfo)) {
+			return R.data(tableInfo);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, tableInfo, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
+	}
 
 
-    /**
-     * 复制
-     */
-    @PostMapping("/copy")
-    @ApiOperationSupport(order = 10)
-    @ApiOperation(value = "复制", notes = "传入id")
-    public R copy(@ApiParam(value = "主键", required = true) @RequestParam Integer id) {
-        TableInfo tableInfo = tableInfoService.getById(id);
-        tableInfo.setId(null);
-        tableInfo.setName(tableInfo.getName() + "-copy");
-        if (tableInfoService.saveOrUpdate(tableInfo)) {
-            return R.data(tableInfo);
-        } else {
-            return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, tableInfo, ToolConstant.DEFAULT_FAILURE_MESSAGE);
-        }
-    }
+	/**
+	 * 删除
+	 */
+	@PostMapping("/remove")
+	@ApiOperationSupport(order = 8)
+	@ApiOperation(value = "逻辑删除", notes = "传入ids")
+	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+		return R.status(tableInfoService.deleteLogic(Func.toLongList(ids)));
+	}
 
-    /**
-     * 获取菜单树形结构
-     */
-    @GetMapping("/tree")
-    @ApiOperationSupport(order = 11)
-    @ApiOperation(value = "树形结构", notes = "树形结构")
-    public R<List<TableInfoVO>> tree(String parentId) {
-        List<TableInfoVO> tree = tableInfoService.tree(parentId);
-        return R.data(tree);
-    }
+	/**
+	 * 数据源列表
+	 */
+	@GetMapping("/select")
+	@ApiOperationSupport(order = 9)
+	@ApiOperation(value = "下拉数据源", notes = "查询列表")
+	public R<List<TableInfo>> select() {
+		List<TableInfo> list = tableInfoService.list();
+		return R.data(list);
+	}
 
+
+	/**
+	 * 复制
+	 */
+	@PostMapping("/copy")
+	@ApiOperationSupport(order = 10)
+	@ApiOperation(value = "复制", notes = "传入id")
+	public R copy(@ApiParam(value = "主键", required = true) @RequestParam Integer id) {
+		TableInfo tableInfo = tableInfoService.getById(id);
+		tableInfo.setId(null);
+		tableInfo.setName(tableInfo.getName() + "-copy");
+		if (tableInfoService.saveOrUpdate(tableInfo)) {
+			return R.data(tableInfo);
+		} else {
+			return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, tableInfo, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+		}
+	}
+
+	/**
+	 * 获取菜单树形结构
+	 */
+	@GetMapping("/tree")
+	@ApiOperationSupport(order = 11)
+	@ApiOperation(value = "树形结构", notes = "树形结构")
+	public R<List<TableInfoVO>> tree(String parentId) {
+		List<TableInfoVO> tree = tableInfoService.tree(parentId);
+		return R.data(tree);
+	}
+
+	/**
+	 * 复制
+	 */
+	@PostMapping("/uploadExcel")
+	@ApiOperationSupport(order = 5)
+	@ApiOperation(value = "上传excel", notes = "传入id")
+	public Map<String, Object> y(@ApiParam(value = "上传的文件", required = true) @RequestParam MultipartFile upfile, @ApiParam(value = "所属数据库id", required = true) @RequestParam Long dbInstanceId) throws Exception {
+		log.info("dbid is {}", dbInstanceId);
+		log.info("file size is {}", upfile.getSize());
+		log.info("file name is {}", upfile.getName());
+		// 拿到文件开始解析入库
+		Integer size = ExcelUtil.getReader(upfile.getInputStream()).getSheetCount();
+		for (int sheet = 0; sheet < size; sheet++) {
+			ExcelReader reader = ExcelUtil.getReader(upfile.getInputStream(), sheet, true);
+			List<Object> row = reader.readRow(0);
+			TableInfo table = new TableInfo();
+			table.setCategory(1);
+			table.setParentId(0L);
+			table.setName(row.get(1).toString());
+			table.setComment(row.get(3).toString());
+			table.setDbInstanceId(dbInstanceId);
+			tableInfoService.save(table);
+//			 开始保存表的字段值
+			int cowSize=reader.getColumnCount();
+			for (int i = 2; i < cowSize; i++) {
+				List<Object> crow = reader.readRow(i);
+				if (crow.size() == 0)
+					break;
+				TableInfo record = new TableInfo();
+				record.setCategory(2);
+				record.setParentId(table.getId());
+				record.setDbInstanceId(dbInstanceId);
+
+				record.setName(crow.get(0).toString());
+				record.setTypeKey(crow.get(1).toString());
+				record.setTypeValue(crow.get(2).toString());
+				record.setIsEmpty(Integer.valueOf(crow.get(3).toString()));
+				record.setDefaultValue(crow.get(4).toString());
+				record.setComment(crow.get(5).toString());
+				tableInfoService.save(record);
+			}
+		}
+		// 返回报文给上传组件
+		Map<String, Object> result = new HashMap<>();
+		result.put("message", "");
+		result.put("needMerge", false);
+		result.put("result", true);
+		result.put("uploaded", "[]");
+		result.put("timestamp", "" + System.currentTimeMillis());
+		return result;
+	}
+
+	/**
+	 * 在上传文件前，会接收到一个查询当前文件上传情况的消息
+	 */
+	@GetMapping("/uploadExcel")
+	@ApiOperationSupport(order = 5)
+	@ApiOperation(value = "上传excel", notes = "传入id")
+	public Map<String, String> copys(Map<String, String> jobDetails) {
+		log.info(jobDetails.toString());
+		Map<String, String> result = new HashMap<>();
+		result.put("message", "");
+		result.put("needMerge", "");
+		result.put("result", "true");
+		result.put("uploaded", "[]");
+		result.put("timestamp", "" + System.currentTimeMillis());
+		return result;
+	}
 }

@@ -16,12 +16,15 @@
       @click="handleDownload">{{
       $t('table.export') }}</el-button>
     <el-button v-if="listQuery.query.category === 1" v-waves v-permission="['88']" class="filter-item"
-      style="margin-left: 10px" round type="alert" icon="el-icon-delete" @click="handleExportDdlAction">导出DDL文件
+      style="margin-left: 10px" round type="alert" icon="el-icon-s-grid" @click="handleExportDdlAction">导出DDL文件
+    </el-button>
+    <el-button v-if="listQuery.query.category === 1" v-waves v-permission="['88']" class="filter-item"
+      style="margin-left: 10px" round type="success" icon="el-icon-s-promotion" @click="handleUploadAction">上传excel
     </el-button>
     <!--主表显示 区域-->
     <el-table ref="messageTable" :key="tableKey" v-loading="listLoading" :header-cell-style="{background:'#fafafa','color': 'rgb(103, 194, 58)',
     'border-bottom': '1px rgb(103, 194, 58) solid'}" :data="list" :height="tableHeight" :stripe="isStripe" border fit
-      highlight-current-row style="border:2px solid #ebeef5margin:10px 0 0 0width: 100%" @sort-change="sortChange"
+      highlight-current-row style="border:2px solid #ebeef5;margin:10px 0 0 0;width: 100%;" @sort-change="sortChange"
       @selection-change="handleSelectionChange">
       <!--表格行的多选-->
       <el-table-column type="selection" fixed width="55"></el-table-column>
@@ -109,6 +112,7 @@
   import notify from '@/utils/notify'
   // 引入指令
   import permission from '@/directive/permission/index.js' // 权限判断指令
+  import Bus from '@/assets/js/bus'
   export default {
     // TODO:本页面的名称
     name: 'tableinfo-list',
@@ -183,6 +187,21 @@
           self.tableHeight = window.innerHeight - self.$refs.messageTable.$el.offsetTop - 180
         }
       })
+      // 文件选择后的回调
+      Bus.$on('fileAdded', () => {
+        console.log('文件已选择')
+      })
+
+      // 文件上传成功的回调
+      Bus.$on('fileSuccess', () => {
+        console.log('文件上传成功')
+        this.getList()
+        this.$parent.$parent.$parent.$parent.initTreeData()
+      })
+    },
+    destroyed() {
+      Bus.$off('fileAdded')
+      Bus.$off('fileSuccess')
     },
     methods: {
       // 控制searchCard的显示与否
@@ -254,6 +273,13 @@
               message: response.msg
             })
           }
+        })
+      },
+      // 上传excel
+      handleUploadAction() {
+        // 打开文件选择框
+        Bus.$emit('openUploader', {
+          dbInstanceId: this.listQuery.query.dbInstanceId_equal // 传入的参数
         })
       },
       // 导出DDL数据

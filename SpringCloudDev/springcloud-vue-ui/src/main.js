@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import Cookies from 'js-cookie'
+import $ from 'jquery'
 
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 
@@ -26,6 +27,10 @@ import {
 import {
   loadStyle
 } from './utils/util'
+// npm install vue-simple-uploader --save
+// npm install jquery --save
+import uploader from 'vue-simple-uploader'
+Vue.use(uploader)
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size

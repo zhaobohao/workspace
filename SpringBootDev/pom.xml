@@ -23,7 +23,7 @@
         <alibaba.seata.version>0.8.1</alibaba.seata.version>
         <testng.version>6.14.3</testng.version>
         <fastjson.version>1.2.60</fastjson.version>
-        <hutool-all.version>5.0.7</hutool-all.version>
+        <hutool-all.version>4.6.10</hutool-all.version>
         <caffeine.version>2.7.0</caffeine.version>
         <guava.version>27.1-jre</guava.version>
         <bouncycastle.version>1.62</bouncycastle.version>
@@ -38,8 +38,9 @@
         <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
         <docker.plugin.version>1.2.1</docker.plugin.version>
         <commons-io.version>2.6</commons-io.version>
+        <commons-fileupload.version>1.3.3</commons-fileupload.version>
     </properties>
- <!-- 使用阿里 maven 库 -->
+    <!-- 使用阿里 maven 库 -->
     <repositories>
         <repository>
             <id>ali-maven</id>
@@ -258,7 +259,16 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>

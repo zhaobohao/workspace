@@ -34,7 +34,6 @@ NProgress.configure({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-
     NProgress.start() // start progress bar
     const meta = (config.meta || {})
     const isToken = meta.isToken === false

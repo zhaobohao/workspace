@@ -1,10 +1,13 @@
 
 package org.springclouddev.develop.controller;
 
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.boot.ctrl.AbstractController;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
@@ -17,10 +20,12 @@ import org.springclouddev.develop.service.ITableInfoService;
 import org.springclouddev.develop.vo.TableInfoVO;
 import org.springclouddev.develop.wrapper.TableInfoWrapper;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +37,9 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
+@Slf4j
 @RequestMapping("/tableinfo")
-@Api(value = "", tags = "接口")
+@Api(value = "接口", tags = "接口")
 public class TableInfoController extends AbstractController {
 
     private ITableInfoService tableInfoService;
@@ -174,4 +180,74 @@ public class TableInfoController extends AbstractController {
         return R.data(tree);
     }
 
+
+    /**
+     * 复制
+     */
+    @PostMapping("/uploadExcel")
+    @ApiOperationSupport(order = 6)
+    @ApiOperation(value = "上传excel", notes = "传入id")
+    public Map<String, Object> y(@ApiParam(value = "上传的文件", required = true) @RequestParam MultipartFile upfile, @ApiParam(value = "所属数据库id", required = true) @RequestParam Long dbInstanceId) throws Exception {
+        log.info("dbid is {}", dbInstanceId);
+        log.info("file size is {}", upfile.getSize());
+        log.info("file name is {}", upfile.getName());
+        // 拿到文件开始解析入库
+        Integer size = ExcelUtil.getReader(upfile.getInputStream()).getSheetCount();
+        for (int sheet = 0; sheet < size; sheet++) {
+            ExcelReader reader = ExcelUtil.getReader(upfile.getInputStream(), sheet, true);
+            List<Object> row = reader.readRow(0);
+            TableInfo table = new TableInfo();
+            table.setCategory(1);
+            table.setParentId(0L);
+            table.setName(row.get(1).toString());
+            table.setComment(row.get(3).toString());
+            table.setDbInstanceId(dbInstanceId);
+            tableInfoService.save(table);
+//			 开始保存表的字段值
+            int cowSize = reader.getColumnCount();
+            for (int i = 2; i < cowSize; i++) {
+                List<Object> crow = reader.readRow(i);
+                if (crow.size() == 0)
+                    break;
+                TableInfo record = new TableInfo();
+                record.setCategory(2);
+                record.setParentId(table.getId());
+                record.setDbInstanceId(dbInstanceId);
+
+                record.setName(crow.get(0).toString());
+                record.setTypeKey(crow.get(1).toString());
+                record.setTypeValue(crow.get(2).toString());
+                record.setIsEmpty(Integer.valueOf(crow.get(3).toString()));
+                record.setDefaultValue(crow.get(4).toString());
+                record.setComment(crow.get(5).toString());
+                tableInfoService.save(record);
+            }
+        }
+        // 返回报文给上传组件
+        Map<String, Object> result = new HashMap<>();
+        result.put("message", "");
+        result.put("needMerge", false);
+        result.put("result", true);
+        result.put("uploaded", "[]");
+        result.put("timestamp", "" + System.currentTimeMillis());
+        return result;
+    }
+
+    /**
+     * 在上传文件前，会接收到一个查询当前文件上传情况的消息
+     */
+    @GetMapping("/uploadExcel")
+    @ApiOperationSupport(order = 7)
+    @ApiOperation(value = "上传excel", notes = "传入id")
+    public Map<String, String> copys(Map<String, String> jobDetails) {
+        log.info(jobDetails.toString());
+        Map<String, String> result = new HashMap<>();
+        result.put("message", "");
+        result.put("needMerge", "");
+        result.put("result", "true");
+        result.put("uploaded", "[]");
+        result.put("timestamp", "" + System.currentTimeMillis());
+        return result;
+    }
 }
+

@@ -1,15 +1,13 @@
 
 package org.springclouddev.develop.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.experimental.Accessors;
-import org.springclouddev.core.mp.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import org.springclouddev.core.mp.base.BaseEntity;
 
 /**
  * 实体类
@@ -31,7 +29,7 @@ public class TableInfo extends BaseEntity {
      */
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
-  private Long id;
+    private Long id;
     /**
      * 名称
      */
@@ -53,7 +51,7 @@ public class TableInfo extends BaseEntity {
     @ApiModelProperty(value = "是否为空 1为空2不为空")
     private Integer isEmpty;
     /**
-     * 默认值 
+     * 默认值
      */
     @ApiModelProperty(value = "默认值 ")
     private String defaultValue;
@@ -81,7 +79,8 @@ public class TableInfo extends BaseEntity {
      * 是否是叶子节点，0是，1不是
      */
     @ApiModelProperty(value = "是否是叶子节点，0是，1不是")
-    private Integer isLeaf;
+    @TableField(fill = FieldFill.INSERT)
+    protected Integer isLeaf;
 
 
 }
