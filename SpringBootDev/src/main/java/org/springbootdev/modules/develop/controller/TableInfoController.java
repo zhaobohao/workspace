@@ -9,6 +9,7 @@ import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springbootdev.core.boot.ctrl.AbstractController;
+import org.springbootdev.core.boot.upload.service.UploadFileHandler;
 import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.core.mp.support.Query;
@@ -16,6 +17,7 @@ import org.springbootdev.core.secure.SystemUser;
 import org.springbootdev.core.tool.api.R;
 import org.springbootdev.core.tool.constant.ToolConstant;
 import org.springbootdev.core.tool.utils.Func;
+import org.springbootdev.core.tool.utils.SpringUtil;
 import org.springbootdev.modules.develop.entity.TableInfo;
 import org.springbootdev.modules.develop.service.ITableInfoService;
 import org.springbootdev.modules.develop.vo.TableInfoVO;
@@ -185,44 +187,14 @@ public class TableInfoController extends AbstractController {
 	 * 复制
 	 */
 	@PostMapping("/uploadExcel")
-	@ApiOperationSupport(order = 5)
+	@ApiOperationSupport(order = 6)
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "dbInstanceId", value = "父数据库id", paramType = "params", dataType = "string"),
+	})
 	@ApiOperation(value = "上传excel", notes = "传入id")
-	public Map<String, Object> y(@ApiParam(value = "上传的文件", required = true) @RequestParam MultipartFile upfile, @ApiParam(value = "所属数据库id", required = true) @RequestParam Long dbInstanceId) throws Exception {
-		log.info("dbid is {}", dbInstanceId);
-		log.info("file size is {}", upfile.getSize());
-		log.info("file name is {}", upfile.getName());
-		// 拿到文件开始解析入库
-		Integer size = ExcelUtil.getReader(upfile.getInputStream()).getSheetCount();
-		for (int sheet = 0; sheet < size; sheet++) {
-			ExcelReader reader = ExcelUtil.getReader(upfile.getInputStream(), sheet, true);
-			List<Object> row = reader.readRow(0);
-			TableInfo table = new TableInfo();
-			table.setCategory(1);
-			table.setParentId(0L);
-			table.setName(row.get(1).toString());
-			table.setComment(row.get(3).toString());
-			table.setDbInstanceId(dbInstanceId);
-			tableInfoService.save(table);
-//			 开始保存表的字段值
-			int cowSize=reader.getColumnCount();
-			for (int i = 2; i < cowSize; i++) {
-				List<Object> crow = reader.readRow(i);
-				if (crow.size() == 0)
-					break;
-				TableInfo record = new TableInfo();
-				record.setCategory(2);
-				record.setParentId(table.getId());
-				record.setDbInstanceId(dbInstanceId);
-
-				record.setName(crow.get(0).toString());
-				record.setTypeKey(crow.get(1).toString());
-				record.setTypeValue(crow.get(2).toString());
-				record.setIsEmpty(Integer.valueOf(crow.get(3).toString()));
-				record.setDefaultValue(crow.get(4).toString());
-				record.setComment(crow.get(5).toString());
-				tableInfoService.save(record);
-			}
-		}
+	public Map<String, Object> y(@ApiParam(value = "上传的文件", required = true) @RequestParam MultipartFile upfile,@ApiIgnore @RequestParam Map<String, String> params ) throws Exception {
+		UploadFileHandler handler= SpringUtil.getBean(params.get("uploadFileHandler"));
+		handler.handler(upfile,params);
 		// 返回报文给上传组件
 		Map<String, Object> result = new HashMap<>();
 		result.put("message", "");
@@ -237,7 +209,7 @@ public class TableInfoController extends AbstractController {
 	 * 在上传文件前，会接收到一个查询当前文件上传情况的消息
 	 */
 	@GetMapping("/uploadExcel")
-	@ApiOperationSupport(order = 5)
+	@ApiOperationSupport(order = 7)
 	@ApiOperation(value = "上传excel", notes = "传入id")
 	public Map<String, String> copys(Map<String, String> jobDetails) {
 		log.info(jobDetails.toString());

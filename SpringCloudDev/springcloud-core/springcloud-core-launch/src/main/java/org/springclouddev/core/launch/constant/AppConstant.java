@@ -67,6 +67,10 @@ public interface AppConstant {
 	 */
 	String APPLICATION_SEATA_STORAGE = APPLICATION_NAME_PREFIX +"seata-storage";
 	/**
+	 * 文件上传模块名称
+	 */
+	String APPLICATION_FILEUPLOAD_NAME = APPLICATION_NAME_PREFIX + "fileupload";
+	/**
 	 * 开发环境
 	 */
 	String DEV_CODE = "dev";

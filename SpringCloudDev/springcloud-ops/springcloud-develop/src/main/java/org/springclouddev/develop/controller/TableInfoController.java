@@ -9,12 +9,14 @@ import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.boot.ctrl.AbstractController;
+import org.springclouddev.core.boot.upload.service.UploadFileHandler;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
+import org.springclouddev.core.tool.utils.SpringUtil;
 import org.springclouddev.develop.entity.TableInfo;
 import org.springclouddev.develop.service.ITableInfoService;
 import org.springclouddev.develop.vo.TableInfoVO;
@@ -83,9 +85,9 @@ public class TableInfoController extends AbstractController {
      */
     @GetMapping("/list/page")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
-            @ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
-            @ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
+            @ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "tableInfo", dataType = "string"),
+            @ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "tableInfo", dataType = "string"),
+            @ApiImplicitParam(name = "parentId", value = "父id", paramType = "tableInfo", dataType = "string")
     })
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "列表", notes = "传入tableInfo")
@@ -186,43 +188,13 @@ public class TableInfoController extends AbstractController {
      */
     @PostMapping("/uploadExcel")
     @ApiOperationSupport(order = 6)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "dbInstanceId", value = "父数据库id", paramType = "params", dataType = "string"),
+    })
     @ApiOperation(value = "上传excel", notes = "传入id")
-    public Map<String, Object> y(@ApiParam(value = "上传的文件", required = true) @RequestParam MultipartFile upfile, @ApiParam(value = "所属数据库id", required = true) @RequestParam Long dbInstanceId) throws Exception {
-        log.info("dbid is {}", dbInstanceId);
-        log.info("file size is {}", upfile.getSize());
-        log.info("file name is {}", upfile.getName());
-        // 拿到文件开始解析入库
-        Integer size = ExcelUtil.getReader(upfile.getInputStream()).getSheetCount();
-        for (int sheet = 0; sheet < size; sheet++) {
-            ExcelReader reader = ExcelUtil.getReader(upfile.getInputStream(), sheet, true);
-            List<Object> row = reader.readRow(0);
-            TableInfo table = new TableInfo();
-            table.setCategory(1);
-            table.setParentId(0L);
-            table.setName(row.get(1).toString());
-            table.setComment(row.get(3).toString());
-            table.setDbInstanceId(dbInstanceId);
-            tableInfoService.save(table);
-//			 开始保存表的字段值
-            int cowSize = reader.getColumnCount();
-            for (int i = 2; i < cowSize; i++) {
-                List<Object> crow = reader.readRow(i);
-                if (crow.size() == 0)
-                    break;
-                TableInfo record = new TableInfo();
-                record.setCategory(2);
-                record.setParentId(table.getId());
-                record.setDbInstanceId(dbInstanceId);
-
-                record.setName(crow.get(0).toString());
-                record.setTypeKey(crow.get(1).toString());
-                record.setTypeValue(crow.get(2).toString());
-                record.setIsEmpty(Integer.valueOf(crow.get(3).toString()));
-                record.setDefaultValue(crow.get(4).toString());
-                record.setComment(crow.get(5).toString());
-                tableInfoService.save(record);
-            }
-        }
+    public Map<String, Object> y(@ApiParam(value = "上传的文件", required = true) @RequestParam MultipartFile upfile,@ApiIgnore @RequestParam Map<String, String> params ) throws Exception {
+        UploadFileHandler handler= SpringUtil.getBean(params.get("uploadFileHandler"));
+        handler.handler(upfile,params);
         // 返回报文给上传组件
         Map<String, Object> result = new HashMap<>();
         result.put("message", "");

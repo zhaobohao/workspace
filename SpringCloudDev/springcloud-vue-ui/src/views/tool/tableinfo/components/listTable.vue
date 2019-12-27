@@ -279,7 +279,8 @@
       handleUploadAction() {
         // 打开文件选择框
         Bus.$emit('openUploader', {
-          dbInstanceId: this.listQuery.query.dbInstanceId_equal // 传入的参数
+          dbInstanceId: this.listQuery.query.dbInstanceId_equal, // 传入的参数
+          uploadFileHandler: 'tableInfoServiceImpl'
         })
       },
       // 导出DDL数据

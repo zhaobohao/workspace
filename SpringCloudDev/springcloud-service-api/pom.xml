@@ -20,6 +20,7 @@
         <module>springcloud-dict-api</module>
         <module>springcloud-system-api</module>
         <module>springcloud-user-api</module>
+        <module>springclouddev-uploadfile-api</module>
     </modules>
 
     <dependencies>

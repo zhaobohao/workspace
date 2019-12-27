@@ -20,6 +20,7 @@
         <module>springcloud-log</module>
         <module>springcloud-system</module>
         <module>springcloud-user</module>
+        <module>springcloud-uploadfile</module>
     </modules>
 
     <dependencies>
