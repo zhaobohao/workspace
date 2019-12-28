@@ -85,3 +85,6 @@ springclouddev:
     column: tenant_id
     tables:
       - mk_notice
+  mybatis-plus:
+    sql-log:
+      enable: true

@@ -25,3 +25,6 @@ springbootdev:
     remote-path: /usr/share/nginx/html
     remote-path-iis: z:/html
     log-mode: true
+  mybatis-plus:
+    sql-log:
+      enable: false
