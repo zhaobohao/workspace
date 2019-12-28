@@ -47,6 +47,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-context -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
         <!--Hystrix-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -95,13 +101,7 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
-            <version>1.6.3</version>
-            <exclusions>
-                    <exclusion>
-                        <groupId>com.alibaba.nacos</groupId>
-                        <artifactId>nacos-client</artifactId>
-                    </exclusion>
-            </exclusions>
+            <version>1.7.1</version>
         </dependency>
 
     </dependencies>

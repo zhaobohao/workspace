@@ -2,6 +2,7 @@
 package org.springclouddev.desk.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.common.cache.CacheNames;
@@ -32,7 +33,7 @@ import java.util.Map;
 @RequestMapping("notice")
 @AllArgsConstructor
 @Api(value = "消息通知", tags = "消息接口")
-public class BasedController extends AbstractController implements CacheNames {
+public class NoticeController extends AbstractController implements CacheNames {
 
 	private INoticeService noticeService;
 

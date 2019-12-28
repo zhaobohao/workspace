@@ -113,9 +113,6 @@ public class SpingCloudDevApplication {
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.dataId", appName+"-authority-rules");
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.groupId","SENTINEL_GROUP" );
 		props.setProperty("spring.cloud.sentinel.datasource.springcloud_authority.nacos.rule-type", "authority");
-
-
-
 		props.setProperty("spring.cloud.alibaba.seata.tx-service-group", appName.concat(NacosConstant.NACOS_GROUP_SUFFIX));
 		// 加载自定义组件
 		List<LauncherService> launcherList = new ArrayList<>();

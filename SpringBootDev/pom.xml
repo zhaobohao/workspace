@@ -13,14 +13,14 @@
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.models.version>1.5.21</swagger.models.version>
-        <swagger.bootstrapui.version>1.9.6</swagger.bootstrapui.version>
         <maven.plugin.version>3.8.0</maven.plugin.version>
+        <knife4j.version>2.0.1</knife4j.version>
         <mybatis.plus.version>3.3.0</mybatis.plus.version>
         <curator.framework.version>4.0.1</curator.framework.version>
         <protostuff.version>1.6.0</protostuff.version>
         <disruptor.version>3.4.2</disruptor.version>
-        <spring.boot.admin.version>2.1.5</spring.boot.admin.version>
-        <alibaba.seata.version>0.8.1</alibaba.seata.version>
+        <spring.boot.admin.version>2.2.1</spring.boot.admin.version>
+        <alibaba.seata.version>1.0.0</alibaba.seata.version>
         <testng.version>6.14.3</testng.version>
         <fastjson.version>1.2.60</fastjson.version>
         <hutool-all.version>4.6.10</hutool-all.version>
@@ -30,7 +30,7 @@
         <j2cache-spring-boot2-starter.version>2.7.6-release</j2cache-spring-boot2-starter.version>
         <j2cache-core.version>2.7.8-release</j2cache-core.version>
 
-        <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
         <spring.platform.version>Cairo-SR8</spring.platform.version>
 
         <!-- 推荐使用Harbor -->
@@ -117,26 +117,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.swagger</groupId>
-                    <artifactId>swagger-models</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
-            <version>${swagger.models.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>${swagger.bootstrapui.version}</version>
+            <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
         </dependency>
         <!--Redis-->
         <dependency>

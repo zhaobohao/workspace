@@ -25,15 +25,6 @@ import java.util.List;
  */
 @Validated
 public class BaseServiceImpl<M extends SuperMapper<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements BaseService<T> {
-
-	private Class<T> modelClass;
-
-	@SuppressWarnings("unchecked")
-	public BaseServiceImpl() {
-		Type type = this.getClass().getGenericSuperclass();
-		this.modelClass = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[1];
-	}
-
 	@Override
 	public boolean deleteLogic(@NotEmpty List<Long> ids) {
 		return super.removeByIds(ids);

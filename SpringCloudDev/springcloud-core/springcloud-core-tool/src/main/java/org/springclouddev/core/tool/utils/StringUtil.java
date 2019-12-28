@@ -172,7 +172,7 @@ public class StringUtil extends org.springframework.util.StringUtils {
 	 * @return {String}
 	 */
 	public static String escapeHtml(String html) {
-		return HtmlUtils.htmlEscape(html);
+		return StringUtil.isBlank(html) ? StringPool.EMPTY : HtmlUtils.htmlEscape(html);
 	}
 
 	/**

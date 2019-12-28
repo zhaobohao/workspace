@@ -2,9 +2,11 @@
 package org.springbootdev.core.tool.config;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import lombok.AllArgsConstructor;
 import org.springbootdev.core.tool.jackson.SpringCloudJavaTimeModule;
 import org.springbootdev.core.tool.utils.DateUtil;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -26,6 +28,7 @@ import java.util.TimeZone;
  * @author zhaobohao
  */
 @Configuration
+@AllArgsConstructor
 @ConditionalOnClass(ObjectMapper.class)
 @AutoConfigureBefore(JacksonAutoConfiguration.class)
 public class JacksonConfiguration {
@@ -45,8 +48,8 @@ public class JacksonConfiguration {
 		//序列化时，日期的统一格式
 		objectMapper.setDateFormat(new SimpleDateFormat(DateUtil.PATTERN_DATETIME, Locale.CHINA));
 		//序列化处理
-		objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-		objectMapper.configure(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, true);
+		objectMapper.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
+		objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
 		objectMapper.findAndRegisterModules();
 		//失败处理
 		objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);

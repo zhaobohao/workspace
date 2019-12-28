@@ -15,6 +15,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springclouddev.core.mp.base.MyLogicSqlInjector;
 import org.springclouddev.core.mp.base.MyMetaObjectHandler;
 import org.springclouddev.core.mp.base.TableNameHandleSample;
+import org.springclouddev.core.mp.plugins.SqlLogInterceptor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -47,6 +49,14 @@ public class MybatisPlusConfiguration {
 		return new OptimisticLockerInterceptor();
 	}
 
+	/**
+	 * sql 日志
+	 */
+	@Bean
+	@ConditionalOnProperty(value = "blade.mybatis-plus.sql-log.enable", matchIfMissing = true)
+	public SqlLogInterceptor sqlLogInterceptor() {
+		return new SqlLogInterceptor();
+	}
 	/**
 	 * 自定义 SqlInjector
 	 * 里面包含自定义的全局方法

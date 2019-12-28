@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.support.xss;
 
 import lombok.Data;
@@ -10,20 +9,12 @@ import java.util.List;
 /**
  * Xss配置类
  *
- * @author zhaobohao
+ * @author Chill
  */
 @Data
-@ConfigurationProperties("springclouddev.xss")
-public class XssProperties {
+@ConfigurationProperties("springclouddev.xss.url")
+public class XssUrlProperties {
 
-	/**
-	 * 开启xss
-	 */
-	private Boolean enable = true;
-
-	/**
-	 * 放行url
-	 */
-	private List<String> skipUrl = new ArrayList<>();
+	private final List<String> excludePatterns = new ArrayList<>();
 
 }

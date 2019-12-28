@@ -57,11 +57,11 @@ public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 	 * 根据code获取对应的HttpStatus
 	 *
 	 * @param errorAttributes
+	 * @return
 	 */
 	@Override
-	protected HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
-		int statusCode = (int) errorAttributes.get("code");
-		return HttpStatus.valueOf(statusCode);
+	protected int getHttpStatus(Map<String, Object> errorAttributes) {
+		return (int) errorAttributes.get("code");
 	}
 
 	/**
@@ -83,4 +83,5 @@ public class ErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 		}
 		return message.toString();
 	}
+
 }

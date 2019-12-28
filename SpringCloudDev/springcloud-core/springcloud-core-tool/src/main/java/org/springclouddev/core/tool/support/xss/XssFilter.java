@@ -2,6 +2,7 @@
 package org.springclouddev.core.tool.support.xss;
 
 import lombok.AllArgsConstructor;
+import org.springclouddev.core.tool.utils.StringPool;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class XssFilter implements Filter {
 
 	private XssProperties xssProperties;
+	private XssUrlProperties xssUrlProperties;
 
 	@Override
 	public void init(FilterConfig config) {
@@ -25,12 +27,17 @@ public class XssFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		String path = ((HttpServletRequest) request).getServletPath();
-		if (xssProperties.getExcludePatterns().stream().anyMatch(path::contains)) {
+		if (isSkip(path)) {
 			chain.doFilter(request, response);
 		} else {
 			XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request);
 			chain.doFilter(xssRequest, response);
 		}
+	}
+
+	private boolean isSkip(String path) {
+		return (xssUrlProperties.getExcludePatterns().stream().anyMatch(path::startsWith))
+			|| (xssProperties.getSkipUrl().stream().map(url -> url.replace("/**", StringPool.EMPTY)).anyMatch(path::startsWith));
 	}
 
 	@Override

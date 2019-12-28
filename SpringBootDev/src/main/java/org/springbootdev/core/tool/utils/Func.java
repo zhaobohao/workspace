@@ -1,4 +1,3 @@
-
 package org.springbootdev.core.tool.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -29,7 +28,7 @@ import java.util.function.Supplier;
 /**
  * 工具包集合，只做简单的调用，不删除原有工具类
  *
- * @author zhaobohao
+ * @author L.cm
  */
 public class Func {
 
@@ -607,16 +606,6 @@ public class Func {
 	}
 
 	/**
-	 * 转换为Long数组<br>
-	 *
-	 * @param str 被转换的值
-	 * @return 结果
-	 */
-	public static Long[] toLongArray(String str) {
-		return toLongArray(",", str);
-	}
-
-	/**
 	 * 转换为Integer数组<br>
 	 *
 	 * @param split 分隔符
@@ -635,6 +624,38 @@ public class Func {
 		}
 		return ints;
 	}
+
+	/**
+	 * 转换为Integer集合<br>
+	 *
+	 * @param str 结果被转换的值
+	 * @return 结果
+	 */
+	public static List<Integer> toIntList(String str) {
+		return Arrays.asList(toIntArray(str));
+	}
+
+	/**
+	 * 转换为Integer集合<br>
+	 *
+	 * @param split 分隔符
+	 * @param str   被转换的值
+	 * @return 结果
+	 */
+	public static List<Integer> toIntList(String split, String str) {
+		return Arrays.asList(toIntArray(split, str));
+	}
+
+	/**
+	 * 转换为Long数组<br>
+	 *
+	 * @param str 被转换的值
+	 * @return 结果
+	 */
+	public static Long[] toLongArray(String str) {
+		return toLongArray(",", str);
+	}
+
 	/**
 	 * 转换为Long数组<br>
 	 *
@@ -654,15 +675,6 @@ public class Func {
 		}
 		return longs;
 	}
-	/**
-	 * 转换为Integer集合<br>
-	 *
-	 * @param str 结果被转换的值
-	 * @return 结果
-	 */
-	public static List<Integer> toIntList(String str) {
-		return Arrays.asList(toIntArray(str));
-	}
 
 	/**
 	 * 转换为Long集合<br>
@@ -675,14 +687,14 @@ public class Func {
 	}
 
 	/**
-	 * 转换为Integer集合<br>
+	 * 转换为Long集合<br>
 	 *
 	 * @param split 分隔符
 	 * @param str   被转换的值
 	 * @return 结果
 	 */
-	public static List<Integer> toIntList(String split, String str) {
-		return Arrays.asList(toIntArray(split, str));
+	public static List<Long> toLongList(String split, String str) {
+		return Arrays.asList(toLongArray(split, str));
 	}
 
 	/**
@@ -1097,7 +1109,7 @@ public class Func {
 	 * @param <T>           T 泛型标记
 	 * @return Bean
 	 */
-	public static <T> T parse(byte[] bytes, TypeReference<?> typeReference) {
+	public static <T> T parse(byte[] bytes, TypeReference<T> typeReference) {
 		return JsonUtil.parse(bytes, typeReference);
 	}
 
@@ -1109,7 +1121,7 @@ public class Func {
 	 * @param <T>           T 泛型标记
 	 * @return Bean
 	 */
-	public static <T> T parse(String jsonString, TypeReference<?> typeReference) {
+	public static <T> T parse(String jsonString, TypeReference<T> typeReference) {
 		return JsonUtil.parse(jsonString, typeReference);
 	}
 
@@ -1121,7 +1133,7 @@ public class Func {
 	 * @param <T>           T 泛型标记
 	 * @return Bean
 	 */
-	public static <T> T parse(InputStream in, TypeReference<?> typeReference) {
+	public static <T> T parse(InputStream in, TypeReference<T> typeReference) {
 		return JsonUtil.parse(in, typeReference);
 	}
 

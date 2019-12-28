@@ -1,8 +1,6 @@
-
-
 package org.springclouddev.gateway.handler;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +19,7 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SwaggerResourceHandler implements HandlerFunction<ServerResponse> {
 	private final SwaggerResourcesProvider swaggerResources;
 
@@ -34,7 +32,7 @@ public class SwaggerResourceHandler implements HandlerFunction<ServerResponse> {
 	@Override
 	public Mono<ServerResponse> handle(ServerRequest request) {
 		return ServerResponse.status(HttpStatus.OK)
-			.contentType(MediaType.APPLICATION_JSON_UTF8)
-			.body(BodyInserters.fromObject(swaggerResources.get()));
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(BodyInserters.fromValue(swaggerResources.get()));
 	}
 }

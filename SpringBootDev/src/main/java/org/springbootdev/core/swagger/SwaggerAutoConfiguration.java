@@ -2,14 +2,16 @@
 package org.springbootdev.core.swagger;
 
 
-import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
+import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.*;
@@ -28,10 +30,11 @@ import java.util.List;
  * @author zhaobohao
  */
 @Configuration
+@EnableKnife4j
 @EnableSwagger2
-@EnableSwaggerBootstrapUI
 @Profile({"dev", "test"})
 @EnableConfigurationProperties(SwaggerProperties.class)
+@Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerAutoConfiguration {
 
 	private static final String DEFAULT_EXCLUDE_PATH = "/error";

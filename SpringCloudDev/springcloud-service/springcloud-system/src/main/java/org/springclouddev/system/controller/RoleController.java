@@ -3,6 +3,7 @@ package org.springclouddev.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springclouddev.core.boot.ctrl.AbstractController;
@@ -13,7 +14,6 @@ import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.INode;
 import org.springclouddev.core.tool.utils.Func;
-import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Role;
 import org.springclouddev.system.service.IRoleService;
 import org.springclouddev.system.vo.RoleVO;

@@ -113,17 +113,22 @@ swagger:
 
 #oss配置
 
-
-#
-springbootdev:
+#springclouddev配置
+springclouddev:
+  xss:
+    enable: true
+    skip-url:
+      - /weixin
   secure:
-    url:
-      exclude-patterns:
-        - /test/**
+    skip-url:
+      - /test/**
     client:
-      - client-id: client
+      - client-id: sword
         path-patterns:
-          - /client/**
+          - /sword/**
+      - client-id: saber
+        path-patterns:
+          - /saber/**
   tenant:
     column: tenant_id
     tables:

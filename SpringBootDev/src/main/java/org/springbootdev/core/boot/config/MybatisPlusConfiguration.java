@@ -16,7 +16,9 @@ import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.base.MyLogicSqlInjector;
 import org.springbootdev.core.mp.base.MyMetaObjectHandler;
 import org.springbootdev.core.mp.base.TableNameHandleSample;
+import org.springbootdev.core.mp.plugins.SqlLogInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -45,7 +47,14 @@ public class MybatisPlusConfiguration {
 		// 开启 count 的 join 优化,只针对 left join !!!
 		return new PaginationInterceptor().setCountSqlParser(new JsqlParserCountOptimize(true));
 	}
-
+	/**
+	 * sql 日志
+	 */
+	@Bean
+	@ConditionalOnProperty(value = "blade.mybatis-plus.sql-log.enable", matchIfMissing = true)
+	public SqlLogInterceptor sqlLogInterceptor() {
+		return new SqlLogInterceptor();
+	}
 	@Bean
 	public OptimisticLockerInterceptor optimisticLockerInterceptor(){
 		return new OptimisticLockerInterceptor();

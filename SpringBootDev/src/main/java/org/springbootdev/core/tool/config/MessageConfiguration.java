@@ -32,8 +32,6 @@ public class MessageConfiguration implements WebMvcConfigurer {
 
 	private final ObjectMapper objectMapper;
 
-	private final XssProperties xssProperties;
-
 	/**
 	 * 使用 JACKSON 作为JSON MessageConverter
 	 */
@@ -45,22 +43,6 @@ public class MessageConfiguration implements WebMvcConfigurer {
 		converters.add(new ResourceHttpMessageConverter());
 		converters.add(new ResourceRegionHttpMessageConverter());
 		converters.add(new MappingApiJackson2HttpMessageConverter(objectMapper));
-	}
-
-	/**
-	 * 防XSS注入
-	 *
-	 * @return FilterRegistrationBean
-	 */
-	@Bean
-	public FilterRegistrationBean xssFilterRegistration() {
-		FilterRegistrationBean registration = new FilterRegistrationBean();
-		registration.setDispatcherTypes(DispatcherType.REQUEST);
-		registration.setFilter(new XssFilter(xssProperties));
-		registration.addUrlPatterns("/*");
-		registration.setName("xssFilter");
-		registration.setOrder(Ordered.LOWEST_PRECEDENCE);
-		return registration;
 	}
 
 }
