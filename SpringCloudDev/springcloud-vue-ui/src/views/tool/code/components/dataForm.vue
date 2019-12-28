@@ -53,8 +53,8 @@
             <el-col :span="12">
               <el-form-item label="基础业务" prop="baseMode">
                 <el-radio-group v-model="temp.baseMode">
-                  <el-radio v-for="(item) in dicOptions" :key="item.dictKey" :label="item.dictKey" size="small"
-                    style="margin-left: 10px;" border>
+                  <el-radio v-for="(item) in dicOptions" :key="parseFloat(item.dictKey)"
+                    :label="parseFloat(item.dictKey)" size="small" style="margin-left: 10px;" border>
                     {{ item.dictValue }}
                   </el-radio>
                 </el-radio-group>
@@ -63,8 +63,8 @@
             <el-col :span="12">
               <el-form-item label="包装器" prop="wrapMode">
                 <el-radio-group v-model="temp.wrapMode">
-                  <el-radio v-for="(item) in dicOptions" :key="item.dictKey" :label="item.dictKey" size="small"
-                    style="margin-left: 10px;" border>
+                  <el-radio v-for="(item) in dicOptions" :key="parseFloat(item.dictKey)"
+                    :label="parseFloat(item.dictKey)" size="small" style="margin-left: 10px;" border>
                     {{ item.dictValue }}
                   </el-radio>
                 </el-radio-group>

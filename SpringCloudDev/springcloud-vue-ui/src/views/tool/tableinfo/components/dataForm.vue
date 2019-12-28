@@ -30,8 +30,8 @@
         <el-col :span="12">
           <el-form-item label="是否为空" prop="isEmpty">
             <el-radio-group v-model="temp.isEmpty">
-              <el-radio v-for="(item) in yesnoOptions" :key="item.dictKey" :label="item.dictKey" size="small"
-                style="margin-left: 10px;" border>
+              <el-radio v-for="(item) in yesnoOptions" :key="parseFloat(item.dictKey)" :label="parseFloat(item.dictKey)"
+                size="small" style="margin-left: 10px;" border>
                 {{ item.dictValue }}
               </el-radio>
             </el-radio-group>

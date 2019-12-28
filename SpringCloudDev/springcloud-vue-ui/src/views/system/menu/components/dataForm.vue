@@ -56,8 +56,8 @@
           <el-form-item label="菜单类型" prop="remark">
 
             <el-radio-group v-model="temp.category">
-              <el-radio v-for="(item) in categoryOptions" :key="item.dictKey" :label="item.dictKey" size="small"
-                style="margin-left: 10px;" border>
+              <el-radio v-for="(item) in categoryOptions" :key="parseFloat(item.dictKey)"
+                :label="parseFloat(item.dictKey)" size="small" style="margin-left: 10px;" border>
                 {{ item.dictValue }}
               </el-radio>
             </el-radio-group>
