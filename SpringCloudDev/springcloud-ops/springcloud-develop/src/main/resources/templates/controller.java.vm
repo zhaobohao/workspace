@@ -1,8 +1,8 @@
 #set($istree=false)
 #foreach($field in $!{table.fields})
-#if($!{field.name}=="parent_id")
-#set($istree=true)
-#end
+    #if($!{field.name}=="parent_id")
+        #set($istree=true)
+    #end
 #end
 package $!{package.Controller};
 
@@ -59,9 +59,9 @@ private $!{table.serviceName} $!{table.entityPath}Service;
 @ApiOperationSupport(order = 1)
 @ApiOperation(value = "详情", notes = "传入$!{table.entityPath}")
 public R<$!{entity}VO> detail($!{entity} $!{table.entityPath}) {
-	$!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
-		return R.data($!{entity}Wrapper.build().entityVO(detail));
-		}
+    $!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
+    return R.data($!{entity}Wrapper.build().entityVO(detail));
+    }
 
 /**
  * 分页 $!{table.comment}
@@ -70,9 +70,9 @@ public R<$!{entity}VO> detail($!{entity} $!{table.entityPath}) {
 @ApiOperationSupport(order = 2)
 @ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}VO>> list($!{entity} $!{table.entityPath}, Query query) {
-		IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), Condition.getQueryWrapper($!{table.entityPath}));
-		return R.data($!{entity}Wrapper.build().pageVO(pages));
-		}
+    IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), Condition.getQueryWrapper($!{table.entityPath}));
+    return R.data($!{entity}Wrapper.build().pageVO(pages));
+    }
 
 #else
 /**
@@ -82,9 +82,9 @@ public R<IPage<$!{entity}VO>> list($!{entity} $!{table.entityPath}, Query query)
 @ApiOperationSupport(order = 3)
 @ApiOperation(value = "详情", notes = "传入$!{table.entityPath}")
 public R<$!{entity}> detail($!{entity} $!{table.entityPath}) {
-	$!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
-		return R.data(detail);
-		}
+    $!{entity} detail = $!{table.entityPath}Service.getOne(Condition.getQueryWrapper($!{table.entityPath}));
+    return R.data(detail);
+    }
 
 /**
  * 分页 $!{table.comment}
@@ -93,9 +93,9 @@ public R<$!{entity}> detail($!{entity} $!{table.entityPath}) {
 @ApiOperationSupport(order = 4)
 @ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}>> list($!{entity} $!{table.entityPath}, Query query) {
-		IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), Condition.getQueryWrapper($!{table.entityPath}));
-		return R.data(pages);
-		}
+    IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), Condition.getQueryWrapper($!{table.entityPath}));
+    return R.data(pages);
+    }
 #end
 
 /**
@@ -105,25 +105,25 @@ public R<IPage<$!{entity}>> list($!{entity} $!{table.entityPath}, Query query) {
 @ApiOperationSupport(order = 5)
 @ApiOperation(value = "分页", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}VO>> page($!{entity}VO $!{table.entityPath}, Query query) {
-		IPage<$!{entity}VO> pages = $!{table.entityPath}Service.select$!{entity}Page(Condition.getPage(query), $!{table.entityPath});
-		return R.data(pages);
-		}
+    IPage<$!{entity}VO> pages = $!{table.entityPath}Service.select$!{entity}Page(Condition.getPage(query), $!{table.entityPath});
+    return R.data(pages);
+    }
 /**
      * 列表
      */
 @GetMapping("/list/page")
 @ApiImplicitParams({
-		@ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
+    @ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
+    @ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
+    @ApiImplicitParam(name = "parentId", value = "父id", paramType = "query", dataType = "string")
 })
 @ApiOperationSupport(order = 6)
 @ApiOperation(value = "列表", notes = "传入$!{table.entityPath}")
 public R<IPage<$!{entity}>> list(@ApiIgnore @RequestParam Map<String, Object> $!{table.entityPath}, Query query, SystemUser systemUser) {
-		QueryWrapper<$!{entity}> queryWrapper = Condition.getQueryWrapper($!{table.entityPath}, $!{entity}.class);
-		IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), queryWrapper);
-		return R.data(pages);
-		}
+    QueryWrapper<$!{entity}> queryWrapper = Condition.getQueryWrapper($!{table.entityPath}, $!{entity}.class);
+    IPage<$!{entity}> pages = $!{table.entityPath}Service.page(Condition.getPage(query), queryWrapper);
+    return R.data(pages);
+    }
 /**
  * 新增 $!{table.comment}
  */
@@ -131,8 +131,8 @@ public R<IPage<$!{entity}>> list(@ApiIgnore @RequestParam Map<String, Object> $!
 @ApiOperationSupport(order = 7)
 @ApiOperation(value = "新增", notes = "传入$!{table.entityPath}")
 public R save(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-		return R.status($!{table.entityPath}Service.save($!{table.entityPath}));
-		}
+    return R.status($!{table.entityPath}Service.save($!{table.entityPath}));
+    }
 
 /**
  * 修改 $!{table.comment}
@@ -141,8 +141,8 @@ public R save(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 @ApiOperationSupport(order = 8)
 @ApiOperation(value = "修改", notes = "传入$!{table.entityPath}")
 public R update(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-		return R.status($!{table.entityPath}Service.updateById($!{table.entityPath}));
-		}
+    return R.status($!{table.entityPath}Service.updateById($!{table.entityPath}));
+    }
 
 /**
  * 新增或修改 $!{table.comment}
@@ -151,12 +151,12 @@ public R update(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 @ApiOperationSupport(order = 9)
 @ApiOperation(value = "新增或修改", notes = "传入$!{table.entityPath}")
 public R submit(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-		if ($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath})) {
-		return R.data($!{table.entityPath});
-		} else {
-		return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, $!{table.entityPath}, ToolConstant.DEFAULT_FAILURE_MESSAGE);
-		}
-		}
+    if ($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath})) {
+    return R.data($!{table.entityPath});
+    } else {
+    return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, $!{table.entityPath}, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+    }
+    }
 
 #if($!{superEntityClass})
 
@@ -167,8 +167,8 @@ public R submit(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
 @ApiOperationSupport(order = 10)
 @ApiOperation(value = "逻辑删除", notes = "传入ids")
 public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-		return R.status($!{table.entityPath}Service.deleteLogic(Func.toLongList(ids)));
-		}
+    return R.status($!{table.entityPath}Service.deleteLogic(Func.toLongList(ids)));
+    }
 
 #else
 
@@ -179,8 +179,8 @@ public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam
 @ApiOperationSupport(order = 11)
 @ApiOperation(value = "删除", notes = "传入ids")
 public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-		return R.status($!{table.entityPath}Service.removeByIds(Func.toIntList(ids)));
-		}
+    return R.status($!{table.entityPath}Service.removeByIds(Func.toIntList(ids)));
+    }
 
 #end
 /**
@@ -190,23 +190,23 @@ public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam
 @ApiOperationSupport(order = 12)
 @ApiOperation(value = "下拉数据源", notes = "查询列表")
 public R<List<$!{entity}>> select() {
-		List<$!{entity}> list = $!{table.entityPath}Service.list();
-		return R.data(list);
-		}
+    List<$!{entity}> list = $!{table.entityPath}Service.list();
+    return R.data(list);
+    }
 
 #if($istree)
-    /**
-        * 获取菜单树形结构,
-        * 如果parentId为空，刚返回所有的数据
-        */
-    @GetMapping("/tree")
-    @ApiOperationSupport(order = 13)
-    @ApiOperation(value = "树形结构", notes = "树形结构")
-    public R<List<$!{entity}VO>> tree(@ApiParam(value = "父id", required = false)String parentId) {
-        List<$!{entity}VO> tree = $!{table.entityPath}Service.tree(parentId);
-        return R.data(tree);
-        }
+/**
+    * 获取菜单树形结构,
+    * 如果parentId为空，刚返回所有的数据
+    */
+@GetMapping("/tree")
+@ApiOperationSupport(order = 13)
+@ApiOperation(value = "树形结构", notes = "树形结构")
+public R<List<$!{entity}VO>> tree(@ApiParam(value = "父id", required = false)String parentId) {
+    List<$!{entity}VO> tree = $!{table.entityPath}Service.tree(parentId);
+    return R.data(tree);
+    }
 #end
 
 
-		}
+    }

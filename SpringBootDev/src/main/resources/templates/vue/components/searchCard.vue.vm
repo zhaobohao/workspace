@@ -12,8 +12,27 @@
     <div class="filter-container">
       <!--具体的查询条件，使用placeholder来显示标题-->
 #foreach($field in $!{table.fields})
+#if($!{field.comment.indexOf("字典")}!=-1)
+        <el-select v-model="temp.$!{field.propertyName}" placeholder="$!{field.comment}" class="filter-item"
+                   style="width: 305px;">
+            <el-option v-for="item in $!{field.propertyName}Options" :key="parseFloat(item.value)" :label="parseFloat(item.label)"" :value="parseFloat(item.value)" />
+        </el-select>
+#elseif($!{field.propertyType}=="Integer" || $!{field.propertyType}=="Long")
+        <el-input-number v-model="temp.$!{field.propertyName}" placeholder="$!{field.comment}" :precision="0" :step="1" :max="100" style="width: 305px;" />
+#elseif($!{field.propertyType}=="Float" || $!{field.propertyType}=="Double")
+        <el-input-number v-model="temp.$!{field.propertyName}" placeholder="$!{field.comment}" :precision="2" :step="0.1" :max="10" style="width: 305px;" />
+#elseif($!{field.propertyType}=="LocalDateTime")
+        <el-date-picker
+            v-model="temp.$!{field.propertyName}"
+            type="datetime"
+            placeholder="$!{field.comment}"
+            align="right"
+            :picker-options="pickerOptions">
+        </el-date-picker>
+#else
       <el-input v-model="listQuery.query.$!{field.propertyName}" placeholder="$!{field.comment}" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
+#end
 #end
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{
         $t('table.search') }}</el-button>
@@ -36,6 +55,16 @@
       waves
     },
     props: {
+#foreach($field in $!{table.fields})
+#if($!{field.comment.indexOf("字典")}!=-1)
+        $!{field.propertyName}Options: {
+        type: Array,
+        default: function () {
+            return []
+        }
+    },
+#end
+#end
       isSearchCardShow: {
         type: Boolean,
         default: false
@@ -45,7 +74,29 @@
       // 初始化整个页面用到的数据
       return {
         rangeDate: undefined,
-        listQuery: listQuery()
+        listQuery: listQuery(),
+        pickerOptions: {
+              shortcuts: [{
+                  text: '今天',
+                  onClick(picker) {
+                      picker.$emit('pick', new Date());
+                  }
+              }, {
+                  text: '昨天',
+                  onClick(picker) {
+                      const date = new Date();
+                      date.setTime(date.getTime() - 3600 * 1000 * 24);
+                      picker.$emit('pick', date);
+                  }
+              }, {
+                  text: '一周前',
+                  onClick(picker) {
+                      const date = new Date();
+                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                      picker.$emit('pick', date);
+                  }
+              }]
+          }
       }
     },
     // 初始化所有的数据

@@ -18,9 +18,9 @@
         <el-container>
 #end
 
-    <search-card ref="searchCard" :is-search-card-show="isSearchCardShow" />
-    <listTable ref="listTable" :is-search-card-show.sync="isSearchCardShow" />
-    <dataForm ref="dataForm" />
+    <search-card ref="searchCard"#foreach($field in $!{table.fields})#if($!{field.comment.indexOf("字典")}!=-1) :$!{field.name.replaceAll("_","-")}-options="$!{field.propertyName}Options"#end#end :is-search-card-show="isSearchCardShow" />
+    <listTable ref="listTable"#foreach($field in $!{table.fields})#if($!{field.comment.indexOf("字典")}!=-1) :$!{field.name.replaceAll("_","-")}-options="$!{field.propertyName}Options"#end#end :is-search-card-show.sync="isSearchCardShow" />
+    <dataForm ref="dataForm"#foreach($field in $!{table.fields})#if($!{field.comment.indexOf("字典")}!=-1) :$!{field.name.replaceAll("_","-")}-options="$!{field.propertyName}Options"#end#end />
 #if($istree)
         </el-container>
     </el-container>
@@ -75,6 +75,11 @@
           },
           treeData: [],
 #end
+#foreach($field in $!{table.fields})
+#if($!{field.comment.indexOf("字典")}!=-1)
+    $!{field.propertyName}Options:[],
+#end
+#end
         isSearchCardShow: false
       }
     },
@@ -98,17 +103,24 @@
             this.$!{dollar}refs.listTable.listQuery.query.parentId_equal = data.id
             this.$!{dollar}refs.listTable.getList()
         },
+#end
         initTreeData() {
+#foreach($field in $!{table.fields})
+#if($!{field.comment.indexOf("字典")}!=-1)
+     getDictionary('$!{field.comment.split("@")[1]}').then(response => {
+       this.$!{field.propertyName}Options = response.data
+     }),
+#end
+#end
+#if($istree)
             // 第一层结点
             getTreeData().then(response => {
                 // console.log(response.data)
                 this.treeData = initTreeData(response.data, '数据总览')
             })
-           // getDictionary('menu_category').then(response => {
-            // this.categoryOptions = response.data
-           // })
-        }
 #end
+        }
+
     }
   }
 

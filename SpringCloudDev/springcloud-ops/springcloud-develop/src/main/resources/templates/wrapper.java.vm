@@ -2,8 +2,8 @@
 #set($wrapperPackage=$package.Entity.replace("entity","wrapper"))
 package $!{wrapperPackage};
 
-import org.springclouddev.core.mp.support.BaseEntityWrapper;
-import org.springclouddev.core.tool.utils.BeanUtil;
+import org.springbootdev.core.mp.support.BaseEntityWrapper;
+import org.springbootdev.core.tool.utils.BeanUtil;
 import $!{package.Entity}.$!{entity};
 #set($voPackage=$package.Entity.replace("entity","vo"))
 import $!{voPackage}.$!{entity}VO;

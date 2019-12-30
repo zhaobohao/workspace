@@ -99,9 +99,10 @@ private static final long serialVersionUID = 1L;
         @TableLogic
         #end
         #if($!{field.keyFlag})
-        private Long $!{field.propertyName};
+          private Long $!{field.propertyName};
+        #else
+          private $!{field.propertyType} $!{field.propertyName};
         #end
-    private $!{field.propertyType} $!{field.propertyName};
     #end
 #end
 ## ----------  END 字段循环遍历  ----------

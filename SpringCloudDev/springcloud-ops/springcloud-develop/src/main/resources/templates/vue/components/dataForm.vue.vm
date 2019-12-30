@@ -17,10 +17,35 @@
     </el-form-item>
 #elseif($!{field.name}=="sort")
     <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
-        <el-input v-model="temp.$!{field.propertyName}" type="number" style="width: 305px;" />
+        <el-input-number v-model="temp.$!{field.propertyName}" :precision="0" :step="1" :max="100" style="width: 305px;" />
     </el-form-item>
-#elseif($!{field.name}=="is_deleted")
+#elseif($!{logicDeleteFieldName}==$!{field.name} || $!{field.name}=="tenant_id" || $!{field.keyFlag})
 
+#elseif($!{field.comment.indexOf("字典")}!=-1)
+    <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-select v-model="temp.$!{field.propertyName}" :placeholder="$!{dollar}t('table.pleaseSelect')" class="filter-item"
+                   style="width: 305px;">
+            <el-option v-for="item in $!{field.propertyName}Options" :key="parseFloat(item.value)" :label="parseFloat(item.label)"" :value="parseFloat(item.value)" />
+        </el-select>
+    </el-form-item>
+#elseif($!{field.propertyType}=="Integer" || $!{field.propertyType}=="Long")
+    <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-input-number v-model="temp.$!{field.propertyName}" :precision="0" :step="1" :max="100" style="width: 305px;" />
+    </el-form-item>
+#elseif($!{field.propertyType}=="Float" || $!{field.propertyType}=="Double")
+    <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-input-number v-model="temp.$!{field.propertyName}" :precision="2" :step="0.1" :max="10" style="width: 305px;" />
+    </el-form-item>
+#elseif($!{field.propertyType}=="LocalDateTime")
+    <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-date-picker
+            v-model="temp.$!{field.propertyName}"
+            type="datetime"
+            placeholder="选择日期时间"
+            align="right"
+            :picker-options="pickerOptions">
+        </el-date-picker>
+    </el-form-item>
 #else
       <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
         <el-input v-model="temp.$!{field.propertyName}" style="width: 305px;" />
@@ -62,7 +87,16 @@
 
     },
     props: {
-
+#foreach($field in $!{table.fields})
+#if($!{field.comment.indexOf("字典")}!=-1)
+         $!{field.propertyName}Options: {
+            type: Array,
+             default: function () {
+              return []
+             }
+         },
+#end
+#end
     },
     data() {
       // 初始化整个页面用到的数据
@@ -76,8 +110,29 @@
         },
         dialogPvVisible: false,
         temp: listQuery().query,
-        rules: listQuery().rules
-
+        rules: listQuery().rules,
+        pickerOptions: {
+              shortcuts: [{
+                  text: '今天',
+                  onClick(picker) {
+                      picker.$emit('pick', new Date());
+                  }
+              }, {
+                  text: '昨天',
+                  onClick(picker) {
+                      const date = new Date();
+                      date.setTime(date.getTime() - 3600 * 1000 * 24);
+                      picker.$emit('pick', date);
+                  }
+              }, {
+                  text: '一周前',
+                  onClick(picker) {
+                      const date = new Date();
+                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                      picker.$emit('pick', date);
+                  }
+              }]
+          }
       }
     },
     computed: {

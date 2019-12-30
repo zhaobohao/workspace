@@ -39,7 +39,7 @@
 #foreach($field in $!{table.fields})
       <el-table-column label="$!{field.comment}" min-width="150px">
         <template slot-scope="scope">
-          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.$!{field.propertyName} }}</span>
+          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.$!{field.propertyName}|#if($!{field.comment.indexOf("字典")}!=-1)translateVlaue2Lable($!{field.propertyName}Options)#end }}</span>
         </template>
       </el-table-column>
 #end
@@ -93,6 +93,16 @@
 
     },
     props: {
+#foreach($field in $!{table.fields})
+#if($!{field.comment.indexOf("字典")}!=-1)
+      $!{field.propertyName}Options: {
+        type: Array,
+        default: function () {
+          return []
+         }
+       },
+#end
+#end
       isSearchCardShow: { // true ,显示搜索区域
         type: Boolean,
         default: false
