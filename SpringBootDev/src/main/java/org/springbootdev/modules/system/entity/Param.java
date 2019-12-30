@@ -1,15 +1,14 @@
 
 package org.springbootdev.modules.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springbootdev.core.mp.base.BaseEntity;
+import org.springbootdev.core.mp.base.TenantEntity;
 
 /**
  * 实体类
@@ -21,7 +20,7 @@ import org.springbootdev.core.mp.base.BaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value = "Param对象", description = "Param对象")
-public class Param extends BaseEntity {
+public class Param extends BaseEntity implements TenantEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,6 +30,13 @@ public class Param extends BaseEntity {
 	@TableId(value = "id", type = IdType.AUTO)
 	@ApiModelProperty(value = "主键id")
 	private Long id;
+
+	/**
+	 * 租户ID
+	 */
+	@ApiModelProperty(value = "租户ID")
+	@TableField(fill = FieldFill.INSERT)
+	private String tenantId;
 
 	/**
 	 * 参数名

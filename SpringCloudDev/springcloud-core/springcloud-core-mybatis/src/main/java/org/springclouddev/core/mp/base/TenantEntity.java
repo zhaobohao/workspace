@@ -14,9 +14,5 @@ public interface TenantEntity   {
 	 */
 	public String getTenantId();
 
-	/**
-	 * 设置租户的tenantId
-	 * @param tenantId
-	 */
-	public void setTenantId(String tenantId);
+
 }

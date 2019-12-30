@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springbootdev.core.tool.utils.DateUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,6 +21,7 @@ import java.util.Date;
  * @author zhaobohao
  */
 @Data
+@Accessors(chain = true)
 public class BaseEntity implements Serializable {
 
 	/**

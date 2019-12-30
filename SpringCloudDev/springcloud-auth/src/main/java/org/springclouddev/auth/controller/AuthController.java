@@ -1,4 +1,3 @@
-
 package org.springclouddev.auth.controller;
 
 import io.swagger.annotations.Api;
