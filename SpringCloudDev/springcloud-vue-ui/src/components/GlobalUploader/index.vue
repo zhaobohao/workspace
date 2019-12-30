@@ -35,6 +35,8 @@
 
 <script>
   /**
+ 
+   * 
    *   全局上传插件
    *   调用方法：Bus.$emit('openUploader', {}) 打开文件选择框，参数为需要传递的额外参数
    *   监听函数：Bus.$on('fileAdded', fn); 文件选择后的回调
@@ -46,7 +48,7 @@
     ACCEPT_CONFIG
   } from './js/config'
   import Bus from '@/assets/js/bus'
-  import SparkMD5 from './js/spark-md5'
+  import SparkMD5 from 'spark-md5'
   import {
     Base64
   } from 'js-base64'

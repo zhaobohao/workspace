@@ -91,22 +91,22 @@ export function uppercaseFirst(string) {
 export function translateVlaue2Lable(value, datasource) {
   if (datasource) {
     if (datasource[0].value) {
-      const tmp = datasource.filter(item => item.value === value)
+      const tmp = datasource.filter(item => item.value.toString() === value.toString())
       if (tmp.length > 0) {
         return tmp[0].label
       }
     } else if (datasource[0].dictValue) {
-      const tmp = datasource.filter(item => item.dictKey === value)
+      const tmp = datasource.filter(item => item.dictKey.toString() === value.toString())
       if (tmp.length > 0) {
         return tmp[0].dictValue
       }
     } else if (datasource[0].tenantId) {
-      const tmp = datasource.filter(item => item.tenantId === value)
+      const tmp = datasource.filter(item => item.tenantId.toString() === value.toString())
       if (tmp.length > 0) {
         return tmp[0].tenantName
       }
     } else if (datasource[0].name) {
-      const tmp = datasource.filter(item => item.id === value)
+      const tmp = datasource.filter(item => item.id.toString() === value.toString())
       if (tmp.length > 0) {
         return tmp[0].name
       }

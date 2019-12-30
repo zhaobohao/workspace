@@ -54,14 +54,12 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="菜单类型" prop="remark">
-
             <el-radio-group v-model="temp.category">
               <el-radio v-for="(item) in categoryOptions" :key="parseFloat(item.dictKey)"
                 :label="parseFloat(item.dictKey)" size="small" style="margin-left: 10px;" border>
                 {{ item.dictValue }}
               </el-radio>
             </el-radio-group>
-
           </el-form-item>
         </el-col>
       </el-row>

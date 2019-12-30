@@ -7,6 +7,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springbootdev.core.boot.ctrl.AbstractController;
+import org.springbootdev.core.launch.constant.AppConstant;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.core.mp.support.Query;
 import org.springbootdev.core.secure.SystemUser;
@@ -33,7 +34,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/area")
+@RequestMapping("/"+ AppConstant.APPLICATION_SYSTEM_NAME+"/area")
 @Api(value = "行政区划", tags = "行政区划接口")
 public class AreaController extends AbstractController {
 

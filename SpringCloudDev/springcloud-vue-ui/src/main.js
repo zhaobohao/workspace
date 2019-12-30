@@ -29,6 +29,7 @@ import {
 } from './utils/util'
 // npm install vue-simple-uploader --save
 // npm install jquery --save
+// npm install spark-md5 --save
 import uploader from 'vue-simple-uploader'
 Vue.use(uploader)
 
