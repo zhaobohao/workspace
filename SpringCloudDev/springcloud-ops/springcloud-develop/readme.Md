@@ -18,9 +18,9 @@
 
 ###树形结构表处理
 ```java
-`parent_id` bigint(20) NULL DEFAULT 0 COMMENT '父级菜单',
+`parent_id` bigint(32) NULL DEFAULT 0 COMMENT '父级菜单',
 `sort` int(2) NULL DEFAULT NULL COMMENT '排序',
-`is_leaf` int(2) NOT NULL DEFAULT 0 COMMENT '是否是叶子节点，0是，1不是',
+`is_leaf` int(1) NOT NULL DEFAULT 0 COMMENT '是否是叶子节点，0是，1不是',
 ```
 当一个表里有parent_id 时，认为是树形结构表。java代码和vue前端会自动增加相关代码
 ###常用字段命名

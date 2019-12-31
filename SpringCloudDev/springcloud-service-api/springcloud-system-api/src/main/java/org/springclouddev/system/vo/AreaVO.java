@@ -2,6 +2,8 @@
 package org.springclouddev.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springclouddev.core.tool.node.INode;
 import org.springclouddev.system.entity.Area;
 import lombok.Data;
@@ -28,12 +30,14 @@ public class AreaVO extends Area implements INode {
 	/**
 	 * 主键ID
 	 */
-	private Long id;
+	@JsonSerialize(using= ToStringSerializer.class)
+private Long id;
 
 	/**
 	 * 父节点ID
 	 */
-	private Long parentId;
+	@JsonSerialize(using= ToStringSerializer.class)
+private Long parentId;
 
 	/**
 	 * 子孙节点

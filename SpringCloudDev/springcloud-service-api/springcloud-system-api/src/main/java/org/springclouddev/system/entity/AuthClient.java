@@ -4,6 +4,8 @@ package org.springclouddev.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,15 +23,14 @@ import org.springclouddev.core.mp.base.BaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "Client对象", description = "Client对象")
 public class AuthClient extends BaseEntity {
-
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * 主键id
 	 */
-	'@TableId(value = "id", type = IdType.NONE)
+	@TableId(value = "id", type = IdType.NONE)
 	@ApiModelProperty(value = "主键id")
-	private Long id;
+	@JsonSerialize(using= ToStringSerializer.class)
+private Long id;
 
 	/**
 	 * 客户端id

@@ -2,6 +2,8 @@
 package org.springclouddev.develop.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,8 +30,9 @@ public class TableInfo extends BaseEntity {
      * 主键
      */
     @ApiModelProperty(value = "主键")
-    '@TableId(value = "id", type = IdType.NONE)
-    private Long id;
+    @TableId(value = "id", type = IdType.NONE)
+    @JsonSerialize(using= ToStringSerializer.class)
+private Long id;
     /**
      * 名称
      */
@@ -64,7 +67,8 @@ public class TableInfo extends BaseEntity {
      * 父级菜单
      */
     @ApiModelProperty(value = "父级菜单")
-    private Long parentId;
+    @JsonSerialize(using= ToStringSerializer.class)
+private Long parentId;
     /**
      * 1表，2字段
      */

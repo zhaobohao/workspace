@@ -93,7 +93,7 @@ public class CodeController extends AbstractController {
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-		return R.status(codeService.removeByIds(Func.toIntList(ids)));
+		return R.status(codeService.removeByIds(Func.toLongList(ids)));
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class CodeController extends AbstractController {
 	@ApiOperationSupport(order = 6)
 	@ApiOperation(value = "代码生成", notes = "传入ids")
 	public void genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "vue element admin") String system, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
+		Collection<Code> codes = codeService.listByIds(Func.toLongList(ids));
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		try (
 			ZipOutputStream zip = new ZipOutputStream(outputStream);) {

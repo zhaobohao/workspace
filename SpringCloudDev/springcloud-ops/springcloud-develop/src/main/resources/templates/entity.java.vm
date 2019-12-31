@@ -25,7 +25,8 @@ import lombok.experimental.Accessors;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 #end
-
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 /**
  * $!{table.comment}实体类
  *
@@ -73,11 +74,14 @@ private static final long serialVersionUID = 1L;
         #if($!{field.keyFlag})
         ## 主键
             #if($!{field.keyIdentityFlag})
-            @TableId(value = "$!{field.name}", type = IdType.AUTO)
+            @TableId(value = "$!{field.name}", type = IdType.NONE)
             #elseif(!$null.isNull($!{idType}) && "$!idType" != "")
             @TableId(value = "$!{field.name}", type = IdType.$!{idType})
             #elseif($!{field.convert})
             @TableId("$!{field.name}")
+            #end
+            #if($!{field.keyIdentityFlag})
+        @JsonSerialize(using= ToStringSerializer.class)
             #end
         ## 普通字段
         #elseif($!{field.fill})

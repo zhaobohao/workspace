@@ -2,6 +2,8 @@
 package org.springclouddev.core.tool.node;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -18,11 +20,13 @@ public class BaseNode implements INode {
 	/**
 	 * 主键ID
 	 */
+	@JsonSerialize(using= ToStringSerializer.class)
 	protected Long id;
 
 	/**
 	 * 父节点ID
 	 */
+	@JsonSerialize(using= ToStringSerializer.class)
 	protected Long parentId;
 
 	/**

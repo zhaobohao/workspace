@@ -2,6 +2,8 @@
 package org.springbootdev.modules.develop.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,12 +29,14 @@ public class TableInfoVO extends TableInfo implements INode {
 	/**
 	 * 主键ID
 	 */
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 
 	/**
 	 * 父节点ID
 	 */
-	private Long parentId;
+	@JsonSerialize(using= ToStringSerializer.class)
+private Long parentId;
 
 	/**
 	 * 子孙节点

@@ -2,6 +2,8 @@
 package org.springclouddev.system.user.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,9 +27,10 @@ public class User extends BaseEntity implements TenantEntity {
 	/**
 	 * 主键id
 	 */
-	'@TableId(value = "id", type = IdType.NONE)
+	@TableId(value = "id", type = IdType.NONE)
 	@ApiModelProperty(value = "主键id")
-	private Long id;
+	@JsonSerialize(using= ToStringSerializer.class)
+private Long id;
 	/**
 	 * 租户ID
 	 */

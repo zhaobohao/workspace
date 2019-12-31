@@ -2,6 +2,8 @@
 package org.springclouddev.develop.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.experimental.Accessors;
 import org.springclouddev.core.tool.node.INode;
 import org.springclouddev.develop.entity.TableInfo;
@@ -27,11 +29,13 @@ public class TableInfoVO extends TableInfo implements INode {
 	/**
 	 * 主键ID
 	 */
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 
 	/**
 	 * 父节点ID
 	 */
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long parentId;
 
 	/**

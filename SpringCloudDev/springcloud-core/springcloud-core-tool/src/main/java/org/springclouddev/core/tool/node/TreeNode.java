@@ -1,6 +1,8 @@
 
 package org.springclouddev.core.tool.node;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,9 +16,9 @@ import lombok.EqualsAndHashCode;
 public class TreeNode extends BaseNode {
 
 	private String title;
-
-	private Integer key;
-
-	private Integer value;
+	@JsonSerialize(using= ToStringSerializer.class)
+	private Long key;
+	@JsonSerialize(using= ToStringSerializer.class)
+	private Long  value;
 
 }

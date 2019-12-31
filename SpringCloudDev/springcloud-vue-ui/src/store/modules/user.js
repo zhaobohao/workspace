@@ -30,9 +30,6 @@ const state = {
 }
 /* Layout */
 import Layout from '@/layout'
-import {
-  TimePicker
-} from 'element-ui'
 
 const mutations = {
   SET_TOKEN: (state, token) => {
@@ -265,7 +262,7 @@ export function generateRoutes(menus) {
         breadcrumb: true
       }
     }
-    if (menu.children && menu.parentId === 0) {
+    if (menu.children && menu.parentId === '0') {
       tmp.redirect = menu.path
       tmp.alwaysShow = true
       tmp.component = Layout

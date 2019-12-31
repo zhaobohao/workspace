@@ -2,6 +2,8 @@
 package org.springbootdev.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class Dept implements Serializable, TenantEntity, TreeEntity {
 	 */
 	@ApiModelProperty(value = "主键")
 	@TableId(value = "id", type = IdType.NONE)
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 
 	/**
@@ -40,7 +43,8 @@ public class Dept implements Serializable, TenantEntity, TreeEntity {
 	 * 父主键
 	 */
 	@ApiModelProperty(value = "父主键")
-	private Long parentId;
+	@JsonSerialize(using= ToStringSerializer.class)
+private Long parentId;
 
 	/**
 	 * 排序

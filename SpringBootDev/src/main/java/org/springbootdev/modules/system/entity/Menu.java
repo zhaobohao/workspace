@@ -2,6 +2,8 @@
 package org.springbootdev.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,6 +30,7 @@ public class Menu implements Serializable, TenantEntity, TreeEntity {
 	 */
 	@ApiModelProperty(value = "主键")
 	@TableId(value = "id", type = IdType.NONE)
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 
 
@@ -42,7 +45,8 @@ public class Menu implements Serializable, TenantEntity, TreeEntity {
 	 * 菜单父主键
 	 */
 	@ApiModelProperty(value = "菜单父主键")
-	private Long parentId;
+	@JsonSerialize(using= ToStringSerializer.class)
+private Long parentId;
 
 	/**
 	 * 是否是叶子节点,0是，1不是。

@@ -4,6 +4,8 @@ package org.springbootdev.modules.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -41,7 +43,8 @@ public class Area extends BaseEntity {
      * 父级编号
      */
     @ApiModelProperty(value = "父级编号")
-    private Long parentId;
+    @JsonSerialize(using= ToStringSerializer.class)
+private Long parentId;
     /**
      * 本级排序号（升序）
      */

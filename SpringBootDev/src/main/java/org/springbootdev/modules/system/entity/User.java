@@ -2,6 +2,8 @@
 package org.springbootdev.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,6 +29,7 @@ public class User extends BaseEntity implements TenantEntity {
 	 */
 	@TableId(value = "id", type = IdType.NONE)
 	@ApiModelProperty(value = "主键id")
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 	/**
 	 * 租户ID

@@ -39,12 +39,14 @@ public class $!{entity}VO extends $!{entity}
         /**
        * 主键ID
        */
+        @JsonSerialize(using= ToStringSerializer.class)
         private Long id;
 
         /**
          * 父节点ID
          */
-        private Long parentId;
+        @JsonSerialize(using= ToStringSerializer.class)
+private Long parentId;
 
         /**
          * 子孙节点

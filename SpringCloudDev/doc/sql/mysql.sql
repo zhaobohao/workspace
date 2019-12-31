@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 26/12/2019 15:09:41
+ Date: 01/01/2020 00:26:59
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `db_db_instance`;
 CREATE TABLE `db_db_instance`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '数据库名称',
   `data_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data用户账号',
   `etl_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'etl用户账号',
@@ -52,7 +52,7 @@ INSERT INTO `db_db_instance` VALUES (5, '3333333333333333', '234234', '423', '23
 -- ----------------------------
 DROP TABLE IF EXISTS `db_table_info`;
 CREATE TABLE `db_table_info`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '名称',
   `type_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '字段类型',
   `type_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '字段类型长度',
@@ -72,7 +72,7 @@ CREATE TABLE `db_table_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `idx_db_table_info_id`(`id`) USING BTREE,
   INDEX `idx_db_table_info_dbid`(`db_instance_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of db_table_info
@@ -88,9 +88,9 @@ INSERT INTO `db_table_info` VALUES (18, 'bank_no_create_date', 'DATE', '10', 1, 
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_area`;
 CREATE TABLE `mk_area`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `area_code` int(100) NOT NULL COMMENT '区域编码',
-  `parent_id` int(64) NOT NULL COMMENT '父级编号',
+  `parent_id` bigint(32) NOT NULL COMMENT '父级编号',
   `sort` decimal(10, 0) NOT NULL COMMENT '本级排序号（升序）',
   `is_leaf` int(1) NOT NULL DEFAULT 0 COMMENT '是否叶子节点',
   `area_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '区域名称',
@@ -3373,7 +3373,7 @@ INSERT INTO `mk_area` VALUES (3256, 820008, 820000, 820008, 0, '圣方济各堂�
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_client`;
 CREATE TABLE `mk_client`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `client_id` varchar(48) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '客户端id',
   `client_secret` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '客户端密钥',
   `resource_ids` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资源集合',
@@ -3404,8 +3404,8 @@ INSERT INTO `mk_client` VALUES (2, 'systemId', 'system_secret', '', 'all', 'refr
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_code`;
 CREATE TABLE `mk_code`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `datasource_id` bigint(64) NULL DEFAULT NULL COMMENT '数据源主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
+  `datasource_id` bigint(32) NULL DEFAULT NULL COMMENT '数据源主键',
   `service_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务名称',
   `code_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模块名称',
   `table_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '表名',
@@ -3433,7 +3433,7 @@ INSERT INTO `mk_code` VALUES (11, 1, 'springcloud-system', '行政地区模块',
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_datasource`;
 CREATE TABLE `mk_datasource`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
   `driver_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '驱动类',
   `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '连接地址',
@@ -3462,34 +3462,32 @@ INSERT INTO `mk_datasource` VALUES (3, 'oracle', 'oracle.jdbc.OracleDriver', 'jd
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_dept`;
 CREATE TABLE `mk_dept`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父主键',
+  `parent_id` bigint(32) NULL DEFAULT 0 COMMENT '父主键',
   `dept_name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门名',
   `full_name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门全称',
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   `is_leaf` int(2) NOT NULL DEFAULT 0 COMMENT '是否是叶子节点，0是，1不是',
-  `parent_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所有父结点id的集合，逗号分隔',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_dept
 -- ----------------------------
-INSERT INTO `mk_dept` VALUES (1, '000000', 0, '软竹科技', '上海软件竹科技有限公司', 1, '2222', 0, 1, NULL);
-INSERT INTO `mk_dept` VALUES (2, '000000', 1, '北京软竹', '北京软竹科技有限公司', 1, '', 0, 1, NULL);
-INSERT INTO `mk_dept` VALUES (3, '000000', 1, '深圳软竹', '深圳软竹科技有限公司', 1, '32342', 0, 0, NULL);
-INSERT INTO `mk_dept` VALUES (20, '058431', 0, '2', '2', 2, NULL, 0, 0, NULL);
+INSERT INTO `mk_dept` VALUES (1, '000000', 0, '软竹科技', '上海软件竹科技有限公司', 1, '2222', 0, 1);
+INSERT INTO `mk_dept` VALUES (2, '000000', 1, '北京软竹', '北京软竹科技有限公司', 1, '', 0, 1);
+INSERT INTO `mk_dept` VALUES (3, '000000', 1, '深圳软竹', '深圳软竹科技有限公司', 1, '32342', 0, 1);
 
 -- ----------------------------
 -- Table structure for mk_dict
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_dict`;
 CREATE TABLE `mk_dict`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
+  `parent_id` bigint(32) NULL DEFAULT 0 COMMENT '父主键',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典码',
   `dict_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典值',
   `dict_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典名称',
@@ -3540,7 +3538,7 @@ INSERT INTO `mk_dict` VALUES (36, 32, 'area_type', '4', '区县', 4, '区县', 0
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_log_api`;
 CREATE TABLE `mk_log_api`  (
-  `id` bigint(64) NOT NULL COMMENT '编号',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
   `service_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务ID',
   `server_host` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务器名',
@@ -3566,7 +3564,7 @@ CREATE TABLE `mk_log_api`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_log_error`;
 CREATE TABLE `mk_log_error`  (
-  `id` bigint(64) NOT NULL COMMENT '编号',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
   `service_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务ID',
   `server_host` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务器名',
@@ -3595,7 +3593,7 @@ CREATE TABLE `mk_log_error`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_log_usual`;
 CREATE TABLE `mk_log_usual`  (
-  `id` bigint(64) NOT NULL COMMENT '编号',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
   `service_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务ID',
   `server_host` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务器名',
@@ -3617,14 +3615,13 @@ CREATE TABLE `mk_log_usual`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通用日志表' ROW_FORMAT = Dynamic;
 
-
 -- ----------------------------
 -- Table structure for mk_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_menu`;
 CREATE TABLE `mk_menu`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级菜单',
+  `id` bigint(32) NOT NULL COMMENT '主键',
+  `parent_id` bigint(32) NULL DEFAULT 0 COMMENT '父级菜单',
   `tenant_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户ID',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单编号',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单名称',
@@ -3639,7 +3636,7 @@ CREATE TABLE `mk_menu`  (
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   `is_leaf` int(2) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否是叶子节点，0是，1不是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 94 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_menu
@@ -3741,7 +3738,7 @@ INSERT INTO `mk_menu` VALUES (93, 89, '000000', 'areas_view', '查看', 'view', 
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_notice`;
 CREATE TABLE `mk_notice`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
   `category` int(11) NULL DEFAULT NULL COMMENT '类型',
@@ -3768,7 +3765,8 @@ INSERT INTO `mk_notice` VALUES (25, '000000', '测试公告3', 6, '2018-12-29 00
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_param`;
 CREATE TABLE `mk_param`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '租户ID',
   `param_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '参数名',
   `param_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '参数键',
   `param_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '参数值',
@@ -3780,29 +3778,29 @@ CREATE TABLE `mk_param`  (
   `status` int(2) NULL DEFAULT NULL COMMENT '状态',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_param
 -- ----------------------------
-INSERT INTO `mk_param` VALUES (1, '是否开启注册功能', 'account.registerUser', 'true', '开启注册', 1, '2018-12-28 12:19:01', 1, '2018-12-28 12:19:01', 1, 0);
-INSERT INTO `mk_param` VALUES (2, '账号初始密码', 'account.initPassword', '123456', '初始密码', 1, '2018-12-28 12:19:01', 1, '2018-12-28 12:19:01', 1, 0);
+INSERT INTO `mk_param` VALUES (1, '', '是否开启注册功能', 'account.registerUser', 'true', '开启注册', 1, '2018-12-28 12:19:01', 1, '2018-12-28 12:19:01', 1, 0);
+INSERT INTO `mk_param` VALUES (2, '', '账号初始密码', 'account.initPassword', '123456', '初始密码', 1, '2018-12-28 12:19:01', 1, '2018-12-28 12:19:01', 1, 0);
 
 -- ----------------------------
 -- Table structure for mk_role
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_role`;
 CREATE TABLE `mk_role`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父主键',
+  `parent_id` bigint(32) NULL DEFAULT 0 COMMENT '父主键',
   `role_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名',
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `role_alias` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色别名',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   `is_leaf` int(2) NOT NULL DEFAULT 0 COMMENT '是否是叶子节点，0是，1不是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_role
@@ -3816,7 +3814,7 @@ INSERT INTO `mk_role` VALUES (17, '058431', 0, '管理员', 2, 'admin', 0, 0);
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_role_menu`;
 CREATE TABLE `mk_role_menu`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `menu_id` int(11) NULL DEFAULT NULL COMMENT '菜单id',
   `role_id` int(11) NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
@@ -3906,7 +3904,7 @@ INSERT INTO `mk_role_menu` VALUES (705, 76, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_tenant`;
 CREATE TABLE `mk_tenant`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '租户ID',
   `tenant_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '租户名称',
   `linkman` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系人',
@@ -3919,7 +3917,7 @@ CREATE TABLE `mk_tenant`  (
   `status` int(2) NULL DEFAULT NULL COMMENT '状态',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '租户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '租户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mk_tenant
@@ -3931,7 +3929,7 @@ INSERT INTO `mk_tenant` VALUES (1, '000000', '管理组', 'admin', '666666', '�
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_user`;
 CREATE TABLE `mk_user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(32) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
   `account` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '账号',
   `password` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
