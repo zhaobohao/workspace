@@ -28,7 +28,7 @@ public class TableInfo extends BaseEntity {
      * 主键
      */
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.NONE)
   private Long id;
     /**
      * 名称
@@ -51,7 +51,7 @@ public class TableInfo extends BaseEntity {
     @ApiModelProperty(value = "是否为空 1为空2不为空")
     private Integer isEmpty;
     /**
-     * 默认值 
+     * 默认值
      */
     @ApiModelProperty(value = "默认值 ")
     private String defaultValue;

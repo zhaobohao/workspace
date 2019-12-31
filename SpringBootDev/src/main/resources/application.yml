@@ -80,9 +80,15 @@ mybatis-plus:
   global-config:
     # 关闭MP3.0自带的banner
     banner: false
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+      #驼峰下划线转换
+    db-column-underline: true
+      #刷新mapper 调试神器
+    refresh-mapper: true
     db-config:
       #主键类型  0:"数据库ID自增", 1:"不操作", 2:"用户输入ID",3:"数字型snowflake", 4:"全局唯一ID UUID", 5:"字符串型snowflake";
-      id-type: id_worker
+      id-type: 3
       #字段策略
       insert-strategy: not_null
       update-strategy: not_null

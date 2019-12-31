@@ -26,7 +26,7 @@ public class Tenant extends BaseEntity {
 	/**
 	 * 主键id
 	 */
-	@TableId(value = "id", type = IdType.AUTO)
+	'@TableId(value = "id", type = IdType.NONE)
 	@ApiModelProperty(value = "主键id")
 	private Long id;
 

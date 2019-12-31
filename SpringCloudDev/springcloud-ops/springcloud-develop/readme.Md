@@ -5,7 +5,7 @@
 ##表结构中的默认数据
 ###BaseEntity中的自动填充字段
 ```sql
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(32) NOT NULL AUTO_INCREMENT,
   `create_user`	bigint(20) NULL DEFAULT NULL COMMENT '创建人',
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',

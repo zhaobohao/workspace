@@ -21,7 +21,7 @@ public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
+	'@TableId(value = "id", type = IdType.NONE)
 	private Long id;
 	private String userId;
 	private String commodityCode;

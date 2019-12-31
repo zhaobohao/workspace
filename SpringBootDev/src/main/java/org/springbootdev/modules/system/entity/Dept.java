@@ -26,7 +26,7 @@ public class Dept implements Serializable, TenantEntity, TreeEntity {
 	 * 主键
 	 */
 	@ApiModelProperty(value = "主键")
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id", type = IdType.NONE)
 	private Long id;
 
 	/**

@@ -27,7 +27,7 @@ public class Datasource extends BaseEntity {
 	 * 主键
 	 */
 	@ApiModelProperty(value = "主键")
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id", type = IdType.NONE)
 	private Integer id;
 
 	/**
