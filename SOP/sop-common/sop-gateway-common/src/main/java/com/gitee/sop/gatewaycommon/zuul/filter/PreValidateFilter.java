@@ -1,16 +1,15 @@
 package com.gitee.sop.gatewaycommon.zuul.filter;
 
-import com.gitee.sop.gatewaycommon.exception.ApiException;
 import com.gitee.sop.gatewaycommon.param.ApiParam;
 import com.gitee.sop.gatewaycommon.param.ParamBuilder;
-import com.gitee.sop.gatewaycommon.validate.Validator;
 import com.gitee.sop.gatewaycommon.zuul.ZuulContext;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 前置校验
+ * 校验工作转移到了 com.gitee.sop.gateway.controller.RedirectController
+ *
+ * 将校验工作提前，如果在zuul过滤器中校验，抛出异常将会打印非常多的日志，并且无法实现自定义返回结果。
  *
  * @author tanghc
  */
@@ -18,9 +17,6 @@ public class PreValidateFilter extends BaseZuulFilter {
 
     @Autowired
     private ParamBuilder<RequestContext> paramBuilder;
-
-    @Autowired
-    private Validator validator;
 
     @Override
     protected FilterType getFilterType() {
@@ -33,18 +29,11 @@ public class PreValidateFilter extends BaseZuulFilter {
     }
 
     @Override
-    protected Object doRun(RequestContext requestContext) throws ZuulException {
-        // 解析参数
-        ApiParam param = paramBuilder.build(requestContext);
-        ZuulContext.setApiParam(param);
-        // 验证操作，这里有负责验证签名参数
-        try {
-            validator.validate(param);
-        } catch (ApiException e) {
-            log.error("验证失败，ip:{}, params:{}", param.fetchIp(), param.toJSONString(), e);
-            throw e;
-        } finally {
-            param.fitNameVersion();
+    protected Object doRun(RequestContext requestContext) {
+        ApiParam param = ZuulContext.getApiParam();
+        if (param == null) {
+            param = paramBuilder.build(requestContext);
+            ZuulContext.setApiParam(param);
         }
         return null;
     }

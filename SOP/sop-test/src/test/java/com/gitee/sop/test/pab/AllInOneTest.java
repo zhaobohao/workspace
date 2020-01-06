@@ -96,7 +96,7 @@ public class AllInOneTest extends TestBase {
     }
 
     /**
-     * 忽略验证,不校验签名，只需传接口名、版本号、业务参数
+     * 忽略验证,不校验签名，只需传接口名、版本号、业务参BaseExecutorAdapter数
      */
     public void testIgnoreSign() {
         Client.RequestBuilder requestBuilder = new Client.RequestBuilder()

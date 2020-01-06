@@ -293,7 +293,7 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
             return null;
         }
         Isv isvInfo = isvManager.getIsv(appKey);
-        String privateKeyPlatform = isvInfo.getPrivateKeyPlatform();
+        String privateKeyPlatform = isvInfo==null?null: isvInfo.getPrivateKeyPlatform();
         if (StringUtils.isEmpty(privateKeyPlatform)) {
             return null;
         }

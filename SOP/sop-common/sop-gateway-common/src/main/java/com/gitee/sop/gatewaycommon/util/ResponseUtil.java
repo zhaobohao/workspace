@@ -30,7 +30,7 @@ public class ResponseUtil {
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.setCharacterEncoding(UTF_8);
         try {
-            response.getWriter().write(JSON.toJSONString(result));
+            response.getWriter().write(result instanceof String ? (String)result : JSON.toJSONString(result));
         } catch (IOException e) {
             log.error("doWriter", e);
         }

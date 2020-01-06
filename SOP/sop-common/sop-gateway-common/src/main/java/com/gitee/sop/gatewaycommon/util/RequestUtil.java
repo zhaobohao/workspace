@@ -1,9 +1,9 @@
 package com.gitee.sop.gatewaycommon.util;
-
 import com.alibaba.fastjson.JSON;
 import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import com.gitee.sop.gatewaycommon.param.ApiUploadContext;
 import com.gitee.sop.gatewaycommon.param.UploadContext;
+import com.gitee.sop.gatewaycommon.zuul.param.ZuulParameterUtil;
 import com.netflix.zuul.http.HttpServletRequestWrapper;
 import lombok.Data;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -14,8 +14,11 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -24,6 +27,7 @@ import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -240,6 +244,9 @@ public class RequestUtil {
      * @return 返回文件内容和表单内容
      */
     public static UploadInfo getUploadInfo(HttpServletRequest request) {
+        if (request instanceof StandardMultipartHttpServletRequest) {
+            return getUploadInfo((StandardMultipartHttpServletRequest)request);
+        }
         UploadInfo uploadInfo = new UploadInfo();
         // 创建一个文件上传解析器
         ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
@@ -269,6 +276,19 @@ public class RequestUtil {
         return uploadInfo;
     }
 
+    public static UploadInfo getUploadInfo(StandardMultipartHttpServletRequest request) {
+        UploadInfo uploadInfo = new UploadInfo();
+        Map<String, String> uploadParams = new HashMap<>(16);
+        request.getParameterMap().forEach((key, value)-> uploadParams.put(key, value[0]));
+
+        Map<String, MultipartFile> multipartFileMap = request.getMultiFileMap().toSingleValueMap();
+        UploadContext uploadContext = new ApiUploadContext(multipartFileMap);
+
+        uploadInfo.setUploadParams(uploadParams);
+        uploadInfo.setUploadContext(uploadContext);
+        return uploadInfo;
+    }
+
     public static void checkResponseBody(String responseBody, String sign, String secret) throws Exception {
         if (sign == null) {
             throw new Exception("签名不存在");
@@ -278,6 +298,26 @@ public class RequestUtil {
         if (!sign.equals(clientSign)) {
             throw new Exception("签名错误");
         }
+    }
+
+    public static HttpServletRequest wrapRequest(HttpServletRequest request) {
+        if (request.getMethod().equalsIgnoreCase(HttpMethod.GET.name()) ||
+                request instanceof StandardMultipartHttpServletRequest) {
+            return request;
+        }
+        HttpServletRequest wrapper = request;
+        String contentType = request.getContentType();
+        MediaType mediaType = MediaType.valueOf(contentType);
+        if (MediaType.APPLICATION_JSON.includes(mediaType)) {
+            try {
+                String json = RequestUtil.getText(request);
+                byte[] data = json.getBytes(StandardCharsets.UTF_8);
+                wrapper = new ZuulParameterUtil.BodyDataHttpServletRequestWrapper(request, data);
+            } catch (IOException e) {
+                log.error("wrapRequest异常", e);
+            }
+        }
+        return wrapper;
     }
 
     @Data

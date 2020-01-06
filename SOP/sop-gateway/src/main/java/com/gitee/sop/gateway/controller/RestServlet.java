@@ -1,8 +1,6 @@
 package com.gitee.sop.gateway.controller;
 
 import com.gitee.sop.gatewaycommon.bean.SopConstants;
-import com.gitee.sop.gatewaycommon.param.ParamNames;
-import com.gitee.sop.gatewaycommon.util.RouteUtil;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.ServletException;

@@ -31,7 +31,11 @@ public class ZuulResultExecutor extends BaseExecutorAdapter<RequestContext, Stri
                 ApiException apiException = (ApiException) cause;
                 error = apiException.getError();
             }
+        } else if (throwable instanceof ApiException) {
+            ApiException apiException = (ApiException) throwable;
+            error = apiException.getError();
         }
+
         if (error == null) {
             error = ErrorEnum.ISP_UNKNOWN_ERROR.getErrorMeta().getError();
         }

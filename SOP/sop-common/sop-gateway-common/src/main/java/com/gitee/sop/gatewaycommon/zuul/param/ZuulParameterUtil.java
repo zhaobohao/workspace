@@ -53,11 +53,11 @@ public class ZuulParameterUtil {
                     ((JSONObject) apiParam).toJSONString()
                     : JSON.toJSONString(apiParam);
             byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
-            requestContext.setRequest(new ChangeParamsHttpServletRequestWrapper(request, bytes));
+            requestContext.setRequest(new BodyDataHttpServletRequestWrapper(request, bytes));
         } else if(StringUtils.containsIgnoreCase(contentType, MediaType.APPLICATION_FORM_URLENCODED_VALUE)) {
             String paramsStr = RequestUtil.convertMapToQueryString(apiParam);
             byte[] data = paramsStr.getBytes(StandardCharsets.UTF_8);
-            requestContext.setRequest(new ChangeParamsHttpServletRequestWrapper(request, data));
+            requestContext.setRequest(new BodyDataHttpServletRequestWrapper(request, data));
         } else if(RequestUtil.isMultipart(request)) {
             FormHttpOutputMessage outputMessage = new FormHttpOutputMessage();
             try {
@@ -82,7 +82,7 @@ public class ZuulParameterUtil {
                 // 获取新的上传文件流
                 byte[] data = outputMessage.getInput();
 
-                requestContext.setRequest(new ChangeParamsHttpServletRequestWrapper(request, data));
+                requestContext.setRequest(new BodyDataHttpServletRequestWrapper(request, data));
                 // 必须要重新指定content-type，因为此时的boundary已经发生改变
                 requestContext.getZuulRequestHeaders().put("content-type", outputMessage.getHeaders().getContentType().toString());
             } catch (Exception e) {
@@ -103,10 +103,10 @@ public class ZuulParameterUtil {
         }
     }
 
-    private static class ChangeParamsHttpServletRequestWrapper extends HttpServletRequestWrapper {
+    public static class BodyDataHttpServletRequestWrapper extends HttpServletRequestWrapper {
         private byte[] data;
 
-        public ChangeParamsHttpServletRequestWrapper(HttpServletRequest request, byte[] data) {
+        public BodyDataHttpServletRequestWrapper(HttpServletRequest request, byte[] data) {
             super(request);
             this.data = data;
         }

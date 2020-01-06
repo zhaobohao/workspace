@@ -5,6 +5,7 @@ import com.gitee.sop.gatewaycommon.bean.ApiContext;
 import com.gitee.sop.gatewaycommon.manager.AbstractConfiguration;
 import com.gitee.sop.gatewaycommon.manager.RouteRepositoryContext;
 import com.gitee.sop.gatewaycommon.param.ParamBuilder;
+import com.gitee.sop.gatewaycommon.zuul.ValidateService;
 import com.gitee.sop.gatewaycommon.zuul.filter.ErrorFilter;
 import com.gitee.sop.gatewaycommon.zuul.filter.FormBodyWrapperFilterExt;
 import com.gitee.sop.gatewaycommon.zuul.filter.PostResultFilter;
@@ -100,6 +101,11 @@ public class BaseZuulConfiguration extends AbstractConfiguration {
     @Bean
     PreValidateFilter preValidateFilter() {
         return new PreValidateFilter();
+    }
+
+    @Bean
+    ValidateService validateService() {
+        return new ValidateService();
     }
 
     @Bean
