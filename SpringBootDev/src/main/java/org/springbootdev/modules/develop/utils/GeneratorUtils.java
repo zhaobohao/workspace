@@ -46,6 +46,13 @@ public class GeneratorUtils {
 			sw.append("updated_by varchar2(50 char),\n");
 			sw.append("updated_date timestamp default systimestamp,\n");
 			sw.append("is_deleted int(2) default 0\n");
+			sw.append("}\n");
+			// 对表进行分区处理
+			sw.append("PARTITION BY RANGE (CREATE_DATE) INTERVAL (NUMTOYMINTERVAL(1,'MONTH'))\n");
+			sw.append("{\n");
+			sw.append(" PARTITION PART_20190801 VALUES LESS THAN(TO_DATE('20190801','YYYYMMDD')),\n");
+			sw.append(" PARTITION PART_20190901 VALUES LESS THAN(TO_DATE('20190901','YYYYMMDD')),\n");
+			sw.append(" PARTITION PART_20191001 VALUES LESS THAN(TO_DATE('20191001','YYYYMMDD'))\n");
 			sw.append("}INITRANS 6;\n");
 			//创建表的同义词
 			sw.append("create or replace public synonym ").append(table.getName()).append(" for ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append(";\n");
