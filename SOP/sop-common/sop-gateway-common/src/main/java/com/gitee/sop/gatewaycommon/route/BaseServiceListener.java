@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public abstract class BaseServiceListener implements ServiceListener {
 
-    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq";
+    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq9i3jxnd";
 
     private static RestTemplate restTemplate = new RestTemplate();
 

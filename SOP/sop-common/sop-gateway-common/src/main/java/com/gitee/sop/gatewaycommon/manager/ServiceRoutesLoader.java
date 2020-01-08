@@ -42,7 +42,7 @@ public class ServiceRoutesLoader<T extends TargetRoute> {
 
     private static final String SOP_ROUTES_PATH = "/sop/routes";
 
-    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq";
+    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq9i3jxnd";
 
     private static final int FIVE_SECONDS = 1000 * 5;
 

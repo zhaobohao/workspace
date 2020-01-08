@@ -86,8 +86,15 @@ public class OpenUtil {
         if (StringUtils.isAnyBlank(time, sign)) {
             return false;
         }
+       if(Long.parseLong(time)-System.currentTimeMillis()>2000){
+           // 时间戳大于3秒，判断认证过期。
+           return false;
+       }
+
         String source = secret + time + secret;
         String serverSign = DigestUtils.md5DigestAsHex(source.getBytes());
         return serverSign.equals(sign);
     }
+
+
 }
