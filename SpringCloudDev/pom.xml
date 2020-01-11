@@ -55,8 +55,6 @@
         <module>springcloud-service-api</module>
         <module>springcloud-common</module>
         <module>springcloud-core</module>
-        <module>springcloud-crm</module>
-        <module>springcloud-crm-api</module>
         <module>springcloud-business</module>
     </modules>
 
