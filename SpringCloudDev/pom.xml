@@ -57,7 +57,7 @@
         <module>springcloud-core</module>
         <module>springcloud-crm</module>
         <module>springcloud-crm-api</module>
-        <module>springcloud-distributed-id</module>
+        <module>springcloud-business</module>
     </modules>
 
     <dependencyManagement>

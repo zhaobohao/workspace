@@ -17,6 +17,7 @@
         <module>springcloud-resource</module>
         <module>springcloud-seata-order</module>
         <module>springcloud-seata-storage</module>
+        <module>springcloud-distributed-id</module>
     </modules>
 
 </project>
