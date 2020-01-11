@@ -8,18 +8,16 @@
         <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>springcloud-crm-api</artifactId>
+    <description> 业务模块API集合</description>
     <name>${project.artifactId}</name>
-    <version>1.0.1</version>
-    <modules>
-        <module>springcloud-crm-bi-api</module>
-        <module>springcloud-crm-customer-api</module>
-        <module>springcloud-crm-office-api</module>
-        <module>springcloud-crm-projectManager-api</module>
-    </modules>
+    <artifactId>springcloud-template-api</artifactId>
     <packaging>pom</packaging>
-    <description> CRM 服务API集合</description>
+    <version>1.0.1</version>
+
+
+    <modules>
+        <module>springcloud-xxxxtemplate-api</module>
+    </modules>
 
     <dependencies>
         <dependency>

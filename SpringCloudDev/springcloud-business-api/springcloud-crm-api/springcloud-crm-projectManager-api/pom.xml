@@ -11,7 +11,7 @@
 
     <artifactId>springcloud-crm-projectManager-api</artifactId>
     <name>${project.artifactId}</name>
-    <version>${springclouddev.project.version}</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
 </project>

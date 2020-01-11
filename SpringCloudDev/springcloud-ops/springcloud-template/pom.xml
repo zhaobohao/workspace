@@ -8,16 +8,14 @@
         <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>springcloud-business</artifactId>
+    <artifactId>springcloud-template</artifactId>
     <packaging>pom</packaging>
     <version>1.0.1</version>
     <description> 业务模块集合</description>
-    <modules>
-        <module>springcloud-integral</module>
-        <module>springcloud-crm</module>
-    </modules>
 
+    <modules>
+        <module>springcloud-xxxxtemplate</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.springclouddev</groupId>

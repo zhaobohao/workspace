@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springcloud-crm-bi-api</artifactId>
+    <artifactId>springcloud-crm-customer-api</artifactId>
     <name>${project.artifactId}</name>
-    <version>${springclouddev.project.version}</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
 </project>

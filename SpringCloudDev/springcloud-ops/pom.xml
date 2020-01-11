@@ -18,6 +18,8 @@
         <module>springcloud-seata-order</module>
         <module>springcloud-seata-storage</module>
         <module>springcloud-distributed-id</module>
+        <module>springcloud-template-api</module>
+        <module>springcloud-template</module>
     </modules>
 
 </project>
