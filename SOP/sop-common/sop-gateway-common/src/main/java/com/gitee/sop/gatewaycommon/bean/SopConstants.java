@@ -22,6 +22,12 @@ public class SopConstants {
 
     public static final String REDIRECT_PATH_KEY = "r-path";
 
+    public static final String SOP_NOT_MERGE = "sop.not-merge";
+
+    public static final String METADATA_SERVER_CONTEXT_PATH = "server.servlet.context-path";
+
+    public static final String METADATA_SERVER_CONTEXT_PATH_COMPATIBILITY = "context-path";
+
     /**
      * 在拦截器中调用获取参数：
      * String cachedBody = (String)exchange.getAttribute(SopConstants.CACHE_REQUEST_BODY_OBJECT_KEY);

@@ -1,4 +1,4 @@
-package com.gitee.sop.gateway.controller;
+package com.gitee.sop.gatewaycommon.zuul.controller;
 
 import com.gitee.sop.gatewaycommon.bean.ApiConfig;
 import com.gitee.sop.gatewaycommon.bean.ErrorEntity;
@@ -9,6 +9,7 @@ import com.gitee.sop.gatewaycommon.result.JsonResult;
 import com.gitee.sop.gatewaycommon.util.RequestUtil;
 import com.gitee.sop.gatewaycommon.validate.taobao.TaobaoSigner;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ import java.util.Map;
 /**
  * @author tanghc
  */
-@RestController
+@Controller
 public class ErrorLogController {
 
     TaobaoSigner signer = new TaobaoSigner();

@@ -26,11 +26,11 @@ public class WebContext {
      */
     public AdminUserInfo getLoginUser() {
         String sessionId = getSessionId();
-        HttpSession session = getSessionManager().getSession(sessionId);
-        if (session == null) {
+        if (sessionId == null) {
             return null;
         }
-        if (!session.getId().equals(sessionId)) {
+        HttpSession session = getSessionManager().getSession(sessionId);
+        if (session == null) {
             return null;
         }
         return (AdminUserInfo) session.getAttribute(S_USER);

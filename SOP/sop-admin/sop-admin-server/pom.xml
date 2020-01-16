@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>net.oschina.durcframework</groupId>
 			<artifactId>easyopen-spring-boot-starter</artifactId>
-			<version>1.16.2</version>
+			<version>1.16.6.1</version>
 		</dependency>
 
 		<dependency>

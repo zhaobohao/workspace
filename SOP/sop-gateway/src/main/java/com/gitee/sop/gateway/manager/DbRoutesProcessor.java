@@ -8,9 +8,9 @@ import com.gitee.sop.gatewaycommon.bean.InstanceDefinition;
 import com.gitee.sop.gatewaycommon.bean.ServiceRouteInfo;
 import com.gitee.sop.gatewaycommon.route.RoutesProcessor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,7 +62,9 @@ public class DbRoutesProcessor implements RoutesProcessor {
         // 删除serviceId下所有的路由
         this.removeAllRoutes(serviceId);
 
-        // 批量保存
-        configServiceRouteMapper.saveBatch(configServiceRoutes);
+        if (CollectionUtils.isNotEmpty(configServiceRoutes)) {
+            // 批量保存
+            configServiceRouteMapper.saveBatch(configServiceRoutes);
+        }
     }
 }

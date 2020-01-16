@@ -42,6 +42,7 @@ public class PreEnvGrayFilter extends BaseZuulFilter {
         // 如果服务在灰度阶段，返回一个灰度版本号
         String version = envGrayManager.getVersion(serviceId, nameVersion);
         if (version != null && envGrayManager.containsKey(serviceId, apiParam.fetchAppKey())) {
+            requestContext.set(EnvGrayManager.ENV_GRAY, true);
             requestContext.addZuulRequestHeader(ParamNames.HEADER_VERSION_NAME, version);
         }
         return null;

@@ -1,16 +1,16 @@
-package com.gitee.sop.gateway.controller;
+package com.gitee.sop.gatewaycommon.zuul.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.gitee.sop.gateway.manager.DbEnvGrayManager;
-import com.gitee.sop.gateway.manager.DbIPBlacklistManager;
-import com.gitee.sop.gateway.manager.DbIsvManager;
-import com.gitee.sop.gateway.manager.DbIsvRoutePermissionManager;
-import com.gitee.sop.gateway.manager.DbLimitConfigManager;
-import com.gitee.sop.gateway.manager.DbRouteConfigManager;
 import com.gitee.sop.gatewaycommon.bean.GatewayPushDTO;
 import com.gitee.sop.gatewaycommon.bean.NacosConfigs;
 import com.gitee.sop.gatewaycommon.bean.SpringContext;
 import com.gitee.sop.gatewaycommon.manager.ChannelMsgProcessor;
+import com.gitee.sop.gatewaycommon.manager.EnvGrayManager;
+import com.gitee.sop.gatewaycommon.manager.IPBlacklistManager;
+import com.gitee.sop.gatewaycommon.manager.IsvRoutePermissionManager;
+import com.gitee.sop.gatewaycommon.manager.LimitConfigManager;
+import com.gitee.sop.gatewaycommon.manager.RouteConfigManager;
+import com.gitee.sop.gatewaycommon.secret.IsvManager;
 import com.gitee.sop.gatewaycommon.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,12 +32,12 @@ public class ConfigChannelController {
     private static Map<String, Class<? extends ChannelMsgProcessor>> processorMap = new HashMap<>(16);
 
     static {
-        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_GRAY, DbEnvGrayManager.class);
-        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_IP_BLACKLIST, DbIPBlacklistManager.class);
-        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_ISV, DbIsvManager.class);
-        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_ROUTE_PERMISSION, DbIsvRoutePermissionManager.class);
-        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_LIMIT_CONFIG, DbLimitConfigManager.class);
-        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_ROUTE_CONFIG, DbRouteConfigManager.class);
+        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_GRAY, EnvGrayManager.class);
+        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_IP_BLACKLIST, IPBlacklistManager.class);
+        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_ISV, IsvManager.class);
+        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_ROUTE_PERMISSION, IsvRoutePermissionManager.class);
+        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_LIMIT_CONFIG, LimitConfigManager.class);
+        processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_ROUTE_CONFIG, RouteConfigManager.class);
     }
 
     @Value("${zuul.secret}")

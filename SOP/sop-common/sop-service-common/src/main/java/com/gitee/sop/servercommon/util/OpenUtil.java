@@ -5,10 +5,13 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
@@ -86,15 +89,26 @@ public class OpenUtil {
         if (StringUtils.isAnyBlank(time, sign)) {
             return false;
         }
-       if(Long.parseLong(time)-System.currentTimeMillis()>2000){
-           // 时间戳大于3秒，判断认证过期。
-           return false;
-       }
-
         String source = secret + time + secret;
         String serverSign = DigestUtils.md5DigestAsHex(source.getBytes());
         return serverSign.equals(sign);
     }
 
-
+    /**
+     * 在方法或方法对应的类上找指定的注WebConfig解
+     * @param method 方法
+     * @param annotationClass 指定的注解
+     * @param <T>
+     * @return 返回指定注解，没有返回null
+     */
+    public static <T extends Annotation> T getAnnotationFromMethodOrClass(Method method, Class<T> annotationClass) {
+        if (method == null) {
+            return null;
+        }
+        T annotation = AnnotationUtils.findAnnotation(method, annotationClass);
+        if (annotation == null) {
+            annotation = AnnotationUtils.findAnnotation(method.getDeclaringClass(), annotationClass);
+        }
+        return annotation;
+    }
 }
