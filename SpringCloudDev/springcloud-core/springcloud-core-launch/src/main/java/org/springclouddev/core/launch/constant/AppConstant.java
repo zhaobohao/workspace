@@ -23,6 +23,10 @@ public interface AppConstant {
 	 */
 	String APPLICATION_NAME_PREFIX = "springcloud-";
 	/**
+	 * 积分模块名称
+	 */
+	String APPLICATION_INTEGRAL_NAME = APPLICATION_NAME_PREFIX + "integral";
+	/**
 	 * 网关模块名称
 	 */
 	String APPLICATION_GATEWAY_NAME = APPLICATION_NAME_PREFIX + "gateway";

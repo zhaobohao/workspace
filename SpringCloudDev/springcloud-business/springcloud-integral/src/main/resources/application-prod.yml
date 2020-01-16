@@ -1,0 +1,10 @@
+#服务器端口
+server:
+  port: 8102
+
+#数据源配置
+spring:
+  datasource:
+    url: ${springclouddev.datasource.prod.url}
+    username: ${springclouddev.datasource.prod.username}
+    password: ${springclouddev.datasource.prod.password}
