@@ -76,11 +76,11 @@ public class SysUserControllerTest {
 				.andExpect(status().is4xxClientError());
 	}
 	
-	@Test
-	@Transactional
-	public void whenDeleteSuccess() throws Exception {
-		mockMvc.perform(delete("/users/1")
-				.contentType(MediaType.APPLICATION_JSON_UTF8))
-				.andExpect(status().isOk());
-	}
+//	@Test
+//	@Transactional
+//	public void whenDeleteSuccess() throws Exception {
+//		mockMvc.perform(delete("/users/1")
+//				.contentType(MediaType.APPLICATION_JSON_UTF8))
+//				.andExpect(status().isOk());
+//	}
 }

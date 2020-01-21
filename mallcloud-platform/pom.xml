@@ -25,7 +25,7 @@
         <sharding-sphere.version>3.1.0</sharding-sphere.version>
         <security-oauth2.version>2.3.5.RELEASE</security-oauth2.version>
         <security-jwt.version>1.0.9.RELEASE</security-jwt.version>
-        <redisson.version>3.9.1</redisson.version>
+        <redisson.version>3.12.0</redisson.version>
         <kaptcha.version>0.0.9</kaptcha.version>
         <hutool.version>4.3.1</hutool.version>
         <mybatis-plus-boot-starter.version>3.0.6</mybatis-plus-boot-starter.version>
@@ -172,7 +172,7 @@
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
-                <version>${redisson.version}</version>
+                <version>3.12.0</version>
             </dependency>
             <!-- swagger -->
             <dependency>
@@ -340,30 +340,6 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <repositories>
-        <repository>
-            <id>aliyun-repos</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>releases Repository</name>
-            <url>http://192.168.28.138:8081/repository/maven-releases/</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://192.168.28.138:8081/repository/maven-snapshots/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-
     <modules>
         <!-- 公共 -->
         <module>mall-commons</module>

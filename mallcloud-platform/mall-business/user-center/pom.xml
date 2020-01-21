@@ -9,7 +9,6 @@
     <artifactId>user-center</artifactId>
     <description>用户中心</description>
     <properties>
-
         <oshi.version>3.9.1</oshi.version>
     </properties>
     <dependencies>
@@ -73,6 +72,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.17</version>
         </dependency>
 
         <dependency>
@@ -122,7 +122,9 @@
                     <env>
                         <JAVA_OPTS>${docker.java.opts}</JAVA_OPTS>
                     </env>
-                    <entryPoint>["sh","-c","java $JAVA_OPTS ${docker.java.security.egd} -jar /${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>["sh","-c","java $JAVA_OPTS ${docker.java.security.egd} -jar
+                        /${project.build.finalName}.jar"]
+                    </entryPoint>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
