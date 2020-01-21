@@ -1,0 +1,45 @@
+CartMarkingVo vo = new CartMarkingVo();
+                            vo.setMemberId(orderInfo.getMemberId());
+                            vo.setPayAmount(orderInfo.getPayPrice());
+                            vo.setShopOrderGoodsList(orderGoods);
+                            vo.setScope(2);
+                            vo.setOpenId(user.getOpenid());
+                            markingFegin.sendManualCoupon(vo);
+                            markingFegin.sendFillFillCoupon(vo);
+                            markingFegin.sendShopCoupon(vo);
+
+项目启动：
+启动认证中心mall-uaa
+启动用户中心mall-bussiness/user-center
+启动网关mall-gateway/zuul-gateway
+下面是业务模块，不一定需要全部启动
+启动订单中心mall-bussiness/order-center
+启动会员中心mall-bussiness/member-center
+启动商品中心mall-bussiness/goods-center
+启动营销中心mall-bussiness/marking-center
+启动内容中心mall-bussiness/cms-center
+启动前端工程： 解压跟目录的mallcloud-admin-vue.zip,为后台管理的vue前端，
+需要安装nodejs环境，然后进入此目录，npm install ,成功后执行 npm run dev
+4.uniapp项目 需要下载开发工具 https://uniapp.dcloud.io/
+https://uniapp.dcloud.io/quickstart 
+重要
+部署文档 https://www.kancloud.cn/mall-plus/tech/1212454?appinstall=0
+具体文档 https://gitee.com/zscat/mallcloud-platform/wikis/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2?sort_id=1440773
+https://blog.csdn.net/a1439226817/article/category/8973991
+
+
+搭建步骤
+本地环境搭建
+
+本地安装开发环境中的所有工具并启动，具体参考
+需要安装lombok 插件 启动redis
+安装最新的数据库mallplus.sql，解压 前端vue mallplsu-admin-web.zip
+克隆源代码到本地，使用IDEA或Eclipse打开，并完成编译;
+启动mall-admin项目：直接运行com.zscat.mallplus.MallAdminApplication的main方法即可，
+接口文档地址：http://localhost:8080/swagger-ui.html;
+启动mall-search项目：直接运行com.zscat.mallplus.search.MallSearchApplication的main方法即可，
+接口文档地址：http://localhost:8081/swagger-ui.html;
+启动mall-portal项目：直接运行com.zscat.mallplus.portal.MallPortalApplication的main方法即可，
+接口文档地址：http://localhost:8085/swagger-ui.html;
+下载群文件uniapp项目 uni-app 是一个使用 Vue.js 开发跨平台应用的前端框架，开发者编写一套代码，可编译到iOS、Android、H5、小程序等多个平台。需要下载开发工具https://uniapp.dcloud.io/
+https://uniapp.dcloud.io/quickstart

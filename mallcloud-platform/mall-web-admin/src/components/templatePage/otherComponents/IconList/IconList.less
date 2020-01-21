@@ -1,0 +1,83 @@
+@import '../../static/common/common.less';
+.iconPage{
+    width:100%;
+    height:100vh;
+    background: rgba(0,0,0,0.6);
+    position: fixed;
+    top:0px;
+    left:0px;
+    z-index:11;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.iconContent{
+    width:800px;
+    height:760px;
+    box-sizing: border-box;
+    padding:20px 10px;
+    background: #fff;
+    overflow: hidden;
+    overflow-y: auto;
+    position: relative;
+    .iconTitle{
+        width:100%;
+        font-size:26px;
+        text-align: center;
+        padding:10px 0px;
+    }
+}
+.icon_lists{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.dib{
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:10px 0px;
+    cursor: pointer;
+    transition: all .1s ease;
+}
+.dib:hover .iconfont{
+    transition: all .1s ease;
+    color:@mainColor;
+}
+.iconfont{
+    font-size:26px;
+}
+
+.closeBtn{
+    cursor: pointer;
+    font-size:30px;
+    position: absolute;
+    top:8px;
+    right:8px;
+    color:@mainColor;
+}
+
+.iconContent::-webkit-scrollbar{
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+  border-radius: 8px;
+}
+
+.iconContent::-webkit-scrollbar-thumb{
+  /*滚动条里面小方块*/
+  border-radius: 8px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.iconContent::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
+}

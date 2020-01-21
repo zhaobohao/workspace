@@ -1,0 +1,57 @@
+.diyitem {
+  width: 100%;
+  padding: 2px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.list-title{
+  width:100%;
+  box-sizing: border-box;
+  padding:8px 10px;
+  border-bottom:1px solid #f1f1f1;
+}
+.list-group{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.list-item{
+  width:90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding:10px 0px;
+  margin:0 auto;
+  border-bottom:1px solid #f1f1f1;
+  position: relative;
+
+  .iconImg{
+    width:40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .iconText{
+    flex:1;
+    height:30px;
+    line-height: 30px;
+  }
+}
+
+.badge{
+  position: absolute;
+  width:16px;
+  height:16px;
+  border-radius: 50%;
+  line-height: 16px;
+  text-align: center;
+  top:-5px;
+  right:5px;
+  font-size:11px;
+}

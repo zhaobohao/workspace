@@ -1,0 +1,256 @@
+// 公共样式
+// 主样式
+@mainColor: #0083b0;
+// 次样式
+@secondColor: #a8e3f4;
+// 另一个主题
+@otherColor: #666;
+@otherBorder: #eaeaea;
+
+
+.ivu-tabs-bar {
+  border-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.ivu-tabs-nav .ivu-tabs-tab-active {
+  color: @mainColor;
+}
+
+.ivu-tabs-nav .ivu-tabs-tab-active:hover {
+  color: @secondColor;
+}
+
+.ivu-tabs-nav .ivu-tabs-tab:hover {
+  color: @mainColor;
+}
+
+.ivu-tabs-ink-bar {
+  background-color: @mainColor;
+}
+
+.ivu-tabs-nav .ivu-tabs-tab:last-child {
+  margin-right: 0px;
+}
+
+.ivu-radio-checked .ivu-radio-inner {
+  border-color: @mainColor;
+}
+
+.ivu-radio-inner:after {
+  background-color: @mainColor;
+}
+
+.ivu-radio-checked .ivu-radio-inner:hover {
+  border-color: @mainColor;
+}
+
+.ivu-checkbox-checked .ivu-checkbox-inner {
+  border-color: @mainColor;
+  background-color: @mainColor;
+}
+
+.ivu-checkbox-checked:hover .ivu-checkbox-inner {
+  border-color: @mainColor;
+}
+
+.ivu-radio-checked:hover .ivu-radio-inner {
+  border-color: @mainColor;
+}
+
+.ivu-btn-ghost.ivu-btn-primary {
+  color: @mainColor;
+}
+
+.ivu-btn-ghost.ivu-btn-primary:hover {
+  border-color: @mainColor;
+  color: @mainColor;
+}
+
+.ivu-btn-primary {
+  border-color: @mainColor;
+  background: @mainColor;
+}
+
+.ivu-btn-ghost.ivu-btn-default {
+  border-color: @otherBorder;
+  color: @otherColor;
+}
+
+.ivu-btn-ghost.ivu-btn-default:hover {
+  border-color: @otherBorder;
+  color: @otherColor;
+}
+
+// .ivu-btn-default{
+//     border-color:@otherBorder;
+// }
+.ivu-slider-bar {
+  background: @mainColor;
+}
+
+.ivu-slider-button {
+  border: 2px solid @mainColor;
+}
+
+.ivu-slider-button-dragging,
+.ivu-slider-button:focus,
+.ivu-slider-button:hover {
+  border-color: @mainColor;
+}
+
+.ivu-input:hover {
+  border-color: @mainColor
+}
+
+.ivu-input:focus {
+  border-color: @mainColor;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px rgba(251, 102, 56, .2);
+  box-shadow: 0 0 0 2px rgba(251, 102, 56, .2)
+}
+
+.ivu-input-search i {
+  font-size: 16px
+}
+
+.ivu-input-search:hover {
+  background: @mainColor  !important;
+  border-color: @mainColor  !important
+}
+
+.ivu-input-search:active {
+  background: @mainColor  !important;
+  border-color: @mainColor  !important
+}
+
+.ivu-input-search {
+  background: @mainColor !important;
+  border-color: @mainColor !important;
+}
+
+.ivu-page-item-active a,
+.ivu-page-item-active:hover a {
+  color: @mainColor;
+}
+
+.ivu-page-item-active {
+  border-color: @mainColor;
+}
+
+.ivu-page-item:hover {
+  border-color: @mainColor
+}
+
+.ivu-page-item:hover a {
+  color: @mainColor
+}
+
+.ivu-page-item-active {
+  border-color: @mainColor
+}
+
+.ivu-page-item-active a,
+.ivu-page-item-active:hover a {
+  color: @mainColor
+}
+
+.ivu-page-next:hover,
+.ivu-page-prev:hover {
+  border-color: @mainColor
+}
+
+.ivu-page-next:hover a,
+.ivu-page-prev:hover a {
+  color: @mainColor
+}
+
+.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab-active {
+  color: @mainColor;
+}
+
+.ivu-tabs-nav-container:focus .ivu-tabs-tab-focused {
+  border-color: @mainColor !important;
+}
+
+
+.ivu-tabs-content{
+  width:100%;
+}
+
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title{
+  background: #fff;
+  color:#0083b0;
+}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item{
+  background: #fff;
+  color:#0083b0;
+}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover{
+  background: rgba(0, 131, 176,0.3); 
+  color:#fff; 
+}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover{
+  background: #fff;
+  color:#0083b0;
+}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title{
+  background: #fff;
+  color:#0083b0;
+}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened{
+  background: #fff;
+  color:#0083b0; 
+}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active{
+  background: rgba(0, 131, 176,0.3)!important; 
+  color:#0083b0; 
+}
+
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item:hover {
+  color: #0083b0;
+  background: rgba(0, 131, 176,0.3)!important;
+}
+
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active,
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
+  border-right: none;
+  color: #0083b0;
+  background: rgba(0, 131, 176,0.3)!important;
+}
+
+.ivu-page-item-jump-next, .ivu-page-item-jump-prev, .ivu-page-next, .ivu-page-prev{
+  min-width:25px;
+  height:25px;
+  line-height:20px;
+}
+.ivu-page-item{
+  min-width:25px;
+  height:25px;
+  line-height:25px;
+}
+.ivu-page-options-elevator input{
+  width:40px;
+  height:25px;
+  line-height:25px;
+}
+
+// vue-selecttree 的样式
+.vue-treeselect__control {
+  height: 33px!important;
+}
+
+.ivu-btn:focus {
+  box-shadow: none;
+}
+// .ivu-tag {
+//   cursor: default;
+// }
+.ivu-tag-primary, .ivu-tag-primary.ivu-tag-dot .ivu-tag-dot-inner {
+  background: @mainColor;
+}
+
+// Card title 的边框
+.ivu-card-head {
+  border-bottom: 1px solid #C9C9C9;
+}
