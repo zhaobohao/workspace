@@ -39,7 +39,7 @@
 #foreach($field in $!{table.fields})
       <el-table-column label="$!{field.comment}" min-width="150px">
         <template slot-scope="scope">
-          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.$!{field.propertyName}|#if($!{field.comment.indexOf("字典")}!=-1)translateVlaue2Lable($!{field.propertyName}Options)#end }}</span>
+          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.$!{field.propertyName}#if($!{field.comment.indexOf("字典")}!=-1)| translateVlaue2Lable($!{field.propertyName}Options)#end }}</span>
         </template>
       </el-table-column>
 #end

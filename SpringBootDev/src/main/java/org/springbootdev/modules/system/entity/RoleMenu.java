@@ -36,13 +36,13 @@ public class RoleMenu implements Serializable {
 	 * 菜单id
 	 */
 	@ApiModelProperty(value = "菜单id")
-	private Integer menuId;
+	private Long menuId;
 
 	/**
 	 * 角色id
 	 */
 	@ApiModelProperty(value = "角色id")
-	private Integer roleId;
+	private Long roleId;
 
 
 }

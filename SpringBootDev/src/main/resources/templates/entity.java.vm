@@ -103,7 +103,7 @@ private static final long serialVersionUID = 1L;
         @TableLogic
         #end
         #if($!{field.keyFlag})
-          private Long $!{field.propertyName};
+          private Long id;
         #else
           private $!{field.propertyType} $!{field.propertyName};
         #end

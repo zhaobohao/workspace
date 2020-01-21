@@ -6,7 +6,7 @@ import $!{package.Entity}.$!{entity};
 import $!{voPackage}.$!{entity}VO;
 import $!{superServiceClassPackage};
 import com.baomidou.mybatisplus.core.metadata.IPage;
-
+import java.util.List;
 /**
  * $!{table.comment} 服务类
  *
@@ -34,7 +34,7 @@ public interface $!{table.serviceName} extends $!{superServiceClass}<$!{entity}>
             *
             * @return
             */
-            List<<$!{entity}VO> tree(String parentId);
+            List<$!{entity}VO> tree(String parentId);
         #end
     #end
 }

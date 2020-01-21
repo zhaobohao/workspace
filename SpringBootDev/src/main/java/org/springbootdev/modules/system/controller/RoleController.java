@@ -134,7 +134,7 @@ public class RoleController extends AbstractController {
 	@ApiOperation(value = "权限设置", notes = "传入roleId集合以及menuId集合")
 	public R grant(@ApiParam(value = "roleId集合", required = true) @RequestParam String roleIds,
 				   @ApiParam(value = "menuId集合", required = true) @RequestParam String menuIds) {
-		boolean temp = roleService.grant(Func.toIntList(roleIds), Func.toIntList(menuIds));
+		boolean temp = roleService.grant(Func.toLongList(roleIds), Func.toLongList(menuIds));
 		return R.status(temp);
 	}
 
