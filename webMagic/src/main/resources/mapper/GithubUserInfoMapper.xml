@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.complone.zhihumagic.mapper.GithubUserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.complone.zhihumagic.model.GithubUserInfo">
+        <id column="g_id" property="githubId" jdbcType="INTEGER" />
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+        <result column="author" property="author" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        g_id,nickname,author
+    </sql>
+
+    <insert id="insertGithubUserInfo" parameterType="com.complone.zhihumagic.model.GithubUserInfo">
+        insert into github_form(g_id,nickname,author)
+        values (#{githubId,jdbcType=INTEGER},#{nickname,jdbcType=VARCHAR},#{author,jdbcType=VARCHAR})
+    </insert>
+
+
+
+</mapper>
