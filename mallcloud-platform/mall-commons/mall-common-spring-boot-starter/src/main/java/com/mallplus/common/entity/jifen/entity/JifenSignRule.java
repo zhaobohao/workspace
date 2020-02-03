@@ -14,7 +14,7 @@ import java.io.Serializable;
  * 积分签到规则
  */
 @Data
-@TableName("jifen_sign_rule")
+@TableName("sms_jifen_sign_rule")
 public class JifenSignRule implements Serializable {
 
 

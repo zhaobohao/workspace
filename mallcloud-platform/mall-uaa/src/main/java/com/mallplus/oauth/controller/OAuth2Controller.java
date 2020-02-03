@@ -187,6 +187,7 @@ public class OAuth2Controller {
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public Object logout() {
+        SecurityContextHolder.getContext().setAuthentication(null);
         return new CommonResult().success(null);
     }
 

@@ -15,7 +15,7 @@ import java.util.Date;
  * 分销关系
  */
 @Data
-@TableName("fenxiao_user_relate")
+@TableName("sms_fenxiao_user_relate")
 public class FenxiaoUserRelate implements Serializable {
 
 

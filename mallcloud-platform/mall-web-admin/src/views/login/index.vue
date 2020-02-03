@@ -1,40 +1,28 @@
 <template>
   <div>
     <el-card class="login-form-layout">
-      <el-form autoComplete="on"
-               :model="loginForm"
-               :rules="loginRules"
-               ref="loginForm"
-               label-position="left">
+      <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
         <div style="text-align: center">
           <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
 
         </div>
-        <h2 class="login-title color-main">mallplus-platform</h2>
+        <h2 class="login-title color-main">软竹世纪网上商城</h2>
         <el-form-item prop="username">
-          <el-input name="username"
-                    type="text"
-                    v-model="loginForm.username"
-                    autoComplete="on"
-                    placeholder="请输入用户名">
-          <span slot="prefix">
-            <svg-icon icon-class="user" class="color-main"></svg-icon>
-          </span>
+          <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="请输入用户名">
+            <span slot="prefix">
+              <svg-icon icon-class="user" class="color-main"></svg-icon>
+            </span>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input name="password"
-                    :type="pwdType"
-                    @keyup.enter.native="handleLogin"
-                    v-model="loginForm.password"
-                    autoComplete="on"
-                    placeholder="请输入密码">
-          <span slot="prefix">
-            <svg-icon icon-class="password" class="color-main"></svg-icon>
-          </span>
+          <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password"
+            autoComplete="on" placeholder="请输入密码">
+            <span slot="prefix">
+              <svg-icon icon-class="password" class="color-main"></svg-icon>
+            </span>
             <span slot="suffix" @click="showPwd">
-            <svg-icon icon-class="eye" class="color-main"></svg-icon>
-          </span>
+              <svg-icon icon-class="eye" class="color-main"></svg-icon>
+            </span>
           </el-input>
         </el-form-item>
         <el-form-item style="margin-bottom: 60px">
@@ -43,33 +31,22 @@
           </el-button>
         </el-form-item>
 
-             <el-form-item style="margin-bottom: 10px">
-                             <el-button style="width: 100%" type="primary"  @click.native.prevent="handleStore">
-                               商家入驻
-                             </el-button>
-                      </el-form-item>
-      </el-form>
-    </el-card>
-    <img :src="login_center_bg" class="login-center-layout">
-    <el-dialog
-            title="下载地址"
-            :visible.sync="dialogVisible"
-            width="40%">
-      <el-form  ref="brandFrom" label-width="150px">
         <el-form-item style="margin-bottom: 10px">
-          <el-button style="width: 100%" type="primary"  @click.native.prevent="handleGit">
-            下载地址
+          <el-button style="width: 100%" type="primary" @click.native.prevent="handleStore">
+            商家入驻
           </el-button>
         </el-form-item>
       </el-form>
-
-    </el-dialog>
+    </el-card>
+    <img :src="login_center_bg" class="login-center-layout">
   </div>
 
 </template>
 
 <script>
-  import {isvalidUsername} from '@/utils/validate';
+  import {
+    isvalidUsername
+  } from '@/utils/validate';
   import login_center_bg from '@/assets/images/login_center_bg.png'
 
   export default {
@@ -95,11 +72,19 @@
           password: '123456'
         },
         loginRules: {
-          username: [{required: true, trigger: 'blur', validator: validateUsername}],
-          password: [{required: true, trigger: 'blur', validator: validatePass}]
+          username: [{
+            required: true,
+            trigger: 'blur',
+            validator: validateUsername
+          }],
+          password: [{
+            required: true,
+            trigger: 'blur',
+            validator: validatePass
+          }]
         },
         loading: false,
-        dialogVisible:true,
+        dialogVisible: true,
         pwdType: 'password',
         login_center_bg
       }
@@ -112,14 +97,18 @@
           this.pwdType = 'password'
         }
       },
-        handleReg() {
-            this.$router.push({path: '/reg'})
-        },
-         handleStore() {
-                    this.$router.push({path: '/acceptStore'})
-                },
+      handleReg() {
+        this.$router.push({
+          path: '/reg'
+        })
+      },
+      handleStore() {
+        this.$router.push({
+          path: '/acceptStore'
+        })
+      },
       handleGit() {
-       window.location.href='https://gitee.com/zscat/mallplus';
+        window.location.href = 'https://gitee.com/zscat/mallplus';
       },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
@@ -129,7 +118,9 @@
             this.$store.dispatch('Login', this.loginForm).then((res) => {
               console.log(res)
               this.loading = false;
-              this.$router.push({path: '/'})
+              this.$router.push({
+                path: '/'
+              })
             }).catch((e) => {
               console.log(e);
               this.loading = false

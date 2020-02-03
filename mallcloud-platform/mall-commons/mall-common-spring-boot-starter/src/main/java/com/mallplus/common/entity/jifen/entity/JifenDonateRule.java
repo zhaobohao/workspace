@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  * 积分赠送规则
  */
 @Data
-@TableName("jifen_donate_rule")
+@TableName("sms_jifen_donate_rule")
 public class JifenDonateRule implements Serializable {
 
 

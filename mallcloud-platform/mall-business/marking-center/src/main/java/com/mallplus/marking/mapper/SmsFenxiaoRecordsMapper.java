@@ -1,4 +1,4 @@
-package com.mallplus.common.entity.fenxiao.mapper;
+package com.mallplus.marking.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -9,5 +9,5 @@ import com.mallplus.common.entity.fenxiao.entity.FenxiaoRecords;
  * @author mallplus
  * @date 2019-12-17
  */
-public interface FenxiaoRecordsMapper extends BaseMapper<FenxiaoRecords> {
+public interface SmsFenxiaoRecordsMapper extends BaseMapper<FenxiaoRecords> {
 }

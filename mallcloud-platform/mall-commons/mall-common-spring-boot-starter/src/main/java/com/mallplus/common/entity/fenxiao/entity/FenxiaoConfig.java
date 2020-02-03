@@ -15,7 +15,7 @@ import java.util.Date;
  * 分销配置
  */
 @Data
-@TableName("fenxiao_config")
+@TableName("sms_fenxiao_config")
 public class FenxiaoConfig implements Serializable {
 
 

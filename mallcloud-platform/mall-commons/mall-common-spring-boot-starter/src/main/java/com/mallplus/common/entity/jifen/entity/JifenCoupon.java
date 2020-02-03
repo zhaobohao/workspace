@@ -15,7 +15,7 @@ import java.util.Date;
  * 积分券
  */
 @Data
-@TableName("jifen_coupon")
+@TableName("sms_jifen_coupon")
 public class JifenCoupon implements Serializable {
 
 

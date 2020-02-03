@@ -15,7 +15,7 @@ import java.util.Date;
  * 分销审核
  */
 @Data
-@TableName("fenxiao_checks")
+@TableName("sms_fenxiao_checks")
 public class FenxiaoChecks implements Serializable {
 
 
