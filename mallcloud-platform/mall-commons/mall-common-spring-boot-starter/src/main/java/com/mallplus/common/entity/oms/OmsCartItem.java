@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mallplus.common.entity.BaseEntity;
+import com.mallplus.common.entity.pms.PmsProduct;
+import com.mallplus.common.entity.pms.PmsSkuStock;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -127,6 +129,11 @@ public class OmsCartItem extends BaseEntity implements Serializable {
      */
     @TableField("product_attr")
     private String productAttr;
+    private Integer checked;
+    @TableField(exist = false)
+    private PmsProduct product;
 
+    @TableField(exist = false)
+    private PmsSkuStock skuStock;
 
 }

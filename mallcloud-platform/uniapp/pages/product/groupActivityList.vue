@@ -105,7 +105,7 @@ export default {
 				params = { pageNum: this.pageNum };
 			}
 
-			let list = await Api.apiCall('get', Api.index.groupActivityList, params);
+			let list = await Api.apiCall('get', Api.marking.groupActivityList, params);
 			let goodsList = list.records;
 			// let goodsList = await this.$api.json('goodsList');
 			if (type === 'refresh') {

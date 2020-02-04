@@ -847,6 +847,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         if (ValidatorUtils.empty(cartParam.getTotal())) {
             cartParam.setTotal(1);
         }
+
         UmsMember umsMember = memberFeignClient.findById(cartParam.getMemberId());
         OmsCartItem cartItem = new OmsCartItem();
         PmsProduct pmsProduct = pmsFeignClinent.selectById(cartParam.getGoodsId());
@@ -860,39 +861,55 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
             cartItem.setProductSkuId(pmsSkuStock.getId());
             OmsCartItem existCartItem   = cartItemMapper.selectOne(new QueryWrapper<>(cartItem));
             if (existCartItem == null) {
+                cartItem.setChecked(1);
+                cartItem.setMemberId(umsMember.getId());
                 cartItem.setPrice(pmsSkuStock.getPrice());
                 cartItem.setProductSkuCode(pmsSkuStock.getSkuCode());
                 cartItem.setQuantity(cartParam.getTotal());
-                cartItem.setProductAttr(pmsSkuStock.getMeno1());
+                cartItem.setProductAttr(pmsSkuStock.getMeno());
                 cartItem.setProductPic(pmsSkuStock.getPic());
                 cartItem.setSp1(pmsSkuStock.getSp1());
                 cartItem.setSp2(pmsSkuStock.getSp2());
                 cartItem.setSp3(pmsSkuStock.getSp3());
                 cartItem.setProductName(pmsSkuStock.getProductName());
+                cartItem.setProductCategoryId(pmsProduct.getProductCategoryId());
+                cartItem.setProductBrand(pmsProduct.getBrandName());
                 cartItem.setCreateDate(new Date());
+                //   cartItem.setStoreId(pmsProduct.getStoreId());
+                //cartItem.setStoreName(pmsProduct.getStoreName());
                 cartItemMapper.insert(cartItem);
             } else {
                 cartItem.setModifyDate(new Date());
-                existCartItem.setQuantity(existCartItem.getQuantity() + cartParam.getTotal());
+                if(existCartItem.getDeleteStatus()==0){
+                    existCartItem.setQuantity(existCartItem.getQuantity() + cartParam.getTotal());}
+                existCartItem.setDeleteStatus(0);
                 cartItemMapper.updateById(existCartItem);
                 return new CommonResult().success(existCartItem);
             }
         }else {
-
             checkGoods(pmsProduct, true, cartParam.getTotal());
             cartItem.setProductId(pmsProduct.getId());
-            cartItem.setMemberId(cartItem.getMemberId());
+            cartItem.setMemberId(umsMember.getId());
             OmsCartItem existCartItem   = cartItemMapper.selectOne(new QueryWrapper<>(cartItem));
             if (existCartItem == null) {
+                cartItem.setChecked(1);
                 cartItem.setPrice(pmsProduct.getPrice());
                 cartItem.setProductName(pmsProduct.getName());
                 cartItem.setQuantity(cartParam.getTotal());
                 cartItem.setProductPic(pmsProduct.getPic());
                 cartItem.setCreateDate(new Date());
+                cartItem.setMemberId(umsMember.getId());
+                cartItem.setProductCategoryId(pmsProduct.getProductCategoryId());
+                cartItem.setProductBrand(pmsProduct.getBrandName());
+                //  cartItem.setStoreId(pmsProduct.getStoreId());
+                //cartItem.setStoreName(pmsProduct.getStoreName());
                 cartItemMapper.insert(cartItem);
             } else {
-                cartItem.setModifyDate(new Date());
-                existCartItem.setQuantity(existCartItem.getQuantity() + cartParam.getTotal());
+                existCartItem.setPrice(pmsProduct.getPrice());
+                existCartItem.setModifyDate(new Date());
+                if(existCartItem.getDeleteStatus()==0){
+                existCartItem.setQuantity(existCartItem.getQuantity() + cartParam.getTotal());}
+                existCartItem.setDeleteStatus(0);
                 cartItemMapper.updateById(existCartItem);
                 return new CommonResult().success(existCartItem);
             }
