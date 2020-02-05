@@ -13,7 +13,7 @@ import java.util.List;
  * @author zhaobohao
  */
 @Data
-@ConfigurationProperties("springbootdev.secure.url")
+@ConfigurationProperties("springbootdev.secure")
 public class SecureProperties {
 
 	private final List<String> excludePatterns = new ArrayList<>();

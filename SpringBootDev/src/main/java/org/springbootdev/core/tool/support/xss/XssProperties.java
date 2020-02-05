@@ -13,7 +13,7 @@ import java.util.List;
  * @author zhaobohao
  */
 @Data
-@ConfigurationProperties("springclouddev.xss")
+@ConfigurationProperties("springbootdev.xss")
 public class XssProperties {
 
 	/**

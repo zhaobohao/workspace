@@ -120,13 +120,13 @@ swagger:
 #oss配置
 
 #springclouddev配置
-springclouddev:
+springbootdev:
   xss:
     enable: true
     skip-url:
       - /weixin
   secure:
-    skip-url:
+    exclude-patterns:
       - /test/**
     client:
       - client-id: sword

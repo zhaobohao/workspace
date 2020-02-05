@@ -12,7 +12,7 @@ import java.util.List;
  * @author Chill
  */
 @Data
-@ConfigurationProperties("springclouddev.xss.url")
+@ConfigurationProperties("springbootdev.xss.url")
 public class XssUrlProperties {
 
 	private final List<String> excludePatterns = new ArrayList<>();
