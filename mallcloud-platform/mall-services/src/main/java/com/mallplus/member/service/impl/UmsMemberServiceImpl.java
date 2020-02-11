@@ -4,25 +4,23 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mallplus.common.entity.ums.UmsMemberLevel;
+import com.mallplus.common.entity.ums.Sms;
+import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.exception.ApiMallPlusException;
 import com.mallplus.common.exception.BusinessException;
-import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.utils.CommonResult;
-import com.mallplus.common.vo.OrderStstic;
 import com.mallplus.common.vo.SmsCode;
-import com.mallplus.member.config.WxAppletProperties;
-import com.mallplus.common.entity.ums.Sms;
 import com.mallplus.member.mapper.SysAreaMapper;
 import com.mallplus.member.mapper.UmsMemberMapper;
 import com.mallplus.member.mapper.UmsMemberMemberTagRelationMapper;
 import com.mallplus.member.service.IUmsMemberLevelService;
 import com.mallplus.member.service.IUmsMemberService;
 import com.mallplus.member.service.RedisService;
-import com.mallplus.member.service.SmsService;
+//import com.mallplus.member.service.SmsService;
 import com.mallplus.member.utils.CharUtil;
 import com.mallplus.member.utils.CommonUtil;
 import com.mallplus.member.vo.MemberDetails;
+import com.mallplus.order.config.WxAppletProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +52,8 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember> implements IUmsMemberService {
 
-    @Resource
-    private SmsService smsService;
+//    @Resource
+//    private SmsService smsService;
     @Resource
     private UmsMemberMapper memberMapper;
     @Resource
@@ -70,17 +68,17 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     @Resource
     private SysAreaMapper areaMapper;
 
-    @Value("${redis.key.prefix.authCode}")
-    private String REDIS_KEY_PREFIX_AUTH_CODE;
-    @Value("${authCode.expire.seconds}")
-    private Long AUTH_CODE_EXPIRE_SECONDS;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
-
-    @Value("${aliyun.sms.expire-minute:1}")
-    private Integer expireMinute;
-    @Value("${aliyun.sms.day-count:30}")
-    private Integer dayCount;
+//    @Value("${redis.key.prefix.authCode}")
+//    private String REDIS_KEY_PREFIX_AUTH_CODE;
+//    @Value("${authCode.expire.seconds}")
+//    private Long AUTH_CODE_EXPIRE_SECONDS;
+//    @Value("${jwt.tokenHead}")
+//    private String tokenHead;
+//
+//    @Value("${aliyun.sms.expire-minute:1}")
+//    private Integer expireMinute;
+//    @Value("${aliyun.sms.day-count:30}")
+//    private Integer dayCount;
     @Resource
     private UmsMemberMemberTagRelationMapper umsMemberMemberTagRelationMapper;
 
@@ -160,8 +158,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         map.put("phone", phone);
 
         //短信验证码缓存15分钟，
-        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + phone, sb.toString());
-        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + phone, expireMinute*60);
+//        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + phone, sb.toString());
+//        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + phone, expireMinute*60);
         log.info("缓存验证码：{}", map);
 
         //存储sys_sms
@@ -183,15 +181,15 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         sms.setParams(code);
         Map<String, String> params = new HashMap<>();
         params.put("code", code);
-        smsService.save(sms, params);
+//        smsService.save(sms, params);
 
         //异步调用阿里短信接口发送短信
         CompletableFuture.runAsync(() -> {
             try {
-                smsService.sendSmsMsg(sms);
+//                smsService.sendSmsMsg(sms);
             } catch (Exception e) {
                 params.put("err",  e.getMessage());
-                smsService.save(sms, params);
+//                smsService.save(sms, params);
                 e.printStackTrace();
                 log.error("发送短信失败：{}", e.getMessage());
             }
@@ -212,10 +210,10 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     private void checkTodaySendCount(String phone) {
         String value =   redisService.get(countKey(phone));
         if (value != null) {
-            Integer count = Integer.valueOf(value );
-            if (count > dayCount) {
-                throw new IllegalArgumentException("已超过当天最大次数");
-            }
+//            Integer count = Integer.valueOf(value );
+//            if (count > dayCount) {
+//                throw new IllegalArgumentException("已超过当天最大次数");
+//            }
         }
 
     }
@@ -227,8 +225,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
             sb.append(random.nextInt(10));
         }
         //验证码绑定手机号并存储到redis
-        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + telephone, sb.toString());
-        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + telephone, expireMinute);
+//        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + telephone, sb.toString());
+//        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + telephone, expireMinute);
         return new CommonResult().success("获取验证码成功", sb.toString());
     }
 
@@ -276,8 +274,9 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         if (StringUtils.isEmpty(authCode)) {
             return false;
         }
-        String realAuthCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + telephone);
-        return authCode.equals(realAuthCode);
+//        String realAuthCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + telephone);
+//        return authCode.equals(realAuthCode);
+        return false;
     }
 
     @Override
@@ -438,15 +437,15 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         String token = null;
 
 
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
+//        tokenMap.put("token", token);
+//        tokenMap.put("tokenHead", tokenHead);
 
         return tokenMap;
 
     }
     @Override
     public String refreshToken(String oldToken) {
-        String token = oldToken.substring(tokenHead.length());
+//        String token = oldToken.substring(tokenHead.length());
         /*if (jwtTokenUtil.canRefresh(token)) {
             return jwtTokenUtil.refreshToken(token);
         }*/

@@ -106,6 +106,10 @@ export default {
 		},
 		//加载商品 ，带下拉刷新和上滑加载
 		async loadData(type = 'add', loading) {
+			if (type === 'refresh') {
+				this.goodsList = [];
+				this.pageNum=1;
+			}
 			//没有更多直接返回
 			if (type === 'add') {
 				if (this.loadingType === 'nomore') {
@@ -131,9 +135,6 @@ export default {
 			let list = await Api.apiCall('get', Api.index.bannerList, params);
 			let goodsList = list;
 			// let goodsList = await this.$api.json('goodsList');
-			if (type === 'refresh') {
-				this.goodsList = [];
-			}
 			//筛选，测试数据直接前端筛选了
 			if (this.filterIndex === 1) {
 				goodsList.sort((a, b) => b.clickCount - a.clickCount);

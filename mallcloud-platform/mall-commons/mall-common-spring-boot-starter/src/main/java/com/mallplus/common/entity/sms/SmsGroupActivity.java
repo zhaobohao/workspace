@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import com.mallplus.common.vo.SamplePmsProduct;
+import com.mallplus.common.entity.pms.PmsProduct;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -73,7 +72,7 @@ public class SmsGroupActivity implements Serializable {
 
 
     @TableField(exist = false)
-    List<SamplePmsProduct> productList;
+    List<PmsProduct> productList;
 
 
 }

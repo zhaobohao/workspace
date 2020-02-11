@@ -8,16 +8,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mallplus.common.entity.pms.*;
 import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.entity.sms.SmsHomeAdvertise;
+import com.mallplus.common.entity.sms.SmsPaimaiLog;
+import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.redis.constant.RedisToolsConstant;
 import com.mallplus.common.redis.template.RedisRepository;
+import com.mallplus.common.redis.template.RedisUtil;
+import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.ValidatorUtils;
 import com.mallplus.common.vo.GoodsDetailResult;
 import com.mallplus.common.vo.HomeContentResult;
+import com.mallplus.common.vo.Rediskey;
 import com.mallplus.goods.mapper.*;
 import com.mallplus.goods.service.*;
 import com.mallplus.goods.utils.GoodsUtils;
 import com.mallplus.goods.vo.PmsProductParam;
 import com.mallplus.goods.vo.PmsProductResult;
+import com.mallplus.marking.mapper.SmsPaimaiLogMapper;
+import com.mallplus.member.service.IUmsMemberService;
 import com.mallplus.sentinel.config.ConstansValue;
 import com.mallplus.util.DateUtils;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,15 +32,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -100,6 +106,15 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     private IPmsProductAttributeCategoryService productAttributeCategoryService;
     @Resource
     private IPmsProductService pmsProductService;
+    @Resource
+    private RedisUtil redisUtil;
+    @Autowired
+    private IPmsFavoriteService favoriteService;
+
+    @Resource
+    private SmsPaimaiLogMapper paimaiLogMapper;
+    @Autowired
+    private IUmsMemberService memberService;
     public List<SmsHomeAdvertise> getHomeAdvertiseList() {
         SmsHomeAdvertise advertise = new SmsHomeAdvertise();
         advertise.setStatus(1);
@@ -211,7 +226,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     }
 
     private void handleSkuStockCode(List<PmsSkuStock> skuStockList, PmsProduct product) {
-        if (CollectionUtils.isEmpty(skuStockList)) return;
+        if (CollectionUtils.isEmpty(skuStockList)) {return;}
         int stock = 0;
         for (int i = 0; i < skuStockList.size(); i++) {
             PmsSkuStock skuStock = skuStockList.get(i);
@@ -382,7 +397,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      */
     private void relateAndInsertList(Object dao, List dataList, Long productId) {
         try {
-            if (CollectionUtils.isEmpty(dataList)) return;
+            if (CollectionUtils.isEmpty(dataList)){ return;}
             for (Object item : dataList) {
                 Method setId = item.getClass().getMethod("setId", Long.class);
                 setId.invoke(item, (Long) null);
@@ -447,6 +462,64 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         GoodsDetailResult param = getPmsProductParam(goods);
 
         return param;
+    }
+
+    @Override
+    public Integer countGoodsByToday(Long id) {
+        return productMapper.countGoodsByToday(id);
+    }
+
+    @Override
+    public Map<String, Object> queryPaiMaigoodsDetail(Long id) {
+        Map<String, Object> map = new HashMap<>();
+        PmsProduct goods = productMapper.selectById(id);
+        List<SmsPaimaiLog> paimaiLogList = paimaiLogMapper.selectList(new QueryWrapper<SmsPaimaiLog>().eq("goods_id", id).orderByDesc("create_time"));
+        map.put("paimaiLogList", paimaiLogList);
+        UmsMember umsMember = memberService.getCurrentMember();
+        map.put("favorite", false);
+        if (umsMember != null && umsMember.getId() != null) {
+            PmsFavorite query = new PmsFavorite();
+            query.setObjId(goods.getId());
+            query.setMemberId(umsMember.getId());
+            query.setType(1);
+            PmsFavorite findCollection = favoriteService.getOne(new QueryWrapper<>(query));
+            if (findCollection != null) {
+                map.put("favorite", true);
+            }
+        }
+        //记录浏览量到redis,然后定时更新到数据库
+        String key = Rediskey.GOODS_VIEWCOUNT_CODE + id;
+        //找到redis中该篇文章的点赞数，如果不存在则向redis中添加一条
+        Map<Object, Object> viewCountItem = redisUtil.hGetAll(Rediskey.GOODS_VIEWCOUNT_KEY);
+        Integer viewCount = 0;
+        if (!viewCountItem.isEmpty()) {
+            if (viewCountItem.containsKey(key)) {
+                viewCount = Integer.parseInt(viewCountItem.get(key).toString()) + 1;
+                redisUtil.hPut(Rediskey.GOODS_VIEWCOUNT_KEY, key, viewCount + "");
+            } else {
+                redisUtil.hPut(Rediskey.GOODS_VIEWCOUNT_KEY, key, 1 + "");
+            }
+        } else {
+            redisUtil.hPut(Rediskey.GOODS_VIEWCOUNT_KEY, key, 1 + "");
+        }
+        goods.setTimeSecound(ValidatorUtils.getTimeSecound(goods.getExpireTime()));
+        map.put("goods", goods);
+        return map;
+    }
+
+    @Transactional
+    @Override
+    public Object updatePaiMai(PmsProduct goods) {
+        goods.setExpireTime(DateUtils.strToDate(DateUtils.addMins(goods.getExpireTime(), 5)));
+        productMapper.updateById(goods);
+        SmsPaimaiLog log = new SmsPaimaiLog();
+        log.setCreateTime(new Date());
+        log.setGoodsId(goods.getId());
+        log.setMemberId(memberService.getCurrentMember().getId());
+        log.setPrice(goods.getOriginalPrice());
+        log.setPic(memberService.getCurrentMember().getIcon());
+        paimaiLogMapper.insert(log);
+        return new CommonResult().success();
     }
 
     private GoodsDetailResult getPmsProductParam(PmsProduct goods) {

@@ -4,6 +4,7 @@ package com.mallplus.marking.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mallplus.common.annotation.SysLog;
+import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.vo.SamplePmsProduct;
 
 import com.mallplus.common.entity.sms.SmsGroupActivity;
@@ -56,10 +57,10 @@ public class SmsGroupActivityController {
     @PostMapping(value = "/create")
     public Object saveSmsGroupActivity(@RequestBody SmsGroupActivity entity) {
         try {
-            List<SamplePmsProduct> list = entity.getProductList();
+            List<PmsProduct> list = entity.getProductList();
             String goodsIs = "";
             BigDecimal originPrice = BigDecimal.ZERO;
-            for (SamplePmsProduct p : list) {
+            for (PmsProduct p : list) {
                 originPrice = originPrice.add(p.getPrice());
                 goodsIs = goodsIs + p.getId() + ",";
             }
@@ -80,10 +81,10 @@ public class SmsGroupActivityController {
     @PostMapping(value = "/update/{id}")
     public Object updateSmsGroupActivity(@RequestBody SmsGroupActivity entity) {
         try {
-            List<SamplePmsProduct> list = entity.getProductList();
+            List<PmsProduct> list = entity.getProductList();
             String goodsIs = "";
             BigDecimal originPrice = BigDecimal.ZERO;
-            for (SamplePmsProduct p : list) {
+            for (PmsProduct p : list) {
                 originPrice = originPrice.add(p.getPrice());
                 goodsIs = goodsIs + p.getId() + ",";
             }

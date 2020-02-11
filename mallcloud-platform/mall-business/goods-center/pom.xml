@@ -76,6 +76,12 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mall</groupId>
+            <artifactId>mall-services</artifactId>
+            <version>1.5.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

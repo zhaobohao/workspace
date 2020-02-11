@@ -82,7 +82,7 @@ public class OAuth2MemberController {
     @IgnoreAuth
     @ApiOperation("注册")
     @PostMapping(SecurityMemberConstants.PASSWORD_RRG_PRO_URL)
-    public Object simpleReg(@RequestBody UmsMember ums) {
+    public Object simpleReg( UmsMember ums) {
          String phone = ums.getPhone();
          String password = ums.getPassword();
          String confimpassword = ums.getConfimpassword();

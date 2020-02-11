@@ -1,26 +1,36 @@
 package com.mallplus.marking.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mallplus.common.annotation.IgnoreAuth;
 import com.mallplus.common.annotation.SysLog;
-import com.mallplus.common.entity.oms.OmsCartItem;
+import com.mallplus.common.constant.ConstansValue;
+import com.mallplus.common.entity.pms.PmsFavorite;
+import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.entity.sms.*;
+import com.mallplus.common.entity.ums.UmsMember;
+import com.mallplus.common.redis.template.RedisUtil;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.DateUtils;
-import com.mallplus.common.vo.CartMarkingVo;
-import com.mallplus.common.vo.OrderParam;
-import com.mallplus.common.vo.SmsCouponHistoryDetail;
+import com.mallplus.common.utils.JsonUtil;
+import com.mallplus.common.utils.ValidatorUtils;
+import com.mallplus.common.vo.*;
+import com.mallplus.goods.service.IPmsFavoriteService;
+import com.mallplus.goods.service.IPmsProductService;
 import com.mallplus.marking.mapper.*;
 import com.mallplus.marking.service.*;
+import com.mallplus.member.service.IUmsMemberService;
+import com.mallplus.member.service.RedisService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -55,6 +65,18 @@ public class NotAuthMarkingController {
     private ISmsBasicMarkingService basicMarkingService;
     @Resource
     private SmsGroupActivityMapper groupActivityMapper;
+    @Resource
+    private ISmsGroupActivityService smsGroupActivityService;
+    @Resource
+    private IPmsProductService productService;
+    @Resource
+    private RedisService redisService;
+    @Autowired
+    private IUmsMemberService memberService;
+    @Resource
+    private RedisUtil redisUtil;
+    @Autowired
+    private IPmsFavoriteService favoriteService;
     @IgnoreAuth
     @SysLog(MODULE = "sms", REMARK = "根据条件查询所有红包列表")
     @ApiOperation("根据条件查询所有红包列表")
@@ -221,5 +243,111 @@ groupMapper.updateById(group);
         return couponService.listCart(vo);
     }
 
+    @IgnoreAuth
+    @SysLog(MODULE = "oms", REMARK = "查询团购商品列表")
+    @ApiOperation(value = "查询团购商品列表")
+    @ResponseBody
+    @RequestMapping(value = "/notAuth/groupActivityList", method = RequestMethod.GET)
+    public Object orderList(SmsGroupActivity groupActivity,
+                            @RequestParam(value = "pageSize", required = false, defaultValue = "100") Integer pageSize,
+                            @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
+
+        IPage<SmsGroupActivity> page = null;
+        groupActivity.setStatus(1);
+        page = smsGroupActivityService.page(new Page<SmsGroupActivity>(pageNum, pageSize), new QueryWrapper<>(groupActivity).orderByDesc("create_time"));
+
+        for (SmsGroupActivity smsGroupActivity : page.getRecords()) {
+            if (ValidatorUtils.notEmpty(smsGroupActivity.getGoodsIds())) {
+                List<PmsProduct> productList = (List<PmsProduct>) productService.list(new QueryWrapper<PmsProduct>().in("id", Arrays.asList(smsGroupActivity.getGoodsIds().split(",")).stream().map(s -> Long.parseLong(s.trim())).collect(Collectors.toList())).select(ConstansValue.sampleGoodsList));
+                if (productList != null && productList.size() > 0) {
+                    smsGroupActivity.setProductList(productList);
+                }
+            }
+
+        }
+        return new CommonResult().success(page);
+    }
+    @SysLog(MODULE = "pms", REMARK = "查询团购商品详情信息")
+    @IgnoreAuth
+    @ResponseBody
+    @RequestMapping(value = "/notAuth/group.activity.getdetial", method = RequestMethod.GET)
+    @ApiOperation(value = "查询团购商品详情信息")
+    public Object queryProductDetail(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
+        SmsGroupActivity groupActivity = smsGroupActivityService.getById(id);
+        Map<String, Object> map = new HashMap<>();
+        if (groupActivity != null) {
+            if (ValidatorUtils.notEmpty(groupActivity.getGoodsIds())) {
+                List<Long> goodIds = Arrays.asList(groupActivity.getGoodsIds().split(",")).stream().map(s -> Long.parseLong(s.trim())).collect(Collectors.toList());
+                GoodsDetailResult goods = JsonUtil.jsonToPojo(redisService.get(String.format(Rediskey.GOODSDETAIL, goodIds.get(0) + "")), GoodsDetailResult.class);
+                if (goods == null || goods.getGoods() == null) {
+                    goods = productService.getGoodsRedisById(goodIds.get(0));
+                }
+                if (goods != null && goods.getGoods() != null) {
+                    UmsMember umsMember = memberService.getCurrentMember();
+                    if (umsMember != null && umsMember.getId() != null) {
+                        isCollectGoods(map, goods, umsMember);
+                    }
+                    recordGoodsFoot(id);
+
+                    List<Long> newGoodIds = goodIds.subList(1, goodIds.size());
+                    if (newGoodIds != null && newGoodIds.size() > 0) {
+                        List<PmsProduct> productList = (List<PmsProduct>) productService.list(new QueryWrapper<PmsProduct>().in("id", goodIds).select(ConstansValue.sampleGoodsList));
+                        if (productList != null && productList.size() > 0) {
+                            groupActivity.setProductList(productList);
+                        }
+                    }
+                    map.put("groupActivity", groupActivity);
+                    map.put("goods", goods);
+                    return new CommonResult().success(map);
+                }
+            }
+
+        }
+        return new CommonResult().failed();
+    }
+
+    /**
+     * 判断是否收藏商品
+     *
+     * @param map
+     * @param goods
+     * @param umsMember
+     */
+    private void isCollectGoods(Map<String, Object> map, GoodsDetailResult goods, UmsMember umsMember) {
+        PmsProduct p = goods.getGoods();
+        PmsFavorite query = new PmsFavorite();
+        query.setObjId(p.getId());
+        query.setMemberId(umsMember.getId());
+        query.setType(1);
+        PmsFavorite findCollection = favoriteService.getOne(new QueryWrapper<>(query));
+        if (findCollection != null) {
+            map.put("favorite", true);
+        } else {
+            map.put("favorite", false);
+        }
+    }
+
+    /**
+     * 记录商品浏览记录
+     *
+     * @param id
+     */
+    private void recordGoodsFoot(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
+        //记录浏览量到redis,然后定时更新到数据库
+        String key = Rediskey.GOODS_VIEWCOUNT_CODE + id;
+        //找到redis中该篇文章的点赞数，如果不存在则向redis中添加一条
+        Map<Object, Object> viewCountItem = redisUtil.hGetAll(Rediskey.GOODS_VIEWCOUNT_KEY);
+        Integer viewCount = 0;
+        if (!viewCountItem.isEmpty()) {
+            if (viewCountItem.containsKey(key)) {
+                viewCount = Integer.parseInt(viewCountItem.get(key).toString()) + 1;
+                redisUtil.hPut(Rediskey.GOODS_VIEWCOUNT_KEY, key, viewCount + "");
+            } else {
+                redisUtil.hPut(Rediskey.GOODS_VIEWCOUNT_KEY, key, 1 + "");
+            }
+        } else {
+            redisUtil.hPut(Rediskey.GOODS_VIEWCOUNT_KEY, key, 1 + "");
+        }
+    }
 
 }

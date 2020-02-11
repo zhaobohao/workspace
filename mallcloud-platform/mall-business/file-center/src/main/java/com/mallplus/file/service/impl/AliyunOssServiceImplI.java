@@ -12,7 +12,7 @@ import com.aliyun.oss.OSSClient;
 /**
  * 阿里云oss存储文件
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @Service("aliyunOssServiceImpl")
 public class AliyunOssServiceImplI extends AbstractIFileService {

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mallcloud</artifactId>
+        <groupId>com.mall</groupId>
+        <version>1.5.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>mall-services</artifactId>
+    <packaging>jar</packaging>
+    
+<dependencies>
+    <dependency>
+        <groupId>com.mall</groupId>
+        <artifactId>mall-common-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.mall</groupId>
+        <artifactId>mall-db-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>cn.afterturn</groupId>
+        <artifactId>easypoi-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>cn.afterturn</groupId>
+        <artifactId>easypoi-annotation</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.aliyun.oss</groupId>
+        <artifactId>aliyun-sdk-oss</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.mall</groupId>
+        <artifactId>mall-swagger2-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.mall</groupId>
+        <artifactId>mall-redis-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.aliyun</groupId>
+        <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+        <version>1.1.0</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-configuration2</artifactId>
+        <version>2.4</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-configuration</groupId>
+        <artifactId>commons-configuration</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity</artifactId>
+    </dependency>
+</dependencies>
+</project>

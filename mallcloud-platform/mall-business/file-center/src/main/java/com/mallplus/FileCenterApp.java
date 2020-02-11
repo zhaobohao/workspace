@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 文件中心
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @EnableDiscoveryClient
 @SpringBootApplication

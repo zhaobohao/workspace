@@ -12,7 +12,7 @@ import com.qiniu.util.Auth;
 /**
  * 七牛云配置
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @Configuration
 public class QiniuOSSConfig {

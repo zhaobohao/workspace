@@ -13,7 +13,7 @@ import java.util.Map;
  * FileService工厂<br>
  * 将各个实现类放入map
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @Configuration
 public class OssServiceFactory {

@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 文件工具类
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @Slf4j
 public class FileUtil {

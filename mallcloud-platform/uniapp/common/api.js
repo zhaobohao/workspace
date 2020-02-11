@@ -16,7 +16,7 @@ export default {
 		login: 'api-uaa/oauth/user/ums/token',
 		appletLogin_by_weixin: 'applet/login_by_weixin', // 登录(手机号:phone 密码:password)
 		currentUser: "api-uaa/oauth/member/userinfo",
-		simpleReg: 'api-uaa/oauth/user/reg/token', // 登录(手机号:phone 密码:password)
+		simpleReg: 'api-uaa/oauth/user/reg/token', // 注册(手机号:phone 密码:password)
 
 		updatePassword: 'notAuth/home/updatePassword',
 		loginByCode: 'notAuth/home/loginByCode', // 手机和验证码登录
@@ -32,10 +32,10 @@ export default {
 
 	},
 	goods: {
-		storeList: 'api-goods/notAuth/store/list', // 查询学校列表
-		storeDetail: 'api-goods/notAuth/storeDetail', // 查询拼团商品详情信息
+		storeList: 'api-goods/notAuth/store/list', // 查询商铺列表
+		storeDetail: 'api-goods/notAuth/storeDetail', // 查询商铺详情信息
 		schoolList: 'api-goods/notAuth/school/list', // 查询学校列表
-		schoolDetail: 'api-goods/notAuth/schoolDetail', // 查询拼团商品详情信息
+		schoolDetail: 'api-goods/notAuth/schoolDetail', // 查询学校列表详情信息
 		groupGoodsDetail: 'api-goods/notAuth/goodsGroup/detail', // 查询拼团商品详情信息
 		groupGoodsList: 'api-goods/notAuth/groupGoods/list', // 查询拼团商品列表
 		groupHotGoodsList: 'api-goods/notAuth/groupHotGoods/list', // 查询生效拼团商品列表
@@ -135,10 +135,10 @@ export default {
 
 	},
 	marking: {
-		groupActivityDetail: 'single/sms/group.activity.getdetial', // 查询团购详情信息
-		groupActivityList: 'single/sms/groupActivityList', // 查询商品团购列表
+		groupActivityDetail: 'api-sms/notAuth/group.activity.getdetial', // 查询团购详情信息
+		groupActivityList: 'api-sms/notAuth/groupActivityList', // 查询商品团购列表
 		acceptCoupon: 'api-sms/auth/acceptCoupon', // 获取优惠券
-		listMemberCoupon: 'single/sms/listMemberCoupon', // 优惠券列表
+		listMemberCoupon: 'api-sms/auth/listMemberCoupon', // 优惠券列表
 		couponList: 'api-sms/notAuth/coupon/list', //  可领取的优惠券
 
 	},
@@ -181,26 +181,25 @@ export default {
 			}
 
 		}
-		console.log(userToken);
+		//console.log(userToken);
 		if (endpoint == 'api-uaa/oauth/user/ums/token') {
 			let [error, res] = await uni.request({
 				url: fullurl,
 				data: data,
 				method: method,
 				header: {
-
 					'client_id': 'app',
 					'client_secret': 'app',
 					'storeid': 1,
 					//	'Content-Type': 'application/x-www-form-urlencoded',
-					// 'content-type': 'application/json',
+					'content-type': 'application/json',
 					'Authorization': Authorization || ''
 				},
 			});
 			if (!load) {
 				uni.hideLoading();
 			}
-			console.log(res);
+			//console.log(res);
 			if (res.data.message == 'User token expired!') {
 				uni.showToast({
 					title: '请先登录',
@@ -239,8 +238,8 @@ export default {
 				uni.hideLoading();
 			}
 
-			console.log(fullurl);
-					console.log(res);
+			//console.log(fullurl);
+					//console.log(res);
 			if (res.data.resp_code == 401) {
 				uni.showToast({
 					title: '请先登录',

@@ -7,8 +7,6 @@ import java.util.Date;
 
 
 /**
- * @author zscat
- * @email 951449465@qq.com
  * @date 2017-10-15 15:07:36
  */
 public class TArticleDO  implements Serializable {

@@ -99,7 +99,14 @@ public class NotAuthPmsController {
         HomeContentResult contentResult = pmsProductService.content();
         return new CommonResult().success(contentResult);
     }
+    @SysLog(MODULE = "pms", REMARK = "查询拍卖商品详情信息")
+    @IgnoreAuth
+    @GetMapping(value = "/paimai/detail")
+    @ApiOperation(value = "查询拍卖商品详情信息")
+    public Object queryPaiMaiProductDetail(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
 
+        return new CommonResult().success(pmsProductService.queryPaiMaigoodsDetail(id));
+    }
     @SysLog(MODULE = "pms", REMARK = "查询商品详情信息")
     @IgnoreAuth
     @GetMapping(value = "/goods/detail")
@@ -487,6 +494,7 @@ public class NotAuthPmsController {
             product.setVerifyStatus(1);
             product.setMemberId(null);
             IPage<PmsProduct> list = pmsProductService.page(new Page<PmsProduct>(pageNum, pageSize), new QueryWrapper<>(product).select(ConstansValue.sampleGoodsList).in("id", ids));
+            list.getRecords().forEach(p->p.setGroupId(groupList.stream().filter(g->g.getGoodsId().equals(p.getId())).findFirst().get().getId()));
             return new CommonResult().success(list);
         }
         return null;

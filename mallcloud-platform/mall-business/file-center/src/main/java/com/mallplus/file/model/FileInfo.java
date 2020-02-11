@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * file实体类
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

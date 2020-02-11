@@ -19,7 +19,7 @@ import com.qiniu.util.StringMap;
 /**
  * 七牛云oss存储文件
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @Slf4j
 @Service("qiniuOssServiceImpl")

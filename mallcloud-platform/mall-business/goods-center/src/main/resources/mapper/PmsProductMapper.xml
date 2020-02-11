@@ -190,5 +190,46 @@
     <sql id="Base_Column_List">
         id, brand_id, product_category_id, feight_template_id, product_attribute_category_id, name, pic, product_sn, delete_status, publish_status, new_status, recommand_status, verify_status, sort, sale, price, promotion_price, gift_growth, gift_point, use_point_limit, sub_title, description, original_price, stock, low_stock, unit, weight, preview_status, service_ids, keywords, note, album_pics, detail_title, detail_desc, detail_html, detail_mobile_html, promotion_start_time, promotion_end_time, promotion_per_limit, promotion_type, brand_name, product_category_name, supply_id, create_time, school_id
     </sql>
+    <select id="getCartProduct" resultMap="cartProductMap">
+        SELECT
+        p.id id,
+        p.`name` name,
+        p.sub_title subTitle,
+        p.price price,
+        p.pic pic,
+        p.product_attribute_category_id productAttributeCategoryId,
+        p.stock stock,
+        pa.id attr_id,
+        pa.`name` attr_name,
+        ps.id sku_id,
+        ps.sku_code sku_code,
+        ps.price sku_price,
+        ps.sp1 sku_sp1,
+        ps.sp2 sku_sp2,
+        ps.sp3 sku_sp3,
+        ps.stock sku_stock,
+        ps.pic sku_pic
+        FROM
+        pms_product p
+        LEFT JOIN pms_product_attribute pa ON p.product_attribute_category_id = pa.product_attribute_category_id
+        LEFT JOIN pms_sku_stock ps ON p.id=ps.product_id
+        WHERE
+        p.id = #{id}
+        AND pa.type = 0
+        ORDER BY pa.sort desc
+    </select>
+    <select id="countGoodsByToday" resultType="java.lang.Integer">
+        select count(*) from pms_product where member_id = #{id}
+        and DATE_FORMAT(create_time,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d')
 
+    </select>
+    <select id="listByDate" resultMap="BaseResultMap">
+        select publish_status,stock from pms_product where
+        <if test="type==1">
+            date_format(create_time,'%y%m%d') = date_format(#{date},'%y%m%d')
+        </if>
+        <if test="type==2">
+            date_format(create_time,'%y%m') = date_format(#{date},'%y%m')
+        </if>
+    </select>
 </mapper>

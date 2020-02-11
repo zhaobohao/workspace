@@ -2,6 +2,7 @@ package com.mallplus.goods.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mallplus.common.entity.pms.PmsProduct;
+import com.mallplus.goods.vo.CartProduct;
 import com.mallplus.goods.vo.PmsProductResult;
 import com.mallplus.goods.vo.PromotionProduct;
 import org.apache.ibatis.annotations.Param;
@@ -18,9 +19,13 @@ import java.util.List;
  */
 public interface PmsProductMapper extends BaseMapper<PmsProduct> {
 
-   // CartProduct getCartProduct(@Param("id") Long id);
-
     List<PromotionProduct> getPromotionProductList(@Param("ids") List<Long> ids);
 
     PmsProductResult getUpdateInfo(Long id);
+
+    CartProduct getCartProduct(@Param("id") Long id);
+
+    Integer countGoodsByToday(@Param("id") Long id);
+
+    List<PmsProduct> listByDate(@Param("date") String date, @Param("type") Integer type);
 }

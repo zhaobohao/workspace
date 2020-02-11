@@ -57,7 +57,23 @@ public class DateUtils {
         }
         return null;
     }
+    /**
+     * 添加分钟
+     *
+     * @param date
+     * @param min
+     * @return
+     */
+    public static String addMins(Date date, int min) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MINUTE, min);// 24小时制
+        date = cal.getTime();
+        cal = null;
+        return format.format(date);
 
+    }
     public static String timeToStr(Long time, String pattern) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         if (time.toString().length() < 13) {

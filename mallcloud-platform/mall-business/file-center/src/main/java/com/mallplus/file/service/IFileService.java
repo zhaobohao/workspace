@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 文件service 目前仅支持阿里云oss,七牛云
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
 */
 public interface IFileService extends IService<FileInfo> {
 	FileInfo upload(MultipartFile file ) throws Exception;

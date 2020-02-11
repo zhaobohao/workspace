@@ -3,6 +3,7 @@ package com.mallplus.member.utils;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.mallplus.order.utils.MyX509TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

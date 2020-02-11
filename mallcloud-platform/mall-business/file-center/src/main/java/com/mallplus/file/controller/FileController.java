@@ -16,7 +16,7 @@ import java.util.Map;
  * 文件上传 同步oss db双写 目前仅实现了阿里云,七牛云
  * 参考src/main/view/upload.html
  *
- * @author 作者 mallplus E-mail: 951449465@qq.com
+
  */
 @RestController
 public class FileController {

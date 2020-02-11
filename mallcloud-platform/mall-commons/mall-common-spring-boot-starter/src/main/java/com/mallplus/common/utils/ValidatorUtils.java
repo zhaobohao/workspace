@@ -1,7 +1,10 @@
 package com.mallplus.common.utils;
 
+import com.mallplus.common.vo.timeline.TimeSecound;
+
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -11,7 +14,7 @@ public class ValidatorUtils {
 
 	/**
 	 * 判断内容不为空
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -25,7 +28,7 @@ public class ValidatorUtils {
 
 	/**
 	 * 判断内容不为空（包含数组）
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -54,7 +57,7 @@ public class ValidatorUtils {
 
 	/**
 	 * 判断内容是空
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -68,13 +71,12 @@ public class ValidatorUtils {
 
 	/**
 	 * 检查对象是否为空
-	 * 
-	 * @param obj
-	 *            要检查的数据(数据类型: String、Number、Boolean、Collection、Map、Object[])
+	 *
+	 * @param obj 要检查的数据(数据类型: String、Number、Boolean、Collection、Map、Object[])
 	 * @return true: 为空; false: 不为空 <li>String：值为 null、""、"0" 时返回 true <li>
-	 *         Number：值为 null、0 时返回 true <li>Boolean：值为 null、false 时返回 true <li>
-	 *         Collection：值为 null、size=0 时返回 true <li>Map：值为 null、size=0 时返回
-	 *         true <li>Object[]：值为 null、length=0 时返回 true
+	 * Number：值为 null、0 时返回 true <li>Boolean：值为 null、false 时返回 true <li>
+	 * Collection：值为 null、size=0 时返回 true <li>Map：值为 null、size=0 时返回
+	 * true <li>Object[]：值为 null、length=0 时返回 true
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean empty(Object obj) {
@@ -98,7 +100,7 @@ public class ValidatorUtils {
 
 	/**
 	 * 判断是否是合法邮箱地址
-	 * 
+	 *
 	 * @param email
 	 * @return
 	 */
@@ -111,7 +113,7 @@ public class ValidatorUtils {
 
 	/**
 	 * 只包含英文字母和数字、下划线
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -134,12 +136,10 @@ public class ValidatorUtils {
 
 	/**
 	 * 是否长度符合
-	 * 
+	 *
 	 * @param str
-	 * @param min
-	 *            最小
-	 * @param max
-	 *            最大
+	 * @param min 最小
+	 * @param max 最大
 	 * @return
 	 */
 	public static boolean lengthBetween(String str, int min, int max) {
@@ -148,6 +148,7 @@ public class ValidatorUtils {
 
 	/**
 	 * 判断字符串是否是数字
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -159,6 +160,7 @@ public class ValidatorUtils {
 		}
 		return true;
 	}
+
 	public static Double rountTwo(Double num) {
 		if (num != null) {
 			BigDecimal b = new BigDecimal(num);
@@ -168,10 +170,32 @@ public class ValidatorUtils {
 			return null;
 		}
 	}
-	public static String doubleTrans(double d){
-		if(Math.round(d)-d==0){
-			return String.valueOf((long)d);
+
+	public static String doubleTrans(double d) {
+		if (Math.round(d) - d == 0) {
+			return String.valueOf((long) d);
 		}
 		return String.valueOf(d);
+	}
+
+	/**
+	 * 获取结束时间与当前的时间差
+	 *
+	 * @param endTime
+	 * @return
+	 */
+	public static TimeSecound getTimeSecound(Date endTime) {
+
+		long diff = endTime.getTime() - System.currentTimeMillis();// 这样得到的差值是微秒级别
+
+		long days = diff / (1000 * 60 * 60 * 24);//天
+
+		long hours = (diff - days * (1000 * 60 * 60 * 24))
+				/ (1000 * 60 * 60);    //小时
+		long mins = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);    //小时
+		long sc = (diff - days * (1000 * 60 * 60 * 24) - hours
+				* (1000 * 60 * 60) - mins * (1000 * 60)) / (1000); // 秒
+
+		return new TimeSecound(days, hours, mins, sc);
 	}
 }

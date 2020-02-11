@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="navbar" :style="{ position: headerPosition, top: headerTop }">
 			<view class="nav-item" :class="{ current: filterIndex === 0 }" @click="tabClick(0)">综合排序</view>
-
+		    <view class="nav-item" :class="{ current: filterIndex === 1 }" @click="tabClick(1)">销量优先</view>
 			<view class="nav-item" :class="{ current: filterIndex === 2 }" @click="tabClick(2)">
 				<text>价格</text>
 				<view class="p-box">
@@ -10,7 +10,7 @@
 					<text :class="{ active: priceOrder === 2 && filterIndex === 2 }" class="yticon icon-shang xia"></text>
 				</view>
 			</view>
-			<text class="cate-item yticon icon-fenlei1" @click="toggleCateMask('show')"></text>
+			 
 		</view>
 		<view class="goods-list">
 			<view v-for="(item, index) in goodsList" :key="index" class="goods-item" @click="navToDetailPage(item)">
@@ -83,6 +83,11 @@ export default {
 
 		//加载商品 ，带下拉刷新和上滑加载
 		async loadData(type = 'add', loading) {
+			if (type === 'refresh') {
+				this.goodsList = [];
+				this.pageNum=1;
+			}
+			console.log("type="+type)
 			//没有更多直接返回
 			if (type === 'add') {
 				if (this.loadingType === 'nomore') {
@@ -106,11 +111,9 @@ export default {
 			}
 
 			let list = await Api.apiCall('get', Api.marking.groupActivityList, params);
-			let goodsList = list.records;
+			let goodsList = list.data.records;
 			// let goodsList = await this.$api.json('goodsList');
-			if (type === 'refresh') {
-				this.goodsList = [];
-			}
+			
 			//筛选，测试数据直接前端筛选了
 			if (this.filterIndex === 1) {
 				goodsList.sort((a, b) => b.sales - a.sales);
@@ -125,7 +128,6 @@ export default {
 			}
 
 			this.goodsList = this.goodsList.concat(goodsList);
-
 			//判断是否还有下一页，有是more  没有是nomore(测试数据判断大于20就没有了)
 			this.loadingType = this.goodsList.length > list.total ? 'nomore' : 'more';
 			if (type === 'refresh') {

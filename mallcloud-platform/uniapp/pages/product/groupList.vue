@@ -106,6 +106,10 @@ export default {
 		},
 		//加载商品 ，带下拉刷新和上滑加载
 		async loadData(type = 'add', loading) {
+			if (type === 'refresh') {
+				this.goodsList = [];
+				this.pageNum=1;
+			}
 			//没有更多直接返回
 			if (type === 'add') {
 				if (this.loadingType === 'nomore') {
@@ -131,9 +135,6 @@ export default {
 			let list = await Api.apiCall('get', Api.goods.groupGoodsList, params);
 			let goodsList = list.data.records;
 			// let goodsList = await this.$api.json('goodsList');
-			if (type === 'refresh') {
-				this.goodsList = [];
-			}
 			//筛选，测试数据直接前端筛选了
 			if (this.filterIndex === 1) {
 				goodsList.sort((a, b) => b.sales - a.sales);
@@ -148,7 +149,6 @@ export default {
 			}
 
 			this.goodsList = this.goodsList.concat(goodsList);
-
 			//判断是否还有下一页，有是more  没有是nomore(测试数据判断大于20就没有了)
 			this.loadingType = this.goodsList.length > list.total ? 'nomore' : 'more';
 			if (type === 'refresh') {
@@ -209,7 +209,7 @@ export default {
 			let id = item.id;
 			let groupId = item.groupId;
 			uni.navigateTo({
-				url: `/pages/product/groupProduct?id=${id}&&groupId=&{groupId}`
+				url: `/pages/product/groupProduct?id=${id}&&groupId=${groupId}`
 			});
 		},
 		stopPrevent() {}

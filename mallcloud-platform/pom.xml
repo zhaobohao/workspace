@@ -360,5 +360,6 @@
         <module>mall-config</module>
         <!-- demo -->
         <module>mall-demo</module>
+        <module>mall-services</module>
     </modules>
 </project>

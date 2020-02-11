@@ -88,6 +88,7 @@ export default {
 		return {
 			tabCurrentIndex: 0,
 			orderInfo: [],
+			groupActivity: false,
 			navList: [
 				{
 					status: 0,
@@ -129,6 +130,7 @@ export default {
 		this.orderInfo =data.data;
 		this.orderInfo = Object.assign(this.orderInfo, this.orderStateExp(this.orderInfo.status));
 		this.orderInfo.createTime = this.dateFormat(this.orderInfo.createTime);
+		console.log(this.orderInfo.orderItemList.length);
 	},
 
 	methods: {

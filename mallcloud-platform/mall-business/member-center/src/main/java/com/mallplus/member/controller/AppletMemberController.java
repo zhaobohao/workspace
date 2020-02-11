@@ -40,7 +40,6 @@ public class AppletMemberController  {
     @Autowired
     private SmsService smsService;
 
-
     @IgnoreAuth
     @ApiOperation("注册")
     @SysLog(MODULE = "applet", REMARK = "小程序注册")

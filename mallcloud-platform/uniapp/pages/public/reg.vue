@@ -26,7 +26,7 @@
 		</view>
 		<view class="register-section">
 			已经有账号?
-			<text @click="toRegist">马上登录</text>
+			<text @click="toLogin">马上登录</text>
 		</view>
 	</view>
 </template>
@@ -54,7 +54,7 @@ export default {
 				url: '/pages/index/index'
 			});
 		},
-		toRegist() {
+		toLogin() {
 			uni.navigateTo({
 				url: '/pages/public/login'
 			});
@@ -76,13 +76,13 @@ export default {
 				return;
 			}
 			this.logining = true;
-			let params = { mobile: this.mobile, password: this.password, newPassword: this.confimpassword };
+			let params = { phone: this.mobile, password: this.password, confimpassword: this.confimpassword };
 			let data = await Api.apiCall('post', Api.index.simpleReg, params);
 			this.logining = false;
 
 			if (data) {
-				uni.switchTab({
-					url: '/pages/index/index'
+				uni.navigateTo({
+					url: '/pages/public/login'
 				});
 			} else {
 				this.$api.msg('注册失败');

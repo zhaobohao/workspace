@@ -244,15 +244,15 @@ export default {
 		if (id) {
 			this.logining = true;
 			let params = { id: ops.id };
-			let data = await Api.apiCall('get', Api.index.groupActivityDetail, params);
+			let product = await Api.apiCall('get', Api.marking.groupActivityDetail, params);
 			this.logining = false;
 
-			if (data) {
-				let detailData = data.goods;
+			if (product) {
+				let detailData = product.data.goods;
 				let goods = detailData.goods;
 				this.goods = goods;
-				this.favorite = data.favorite;
-				this.groupActivity =data.groupActivity;
+				this.favorite = product.data.favorite;
+				this.groupActivity =product.data.groupActivity;
 				this.typeGoodsList = detailData.typeGoodsList;
 				var subImages = goods.albumPics;
 				this.desc = goods.detailHtml;
