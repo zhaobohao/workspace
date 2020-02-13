@@ -11,6 +11,10 @@ public interface ServiceNameConstants {
     /**
      * 用户权限服务
      */
+    String UAA_SERVICE = "uaa-server";
+    /**
+     * 用户权限服务
+     */
     String USER_SERVICE = "user-center";
     /**
      * 会员服务

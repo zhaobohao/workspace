@@ -117,3 +117,22 @@ mallcloud -- 父项目，公共依赖
 ```
 
 &nbsp;
+## 5.数据库清理
+```
+truncate table sys_admin_log;
+truncate table ums_member_blance_log;
+truncate table pms_favorite;
+truncate table oms_cart_item;
+truncate table oms_order;
+truncate table oms_order_item;
+truncate table oms_order_operate_history;
+truncate table oms_order_return_apply;
+truncate table cms_subject;
+truncate table cms_subject_category;
+truncate table cms_subject_product_relation;
+truncate table cms_topic;
+truncate table cms_topic_member;
+truncate table admin_sys_job_log;
+truncate table pms_product_vertify_record;
+truncate table admin_sys_logininfor;
+```

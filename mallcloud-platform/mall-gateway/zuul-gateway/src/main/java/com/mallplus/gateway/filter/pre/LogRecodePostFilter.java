@@ -1,8 +1,6 @@
 package com.mallplus.gateway.filter.pre;
 
-import com.alibaba.fastjson.JSONObject;
-
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.model.SysAdminLog;
 import com.mallplus.common.utils.ValidatorUtils;
 import com.mallplus.common.vo.ApiContext;
@@ -33,7 +31,7 @@ public class LogRecodePostFilter extends ZuulFilter {
     private static final Logger logger = LoggerFactory.getLogger(LogRecodePostFilter.class);
 
     @Autowired
-    UserService userService;
+    UserFeignClient userService;
     @Autowired
     private ApiContext apiContext;
 

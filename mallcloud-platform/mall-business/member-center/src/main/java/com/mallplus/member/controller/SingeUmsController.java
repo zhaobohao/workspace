@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mallplus.common.annotation.IgnoreAuth;
 import com.mallplus.common.annotation.SysLog;
+import com.mallplus.common.feign.UaaFeignClient;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.ValidatorUtils;
 import com.mallplus.common.entity.ums.SysArea;
@@ -14,7 +15,6 @@ import com.mallplus.member.service.ISysAreaService;
 import com.mallplus.member.service.ISysSchoolService;
 import com.mallplus.member.service.IUmsMemberMemberTagRelationService;
 import com.mallplus.member.service.IUmsMemberService;
-import com.mallplus.member.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +41,8 @@ public class SingeUmsController {
     private ISysAreaService areaService;
     @Resource
     private IUmsMemberMemberTagRelationService memberTagService;
+    @Resource
+    private UaaFeignClient uaaFeignClient;
     @IgnoreAuth
     @ApiOperation(value = "查询学校列表")
     @GetMapping(value = "/school/list")
@@ -66,7 +68,7 @@ public class SingeUmsController {
     @SysLog(MODULE = "ums", REMARK = "会员绑定学校")
     public Object bindSchool(@RequestParam(value = "schoolId", required = true) Long schoolId) {
         try {
-            UmsMember member = UserUtils.getCurrentMember();
+            UmsMember member = uaaFeignClient.getCurrentMember();
             member.setSchoolId(schoolId);
             memberService.updateById(member);
             return new CommonResult().success("绑定学校成功");
@@ -84,7 +86,7 @@ public class SingeUmsController {
             if (ValidatorUtils.empty(areaIds)){
                 return new CommonResult().failed("请选择区域");
             }
-            UmsMember member = UserUtils.getCurrentMember();
+            UmsMember member = uaaFeignClient.getCurrentMember();
             String[] areIdList = areaIds.split(",");
             List<UmsMemberMemberTagRelation> list = new ArrayList<>();
             for (String id : areIdList){

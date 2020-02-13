@@ -28,6 +28,16 @@ public class SmsGroupMember extends BaseEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    public Long getGroupRecordId() {
+        return groupRecordId;
+    }
+
+    public void setGroupRecordId(Long groupRecordId) {
+        this.groupRecordId = groupRecordId;
+    }
+
+    @TableField("group_record_id")
+    private Long groupRecordId;
     @TableField("group_id")
     private Long groupId;
 

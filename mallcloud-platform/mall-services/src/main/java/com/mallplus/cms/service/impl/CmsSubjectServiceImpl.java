@@ -14,6 +14,7 @@ import com.mallplus.common.entity.cms.UmsRewardLog;
 import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.feign.MemberFeignClient;
 import com.mallplus.common.utils.CommonResult;
+import com.mallplus.member.service.IUmsMemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,8 @@ public class CmsSubjectServiceImpl extends ServiceImpl<CmsSubjectMapper, CmsSubj
     private MemberFeignClient memberFeignClient;
     @Resource
     private CmsSubjectCategoryMapper subjectCategoryMapper;
+    @Resource
+    private IUmsMemberService memberService;
 
     @Override
     @Transactional
@@ -86,19 +89,17 @@ public class CmsSubjectServiceImpl extends ServiceImpl<CmsSubjectMapper, CmsSubj
     @Override
     public Object reward(Long aid, int coin,Long memberId) {
         try {
-            UmsMember member = memberFeignClient.findById(memberId);
+            UmsMember member = memberService.getCurrentMember();
             if (member!=null && member.getBlance().compareTo(new BigDecimal(coin))<0){
                 return new CommonResult().failed("余额不够");
             }
-            member.setBlance(member.getBlance().subtract(new BigDecimal(coin)));
-            memberFeignClient.updateMember(member);
+            memberService.substractBlanceByid(member.getId(),coin);
             CmsSubject subject = subjectMapper.selectById(aid);
             UmsMember remember = memberFeignClient.findById(subject.getMemberId());
             if (remember!=null){
                 subject.setReward(subject.getReward()+coin);
                 subjectMapper.updateById(subject);
-                remember.setBlance(remember.getBlance().add(new BigDecimal(coin)));
-                memberFeignClient.updateMember(remember);
+                memberService.addBlanceByid(remember.getId(),coin);
                 UmsRewardLog log = new UmsRewardLog();
                 log.setCoin(coin);log.setSendMemberId(member.getId());
                 log.setMemberIcon(member.getIcon());

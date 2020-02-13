@@ -22,6 +22,7 @@ import com.mallplus.core.kit.HttpKit;
 import com.mallplus.core.kit.QrCodeKit;
 import com.mallplus.core.kit.RsaKit;
 import com.mallplus.core.kit.WxPayKit;
+import com.mallplus.member.service.IUmsMemberService;
 import com.mallplus.order.config.WxAppletProperties;
 import com.mallplus.order.pay.entity.*;
 import com.mallplus.order.pay.entity.WxPayBean;
@@ -79,6 +80,8 @@ public class WxPayController extends AbstractWxPayApiController {
     private MemberFeignClient memberFeignClient;
     @Autowired
     private WxAppletProperties wxAppletProperties;
+    @Resource
+    private IUmsMemberService memberService;
 
     private String notifyUrl = "http://java.chengguo.link:8081/api";
     private String refundNotifyUrl;
@@ -255,7 +258,7 @@ public class WxPayController extends AbstractWxPayApiController {
         try {
             String totalFee = "0.01";
             // openId，采用 网页授权获取 access_token API：SnsAccessTokenApi获取
-            UmsMember member = memberFeignClient.findById(memberId);
+            UmsMember member = memberService.getCurrentMember();
             String openId = member.getWeixinOpenid();
             if (StrUtil.isEmpty(openId)) {
                 return new CommonResult().failed("openId is null");
@@ -655,7 +658,7 @@ public class WxPayController extends AbstractWxPayApiController {
             , @RequestParam(value = "memberId", required = true) Long memberId) {
         try {
             //需要通过授权来获取openId
-            UmsMember user = memberFeignClient.findById(memberId);
+            UmsMember user = memberService.getCurrentMember();
 
             String ip = IpKit.getRealIp(request);
             if (ValidatorUtils.empty(ip)) {

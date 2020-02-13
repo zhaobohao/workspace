@@ -1,6 +1,6 @@
 package com.mallplus.common.config;
 
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.resolver.TokenArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -18,7 +18,7 @@ import java.util.List;
 public class LoginArgResolverConfig implements WebMvcConfigurer {
     @Lazy
     @Autowired
-    private UserService userService;
+    private UserFeignClient userService;
     /**
      * Token参数解析
      *

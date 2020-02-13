@@ -256,7 +256,7 @@ export default {
 			this.consultCount = consoltL.count;
 
 			let params3 = { };
-            let couponList1 = await Api.apiCall('get', Api.index.couponList, params3);
+            let couponList1 = await Api.apiCall('get', Api.marking.couponList, params3);
             this.couponList = couponList1;
 
 			let params4 = { id: ops.id};

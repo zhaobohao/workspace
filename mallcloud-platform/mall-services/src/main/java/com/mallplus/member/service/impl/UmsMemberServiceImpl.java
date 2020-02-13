@@ -8,6 +8,7 @@ import com.mallplus.common.entity.ums.Sms;
 import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.exception.ApiMallPlusException;
 import com.mallplus.common.exception.BusinessException;
+import com.mallplus.common.feign.UaaFeignClient;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.vo.SmsCode;
 import com.mallplus.member.mapper.SysAreaMapper;
@@ -64,7 +65,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     @Resource
     private RedisService redisService;
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsMemberServiceImpl.class);
-
+    @Resource
+    private UaaFeignClient uaaFeignClient;
     @Resource
     private SysAreaMapper areaMapper;
 
@@ -251,23 +253,11 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     @Override
     public UmsMember getCurrentMember() {
         try {
-            SecurityContext ctx = SecurityContextHolder.getContext();
-            Authentication auth = ctx.getAuthentication();
-            MemberDetails memberDetails = (MemberDetails) auth.getPrincipal();
-            return memberDetails.getUmsMember();
+            return   uaaFeignClient.getCurrentMember();
         }catch (Exception e){
             return new UmsMember();
         }
     }
-
-    @Override
-    public void updateIntegration(Long id, Integer integration) {
-        UmsMember record = new UmsMember();
-        record.setId(id);
-        record.setIntegration(integration);
-        memberMapper.updateById(record);
-    }
-
 
     //对输入的验证码进行校验
     public boolean verifyAuthCode(String authCode, String telephone) {
@@ -507,6 +497,34 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         }*/
     }
 
+    /**
+     * 减掉消费的积分
+     * @param id
+     * @param substract
+     */
+    @Override
+    public void substractIntegratoinById(Long id, int substract) {
+        memberMapper.substractIntegrationById(id,substract);
+    }
+
+    /**
+     * 减去blance
+     * @param id
+     * @param payAmount
+     */
+    @Override
+    public void substractBlanceByid(Long id, int payAmount) {
+        memberMapper.substractBlanceByid(id,payAmount);
+    }
+    /**
+     * 增加blance
+     * @param id
+     * @param payAmount
+     */
+    @Override
+    public void addBlanceByid(Long id, int payAmount) {
+        memberMapper.addBlanceByid(id,payAmount);
+    }
 
 }
 

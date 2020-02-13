@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mallplus.common.entity.oms.OmsCartItem;
 import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.entity.sms.SmsBasicMarking;
-import com.mallplus.common.feign.PmsFeignClinent;
+import com.mallplus.common.feign.PmsFeignClient;
 import com.mallplus.common.utils.JsonUtil;
 import com.mallplus.common.vo.AmountAndCount;
 import com.mallplus.common.vo.BasicRuls;
@@ -35,7 +35,7 @@ public class SmsBasicMarkingServiceImpl extends ServiceImpl<SmsBasicMarkingMappe
     @Resource
     private SmsBasicMarkingMapper markingMapper;
     @Resource
-    private PmsFeignClinent pmsFeignClinent;
+    private PmsFeignClient pmsFeignClinent;
     /**
      *   * 1 有效2 无效
      * @param id

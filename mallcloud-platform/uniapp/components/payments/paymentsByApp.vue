@@ -176,7 +176,7 @@ export default {
 					let params1 = {'orderId':this.orderId};
 					let data1 = await Api.apiCall('post',Api.order.balancePay,params1);
 					console.log(data1)
-					if (data1) {
+					if (data1.code==0) {
 						uni.redirectTo({
 							url: '/pages/order/payment/result?order=' + JSON.stringify(data1)
 						})

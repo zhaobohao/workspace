@@ -1,12 +1,10 @@
 package com.mallplus.oauth.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mallplus.common.constant.SecurityConstants;
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.model.Result;
-import com.mallplus.common.model.SysRole;
 import com.mallplus.common.model.SysUser;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.SpringUtil;
@@ -23,10 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -70,7 +65,7 @@ public class OAuth2Controller {
     private AuthenticationManager authenticationManager;
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userService;
 
     @Autowired
     private TokenStore tokenStore;

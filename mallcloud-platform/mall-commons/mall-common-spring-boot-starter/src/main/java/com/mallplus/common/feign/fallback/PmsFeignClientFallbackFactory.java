@@ -4,7 +4,7 @@ import com.mallplus.common.entity.pms.PmsGifts;
 
 import com.mallplus.common.entity.pms.PmsProductConsult;
 import com.mallplus.common.entity.pms.PmsSkuStock;
-import com.mallplus.common.feign.PmsFeignClinent;
+import com.mallplus.common.feign.PmsFeignClient;
 import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.vo.PromotionProduct;
 import feign.hystrix.FallbackFactory;
@@ -21,10 +21,10 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class PmsFeignClientFallbackFactory implements FallbackFactory<PmsFeignClinent> {
+public class PmsFeignClientFallbackFactory implements FallbackFactory<PmsFeignClient> {
     @Override
-    public PmsFeignClinent create(Throwable throwable) {
-        return new PmsFeignClinent() {
+    public PmsFeignClient create(Throwable throwable) {
+        return new PmsFeignClient() {
 
             @Override
             public PmsProduct selectById(Long id) {
@@ -70,6 +70,11 @@ public class PmsFeignClientFallbackFactory implements FallbackFactory<PmsFeignCl
             @Override
             public void saveProductConsult(PmsProductConsult productConsult) {
 
+            }
+
+            @Override
+            public PmsProduct selectPmsJiFenById(Long goodsId) {
+                return null;
             }
         };
     }

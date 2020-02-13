@@ -95,7 +95,7 @@ export default {
 
 
 		preGroupActivityOrder: 'api-order/auth/preGroupActivityOrder', // 预览订单团购
-		jifenPay: 'api-order/api/pay/jifenPay', // 余额支付
+		jifenPay: 'api-order/api/pay/jifenPay', // 积分支付
 
 		applyRefund:'api-order/auth/applyRefund',
 		paymentlist: 'api-order/api/pay/paymentlist', // 查询订单列表

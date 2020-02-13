@@ -195,13 +195,14 @@
 import Api from '@/common/api';
 import share from '@/components/share';
 import { mapState } from 'vuex';
+const userInfo = uni.getStorageSync('userInfo');
 export default {
 	components: {
 		share
 	},
 	data() {
 		return {
-		maskState: 0, //优惠券面板显示状态
+		    maskState: 0, //优惠券面板显示状态
 			specClass: 'none',
 			specSelected: [],
 			small: null,
@@ -217,7 +218,8 @@ export default {
 				all: 0,
 				bad: 0,
 				general: 0,
-				goods: 0
+				goods: 0,
+				persent: 0
 			},
 			imgList: [
 				{
@@ -283,18 +285,18 @@ export default {
 				});
 			}
 			if (userInfo && userInfo.id) {
-				let params = { goodsId: ops.id, memberId: this.userInfo.userInfo.id };
+				let params = { goodsId: ops.id, memberId: userInfo.id };
 				await Api.apiCall('post', Api.goods.addView, params,true);
 			}
+			
 			let params1 = { goodsId: ops.id };
 			let consoltL = await Api.apiCall('get', Api.goods.consultList, params1,true);
-			this.consultList = consoltL.list;
-			this.consultCount = consoltL.count;
-
+			this.consultList = consoltL.data.list;
+			this.consultCount = consoltL.data.count;
+			
 			let params3 = { };
-            let couponList1 = await Api.apiCall('get', Api.index.couponList, params3,true);
+            let couponList1 = await Api.apiCall('get', Api.marking.couponList, params3,true);
             this.couponList = couponList1;
-            console.log(this.couponList);
 		}
 
 		//规格 默认选中第一条
@@ -358,7 +360,6 @@ export default {
 
                         			let params = { couponId: index.id };
                         			let data = await Api.apiCall('post', Api.index.acceptCoupon, params);
-                                        console.log(data);
                         			if (data) {
                         				this.$api.msg(data);
                         				this.toggleMask()
@@ -433,7 +434,7 @@ export default {
 		toFavorite(item) {
 			if (userInfo && userInfo.id) {
 				this.favorite = !this.favorite;
-				let params = { objId: item.id, type: 1, memberId: this.userInfo.userInfo.id, name: item.name, meno1: item.pic, meno2: item.price, meno3: item.sale };
+				let params = { objId: item.id, type: 1, memberId: userInfo.id, name: item.name, meno1: item.pic, meno2: item.price, meno3: item.sale };
 				Api.apiCall('post', Api.goods.favoriteSave, params);
 
 
@@ -450,9 +451,7 @@ export default {
 				uni.navigateTo({
 					url: `/pages/order/createOrder?groupActivityId=`+item.id
 				});
-
-
-        			}else {
+        	}else {
 				let url = '/pages/public/login';
 				uni.navigateTo({
 					url
@@ -464,6 +463,7 @@ export default {
 
         		},
 		async buy(item) {
+			//发起团购
 			if (userInfo && userInfo.id) {
 				let data;
 				let id = item.id;
@@ -474,21 +474,22 @@ export default {
 						return;
 					}
 
-					let params = { goodsId: id, skuId: this.sku.id, memberId: this.userInfo.userInfo.id };
+					let params = { goodsId: id, skuId: this.sku.id, memberId: userInfo.id };
 					data = await Api.apiCall('post', Api.order.addCart, params);
+					data =data.data;
 					uni.navigateTo({
-						url: `/pages/order/createOrder?id=${data.id}&&type=1&&skuId=${this.sku.id}&&memberId=${this.userInfo.userInfo.id}`
+						url: `/pages/order/createOrder?id=${data.id}&&type=1&&skuId=${this.sku.id}&&memberId=${userInfo.id}`
 					});
 				} else {
 					if(this.goods.stock<1){
 						uni.showToast({title:"库存不够！"});
 						return;
 					}
-					let params = { goodsId: id, memberId: this.userInfo.userInfo.id };
+					let params = { goodsId: id, memberId: userInfo.id };
 					data = await Api.apiCall('post', Api.order.addCart, params);
-
+					data =data.data;
 					uni.navigateTo({
-						url: `/pages/order/createOrder?id=${data.id}&&type=1&&memberId=${this.userInfo.userInfo.id}`
+						url: `/pages/order/createOrder?id=${data.id}&&type=1&&memberId=${userInfo.id}`
 					});
 				}
 			}else{
@@ -496,6 +497,7 @@ export default {
 				uni.navigateTo({
 					url
 				});
+				return false;
 			}
 
 		},
@@ -509,14 +511,14 @@ export default {
 						uni.showToast({title:"库存不够！"});
 						return;
 					}
-					let params = { goodsId: id, skuId: this.sku.id, memberId: this.userInfo.userInfo.id };
+					let params = { goodsId: id, skuId: this.sku.id, memberId: userInfo.id };
 					data = await Api.apiCall('post', Api.order.addCart, params);
 				} else {
 					if(this.goods.stock<1){
 						uni.showToast({title:"库存不够！"});
 						return;
 					}
-					let params = { goodsId: id, memberId: this.userInfo.userInfo.id };
+					let params = { goodsId: id, memberId: userInfo.id };
 					data = await Api.apiCall('post', Api.order.addCart, params);
 				}
 

@@ -69,5 +69,7 @@ public class PmsGifts implements Serializable {
 
     private BigDecimal price;
 
+    private Long sale;
 
+    private Long hit;
 }

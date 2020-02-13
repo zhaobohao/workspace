@@ -23,5 +23,9 @@
     <sql id="Base_Column_List">
         id, goods_id, goods_name, origin_price, group_price, start_time, end_time, hours, peoples, status, create_time, max_people, limit_goods
     </sql>
-
+    <select id="getGroupByGoodsId" resultType="com.mallplus.common.entity.sms.SmsGroup">
+        select `id`,`goods_id` goodsId,`goods_name` goodsName,`origin_price` originPrice,`group_price` groupPrice,
+        `start_time` startTime,`end_time` endTime,`hours`,`peoples`,`status`,`create_time` createTime,
+        `max_people` maxPeople,`limit_goods` limitGoods  from sms_group  where goods_id = #{goodsId} order by create_time desc limit 1
+    </select>
 </mapper>

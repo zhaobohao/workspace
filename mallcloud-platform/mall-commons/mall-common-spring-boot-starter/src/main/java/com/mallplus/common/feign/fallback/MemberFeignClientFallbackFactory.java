@@ -51,11 +51,6 @@ public class MemberFeignClientFallbackFactory implements FallbackFactory<MemberF
             }
 
             @Override
-            public void updateIntegration(Long id, int i) {
-
-            }
-
-            @Override
             public UmsIntegrationConsumeSetting selectIntegrationConsumeSettingById(long l) {
                 return null;
             }
@@ -68,11 +63,6 @@ public class MemberFeignClientFallbackFactory implements FallbackFactory<MemberF
             @Override
             public IPage<SysSchool> pageSchool(SysSchool entity, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
                 return null;
-            }
-
-            @Override
-            public void updateMember(UmsMember member) {
-
             }
 
             @Override

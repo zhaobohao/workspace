@@ -6,19 +6,15 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mallplus.common.entity.oms.OmsCartItem;
 import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.entity.sms.SmsBasicGifts;
-import com.mallplus.common.entity.sms.SmsBasicMarking;
-import com.mallplus.common.feign.PmsFeignClinent;
+import com.mallplus.common.feign.PmsFeignClient;
 import com.mallplus.common.utils.JsonUtil;
 import com.mallplus.common.vo.AmountAndCount;
 import com.mallplus.common.vo.BasicRuls;
 import com.mallplus.common.vo.BeanKv;
 import com.mallplus.common.vo.CartMarkingVo;
 import com.mallplus.marking.mapper.SmsBasicGiftsMapper;
-import com.mallplus.marking.mapper.SmsBasicMarkingMapper;
 import com.mallplus.marking.service.ISmsBasicGiftsService;
-import com.mallplus.marking.service.ISmsBasicMarkingService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -35,7 +31,7 @@ import java.util.*;
 @Service
 public class SmsBasicGiftsServiceImpl extends ServiceImpl<SmsBasicGiftsMapper, SmsBasicGifts> implements ISmsBasicGiftsService {
     @Resource
-    private PmsFeignClinent pmsFeignClinent;
+    private PmsFeignClient pmsFeignClinent;
     @Resource
     private  SmsBasicGiftsMapper giftsMapper;
     @Override

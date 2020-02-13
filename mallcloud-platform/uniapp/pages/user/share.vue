@@ -4,7 +4,7 @@
 	<view class="banner">
 		<dl>
 			<dt><image src="../../static/img/logo.png" mode=""></image></dt>
-			<dd>mallplus多租户商城</dd>
+			<dd>软竹商城</dd>
 		</dl>
 		<view class="img" v-if="hasLogin">
 			<img :src='userInfo.avatar' mode="">

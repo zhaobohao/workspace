@@ -154,13 +154,13 @@ export default {
 			let params = { username: this.username, password: this.password };
 			let data = await Api.apiCall('post', Api.index.login, params);
 			this.logining = false;
-			console.log(data);
+			//console.log(data);
 			if (data) {
 				uni.setStorageSync('userToken', data);
 				let params = { username: this.username };
-				let data1 = await Api.apiCall('get', Api.member.memberDetail, params);
-
-				uni.setStorageSync('userInfo', data1);
+				let userInfo = await Api.apiCall('get', Api.member.memberDetail, params);
+				//console.log(userInfo);
+				uni.setStorageSync('userInfo', userInfo);
 				uni.switchTab({
 					url: '/pages/index/index'
 				});

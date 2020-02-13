@@ -6,7 +6,7 @@ import com.mallplus.common.constant.SecurityMemberConstants;
 import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.exception.ApiMallPlusException;
 import com.mallplus.common.feign.MemberFeignClient;
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.model.Result;
 import com.mallplus.common.model.SysUser;
 import com.mallplus.common.redis.template.RedisRepository;
@@ -16,11 +16,11 @@ import com.mallplus.oauth.mobile.member.MobileCodeMemberAuthenticationToken;
 import com.mallplus.oauth.mobile.member.MobileMemberAuthenticationToken;
 import com.mallplus.oauth.openid.member.OpenIdMemberAuthenticationToken;
 import com.mallplus.oauth.service.impl.RedisClientDetailsService;
+import com.mallplus.oauth2.common.util.AuthUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,18 +36,23 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -76,8 +81,9 @@ public class OAuth2MemberController {
     @Autowired
     private RedisRepository redisRepository;
     @Resource
-    private UserService userService;
-
+    private UserFeignClient userService;
+    @Autowired
+    private TokenStore tokenStore;
 
     @IgnoreAuth
     @ApiOperation("注册")
@@ -203,8 +209,21 @@ public class OAuth2MemberController {
      */
     @ApiOperation(value = "当前登陆用户信息")
     @RequestMapping(value = { "/oauth/member/userinfo" }, produces = "application/json") // 获取用户信息。/auth/user
-    public Object getCurrentUserDetail() {
+    public CommonResult getCurrentUserDetail() {
         return new CommonResult().success(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    }
+    @RequestMapping(value = { "/oauth/ums/member" }, produces = "application/json") // 获取用户。
+    public UmsMember getCurrentMember() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes)
+                RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String token = AuthUtils.extractToken(request);
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(token)) {
+            OAuth2AccessToken existingAccessToken = tokenStore.readAccessToken(token);
+            String userName= (String)existingAccessToken.getAdditionalInformation().get("user_name");
+            return memberFeignClient.findByUsername(userName);
+        }
+       return new UmsMember();
     }
     private void writerToken(HttpServletRequest request, HttpServletResponse response, AbstractAuthenticationToken token
             , String badCredenbtialsMsg,Long userId) throws IOException {

@@ -5,6 +5,7 @@ import com.mallplus.common.annotation.IgnoreAuth;
 import com.mallplus.common.annotation.SysLog;
 import com.mallplus.common.entity.ums.Sms;
 import com.mallplus.common.entity.ums.UmsMember;
+import com.mallplus.common.feign.UaaFeignClient;
 import com.mallplus.common.redis.template.RedisRepository;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.PhoneUtil;
@@ -12,12 +13,12 @@ import com.mallplus.common.vo.SmsCode;
 import com.mallplus.common.vo.TArticleDO;
 import com.mallplus.member.service.IUmsMemberService;
 import com.mallplus.member.service.SmsService;
-import com.mallplus.member.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.*;
@@ -33,8 +34,8 @@ import java.util.concurrent.CompletableFuture;
 public class AppletMemberController  {
     @Autowired
     private IUmsMemberService memberService;
-
-
+    @Resource
+    private UaaFeignClient uaaFeignClient;
     @Autowired
     private RedisRepository redisRepository;
     @Autowired
@@ -93,7 +94,7 @@ public class AppletMemberController  {
     @SysLog(MODULE = "applet", REMARK = "小程序用户详情")
     @GetMapping("/user")
     public Object user() {
-        UmsMember umsMember = UserUtils.getCurrentMember();
+        UmsMember umsMember = uaaFeignClient.getCurrentMember();
         if (umsMember != null && umsMember.getId() != null) {
 
             return new CommonResult().success(umsMember);

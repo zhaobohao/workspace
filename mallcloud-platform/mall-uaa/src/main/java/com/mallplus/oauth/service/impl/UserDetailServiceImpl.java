@@ -2,26 +2,19 @@ package com.mallplus.oauth.service.impl;
 
 import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.feign.MemberFeignClient;
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.model.LoginAppUser;
-import com.mallplus.common.model.SysPermission;
-import com.mallplus.common.model.SysRole;
 import com.mallplus.common.vo.ApiContext;
 import com.mallplus.oauth.service.ZltUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author mall
@@ -30,7 +23,7 @@ import java.util.Set;
 @Service
 public class UserDetailServiceImpl implements ZltUserDetailsService, SocialUserDetailsService {
     @Resource
-    private UserService userService;
+    private UserFeignClient userService;
     @Resource
     private MemberFeignClient memberFeignClient;
     @Resource
@@ -69,9 +62,12 @@ public class UserDetailServiceImpl implements ZltUserDetailsService, SocialUserD
     }
 
     private UmsMember checkMember(UmsMember loginAppUser) {
-        /*if (loginAppUser != null && loginAppUser.getStatus()==2) {
+        if (loginAppUser != null && loginAppUser.getStatus()==2) {
             throw new DisabledException("用户已作废");
-        }*/
+        }
+        if (loginAppUser != null && loginAppUser.getStatus()==0) {
+            throw new DisabledException("用户已禁用");
+        }
         return loginAppUser;
     }
 

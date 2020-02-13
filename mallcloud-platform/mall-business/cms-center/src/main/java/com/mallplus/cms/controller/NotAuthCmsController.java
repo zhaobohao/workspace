@@ -17,6 +17,7 @@ import com.mallplus.common.redis.constant.RedisToolsConstant;
 import com.mallplus.common.redis.template.RedisUtil;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.ValidatorUtils;
+import com.mallplus.member.service.IUmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
@@ -58,7 +59,8 @@ public class NotAuthCmsController {
     private RedisUtil redisUtil;
     @Resource
     private MemberFeignClient memberFeignClient;
-
+    @Resource
+    private IUmsMemberService memberService;
 
     @IgnoreAuth
     @SysLog(MODULE = "cms", REMARK = "查询打赏列表")
@@ -161,7 +163,7 @@ public class NotAuthCmsController {
     @PostMapping(value = "/createSubject")
     public Object createSubject(CmsSubject subject, BindingResult result) {
         CommonResult commonResult;
-        UmsMember member = memberFeignClient.findById(subject.getMemberId());
+        UmsMember member = memberService.getCurrentMember();
         if (member!=null){
             subject.setMemberId(member.getId());
             subject.setMemberName(member.getNickname());
@@ -207,7 +209,7 @@ public class NotAuthCmsController {
     @PostMapping(value = "/createTopic")
     public Object createTopic(CmsTopic subject, BindingResult result) {
         CommonResult commonResult;
-        UmsMember member = memberFeignClient.findById(subject.getMemberId());
+        UmsMember member = memberService.getCurrentMember();
         if (member!=null){
             subject.setMemberId(member.getId());
             subject.setMemberName(member.getNickname());
@@ -253,7 +255,7 @@ public class NotAuthCmsController {
     public Object attendTopic(@RequestParam(value = "id", required = false) Long id,
                               @RequestParam(value = "memberId", required = false) Long memberId) {
         CommonResult commonResult;
-        UmsMember member = memberFeignClient.findById(memberId);
+        UmsMember member = memberService.getCurrentMember();
 
         CmsTopic subject = topicService.getById(id);
         Date now = new Date();
@@ -293,7 +295,7 @@ public class NotAuthCmsController {
     public Object canceTopic(@RequestParam(value = "id", required = false) Long id,
                              @RequestParam(value = "memberId", required = false) Long memberId) {
         CommonResult commonResult;
-        UmsMember member = memberFeignClient.findById(memberId);
+        UmsMember member = memberService.getCurrentMember();
         CmsTopic subject = topicService.getById(id);
 
         if (member!=null){
@@ -342,7 +344,7 @@ public class NotAuthCmsController {
     @PostMapping(value = "/addSubjectCom")
     public Object addSubjectCom(CmsSubjectComment subject, @RequestParam(value = "memberId", required = false) Long memberId, BindingResult result) {
         CommonResult commonResult;
-        UmsMember member = memberFeignClient.findById(memberId);
+        UmsMember member = memberService.getCurrentMember();
         if (member!=null){
             subject.setMemberIcon(member.getIcon());
             subject.setMemberNickName(member.getNickname());

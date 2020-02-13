@@ -19,4 +19,8 @@ public class CartParam {
     private Integer isSelected;
     // 1sku 2spu
     private Integer type;
+    // channel  商品渠道 jifen 积分渠道，group 团够渠道 ， pingtuan 拼团渠道
+    private String channel ;
+
+
 }

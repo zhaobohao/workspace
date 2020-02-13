@@ -50,8 +50,8 @@ public interface MarkingFeignClinent {
     @GetMapping(value = "/notAuth/selectGroupMemberList")
     Object selectGroupMemberList(@RequestParam("id") Long id);
 
-    @GetMapping(value = "/notAuth/acceptGroup")
-    Object acceptGroup(@RequestParam("orderParam") OrderParam orderParam);
+    @PostMapping(value = "/notAuth/acceptGroup")
+    Object acceptGroup(@RequestBody OrderParam orderParam);
 
     @PostMapping(value = "/notAuth/updateGroupById")
     void updateGroupById(@RequestBody  SmsGroup group);

@@ -6,10 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mallplus.common.annotation.IgnoreAuth;
 import com.mallplus.common.annotation.SysLog;
 import com.mallplus.common.constant.ConstansValue;
+import com.mallplus.common.entity.oms.OmsOrder;
 import com.mallplus.common.entity.pms.PmsFavorite;
 import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.entity.sms.*;
 import com.mallplus.common.entity.ums.UmsMember;
+import com.mallplus.common.feign.MemberFeignClient;
 import com.mallplus.common.redis.template.RedisUtil;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.DateUtils;
@@ -22,11 +24,13 @@ import com.mallplus.marking.mapper.*;
 import com.mallplus.marking.service.*;
 import com.mallplus.member.service.IUmsMemberService;
 import com.mallplus.member.service.RedisService;
+import com.mallplus.order.mapper.OmsOrderMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.RequestContext;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -77,6 +81,12 @@ public class NotAuthMarkingController {
     private RedisUtil redisUtil;
     @Autowired
     private IPmsFavoriteService favoriteService;
+    @Resource
+    private SmsGroupRecordMapper groupRecordMapper;
+    @Resource
+    private MemberFeignClient memberFeignClient;
+    @Resource
+    private OmsOrderMapper orderMapper;
     @IgnoreAuth
     @SysLog(MODULE = "sms", REMARK = "根据条件查询所有红包列表")
     @ApiOperation("根据条件查询所有红包列表")
@@ -128,18 +138,25 @@ public class NotAuthMarkingController {
         return new CommonResult().failed();
     }
 
-    @SysLog(MODULE = "sms", REMARK = "根据条件查询所有导航栏列表")
-    @ApiOperation("根据条件查询所有导航栏列表")
+    @SysLog(MODULE = "sms", REMARK = "拼团活动")
+    @ApiOperation("新建拼团活动")
     @PostMapping(value = "/notAuth/acceptGroup")
     public Object acceptGroup(@RequestBody OrderParam orderParam) {
         Long nowT = System.currentTimeMillis();
-        SmsGroup group = groupMapper.selectById(orderParam.getGroupId());
+        UmsMember currentMember = memberService.getCurrentMember();
+        orderParam.setMemberId(currentMember.getId());
+        SmsGroup group = groupMapper.getGroupByGoodsId(orderParam.getGoodsId());
         Date endTime = DateUtils.convertStringToDate(DateUtils.addHours(group.getEndTime(), group.getHours()), "yyyy-MM-dd HH:mm:ss");
 
         if (nowT > group.getStartTime().getTime() && nowT < endTime.getTime()) {
             SmsGroupMember groupMember = new SmsGroupMember();
+            SmsGroupRecord groupRecord = new SmsGroupRecord();
+            if(orderParam.getGroupType()==1){ // 1 发起拼团 2 参与拼团
+                groupRecord.setCreateTime(new Date());
+                groupRecord.setGroupId(group.getId());
+                groupRecord.setStatus("1");
+                groupRecordMapper.insert(groupRecord);
 
-            if(orderParam.getGroupType()==1){
                 groupMember.setMainId(orderParam.getMemberId());
                 groupMember.setGoodsId(orderParam.getGoodsId());
                 SmsGroupMember    exist = groupMemberMapper.selectOne(new QueryWrapper<>(groupMember));
@@ -147,30 +164,41 @@ public class NotAuthMarkingController {
                     return new CommonResult().failed("你已经参加过此活动");
                 }
                 groupMember.setName(orderParam.getMemberIcon());
-                groupMember.setStatus(2);
                 groupMember.setOrderId(orderParam.getOrderId()+"");
                 groupMember.setMainId(orderParam.getMemberId());
                 groupMember.setCreateTime(new Date());
                 groupMember.setGroupId(group.getId());
-
-                groupMember.setMemberId(orderParam.getMemberId()+"");
                 groupMember.setExipreTime(System.currentTimeMillis()+(group.getHours()*60*60*60));
+                groupMember.setGoodsId(orderParam.getGoodsId());
+                groupMember.setName(currentMember.getNickname());
+                groupMember.setMemberId(currentMember.getId()+"");
+                groupMember.setStatus(1);
+                groupMember.setGroupRecordId(groupRecord.getId());
+
                 groupMemberMapper.insert(groupMember);
             }else{
-                groupMember = groupMemberMapper.selectById(orderParam.getMgId());
-                String []mids = groupMember.getMemberId().split(",");
-                for (int i=0;i<mids.length;i++){
-                    if (orderParam.getMemberId().toString().equals(mids[i])){
-                        return new CommonResult().failed("你已经参加过此活动");
+                List<SmsGroupMember> list1 = groupMemberMapper.selectList(new QueryWrapper<SmsGroupMember>().eq("group_record_id",orderParam.getMgId()));
+                if (list1!=null && list1.size()>group.getMaxPeople()){
+                    return new CommonResult().failed("此拼团已达最大人数");
+                }
+                for (SmsGroupMember smsGroupMember : list1){
+                    if (smsGroupMember.getMemberId().equals(currentMember.getId())){
+                        return new CommonResult().failed("你已经参加过此团");
                     }
                 }
-
-                groupMember.setName(groupMember.getName()+","+orderParam.getMemberIcon());
-                groupMember.setOrderId(groupMember.getOrderId()+","+orderParam.getOrderId());
-                groupMember.setMemberId(groupMember.getMemberId()+","+orderParam.getMemberId());
-                groupMemberMapper.updateById(groupMember);
+                groupMember.setGoodsId(orderParam.getGoodsId());
+                groupMember.setName(currentMember.getNickname());
+                groupMember.setMemberId(currentMember.getId()+"");
+                groupMember.setStatus(1);
+                groupMember.setOrderId(orderParam.getOrderId()+"");
+                groupMember.setCreateTime(new Date());
+                groupMember.setGroupRecordId(orderParam.getMgId());
+                groupMemberMapper.insert(groupMember);
             }
-
+            OmsOrder order =new OmsOrder();
+            order.setId(orderParam.getOrderId());
+            order.setGroupId(groupMember.getId());
+            orderMapper.updateById(order);
         } else {
             return new CommonResult().failed("活动已经结束");
         }
@@ -283,6 +311,7 @@ groupMapper.updateById(group);
                     goods = productService.getGoodsRedisById(goodIds.get(0));
                 }
                 if (goods != null && goods.getGoods() != null) {
+
                     UmsMember umsMember = memberService.getCurrentMember();
                     if (umsMember != null && umsMember.getId() != null) {
                         isCollectGoods(map, goods, umsMember);

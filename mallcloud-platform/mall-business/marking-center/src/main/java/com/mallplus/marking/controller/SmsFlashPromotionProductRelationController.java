@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mallplus.common.annotation.SysLog;
 import com.mallplus.common.entity.pms.PmsProduct;
 import com.mallplus.common.entity.sms.SmsFlashPromotionProductRelation;
-import com.mallplus.common.feign.PmsFeignClinent;
+import com.mallplus.common.feign.PmsFeignClient;
 import com.mallplus.common.vo.SmsFlashPromotionProducts;
 import com.mallplus.marking.service.ISmsFlashPromotionProductRelationService;
 import com.mallplus.common.utils.CommonResult;
@@ -40,7 +40,7 @@ public class SmsFlashPromotionProductRelationController {
     @Resource
     private ISmsFlashPromotionProductRelationService ISmsFlashPromotionProductRelationService;
     @Resource
-    private PmsFeignClinent pmsFeignClinent;
+    private PmsFeignClient pmsFeignClinent;
 
     @SysLog(MODULE = "sms", REMARK = "根据条件查询所有商品限时购与商品关系表列表")
     @ApiOperation("根据条件查询所有商品限时购与商品关系表列表")

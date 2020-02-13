@@ -6,7 +6,7 @@ import com.mallplus.common.entity.oms.OmsCartItem;
 import com.mallplus.common.entity.pms.PmsProductFullReduction;
 import com.mallplus.common.entity.pms.PmsProductLadder;
 import com.mallplus.common.entity.pms.PmsSkuStock;
-import com.mallplus.common.feign.PmsFeignClinent;
+import com.mallplus.common.feign.PmsFeignClient;
 import com.mallplus.common.vo.CartPromotionItem;
 import com.mallplus.common.vo.PromotionProduct;
 import com.mallplus.order.mapper.OmsCartItemMapper;
@@ -32,7 +32,7 @@ import java.util.*;
 public class OmsCartItemServiceImpl extends ServiceImpl<OmsCartItemMapper, OmsCartItem> implements IOmsCartItemService {
 
     @Resource
-    private PmsFeignClinent pmsFeignClinent;
+    private PmsFeignClient pmsFeignClinent;
     @Resource
     private  OmsCartItemMapper cartItemMapper;
     @Override

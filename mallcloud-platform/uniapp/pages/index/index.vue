@@ -51,7 +51,7 @@
 
 
 		<!-- 优惠券  https://s.click.taobao.com/OPh3c1w -->
-		<coupon v-for="(item, index) in couponList" :key="index" v-bind:item="item" theme="#ff0000"></coupon>
+		<coupon v-for="(item, index) in couponList" :key="item.id" v-bind:item="item" theme="#ff0000"></coupon>
 		<!-- 团购楼层 -->
 		<view class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>

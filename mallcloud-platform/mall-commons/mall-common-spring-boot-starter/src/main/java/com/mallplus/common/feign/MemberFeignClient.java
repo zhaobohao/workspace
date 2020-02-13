@@ -36,9 +36,6 @@ public interface MemberFeignClient {
     @GetMapping(value = "/ums/UmsMember/mobile", params = "mobile")
     UmsMember findByMobile(@RequestParam("mobile") String mobile);
 
-    @GetMapping(value = "/ums/UmsMember/updateIntegration")
-    void updateIntegration(@RequestParam("id")Long id, @RequestParam("i")int i);
-
     @GetMapping(value = "/ums/UmsMember/selectIntegrationConsumeSettingById", params = "l")
     UmsIntegrationConsumeSetting selectIntegrationConsumeSettingById(long l);
 
@@ -49,9 +46,6 @@ public interface MemberFeignClient {
     IPage<SysSchool>  pageSchool(@RequestParam("entity") SysSchool entity,
                         @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                         @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum);
-
-    @PostMapping(value = "/notAuth/updateMember")
-    void updateMember(@RequestBody UmsMember member);
 
     @GetMapping(value = "/notAuth/getMemberLevelById")
     UmsMemberLevel getMemberLevelById(@RequestParam("memberLevelId") Long memberLevelId);

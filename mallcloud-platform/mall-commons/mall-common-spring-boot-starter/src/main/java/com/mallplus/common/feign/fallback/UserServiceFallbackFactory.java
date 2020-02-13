@@ -1,7 +1,7 @@
 package com.mallplus.common.feign.fallback;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.model.*;
 import com.mallplus.common.utils.CommonResult;
 import feign.hystrix.FallbackFactory;
@@ -18,10 +18,10 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class UserServiceFallbackFactory implements FallbackFactory<UserService> {
+public class UserServiceFallbackFactory implements FallbackFactory<UserFeignClient> {
     @Override
-    public UserService create(Throwable throwable) {
-        return new UserService() {
+    public UserFeignClient create(Throwable throwable) {
+        return new UserFeignClient() {
             @Override
             public SysUser selectByUsername(String username) {
                 log.error("通过用户名查询用户异常:{}", username, throwable);

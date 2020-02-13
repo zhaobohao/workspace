@@ -1,7 +1,7 @@
 package com.mallplus.oauth.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.redis.template.RedisRepository;
 import com.mallplus.common.constant.SecurityConstants;
 import com.mallplus.common.model.Result;
@@ -29,7 +29,7 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
     private RedisRepository redisRepository;
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userService;
 
     /**
      * 保存用户验证码，和randomStr绑定

@@ -3,7 +3,7 @@ package com.mallplus.common.resolver;
 import cn.hutool.core.util.StrUtil;
 import com.mallplus.common.annotation.LoginUser;
 import com.mallplus.common.constant.SecurityConstants;
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.model.SysRole;
 import com.mallplus.common.model.SysUser;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +26,9 @@ import java.util.List;
  */
 @Slf4j
 public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
-    private UserService userService;
+    private UserFeignClient userService;
 
-    public TokenArgumentResolver(UserService userService) {
+    public TokenArgumentResolver(UserFeignClient userService) {
         this.userService = userService;
     }
 

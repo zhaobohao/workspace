@@ -7,6 +7,7 @@ import com.mallplus.common.entity.ums.UmsMember;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -55,12 +56,6 @@ public interface IUmsMemberService extends IService<UmsMember> {
      */
     UmsMember getCurrentMember();
 
-    /**
-     * 根据会员id修改会员积分
-     */
-    void updateIntegration(Long id, Integer integration);
-
-
     public UmsMember queryByOpenId(String openId);
 
 
@@ -76,5 +71,11 @@ public interface IUmsMemberService extends IService<UmsMember> {
     UmsMember findByOpenId(String openId);
 
     void updataMemberOrderInfo();
+
+    void substractIntegratoinById(Long id, int intValue);
+
+    void substractBlanceByid(Long id, int payAmount);
+
+    void addBlanceByid(Long id, int coin);
 }
 

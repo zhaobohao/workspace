@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<text class="success-icon yticon icon-xuanzhong2"></text>
-		<text class="tit">支付成功</text>
+		<text class="tit">{{ resultText }}</text>
 		<view class="result-mid red-price">
 			{{ paymentInfo.payAmount }}
 		</view>
@@ -20,16 +20,20 @@
 				paymentId: 0,
 				paymentInfo: {}, // 支付单详情
 				orderId: 0,
-				status: false
+				status: false,
+				resultText: '支付成功'
 			}
 		},
 		onLoad(options) {
 			if (options.order) {
 				let order  = JSON.parse(options.order)
+				if(order.code==200){
 				this.orderId = order.id
 				this.paymentInfo = order
-			}
-
+				}else{
+					this.resultText='支付失败'
+				}
+		   }
 		},
 		methods: {}
 	};

@@ -4,18 +4,15 @@ package com.mallplus.order.controller;
 import cn.hutool.core.util.XmlUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mallplus.common.annotation.SysLog;
-import com.mallplus.common.constant.OrderStatus;
 import com.mallplus.common.entity.oms.OmsOrder;
 import com.mallplus.common.entity.oms.OmsOrderItem;
 import com.mallplus.common.entity.oms.OmsPayments;
-import com.mallplus.common.entity.sms.SmsGroup;
 import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.feign.MarkingFeignClinent;
 import com.mallplus.common.feign.MemberFeignClient;
-import com.mallplus.common.feign.PmsFeignClinent;
 import com.mallplus.common.utils.CommonResult;
-import com.mallplus.common.utils.ValidatorUtils;
 import com.mallplus.common.vo.OrderParam;
+import com.mallplus.member.service.IUmsMemberService;
 import com.mallplus.order.config.WxAppletProperties;
 import com.mallplus.order.service.IOmsOrderItemService;
 import com.mallplus.order.service.IOmsOrderService;
@@ -72,7 +69,8 @@ public class PayController {
 
     @Autowired
     private MarkingFeignClinent markingFeignClinent;
-
+    @Resource
+    private IUmsMemberService memberService;
 
     @ApiOperation("显示所有支付方式")
     @RequestMapping(value = "/paymentlist", method = RequestMethod.GET)
@@ -88,17 +86,12 @@ public class PayController {
     @ApiOperation(value = "余额支付")
     @PostMapping("balancePay")
     public Object balancePay(BalancePayParam payParam){
-
-        if(payParam.getPayAmount().compareTo(payParam.getBalance())>0){
-            return new CommonResult().failed("余额不足！");
-        }else {
             OmsOrder order = orderService.blancePay(orderService.getById(payParam.getOrderId()));
             return new CommonResult().success(order);
-        }
     }
 
     /**
-     * 余额支付
+     * 积分支付
      */
     @SysLog(MODULE = "pay", REMARK = "积分兑换")
     @ApiOperation(value = "积分兑换")
@@ -163,7 +156,7 @@ public class PayController {
     public Object payPrepay(@RequestParam(value = "id", required = false) Long id,
                             @RequestParam(value = "memberId", required = false) Long memberId,
                             HttpServletRequest req) {
-        UmsMember user = memberFeignClient.findById(memberId);
+        UmsMember user = memberService.getCurrentMember();
         //
         OmsOrder orderInfo = orderService.getById(id);
 

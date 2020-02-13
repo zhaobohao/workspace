@@ -8,12 +8,10 @@ import com.mallplus.common.annotation.IgnoreAuth;
 import com.mallplus.common.annotation.SysLog;
 import com.mallplus.common.entity.pms.*;
 import com.mallplus.common.entity.sms.SmsGroup;
-import com.mallplus.common.entity.sms.SmsGroupMember;
 import com.mallplus.common.entity.ums.SysSchool;
-import com.mallplus.common.entity.ums.UmsMember;
 import com.mallplus.common.feign.MarkingFeignClinent;
 import com.mallplus.common.feign.MemberFeignClient;
-import com.mallplus.common.feign.UserService;
+import com.mallplus.common.feign.UserFeignClient;
 import com.mallplus.common.model.SysStore;
 import com.mallplus.common.redis.constant.RedisToolsConstant;
 import com.mallplus.common.redis.template.RedisRepository;
@@ -23,12 +21,9 @@ import com.mallplus.common.utils.ValidatorUtils;
 import com.mallplus.common.vo.GoodsDetailResult;
 import com.mallplus.common.vo.HomeContentResult;
 import com.mallplus.common.vo.ProductTypeVo;
-import com.mallplus.common.vo.SamplePmsProduct;
 import com.mallplus.goods.mapper.*;
 import com.mallplus.goods.service.*;
-import com.mallplus.goods.utils.GoodsUtils;
 import com.mallplus.goods.vo.ConsultTypeCount;
-import com.mallplus.goods.vo.PmsProductParam;
 import com.mallplus.goods.vo.PromotionProduct;
 import com.mallplus.sentinel.config.ConstansValue;
 import com.mallplus.util.DateUtils;
@@ -89,7 +84,7 @@ public class NotAuthPmsController {
     @Resource
     private PmsSkuStockMapper skuStockMapper;
     @Autowired
-    private UserService userService;
+    private UserFeignClient userService;
     @IgnoreAuth
     @ApiOperation("首页内容页信息展示")
     @SysLog(MODULE = "home", REMARK = "首页内容页信息展示")
@@ -594,6 +589,8 @@ public class NotAuthPmsController {
                 map.put("favorite", false);
             }
         }
+        goods.setHit(goods.getHit()+1);
+        giftsService.updateById(goods);
         map.put("goods", goods);
         return new CommonResult().success(map);
     }
