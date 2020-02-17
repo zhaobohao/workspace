@@ -20,6 +20,7 @@ import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.ValidatorUtils;
 import com.mallplus.common.vo.GoodsDetailResult;
 import com.mallplus.common.vo.HomeContentResult;
+import com.mallplus.common.vo.PaiMaiParam;
 import com.mallplus.common.vo.ProductTypeVo;
 import com.mallplus.goods.mapper.*;
 import com.mallplus.goods.service.*;
@@ -70,7 +71,7 @@ public class NotAuthPmsController {
     @Resource
     private IPmsGiftsCategoryService giftsCategoryService;
     @Resource
-    private  PmsProductCategoryMapper categoryMapper;
+    private PmsProductCategoryMapper categoryMapper;
     @Resource
     private PmsProductAttributeCategoryMapper productAttributeCategoryMapper;
     @Resource
@@ -85,6 +86,7 @@ public class NotAuthPmsController {
     private PmsSkuStockMapper skuStockMapper;
     @Autowired
     private UserFeignClient userService;
+
     @IgnoreAuth
     @ApiOperation("首页内容页信息展示")
     @SysLog(MODULE = "home", REMARK = "首页内容页信息展示")
@@ -94,6 +96,7 @@ public class NotAuthPmsController {
         HomeContentResult contentResult = pmsProductService.content();
         return new CommonResult().success(contentResult);
     }
+
     @SysLog(MODULE = "pms", REMARK = "查询拍卖商品详情信息")
     @IgnoreAuth
     @GetMapping(value = "/paimai/detail")
@@ -102,6 +105,20 @@ public class NotAuthPmsController {
 
         return new CommonResult().success(pmsProductService.queryPaiMaigoodsDetail(id));
     }
+
+    @ApiOperation("创建商品")
+    @SysLog(MODULE = "pms", REMARK = "创建商品")
+    @PostMapping(value = "/updatePaiMai")
+    public Object updatePaiMai(PaiMaiParam paiMaiParam) {
+        PmsProduct goods = pmsProductService.getById(paiMaiParam.getId());
+        if (paiMaiParam.getPrice().compareTo(goods.getOriginalPrice()) > 0) {
+            goods.setOriginalPrice(paiMaiParam.getPrice());
+            return pmsProductService.updatePaiMai(goods);
+        } else {
+            return new CommonResult().failed("出价低于上次价格");
+        }
+    }
+
     @SysLog(MODULE = "pms", REMARK = "查询商品详情信息")
     @IgnoreAuth
     @GetMapping(value = "/goods/detail")
@@ -111,10 +128,10 @@ public class NotAuthPmsController {
         GoodsDetailResult param = null;
         try {
             param = (GoodsDetailResult) redisRepository.get(String.format(RedisToolsConstant.GOODSDETAIL, id));
-            if(ValidatorUtils.empty(param)){
+            if (ValidatorUtils.empty(param)) {
                 param = pmsProductService.getGoodsRedisById(id);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             param = pmsProductService.getGoodsRedisById(id);
         }
         Map<String, Object> map = new HashMap<>();
@@ -125,9 +142,9 @@ public class NotAuthPmsController {
             query.setMemberId(memberId);
             query.setType(1);
             PmsFavorite findCollection = favoriteService.getOne(new QueryWrapper<>(query));
-            if(findCollection!=null){
+            if (findCollection != null) {
                 map.put("favorite", true);
-            }else{
+            } else {
                 map.put("favorite", false);
             }
         }
@@ -135,6 +152,7 @@ public class NotAuthPmsController {
         map.put("goods", param);
         return new CommonResult().success(map);
     }
+
     @SysLog(MODULE = "pms", REMARK = "根据条件查询所有品牌表列表")
     @ApiOperation("根据条件查询所有品牌表列表")
     @GetMapping(value = "/brand/list")
@@ -149,6 +167,7 @@ public class NotAuthPmsController {
         }
         return new CommonResult().failed();
     }
+
     @IgnoreAuth
     @ApiOperation("获取某个商品的评价")
     @RequestMapping(value = "/consult/list", method = RequestMethod.GET)
@@ -159,20 +178,20 @@ public class NotAuthPmsController {
 
         PmsProductConsult productConsult = new PmsProductConsult();
         productConsult.setGoodsId(goodsId);
-        List<PmsProductConsult> list =  pmsProductConsultService.list(new QueryWrapper<>(productConsult));
+        List<PmsProductConsult> list = pmsProductConsultService.list(new QueryWrapper<>(productConsult));
 
         int goods = 0;
         int general = 0;
         int bad = 0;
         ConsultTypeCount count = new ConsultTypeCount();
         for (PmsProductConsult consult : list) {
-            if (consult.getStars()==1){
+            if (consult.getStars() == 1) {
                 bad++;
             }
-            if (consult.getStars()==2){
+            if (consult.getStars() == 2) {
                 general++;
             }
-            if (consult.getStars()==3){
+            if (consult.getStars() == 3) {
                 goods++;
             }
         }
@@ -180,9 +199,9 @@ public class NotAuthPmsController {
         count.setBad(bad);
         count.setGeneral(general);
         count.setGoods(goods);
-        if (count.getAll()>0){
+        if (count.getAll() > 0) {
             count.setPersent(new BigDecimal(goods).divide(new BigDecimal(count.getAll())).multiply(new BigDecimal(100)));
-        }else {
+        } else {
             count.setPersent(new BigDecimal(200));
         }
         Map<String, Object> objectMap = new HashMap<>();
@@ -190,6 +209,7 @@ public class NotAuthPmsController {
         objectMap.put("count", count);
         return new CommonResult().success(objectMap);
     }
+
     @SysLog(MODULE = "pms", REMARK = "查询商品列表")
     @IgnoreAuth
     @ApiOperation(value = "查询商品列表")
@@ -204,15 +224,15 @@ public class NotAuthPmsController {
         product.setPublishStatus(1);
         product.setVerifyStatus(1);
         product.setMemberId(null);
-        product.setSort(sort);
+        //product.setSort(sort);
 
         String orderColum = "create_time";
-        if (ValidatorUtils.notEmpty(product.getSort())) {
-            if (product.getSort() == 1) {
+        if (ValidatorUtils.notEmpty(sort)) {
+            if (sort == 1) {
                 orderColum = "sale";
-            } else if (product.getSort() == 2) {
+            } else if (sort == 2) {
                 orderColum = "price";
-            } else if (product.getSort() == 3) {
+            } else if (sort == 3) {
                 orderColum = "price";
             }
         }
@@ -231,16 +251,17 @@ public class NotAuthPmsController {
     @ApiOperation(value = "查询商品分类列表")
     @GetMapping(value = "/productCategory/list")
     public Object productCategoryList(PmsProductCategory productCategory,
-                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
-                          @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
+                                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                      @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
         return new CommonResult().success(productCategoryService.page(new Page<PmsProductCategory>(pageNum, pageSize), new QueryWrapper<>(productCategory)));
     }
+
     @SysLog(MODULE = "pms", REMARK = "查询商品分类列表")
     @IgnoreAuth
     @ApiOperation(value = "查询商品分类列表")
     @GetMapping(value = "/categoryAndGoodsList/list")
     public Object categoryAndGoodsList(PmsProductCategory productCategory) {
-       List<PmsProductAttributeCategory> productAttributeCategoryList = productAttributeCategoryService.list(new QueryWrapper<>());
+        List<PmsProductAttributeCategory> productAttributeCategoryList = productAttributeCategoryService.list(new QueryWrapper<>());
         for (PmsProductAttributeCategory gt : productAttributeCategoryList) {
             PmsProduct productQueryParam = new PmsProduct();
             productQueryParam.setProductAttributeCategoryId(gt.getId());
@@ -259,7 +280,7 @@ public class NotAuthPmsController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
 
-        return new CommonResult().success(pmsProductService.getRecommendBrandList(1,1));
+        return new CommonResult().success(pmsProductService.getRecommendBrandList(1, 1));
     }
 
     @SysLog(MODULE = "pms", REMARK = "查询商品列表")
@@ -270,7 +291,7 @@ public class NotAuthPmsController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
 
-        return new CommonResult().success(pmsProductService.getRecommendBrandList(1,1));
+        return new CommonResult().success(pmsProductService.getRecommendBrandList(1, 1));
     }
 
     @SysLog(MODULE = "pms", REMARK = "查询商品列表")
@@ -281,14 +302,14 @@ public class NotAuthPmsController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
 
-        return new CommonResult().success(pmsProductService.getHotProductList(1,1));
+        return new CommonResult().success(pmsProductService.getHotProductList(1, 1));
     }
 
     @SysLog(MODULE = "pms", REMARK = "查询商品列表")
     @IgnoreAuth
     @ApiOperation(value = "查询商品优惠")
     @GetMapping(value = "/getPromotionProductList")
-    public List<PromotionProduct> getPromotionProductList(@Param("ids") List<Long> ids){
+    public List<PromotionProduct> getPromotionProductList(@Param("ids") List<Long> ids) {
         return productMapper.getPromotionProductList(ids);
     }
 
@@ -298,9 +319,10 @@ public class NotAuthPmsController {
     @GetMapping(value = "/initGoodsRedis")
     public Object initGoodsRedis() {
 
-       return pmsProductService.initGoodsRedis();
+        return pmsProductService.initGoodsRedis();
 
     }
+
     @SysLog(MODULE = "pms", REMARK = "查询商品类型下的商品列表")
     @IgnoreAuth
     @ApiOperation(value = "查询商品类型下的商品列表")
@@ -313,7 +335,7 @@ public class NotAuthPmsController {
         List<PmsProduct> list = pmsProductService.list(new QueryWrapper<>(productQueryParam).select(ConstansValue.sampleGoodsList));
 
         List<ProductTypeVo> relList = new ArrayList<>();
-        for (PmsProduct l : list){
+        for (PmsProduct l : list) {
             ProductTypeVo vo = new ProductTypeVo();
             vo.setGoodsId(l.getId());
             vo.setId(l.getId());
@@ -324,13 +346,13 @@ public class NotAuthPmsController {
             relList.add(vo);
         }
         List<PmsProductCategory> categories = categoryMapper.selectList(new QueryWrapper<>());
-        for (PmsProductCategory v : categories){
-            if (v.getParentId()==0){
+        for (PmsProductCategory v : categories) {
+            if (v.getParentId() == 0) {
                 ProductTypeVo vo = new ProductTypeVo();
                 vo.setName(v.getName());
                 vo.setId(v.getId());
                 relList.add(vo);
-            }else{
+            } else {
                 ProductTypeVo vo = new ProductTypeVo();
                 vo.setName(v.getName());
                 vo.setId(v.getId());
@@ -349,13 +371,13 @@ public class NotAuthPmsController {
     public Object typeList(PmsProductCategory productCategory) {
         List<ProductTypeVo> relList = new ArrayList<>();
         List<PmsProductCategory> categories = categoryMapper.selectList(new QueryWrapper<>());
-        for (PmsProductCategory v : categories){
-            if (v.getParentId()==0){
+        for (PmsProductCategory v : categories) {
+            if (v.getParentId() == 0) {
                 ProductTypeVo vo = new ProductTypeVo();
                 vo.setName(v.getName());
                 vo.setId(v.getId());
                 relList.add(vo);
-            }else{
+            } else {
                 ProductTypeVo vo = new ProductTypeVo();
                 vo.setName(v.getName());
                 vo.setId(v.getId());
@@ -368,7 +390,6 @@ public class NotAuthPmsController {
     }
 
 
-
     @IgnoreAuth
     @ApiOperation(value = "查询商铺列表")
     @GetMapping(value = "/store/list")
@@ -376,44 +397,45 @@ public class NotAuthPmsController {
     public Object storeList(SysStore entity,
                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                             @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
-        return new CommonResult().success(userService.selectStoreList( new QueryWrapper<SysStore>(entity)));
+        return new CommonResult().success(userService.selectStoreList(new QueryWrapper<SysStore>(entity)));
     }
+
     @ApiOperation("获取商铺详情")
     @RequestMapping(value = "/storeDetail", method = RequestMethod.GET)
     @ResponseBody
     public Object storeDetail(@RequestParam(value = "id", required = false) Long id,
                               @RequestParam(value = "memberId", required = false) Long memberId) {
         SysStore store = userService.selectStoreById(id);
-        List<PmsProductAttributeCategory> list = productAttributeCategoryMapper.selectList(new QueryWrapper<PmsProductAttributeCategory>().eq("store_id",id));
+        List<PmsProductAttributeCategory> list = productAttributeCategoryMapper.selectList(new QueryWrapper<PmsProductAttributeCategory>().eq("store_id", id));
         for (PmsProductAttributeCategory gt : list) {
             PmsProduct productQueryParam = new PmsProduct();
             productQueryParam.setProductAttributeCategoryId(gt.getId());
             productQueryParam.setPublishStatus(1);
             productQueryParam.setVerifyStatus(1);
             IPage<PmsProduct> goodsList = pmsProductService.page(new Page<PmsProduct>(0, 8), new QueryWrapper<>(productQueryParam).select(ConstansValue.sampleGoodsList));
-            if (goodsList!=null&& goodsList.getRecords()!=null && goodsList.getRecords().size()>0){
+            if (goodsList != null && goodsList.getRecords() != null && goodsList.getRecords().size() > 0) {
                 gt.setGoodsList(goodsList.getRecords());
-            }else{
+            } else {
                 gt.setGoodsList(new ArrayList<>());
             }
         }
         store.setList(list);
-        store.setGoodsCount(pmsProductService.count(new QueryWrapper<PmsProduct>().eq("store_id",id)));
+        store.setGoodsCount(pmsProductService.count(new QueryWrapper<PmsProduct>().eq("store_id", id)));
         //记录浏览量到redis,然后定时更新到数据库
-        String key= RedisToolsConstant.STORE_VIEWCOUNT_CODE+id;
+        String key = RedisToolsConstant.STORE_VIEWCOUNT_CODE + id;
         //找到redis中该篇文章的点赞数，如果不存在则向redis中添加一条
-        Map<Object,Object> viewCountItem=redisUtil.hGetAll(RedisToolsConstant.STORE_VIEWCOUNT_KEY);
-        Integer viewCount=0;
-        if(!viewCountItem.isEmpty()){
-            if(viewCountItem.containsKey(key)){
-                viewCount=Integer.parseInt(viewCountItem.get(key).toString())+1;
-                redisUtil.hPut(RedisToolsConstant.STORE_VIEWCOUNT_KEY,key,viewCount+"");
-            }else {
-                viewCount=1;
-                redisUtil.hPut(RedisToolsConstant.STORE_VIEWCOUNT_KEY,key,1+"");
+        Map<Object, Object> viewCountItem = redisUtil.hGetAll(RedisToolsConstant.STORE_VIEWCOUNT_KEY);
+        Integer viewCount = 0;
+        if (!viewCountItem.isEmpty()) {
+            if (viewCountItem.containsKey(key)) {
+                viewCount = Integer.parseInt(viewCountItem.get(key).toString()) + 1;
+                redisUtil.hPut(RedisToolsConstant.STORE_VIEWCOUNT_KEY, key, viewCount + "");
+            } else {
+                viewCount = 1;
+                redisUtil.hPut(RedisToolsConstant.STORE_VIEWCOUNT_KEY, key, 1 + "");
             }
-        }else{
-            redisUtil.hPut(RedisToolsConstant.STORE_VIEWCOUNT_KEY,key,1+"");
+        } else {
+            redisUtil.hPut(RedisToolsConstant.STORE_VIEWCOUNT_KEY, key, 1 + "");
         }
         Map<String, Object> map = new HashMap<>();
         if (memberId != null) {
@@ -422,9 +444,9 @@ public class NotAuthPmsController {
             query.setMemberId(memberId);
             query.setType(3);
             PmsFavorite findCollection = favoriteService.getOne(new QueryWrapper<>(query));
-            if(findCollection!=null){
+            if (findCollection != null) {
                 map.put("favorite", true);
-            }else{
+            } else {
                 map.put("favorite", false);
             }
         }
@@ -432,6 +454,7 @@ public class NotAuthPmsController {
         map.put("store", store);
         return new CommonResult().success(map);
     }
+
     @IgnoreAuth
     @ApiOperation(value = "查询学校列表")
     @GetMapping(value = "/school/list")
@@ -439,8 +462,9 @@ public class NotAuthPmsController {
     public Object schoolList(SysSchool entity,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                              @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
-        return new CommonResult().success(memberFeignClient.pageSchool(entity,pageSize,pageNum));
+        return new CommonResult().success(memberFeignClient.pageSchool(entity, pageSize, pageNum));
     }
+
     @ApiOperation("获取学校详情")
     @RequestMapping(value = "/schoolDetail", method = RequestMethod.GET)
     @ResponseBody
@@ -460,9 +484,9 @@ public class NotAuthPmsController {
     public Object groupHotGoods(PmsProduct product,
                                 @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
-        List<SmsGroup> groupList =  markingFeignClinent.listGroup();
+        List<SmsGroup> groupList = markingFeignClinent.listGroup();
         List<SmsGroup> result = new ArrayList<>();
-        for (SmsGroup group :groupList){
+        for (SmsGroup group : groupList) {
             Long nowT = System.currentTimeMillis();
             Date endTime = DateUtils.convertStringToDate(DateUtils.addHours(group.getEndTime(), group.getHours()), "yyyy-MM-dd HH:mm:ss");
             if (nowT > group.getStartTime().getTime() && nowT < endTime.getTime()) {
@@ -480,16 +504,27 @@ public class NotAuthPmsController {
     public Object groupGoodsList(PmsProduct product,
                                  @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                  @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
-        List<SmsGroup> groupList =  markingFeignClinent.listGroup();
-        if (groupList!=null && groupList.size()>0){
+        List<SmsGroup> groupList = markingFeignClinent.listGroup();
+        if (groupList != null && groupList.size() > 0) {
             List<Long> ids = groupList.stream()
                     .map(SmsGroup::getGoodsId)
                     .collect(Collectors.toList());
             product.setPublishStatus(1);
             product.setVerifyStatus(1);
             product.setMemberId(null);
-            IPage<PmsProduct> list = pmsProductService.page(new Page<PmsProduct>(pageNum, pageSize), new QueryWrapper<>(product).select(ConstansValue.sampleGoodsList).in("id", ids));
-            list.getRecords().forEach(p->p.setGroupId(groupList.stream().filter(g->g.getGoodsId().equals(p.getId())).findFirst().get().getId()));
+
+            String orderColum = "create_time";
+            if (ValidatorUtils.notEmpty(product.getSort())) {
+                if (product.getSort() == 1) {
+                    orderColum = "sale";
+                } else if (product.getSort() == 2) {
+                    orderColum = "price";
+                } else if (product.getSort() == 3) {
+                    orderColum = "price";
+                }
+            }
+            IPage<PmsProduct> list = pmsProductService.page(new Page<PmsProduct>(pageNum, pageSize), new QueryWrapper<>(product).select(ConstansValue.sampleGoodsList).in("id", ids).orderByDesc(orderColum));
+            list.getRecords().forEach(p -> p.setGroupId(groupList.stream().filter(g -> g.getGoodsId().equals(p.getId())).findFirst().get().getId()));
             return new CommonResult().success(list);
         }
         return null;
@@ -503,30 +538,30 @@ public class NotAuthPmsController {
                                    @RequestParam(value = "memberId", required = false) Long memberId,
                                    @RequestParam(value = "groupId", required = false) Long groupId) {
         //记录浏览量到redis,然后定时更新到数据库
-        String key=RedisToolsConstant.GOODS_VIEWCOUNT_CODE+id;
+        String key = RedisToolsConstant.GOODS_VIEWCOUNT_CODE + id;
         //找到redis中该篇文章的点赞数，如果不存在则向redis中添加一条
-        Map<Object,Object> viewCountItem=redisUtil.hGetAll(RedisToolsConstant.GOODS_VIEWCOUNT_KEY);
-        Integer viewCount=0;
-        if(!viewCountItem.isEmpty()){
-            if(viewCountItem.containsKey(key)){
-                viewCount=Integer.parseInt(viewCountItem.get(key).toString())+1;
-                redisUtil.hPut(RedisToolsConstant.GOODS_VIEWCOUNT_KEY,key,viewCount+"");
-            }else {
-                viewCount=1;
-                redisUtil.hPut(RedisToolsConstant.GOODS_VIEWCOUNT_KEY,key,1+"");
+        Map<Object, Object> viewCountItem = redisUtil.hGetAll(RedisToolsConstant.GOODS_VIEWCOUNT_KEY);
+        Integer viewCount = 0;
+        if (!viewCountItem.isEmpty()) {
+            if (viewCountItem.containsKey(key)) {
+                viewCount = Integer.parseInt(viewCountItem.get(key).toString()) + 1;
+                redisUtil.hPut(RedisToolsConstant.GOODS_VIEWCOUNT_KEY, key, viewCount + "");
+            } else {
+                viewCount = 1;
+                redisUtil.hPut(RedisToolsConstant.GOODS_VIEWCOUNT_KEY, key, 1 + "");
             }
-        }else{
-            viewCount=1;
-            redisUtil.hPut(RedisToolsConstant.GOODS_VIEWCOUNT_KEY,key,1+"");
+        } else {
+            viewCount = 1;
+            redisUtil.hPut(RedisToolsConstant.GOODS_VIEWCOUNT_KEY, key, 1 + "");
         }
 
         GoodsDetailResult param = null;
         try {
             param = (GoodsDetailResult) redisRepository.get(String.format(RedisToolsConstant.GOODSDETAIL, id));
-            if(ValidatorUtils.empty(param)){
+            if (ValidatorUtils.empty(param)) {
                 param = pmsProductService.getGoodsRedisById(id);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             param = pmsProductService.getGoodsRedisById(id);
         }
         SmsGroup group = markingFeignClinent.getGroupById(groupId);
@@ -539,14 +574,14 @@ public class NotAuthPmsController {
             query.setMemberId(memberId);
             query.setType(1);
             PmsFavorite findCollection = favoriteService.getOne(new QueryWrapper<>(query));
-            if(findCollection!=null){
+            if (findCollection != null) {
                 map.put("favorite", true);
-            }else{
+            } else {
                 map.put("favorite", false);
             }
         }
-        if (group!=null){
-            map.put("memberGroupList",markingFeignClinent.selectGroupMemberList(id));
+        if (group != null) {
+            map.put("memberGroupList", markingFeignClinent.selectGroupMemberList(id));
             map.put("group", group);
         }
 
@@ -564,7 +599,7 @@ public class NotAuthPmsController {
                            @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                            @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum) {
 
-        IPage<PmsGifts> list  = giftsService.page(new Page<PmsGifts>(pageNum, pageSize), new QueryWrapper<>(product));
+        IPage<PmsGifts> list = giftsService.page(new Page<PmsGifts>(pageNum, pageSize), new QueryWrapper<>(product));
         return new CommonResult().success(list);
 
     }
@@ -575,7 +610,7 @@ public class NotAuthPmsController {
     @ApiOperation(value = "查询礼物商品详情信息")
     public Object giftDetail(@RequestParam(value = "id", required = false) Long id,
                              @RequestParam(value = "memberId", required = false) Long memberId) {
-        PmsGifts  goods = giftsService.getById(id);
+        PmsGifts goods = giftsService.getById(id);
         Map<String, Object> map = new HashMap<>();
         if (memberId != null) {
             PmsFavorite query = new PmsFavorite();
@@ -583,22 +618,23 @@ public class NotAuthPmsController {
             query.setMemberId(memberId);
             query.setType(4);
             PmsFavorite findCollection = favoriteService.getOne(new QueryWrapper<>(query));
-            if(findCollection!=null){
+            if (findCollection != null) {
                 map.put("favorite", true);
-            }else{
+            } else {
                 map.put("favorite", false);
             }
         }
-        goods.setHit(goods.getHit()+1);
+        goods.setHit(goods.getHit() + 1);
         giftsService.updateById(goods);
         map.put("goods", goods);
         return new CommonResult().success(map);
     }
+
     @SysLog(MODULE = "pms", REMARK = "查询商品类型下的商品列表")
     @IgnoreAuth
     @ApiOperation(value = "查询积分商品类型")
     @GetMapping(value = "/typeGiftList")
-    public Object typeGiftList( PmsGiftsCategory productCategory) {
+    public Object typeGiftList(PmsGiftsCategory productCategory) {
         List<PmsGiftsCategory> categories = giftsCategoryService.list(new QueryWrapper<>(productCategory));
         return new CommonResult().success(categories);
     }

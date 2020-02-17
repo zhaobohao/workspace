@@ -7,9 +7,7 @@
        <groupId>org.springclouddev</groupId>
         <version>1.0.1</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>springclouddev-core-launch</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>

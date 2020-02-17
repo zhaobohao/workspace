@@ -64,7 +64,6 @@ public class FeignSpringMvcContract extends SpringMvcContract {
 	}
 
 	/**
-	 * 参考：https://gist.github.com/rmfish/0ed59a9af6c05157be2a60c9acea2a10
 	 * @param annotations 注解
 	 * @param paramIndex 参数索引
 	 * @return 是否 http 注解

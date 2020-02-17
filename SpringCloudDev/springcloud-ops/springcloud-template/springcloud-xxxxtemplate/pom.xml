@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>org.springclouddev</groupId>
-            <artifactId>springcloud-integral-api</artifactId>
+            <artifactId>springcloud-xxxxtemplate-api</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>

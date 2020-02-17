@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- https://github.com/xcbeyond/spring-boot-grpc -->
+    <parent>
+        <artifactId>springclouddev-ops</artifactId>
+        <groupId>org.springclouddev</groupId>
+        <version>1.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>springcloud-grpc-server</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <grpc-spring-boot-starter.version>2.6.2.RELEASE</grpc-spring-boot-starter.version>
+    </properties>
+
+    <dependencies>
+        <!--sprngclouddev-->
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-common</artifactId>
+            <version>${springclouddev.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-launch</artifactId>
+            <version>${project.tool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-tool</artifactId>
+            <version>${project.tool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-cloud</artifactId>
+            <version>${project.tool.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springclouddev</groupId>
+                    <artifactId>springclouddev-core-secure</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+       <!-- 在springcloud中使用grpc做为通信工具 -->
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-spring-boot-starter</artifactId>
+            <version>${grpc-spring-boot-starter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springcloud-grpc-common</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+                <configuration>
+                    <imageName>${docker.registry.url}/springclouddeve/${project.artifactId}:${project.version}</imageName>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <dockerHost>${docker.registry.host}</dockerHost>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <registryUrl>${docker.registry.url}</registryUrl>
+                    <serverId>${docker.registry.url}</serverId>
+                    <pushImage>true</pushImage>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <copy overwrite="true"
+                                      tofile="${session.executionRootDirectory}/target/${artifactId}.jar"
+                                      file="${project.build.directory}/${artifactId}.jar" />
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -37,7 +37,7 @@ private Long id;
 	 * 数据源主键
 	 */
 	@ApiModelProperty(value = "数据源主键")
-	private Integer datasourceId;
+	private Long datasourceId;
 
 	/**
 	 * 模块名称

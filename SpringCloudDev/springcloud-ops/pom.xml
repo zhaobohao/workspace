@@ -20,6 +20,9 @@
         <module>springcloud-distributed-id</module>
         <module>springcloud-template-api</module>
         <module>springcloud-template</module>
+        <module>springcloud-grpc-server</module>
+        <module>springcloud-grpc-common</module>
+        <module>springcloud-grpc-client</module>
     </modules>
 
 </project>

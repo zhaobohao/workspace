@@ -106,7 +106,7 @@ export default {
 			this.cateList = cateList;
 		},
 		//加载商品 ，带下拉刷新和上滑加载
-		async loadData(type = 'add', loading) {
+		async loadData(type = 'add', loading = 0) {
 			if (type === 'refresh') {
 				this.goodsList = [];
 				this.pageNum=1;
@@ -122,15 +122,15 @@ export default {
 			}
 			let params;
 			if (this.cateId) {
-				params = { pageNum: this.pageNum, productCategoryId: this.cateId ,type:2};
+				params = { pageNum: this.pageNum, productCategoryId: this.cateId ,type:2,sort:loading};
 				if (this.keyword) {
-					params = { pageNum: this.pageNum, productCategoryId: this.cateId, keyword: this.keyword ,type:2};
+					params = { pageNum: this.pageNum, productCategoryId: this.cateId, keyword: this.keyword ,type:2,sort:loading};
 				}
 			}
 			if (this.keyword) {
-				params = { pageNum: this.pageNum, keyword: this.keyword ,type:2};
+				params = { pageNum: this.pageNum, keyword: this.keyword ,type:2,sort:loading};
 			} else {
-				params = { pageNum: this.pageNum ,type:2};
+				params = { pageNum: this.pageNum ,type:2,sort:loading};
 			}
 
 			let list = await Api.apiCall('get', Api.goods.goodsList, params);

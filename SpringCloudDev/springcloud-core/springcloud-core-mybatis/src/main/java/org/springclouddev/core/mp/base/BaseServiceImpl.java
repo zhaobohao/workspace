@@ -24,7 +24,7 @@ import java.util.List;
  * @author zhaobohao
  */
 @Validated
-public class BaseServiceImpl<M extends SuperMapper<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements BaseService<T> {
+public class BaseServiceImpl<M extends SuperMapper<T>, T > extends ServiceImpl<M, T> implements BaseService<T> {
 	@Override
 	public boolean deleteLogic(@NotEmpty List<Long> ids) {
 		return super.removeByIds(ids);

@@ -1,0 +1,11 @@
+server:
+  port: 30000
+spring:
+  application:
+    name: spring-boot-grpc-client
+grpc:
+  client:
+    spring-boot-grpc-server:
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

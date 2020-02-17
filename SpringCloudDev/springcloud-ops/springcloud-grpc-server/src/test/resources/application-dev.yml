@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: spring-boot-grpc-server
+server:
+  port: 20000
+grpc:
+  server:
+    port: 0

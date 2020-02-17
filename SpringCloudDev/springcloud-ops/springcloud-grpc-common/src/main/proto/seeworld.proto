@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.xcbeyond.springboot.grpc.lib";
+option java_outer_classname = "SeeWorldProto";
+
+// The greeting service definition.
+service See {
+    // Sends a greeting
+    rpc SeeHello (SeeHelloRequest) returns (SeeHelloReply) {
+    }
+}
+
+// The request message containing the user's name.
+message SeeHelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message SeeHelloReply {
+    string message = 1;
+}

@@ -5,13 +5,13 @@
 ##表结构中的默认数据
 ###BaseEntity中的自动填充字段
 ```sql
-  `id` bigint(32) NOT NULL AUTO_INCREMENT,
-  `create_user`	bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `id` bigint(32) NOT NULL ,
+  `create_user`	bigint(32) NULL DEFAULT NULL COMMENT '创建人',
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `is_deleted`	int(2) NOT NULL COMMENT '是否已删除',
-  `status`	int(2)	NULL	DEFAULT	NULL	COMMENT '状态',
+  `is_deleted`	int(1) NOT NULL COMMENT '是否已删除',
+  `status`	int(1)	NULL	DEFAULT	NULL	COMMENT '状态',
   `tenant_id` varchar(12) NULL DEFAULT '000000' COMMENT '租户ID',
 ```
 以上字段已经做了自动填充，只要在建表的时候加上字段即可，java程序中不需要做处理。
