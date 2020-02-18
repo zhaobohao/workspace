@@ -23,6 +23,7 @@
         <module>springcloud-grpc-server</module>
         <module>springcloud-grpc-common</module>
         <module>springcloud-grpc-client</module>
+        <module>springcloud-asynctools</module>
     </modules>
 
 </project>

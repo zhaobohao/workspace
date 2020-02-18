@@ -89,7 +89,17 @@ export default {
     permissions: '权限管理',
     datarole: '数据权限',
     interfacerole: '接口权限',
-    areas: '区域设置'
+    areas: '区域设置',
+    activity: '营销管理',
+    activity_manager: '营销活动管理',
+    activity_audit: '营销活动审核',
+    integral: '积分管理',
+    integral_balance: '积分余额查询',
+    trade_detail: '积分明细查询',
+    integral_adjust: '积分调整',
+    integral_adjust_aduit: '积分调整',
+    integral_terminal: '积分冻结/解冻',
+    integral_terminal_aduit: '积分冻结/解冻审核'
   },
   navbar: {
     dashboard: '首页',
