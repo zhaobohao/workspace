@@ -48,6 +48,12 @@
             <artifactId>springclouddev-core-swagger</artifactId>
             <version>${project.tool.version}</version>
         </dependency>
+        <!-- Captcha -->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>${captcha.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
