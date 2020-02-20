@@ -1,17 +1,16 @@
 package com.gitee.sop.gatewaycommon.zuul;
 
 import com.gitee.sop.gatewaycommon.bean.ApiConfig;
+import com.gitee.sop.gatewaycommon.bean.DefaultRouteInterceptorContext;
+import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import com.gitee.sop.gatewaycommon.param.ApiParam;
 import com.gitee.sop.gatewaycommon.param.ParamBuilder;
-import com.gitee.sop.gatewaycommon.util.RequestUtil;
 import com.gitee.sop.gatewaycommon.util.ResponseUtil;
+import com.gitee.sop.gatewaycommon.util.RouteInterceptorUtil;
 import com.gitee.sop.gatewaycommon.validate.Validator;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 负责签名校验
@@ -29,15 +28,17 @@ public class ValidateService {
     /**
      * 校验操作
      *
-     * @param request  request
-     * @param response response
+     * @param currentContext  currentContext
      * @param callback 校验后操作
      */
-    public void validate(HttpServletRequest request, HttpServletResponse response, ValidateCallback callback) {
-        RequestContext currentContext = RequestContext.getCurrentContext();
-        currentContext.setRequest(RequestUtil.wrapRequest(request));
-        currentContext.setResponse(response);
-        doValidate(currentContext, callback);
+    public void validate(RequestContext currentContext, ValidateCallback callback) {
+        // 解析参数
+        ApiParam param = ZuulContext.getApiParam();
+        if (param == null) {
+            param = paramBuilder.build(currentContext);
+            ZuulContext.setApiParam(param);
+        }
+        doValidate(currentContext, param, callback);
     }
 
     /**
@@ -45,26 +46,32 @@ public class ValidateService {
      *
      * @param currentContext currentContext
      */
-    private void doValidate(RequestContext currentContext, ValidateCallback callback) {
-        // 解析参数
-        ApiParam param = paramBuilder.build(currentContext);
-        ZuulContext.setApiParam(param);
+    private void doValidate(RequestContext currentContext, ApiParam param, ValidateCallback callback) {
         Exception error = null;
         // 验证操作，这里有负责验证签名参数
         try {
             validator.validate(param);
+            this.afterValidate(currentContext, param);
         } catch (Exception e) {
             error = e;
         }
         param.fitNameVersion();
-        if (error == null) {
-            callback.onSuccess(currentContext);
-        } else {
-            callback.onError(currentContext, param, error);
+        if (callback != null) {
+            if (error == null) {
+                callback.onSuccess(currentContext);
+            } else {
+                callback.onError(currentContext, param, error);
+            }
         }
     }
 
-
+    private void afterValidate(RequestContext currentContext, ApiParam param) {
+        RouteInterceptorUtil.runPreRoute(currentContext, param, context -> {
+            DefaultRouteInterceptorContext defaultRouteInterceptorContext = (DefaultRouteInterceptorContext) context;
+            defaultRouteInterceptorContext.setRequestDataSize(currentContext.getRequest().getContentLengthLong());
+            currentContext.set(SopConstants.CACHE_ROUTE_INTERCEPTOR_CONTEXT, context);
+        });
+    }
 
     public interface ValidateCallback {
         /**

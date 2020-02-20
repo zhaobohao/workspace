@@ -1,6 +1,7 @@
 package com.gitee.sop.servercommon.configuration;
 
 import com.gitee.sop.servercommon.bean.ServiceConfig;
+import com.gitee.sop.servercommon.bean.ServiceContext;
 import com.gitee.sop.servercommon.manager.EnvironmentContext;
 import com.gitee.sop.servercommon.manager.ServiceRouteController;
 import com.gitee.sop.servercommon.mapping.ApiMappingHandlerMapping;
@@ -21,6 +22,10 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 public class SpringMvcServiceConfiguration {
+
+    static {
+        System.setProperty(ServiceContext.SOP_MVC, "true");
+    }
 
     public SpringMvcServiceConfiguration() {
         ServiceConfig.getInstance().getI18nModules().add("i18n/isp/bizerror");

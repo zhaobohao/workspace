@@ -131,6 +131,28 @@ public class HttpTool {
     }
 
     /**
+     * 下载文件
+     *
+     * @param url    url
+     * @param form   参数
+     * @param header header
+     * @param method 请求方式，post，get等
+     * @return
+     * @throws IOException
+     */
+    public InputStream download(String url, Map<String, ?> form, Map<String, String> header, HTTPMethod method) throws IOException {
+        Request.Builder requestBuilder = buildRequestBuilder(url, form, method);
+        // 添加header
+        addHeader(requestBuilder, header);
+
+        Request request = requestBuilder.build();
+        Response response = httpClient
+                .newCall(request)
+                .execute();
+        return response.body().byteStream();
+    }
+
+    /**
      * 请求json数据，contentType=application/json
      * @param url 请求路径
      * @param json json数据
@@ -155,6 +177,29 @@ public class HttpTool {
         } finally {
             response.close();
         }
+    }
+
+    /**
+     * 请求json数据，contentType=application/json
+     * @param url 请求路径
+     * @param json json数据
+     * @param header header
+     * @return 返回响应结果
+     * @throws IOException
+     */
+    public InputStream downloadJson(String url, String json, Map<String, String> header) throws IOException {
+        RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, json);
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .post(body);
+        // 添加header
+        addHeader(requestBuilder, header);
+
+        Request request = requestBuilder.build();
+        Response response = httpClient
+                .newCall(request)
+                .execute();
+        return response.body().byteStream();
     }
 
     public static Request.Builder buildRequestBuilder(String url, Map<String, ?> form, HTTPMethod method) {
@@ -245,6 +290,48 @@ public class HttpTool {
     }
 
     /**
+     * 上传文件，然后下载文件
+     *
+     * @param url
+     * @param form
+     * @param header
+     * @param files
+     * @return
+     * @throws IOException
+     */
+    public InputStream downloadByRequestFile(String url, Map<String, ?> form, Map<String, String> header, List<UploadFile> files)
+            throws IOException {
+        // 创建MultipartBody.Builder，用于添加请求的数据
+        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder();
+        bodyBuilder.setType(MultipartBody.FORM);
+
+        for (UploadFile uploadFile : files) {
+            // 请求的名字
+            bodyBuilder.addFormDataPart(uploadFile.getName(),
+                    // 文件的文字，服务器端用来解析的
+                    uploadFile.getFileName(),
+                    // 创建RequestBody，把上传的文件放入
+                    RequestBody.create(null, uploadFile.getFileData())
+            );
+        }
+
+        for (Map.Entry<String, ?> entry : form.entrySet()) {
+            bodyBuilder.addFormDataPart(entry.getKey(), String.valueOf(entry.getValue()));
+        }
+
+        RequestBody requestBody = bodyBuilder.build();
+
+        Request.Builder builder = new Request.Builder().url(url).post(requestBody);
+
+        // 添加header
+        addHeader(builder, header);
+
+        Request request = builder.build();
+        Response response = httpClient.newCall(request).execute();
+        return response.body().byteStream();
+    }
+
+    /**
      * 请求数据
      *
      * @param url    请求url
@@ -318,7 +405,7 @@ public class HttpTool {
         /** http DELETE */
         DELETE;
 
-        private HTTPMethod() {
+        HTTPMethod() {
         }
 
         public String value() {

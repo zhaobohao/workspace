@@ -8,7 +8,6 @@ import com.gitee.sop.servercommon.result.ServiceResultBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +36,6 @@ public class GlobalExceptionHandler {
      * 返回错误信息headerName
      */
     private static final String X_SERVICE_ERROR_HEADER_NAME = "x-service-error-code";
-
-    @RequestMapping("/error")
-    @ResponseBody
-    public Object error(HttpServletRequest request, HttpServletResponse response) {
-        ServiceResultBuilder serviceResultBuilder = ServiceConfig.getInstance().getServiceResultBuilder();
-        return serviceResultBuilder.buildError(request, response, new ServiceException("系统繁忙"));
-    }
 
     /**
      * 捕获手动抛出的异常

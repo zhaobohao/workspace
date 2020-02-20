@@ -1,4 +1,5 @@
 package com.gitee.sop.gatewaycommon.util;
+
 import com.alibaba.fastjson.JSON;
 import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import com.gitee.sop.gatewaycommon.param.ApiUploadContext;

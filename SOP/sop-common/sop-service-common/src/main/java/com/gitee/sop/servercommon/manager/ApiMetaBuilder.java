@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,6 +51,7 @@ public class ApiMetaBuilder {
         Set<RequestMappingInfo> requestMappingInfos = handlerMethods.keySet();
         List<String> store = new ArrayList<>();
         List<ServiceApiInfo.ApiMeta> apis = new ArrayList<>(requestMappingInfos.size());
+        Set<ServiceApiInfo.ApiMeta> restfulApis = new HashSet<>(requestMappingInfos.size());
 
         for (Map.Entry<RequestMappingInfo, HandlerMethod> handlerMethodEntry : handlerMethods.entrySet()) {
             ServiceApiInfo.ApiMeta apiMeta = this.buildApiMeta(handlerMethodEntry);
@@ -57,13 +59,18 @@ public class ApiMetaBuilder {
                 continue;
             }
             String key = apiMeta.fetchNameVersion();
-            if (store.contains(key)) {
-                throw new IllegalArgumentException("重复申明接口，请检查path和version，path:" + apiMeta.getPath() + ", version:" + apiMeta.getVersion());
+            if (apiMeta.isOriginalMapping()) {
+                restfulApis.add(apiMeta);
             } else {
-                store.add(key);
+                if (store.contains(key)) {
+                    throw new IllegalArgumentException("重复申明接口，请检查path和version，path:" + apiMeta.getPath() + ", version:" + apiMeta.getVersion());
+                } else {
+                    store.add(key);
+                }
+                apis.add(apiMeta);
             }
-            apis.add(apiMeta);
         }
+        apis.addAll(restfulApis);
         return apis;
     }
 
@@ -88,16 +95,17 @@ public class ApiMetaBuilder {
             apiMeta.setMergeResult(BooleanUtils.toInteger(apiMappingInfo.isMergeResult()));
             apiMeta.setPermission(BooleanUtils.toInteger(apiMappingInfo.isPermission()));
             apiMeta.setNeedToken(BooleanUtils.toInteger(apiMappingInfo.isNeedToken()));
+            apiMeta.setCompatibleMode(BooleanUtils.toInteger(apiMappingInfo.isCompatibleMode()));
             return apiMeta;
         } else {
             if (!ServiceContext.getCurrentContext().getBoolean(ServiceContext.RESTFUL_KEY, false)) {
                 return null;
             }
-            // 如果是restful服务
             String path = patterns.iterator().next();
             if (path.contains("$") || isIgnorePattern(path)) {
                 return null;
             }
+            // 如果是restful服务
             String name = path;
             String prefix = EnvironmentKeys.SOP_RESTFUL_PREFIX.getValue();
             if (StringUtils.isEmpty(prefix)) {

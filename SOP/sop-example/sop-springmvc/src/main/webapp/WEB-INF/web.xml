@@ -29,6 +29,29 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+
+	<!-- 配置swagger-bootstrap-ui的url请求路径-->
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/v2/api-docs</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/swagger-resources</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/swagger-resources/configuration/ui</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/swagger-resources/configuration/security</url-pattern>
+	</servlet-mapping>
+	<!--此接口地址为SwaggerBootstrapUi提供的增强地址,如果不使用增强功能,可排除此配置-->
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/v2/api-docs-ext</url-pattern>
+	</servlet-mapping>
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>

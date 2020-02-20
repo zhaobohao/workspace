@@ -4,16 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.gatewaycommon.message.Error;
 import com.gitee.sop.gatewaycommon.result.ApiResult;
-import com.gitee.sop.gatewaycommon.result.ResultExecutor;
+import com.gitee.sop.gatewaycommon.result.ResultExecutorForZuul;
 import com.gitee.sop.gatewaycommon.zuul.result.ZuulResultExecutor;
 import com.netflix.zuul.context.RequestContext;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
  * @author tanghc
  */
-public class EasyopenResultExecutor implements ResultExecutor<RequestContext, String> {
+public class EasyopenResultExecutor implements ResultExecutorForZuul {
 
     boolean onlyReturnData;
 
@@ -32,9 +33,10 @@ public class EasyopenResultExecutor implements ResultExecutor<RequestContext, St
     }
 
     @Override
-    public String buildErrorResult(RequestContext request, Throwable ex) {
+    public String buildErrorResult(RequestContext requestContext, Throwable ex) {
         ApiResult apiResult = new ApiResult();
-        Error error = ZuulResultExecutor.getError(ex);
+        Locale locale = requestContext.getRequest().getLocale();
+        Error error = ZuulResultExecutor.getError(locale, ex);
         apiResult.setCode(error.getSub_code());
         apiResult.setMsg(error.getSub_msg());
         return JSON.toJSONString(apiResult);

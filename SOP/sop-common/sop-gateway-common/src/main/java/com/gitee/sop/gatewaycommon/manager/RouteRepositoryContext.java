@@ -1,7 +1,6 @@
 package com.gitee.sop.gatewaycommon.manager;
 
 import com.gitee.sop.gatewaycommon.bean.TargetRoute;
-import com.gitee.sop.gatewaycommon.message.ErrorEnum;
 
 /**
  * @author tanghc
@@ -22,15 +21,13 @@ public class RouteRepositoryContext {
     }
 
     /**
-     * 检查路由是否存在，不存在报错
+     * 根据路由id查询路由
+     *
      * @param routeId 路由id
-     * @param errorEnum 报错信息
+     * @return 返回路由信息，没有返回null
      */
-    public static void checkExist(String routeId, ErrorEnum errorEnum) {
-        TargetRoute targetRoute = routeRepository.get(routeId);
-        if (targetRoute == null) {
-            throw errorEnum.getErrorMeta().getException();
-        }
+    public static TargetRoute getTargetRoute(String routeId) {
+        return routeRepository.get(routeId);
     }
 
 }

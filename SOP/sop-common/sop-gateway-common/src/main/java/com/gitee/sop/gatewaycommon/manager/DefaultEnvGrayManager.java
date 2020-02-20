@@ -49,7 +49,7 @@ public class DefaultEnvGrayManager implements EnvGrayManager {
     }
 
     private ServiceGrayConfig getGrayConfig(String serviceId) {
-        if (serviceId == null) {
+        if (serviceId == null || !instanceIdServiceIdMap.containsValue(serviceId)) {
             return null;
         }
         return serviceGrayConfigMap.get(serviceId);

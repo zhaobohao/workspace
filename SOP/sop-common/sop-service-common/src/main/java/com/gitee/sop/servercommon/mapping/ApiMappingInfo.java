@@ -13,6 +13,8 @@ public class ApiMappingInfo {
     private boolean mergeResult;
     private boolean permission;
     private boolean needToken;
+    private boolean compatibleMode;
+
 
     public ApiMappingInfo(String name, String version) {
         this.name = name;

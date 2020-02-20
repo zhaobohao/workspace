@@ -172,13 +172,13 @@ public class OpenClient {
 
         String resp = doExecute(this.url, requestForm, Collections.emptyMap());
         if (log.isDebugEnabled()) {
-        log.info("----------- 请求信息 -----------"
-                + "\n请求参数：" + SopSignature.getSignContent(form)
-                + "\n待签名内容：" + content
-                + "\n签名(sign)：" + sign
-                + "\n----------- 返回结果 -----------"
-                + "\n" + resp
-        );
+            log.debug("----------- 请求信息 -----------"
+                    + "\n请求参数：" + SopSignature.getSignContent(form)
+                    + "\n待签名内容：" + content
+                    + "\n签名(sign)：" + sign
+                    + "\n----------- 返回结果 -----------"
+                    + "\n" + resp
+            );
         }
         return this.parseResponse(resp, request);
     }
@@ -234,6 +234,10 @@ public class OpenClient {
 
     /**
      * 构建业务json内容。
+     * 假设返回的结果是：<br>
+     * {"alipay_story_get_response":{"msg":"Success","code":"10000","name":"海底小纵队","id":1},"sign":"xxx"}
+     * 将解析得到：<br>
+     * {"msg":"Success","code":"10000","name":"海底小纵队","id":1}
      *
      * @param body 返回内容
      * @return 返回业务json
@@ -256,7 +260,6 @@ public class OpenClient {
 
         return content.toString();
     }
-
 
     /**
      * 校验返回结果中的sign

@@ -38,7 +38,7 @@
         prop="roleList"
         label="角色"
         width="100"
-        show-overflow-tooltip="true"
+        :show-overflow-tooltip="true"
       >
         <template slot-scope="scope">
           <div v-html="roleRender(scope.row)"></div>
@@ -68,7 +68,7 @@
         prop="remark"
         label="备注"
         width="120"
-        show-overflow-tooltip="true"
+        :show-overflow-tooltip="true"
       />
       <el-table-column
         label="操作"
@@ -159,24 +159,24 @@
         <el-form-item v-show="isvKeysFormData.signType === 2" :label="selfLabel('secret')">
           <span>{{ isvKeysFormData.secret }}</span>
         </el-form-item>
-        <fieldset v-show="showKeys()">
-          <legend>ISV公私钥</legend>
-          <el-form-item label="ISV公钥">
-            <el-input v-model="isvKeysFormData.publicKeyIsv" type="textarea" readonly />
-          </el-form-item>
-          <el-form-item :label="selfLabel('ISV私钥')">
-            <el-input v-model="isvKeysFormData.privateKeyIsv" type="textarea" readonly />
-          </el-form-item>
-        </fieldset>
-        <fieldset v-show="showKeys()">
-          <legend>平台公私钥</legend>
-          <el-form-item :label="selfLabel('平台公钥')">
-            <el-input v-model="isvKeysFormData.publicKeyPlatform" type="textarea" readonly />
-          </el-form-item>
-          <el-form-item prop="privateKeyPlatform" label="平台私钥">
-            <el-input v-model="isvKeysFormData.privateKeyPlatform" type="textarea" readonly />
-          </el-form-item>
-        </fieldset>
+        <el-tabs v-show="showKeys()" v-model="activeName" type="card" class="keyTabs">
+          <el-tab-pane label="ISV公私钥" name="first">
+            <el-form-item label="ISV公钥">
+              <el-input v-model="isvKeysFormData.publicKeyIsv" type="textarea" readonly />
+            </el-form-item>
+            <el-form-item :label="selfLabel('ISV私钥')">
+              <el-input v-model="isvKeysFormData.privateKeyIsv" type="textarea" readonly />
+            </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane label="平台公私钥[可选]" name="second">
+            <el-form-item label="平台公钥">
+              <el-input v-model="isvKeysFormData.publicKeyPlatform" type="textarea" readonly />
+            </el-form-item>
+            <el-form-item prop="privateKeyPlatform" label="平台私钥">
+              <el-input v-model="isvKeysFormData.privateKeyPlatform" type="textarea" readonly />
+            </el-form-item>
+          </el-tab-pane>
+        </el-tabs>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="isvKeysDialogVisible = false">关 闭</el-button>
@@ -190,6 +190,7 @@
   fieldset label {width: 110px !important;}
   fieldset .el-form-item__content {margin-left: 110px !important;}
   .key-view .el-form-item {margin-bottom: 10px !important;}
+  .keyTabs .el-tabs__header{margin-left: 70px;}
 </style>
 <script>
 export default {
@@ -219,6 +220,7 @@ export default {
           { min: 0, max: 100, message: '长度在 1 到 100 个字符', trigger: 'blur' }
         ]
       },
+      activeName: 'first',
       isSaveButtonDisabled: false,
       isvKeysDialogVisible: false,
       isvKeysFormData: {

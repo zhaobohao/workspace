@@ -39,6 +39,8 @@ public class OpenContextImpl<T> implements OpenContext<T> {
             String bizContent = getBizContent();
             if (bizContent != null) {
                 bizObject = (T) JSON.parseObject(bizContent, bizClass);
+            } else {
+                bizObject = (T) rootJsonObject.toJavaObject(bizClass);
             }
         }
     }

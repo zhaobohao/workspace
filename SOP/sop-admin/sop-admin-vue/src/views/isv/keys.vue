@@ -28,30 +28,30 @@
       <el-form-item v-show="isvKeysFormData.signType === 2" prop="secret" :label="selfLabel('secret')">
         <el-input v-model="isvKeysFormData.secret" /> <el-button type="text" @click="onGenSecret">重新生成</el-button>
       </el-form-item>
-      <fieldset v-show="showKeys()">
-        <legend>ISV公私钥</legend>
-        <el-form-item class="gen-key">
-          <el-button type="text" @click="onGenKeysIsv">重新生成</el-button>
-        </el-form-item>
-        <el-form-item prop="publicKeyIsv" label="ISV公钥">
-          <el-input v-model="isvKeysFormData.publicKeyIsv" type="textarea" />
-        </el-form-item>
-        <el-form-item prop="privateKeyIsv" :label="selfLabel('ISV私钥')">
-          <el-input v-model="isvKeysFormData.privateKeyIsv" type="textarea" />
-        </el-form-item>
-      </fieldset>
-      <fieldset v-show="showKeys()">
-        <legend>平台公私钥</legend>
-        <el-form-item class="gen-key">
-          <el-button type="text" @click="onGenKeysPlatform">重新生成</el-button>
-        </el-form-item>
-        <el-form-item prop="publicKeyPlatform" :label="selfLabel('平台公钥')">
-          <el-input v-model="isvKeysFormData.publicKeyPlatform" type="textarea" />
-        </el-form-item>
-        <el-form-item prop="privateKeyPlatform" label="平台私钥">
-          <el-input v-model="isvKeysFormData.privateKeyPlatform" type="textarea" />
-        </el-form-item>
-      </fieldset>
+      <el-tabs v-show="showKeys()" v-model="activeName" type="card" class="keyTabs">
+        <el-tab-pane label="ISV公私钥" name="first">
+          <el-form-item class="gen-key">
+            <el-button type="text" @click="onGenKeysIsv">重新生成</el-button>
+          </el-form-item>
+          <el-form-item prop="publicKeyIsv" label="ISV公钥">
+            <el-input v-model="isvKeysFormData.publicKeyIsv" type="textarea" />
+          </el-form-item>
+          <el-form-item prop="privateKeyIsv" :label="selfLabel('ISV私钥')">
+            <el-input v-model="isvKeysFormData.privateKeyIsv" type="textarea" />
+          </el-form-item>
+        </el-tab-pane>
+        <el-tab-pane label="平台公私钥[可选]" name="second">
+          <el-form-item class="gen-key">
+            <el-button type="text" @click="onGenKeysPlatform">重新生成</el-button>
+          </el-form-item>
+          <el-form-item prop="publicKeyPlatform" label="平台公钥">
+            <el-input v-model="isvKeysFormData.publicKeyPlatform" type="textarea" />
+          </el-form-item>
+          <el-form-item prop="privateKeyPlatform" label="平台私钥">
+            <el-input v-model="isvKeysFormData.privateKeyPlatform" type="textarea" />
+          </el-form-item>
+        </el-tab-pane>
+      </el-tabs>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
         <el-button @click="onBack">取消</el-button>
@@ -64,6 +64,7 @@
   fieldset {border: 1px solid #ccc; color: gray;margin-left: 40px;margin-bottom: 20px;}
   fieldset label {width: 110px !important;}
   fieldset .el-form-item__content {margin-left: 110px !important;}
+  .keyTabs .el-tabs__header{margin-left: 70px;}
 </style>
 <script>
 export default {
@@ -108,7 +109,8 @@ export default {
         privateKeyIsv: [
           { validator: validatePubPriKey, trigger: 'blur' }
         ]
-      }
+      },
+      activeName: 'first'
     }
   },
   created() {

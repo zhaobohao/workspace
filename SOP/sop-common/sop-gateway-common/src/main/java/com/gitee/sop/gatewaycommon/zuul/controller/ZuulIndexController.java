@@ -1,18 +1,18 @@
 package com.gitee.sop.gatewaycommon.zuul.controller;
 
-import com.gitee.sop.gatewaycommon.bean.SopConstants;
+import com.gitee.sop.gatewaycommon.param.ApiParam;
+import com.gitee.sop.gatewaycommon.util.RequestUtil;
 import com.gitee.sop.gatewaycommon.zuul.ValidateService;
+import com.gitee.sop.gatewaycommon.zuul.ZuulContext;
+import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * zuul网关入口
@@ -53,37 +53,32 @@ public class ZuulIndexController {
      */
     @RequestMapping("/")
     public void index(HttpServletRequest request, HttpServletResponse response) {
-        validateService.validate(request, response, callback);
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        currentContext.setRequest(RequestUtil.wrapRequest(request));
+        currentContext.setResponse(response);
+        validateService.validate(currentContext, callback);
     }
 
     /**
      * restful入口
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     *
+     * @param request  request
+     * @param response response
      */
     @RequestMapping("/rest/**")
-    public void rest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void rest(HttpServletRequest request, HttpServletResponse response) {
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        currentContext.setRequest(RequestUtil.wrapRequest(request));
+        currentContext.setResponse(response);
+
         String url = request.getRequestURL().toString();
         int index = url.indexOf(restPath);
         // 取/rest的后面部分
         String path = url.substring(index + restPath.length());
-        request.setAttribute(SopConstants.REDIRECT_METHOD_KEY, path);
-        request.setAttribute(SopConstants.REDIRECT_VERSION_KEY, EMPTY_VERSION);
-        request.setAttribute(SopConstants.SOP_NOT_MERGE, true);
-        request.getRequestDispatcher(this.path).forward(request, response);
+        ApiParam apiParam = ApiParam.createRestfulApiParam(path);
+        ZuulContext.setApiParam(apiParam);
+
+        validateService.validate(currentContext, callback);
     }
 
-    @RequestMapping("/{method}/{version}/")
-    public void redirect(
-            @PathVariable("method") String method
-            , @PathVariable("version") String version
-            , HttpServletRequest request
-            , HttpServletResponse response
-    ) {
-        request.setAttribute(SopConstants.REDIRECT_METHOD_KEY, method);
-        request.setAttribute(SopConstants.REDIRECT_VERSION_KEY, version);
-        validateService.validate(request, response, callback);
-    }
 }

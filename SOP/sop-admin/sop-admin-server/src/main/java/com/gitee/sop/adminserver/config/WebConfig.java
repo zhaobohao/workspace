@@ -87,4 +87,5 @@ public class WebConfig {
         return new RegistryServiceEurekaImpl();
     }
 
+
 }

@@ -75,4 +75,9 @@ public class RouteDefinition {
      * 是否需要token
      */
     private int needToken;
+
+    /**
+     * 是否是兼容模式，即使用了@ApiAbility注解
+     */
+    private int compatibleMode;
 }

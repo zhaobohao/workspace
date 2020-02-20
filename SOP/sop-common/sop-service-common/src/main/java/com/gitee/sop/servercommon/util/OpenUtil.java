@@ -95,7 +95,7 @@ public class OpenUtil {
     }
 
     /**
-     * 在方法或方法对应的类上找指定的注WebConfig解
+     * 在方法或方法对应的类上找指定的注解
      * @param method 方法
      * @param annotationClass 指定的注解
      * @param <T>

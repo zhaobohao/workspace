@@ -2,6 +2,7 @@ package com.gitee.sop.adminserver.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
@@ -18,11 +19,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * nacos接口实现, https://nacos.io/zh-cn/docs/open-api.html
@@ -33,8 +30,11 @@ public class RegistryServiceNacosImpl implements RegistryService {
 
     private static HttpTool httpTool = new HttpTool();
 
-    @Value("${nacos.discovery.server-addr:${registry.nacos-server-addr:}}")
+    @Value("${nacos.discovery.server-addr:${spring.cloud.nacos.discovery.server-addr:}}")
     private String nacosAddr;
+
+    @Value("${nacos.discovery.namespace:${spring.cloud.nacos.discovery.namespace:}}")
+    private String nacosNamespace;
 
     private NamingService namingService;
 
@@ -43,7 +43,12 @@ public class RegistryServiceNacosImpl implements RegistryService {
         if (StringUtils.isBlank(nacosAddr)) {
             throw new IllegalArgumentException("请在配置文件中指定nacos.discovery.server-addr参数");
         }
-        namingService = NamingFactory.createNamingService(nacosAddr);
+        Properties nacosProperties = new Properties();
+        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, nacosAddr);
+        if (StringUtils.isNotBlank(nacosNamespace)) {
+            nacosProperties.put(PropertyKeyConst.NAMESPACE, nacosNamespace);
+        }
+        namingService = NamingFactory.createNamingService(nacosProperties);
     }
 
     @Override

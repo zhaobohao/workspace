@@ -12,8 +12,6 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
@@ -37,7 +35,11 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.security.Principal;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -80,16 +82,9 @@ public class ApiArgumentResolver implements SopHandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-
         // 是否有注解
         if (hasApiAnnotation(methodParameter)) {
-            //  如果是spring自带的参数注解，这里不要解析
-            if (methodParameter.hasParameterAnnotation(PathVariable.class)
-                    || methodParameter.hasParameterAnnotation(RequestBody.class)) {
-                ;
-            } else {
-                openApiParams.add(methodParameter);
-            }
+            openApiParams.add(methodParameter);
         }
         Class<?> paramType = methodParameter.getParameterType();
         if (paramType == OpenContext.class) {
@@ -97,21 +92,21 @@ public class ApiArgumentResolver implements SopHandlerMethodArgumentResolver {
         }
         // 排除的
         boolean exclude = (
-                WebRequest.class.isAssignableFrom(paramType) ||
-                        ServletRequest.class.isAssignableFrom(paramType) ||
-                        MultipartRequest.class.isAssignableFrom(paramType) ||
-                        HttpSession.class.isAssignableFrom(paramType) ||
-                        (pushBuilder != null && pushBuilder.isAssignableFrom(paramType)) ||
-                        Principal.class.isAssignableFrom(paramType) ||
-                        InputStream.class.isAssignableFrom(paramType) ||
-                        Reader.class.isAssignableFrom(paramType) ||
-                        HttpMethod.class == paramType ||
-                        Locale.class == paramType ||
-                        TimeZone.class == paramType ||
-                        ZoneId.class == paramType ||
-                        ServletResponse.class.isAssignableFrom(paramType) ||
-                        OutputStream.class.isAssignableFrom(paramType) ||
-                        Writer.class.isAssignableFrom(paramType)
+            WebRequest.class.isAssignableFrom(paramType) ||
+            ServletRequest.class.isAssignableFrom(paramType) ||
+            MultipartRequest.class.isAssignableFrom(paramType) ||
+            HttpSession.class.isAssignableFrom(paramType) ||
+            (pushBuilder != null && pushBuilder.isAssignableFrom(paramType)) ||
+            Principal.class.isAssignableFrom(paramType) ||
+            InputStream.class.isAssignableFrom(paramType) ||
+            Reader.class.isAssignableFrom(paramType) ||
+            HttpMethod.class == paramType ||
+            Locale.class == paramType ||
+            TimeZone.class == paramType ||
+            ZoneId.class == paramType ||
+            ServletResponse.class.isAssignableFrom(paramType) ||
+            OutputStream.class.isAssignableFrom(paramType) ||
+            Writer.class.isAssignableFrom(paramType)
         );
         // 除此之外都匹配
         return !exclude;

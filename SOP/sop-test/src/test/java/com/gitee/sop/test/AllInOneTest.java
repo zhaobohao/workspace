@@ -2,10 +2,14 @@ package com.gitee.sop.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,7 +23,7 @@ public class AllInOneTest extends TestBase {
 
     String url = "http://localhost:8081";
     String appId = "2019032617262200001";
-  String privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAM4lMCwagCw0Yl3Npabzfma2lxjZjEavg0+OeFCZ9Ss91P5mCLqOab6iVi7KA14Hxw5IAuZPOBeV5/7pJ3B9ElUQxhUA7uGoXQ6h33NM5z6SiWCdYm2pfngKih18AG3RI1L9uyvqEIBa7XtEaduAFor5lokPc1WpdVcTwTfRxgeJAgMBAAECgYAM3XFGL1k0aQiChiUCaEvJKTgAywLgHm/5dRC5JwKP8knqnn+I9P5QcV0jimPvaFjZ4VCdAvCjOC3EUNSvRn7wR2Lb1+BGZZePTdxtHWE2aqJ1W1SvgQTqMsLlPBRPnXo5XH/ng3WEH15ynd5NR035xAluaI0X/y+PsRxE6TlfIQJBAPSYUyXa2yaEqmvIN+ECKALCLLeDdi2YW3Kjahgz0X9V4Y4aTdrHh8y603zXC0Wy8HeOhwGoyciaS8SmjxCMn4UCQQDXweW8xsUreLH8hfVUtyiY/KgUz+R5foJDNXD7TLE9CDoPSHy09qBe99HyVCZg/gNJH4O+tNr6C4916dYaVk01AkBYZ2HOEc8ZmeOaty/zJHtfm9zbqykgi6upwISNINV8Z4bxfHJdO7bKeVANFBBf7a/aFmqXX/EmjxYJioW03o6dAkEAp7ViXJCtJpNU1pNSFZ2hgvmxtSu7zuyVWKSrw8rjYiuI5eRUe13RXsCHgzQB+Ra5exdyEsUGCaL+yosPD73RmQJBALGuM8EQUcBgrpgpeLZ39Ni1DYXYG9aj+u+ar/UL6kI1mCNFgwroO4EVIvXPVxikMxUgiE2tVaBML5nm8VDNJ7s=";
+    String privateKey = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCXJv1pQFqWNA/++OYEV7WYXwexZK/J8LY1OWlP9X0T6wHFOvxNKRvMkJ5544SbgsJpVcvRDPrcxmhPbi/sAhdO4x2PiPKIz9Yni2OtYCCeaiE056B+e1O2jXoLeXbfi9fPivJZkxH/tb4xfLkH3bA8ZAQnQsoXA0SguykMRZntF0TndUfvDrLqwhlR8r5iRdZLB6F8o8qXH6UPDfNEnf/K8wX5T4EB1b8x8QJ7Ua4GcIUqeUxGHdQpzNbJdaQvoi06lgccmL+PHzminkFYON7alj1CjDN833j7QMHdPtS9l7B67fOU/p2LAAkPMtoVBfxQt9aFj7B8rEhGCz02iJIBAgMBAAECggEARqOuIpY0v6WtJBfmR3lGIOOokLrhfJrGTLF8CiZMQha+SRJ7/wOLPlsH9SbjPlopyViTXCuYwbzn2tdABigkBHYXxpDV6CJZjzmRZ+FY3S/0POlTFElGojYUJ3CooWiVfyUMhdg5vSuOq0oCny53woFrf32zPHYGiKdvU5Djku1onbDU0Lw8w+5tguuEZ76kZ/lUcccGy5978FFmYpzY/65RHCpvLiLqYyWTtaNT1aQ/9pw4jX9HO9NfdJ9gYFK8r/2f36ZE4hxluAfeOXQfRC/WhPmiw/ReUhxPznG/WgKaa/OaRtAx3inbQ+JuCND7uuKeRe4osP2jLPHPP6AUwQKBgQDUNu3BkLoKaimjGOjCTAwtp71g1oo+k5/uEInAo7lyEwpV0EuUMwLA/HCqUgR4K9pyYV+Oyb8d6f0+Hz0BMD92I2pqlXrD7xV2WzDvyXM3s63NvorRooKcyfd9i6ccMjAyTR2qfLkxv0hlbBbsPHz4BbU63xhTJp3Ghi0/ey/1HQKBgQC2VsgqC6ykfSidZUNLmQZe3J0p/Qf9VLkfrQ+xaHapOs6AzDU2H2osuysqXTLJHsGfrwVaTs00ER2z8ljTJPBUtNtOLrwNRlvgdnzyVAKHfOgDBGwJgiwpeE9voB1oAV/mXqSaUWNnuwlOIhvQEBwekqNyWvhLqC7nCAIhj3yvNQKBgQCqYbeec56LAhWP903Zwcj9VvG7sESqXUhIkUqoOkuIBTWFFIm54QLTA1tJxDQGb98heoCIWf5x/A3xNI98RsqNBX5JON6qNWjb7/dobitti3t99v/ptDp9u8JTMC7penoryLKK0Ty3bkan95Kn9SC42YxaSghzqkt+uvfVQgiNGQKBgGxU6P2aDAt6VNwWosHSe+d2WWXt8IZBhO9d6dn0f7ORvcjmCqNKTNGgrkewMZEuVcliueJquR47IROdY8qmwqcBAN7Vg2K7r7CPlTKAWTRYMJxCT1Hi5gwJb+CZF3+IeYqsJk2NF2s0w5WJTE70k1BSvQsfIzAIDz2yE1oPHvwVAoGAA6e+xQkVH4fMEph55RJIZ5goI4Y76BSvt2N5OKZKd4HtaV+eIhM3SDsVYRLIm9ZquJHMiZQGyUGnsvrKL6AAVNK7eQZCRDk9KQz+0GKOGqku0nOZjUbAu6A2/vtXAaAuFSFx1rUQVVjFulLexkXR3KcztL1Qu2k5pB6Si0K/uwQ=";
 
     private Client client = new Client(url, appId, privateKey, AllInOneTest::assertResult);
 
@@ -55,6 +59,21 @@ public class AllInOneTest extends TestBase {
     public void testPostJSON() {
         Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
                 .method("alipay.story.get")
+                .version("1.0")
+                // 以json方式提交
+                .postJson(true)
+                .bizContent(new BizContent().add("id", "1").add("name", "葫芦娃"));
+
+        client.execute(requestBuilder);
+    }
+
+    /**
+     * 测试遗留接口
+     * 以json方式提交(application/json)
+     */
+    public void testPostJSON2() {
+        Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
+                .method("getStory33")
                 .version("1.0")
                 // 以json方式提交
                 .postJson(true)
@@ -172,18 +191,6 @@ public class AllInOneTest extends TestBase {
     }
 
     /**
-     * 演示将接口名版本号跟在url后面，规则:http://host:port/{method}/{version}/
-     */
-    public void testRestful() {
-        Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
-                .url("http://localhost:8081/alipay.story.get/1.0/")
-                .bizContent(new BizContent().add("name", "name111"))
-                .httpMethod(HttpTool.HTTPMethod.GET);
-
-        client.execute(requestBuilder);
-    }
-
-    /**
      * 演示文件上传
      */
     public void testFile() {
@@ -233,6 +240,23 @@ public class AllInOneTest extends TestBase {
     }
 
     /**
+     * 下载文件
+     */
+    public void testDownloadFile() throws Exception {
+        Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
+                .method("story.download")
+                .version("1.0")
+                .bizContent(new BizContent().add("id","1").add("name","Jim"))
+                .httpMethod(HttpTool.HTTPMethod.GET);
+
+        // 文件流
+        InputStream download = client.download(requestBuilder);
+        String content = IOUtils.toString(download, "UTF-8");
+        System.out.println("下载文件内容：" + content);
+        Assert.assertEquals(content, "spring.profiles.active=dev");
+    }
+
+    /**
      * 验证中文乱码问题
      */
     public void testString() {
@@ -266,11 +290,14 @@ public class AllInOneTest extends TestBase {
                 public void run() {
                     try {
                         countDownLatch.await(); // 等在这里，执行countDownLatch.countDown();集体触发
+                        Map<String, String> header = new HashMap<>(4);
+                        header.put("Accept-Language", "en-US");
                         // 业务方法
                         Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
                                 .method("alipay.story.get")
                                 .version("1.2")
                                 .bizContent(new BizContent().add("id", "1").add("name", "葫芦娃"))
+                                //.header(header)
                                 .httpMethod(HttpTool.HTTPMethod.GET);
 
                         client.execute(requestBuilder);
@@ -294,6 +321,29 @@ public class AllInOneTest extends TestBase {
                 .bizContent(new BizContent().add("id", "1").add("name", "葫芦娃"))
                 .appAuthToken("asdfasdfadsf")
                 .httpMethod(HttpTool.HTTPMethod.GET);
+
+        client.execute(requestBuilder);
+    }
+
+    /**
+     * 国际化测试，返回英文错误
+     */
+    public void testLanguage() {
+        // Accept-Language
+        Map<String, String> header = new HashMap<>(4);
+        header.put("Accept-Language", "en-US");
+        Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
+                .method("alipay.story.get9")
+                .version("1.0")
+                .header(header)
+                .bizContent(new BizContent().add("id", "1").add("name", "葫芦娃"))
+                .httpMethod(HttpTool.HTTPMethod.GET)
+                .callback((requestInfo, responseData) -> {
+                    System.out.println(responseData);
+                    String node = requestInfo.getDataNode();
+                    JSONObject jsonObject = JSON.parseObject(responseData).getJSONObject(node);
+                    Assert.assertEquals("Nonexistent method name", jsonObject.getString("sub_msg"));
+                });
 
         client.execute(requestBuilder);
     }

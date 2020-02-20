@@ -24,13 +24,21 @@ public class DefaultRouteConfigManager implements RouteConfigManager {
     }
 
     @Override
-    public void load() {
+    public void load(String serviceId) {
 
     }
 
     @Override
     public void update(RouteConfig routeConfig) {
         this.doUpdate(routeConfig.getRouteId(), routeConfig);
+    }
+
+    protected void save(RouteConfig routeConfig) {
+        Byte status = routeConfig.getStatus();
+        if (status == null) {
+            routeConfig.setStatus(RouteStatus.ENABLE.getStatus());
+        }
+        routeConfigMap.put(routeConfig.getRouteId(), routeConfig);
     }
 
     protected void doUpdate(String routeId, Object res) {

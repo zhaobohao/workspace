@@ -2,11 +2,14 @@ package com.gitee.sop.gatewaycommon.zuul.result;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gitee.sop.gatewaycommon.interceptor.RouteInterceptorContext;
 import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import com.gitee.sop.gatewaycommon.exception.ApiException;
 import com.gitee.sop.gatewaycommon.message.Error;
 import com.gitee.sop.gatewaycommon.message.ErrorEnum;
+import com.gitee.sop.gatewaycommon.param.ApiParam;
 import com.gitee.sop.gatewaycommon.result.BaseExecutorAdapter;
+import com.gitee.sop.gatewaycommon.result.ResultExecutorForZuul;
 import com.gitee.sop.gatewaycommon.zuul.ZuulContext;
 import com.netflix.util.Pair;
 import com.netflix.zuul.context.RequestContext;
@@ -14,33 +17,14 @@ import com.netflix.zuul.exception.ZuulException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
+import java.util.function.Consumer;
 
 /**
  * @author tanghc
  */
 @Slf4j
-public class ZuulResultExecutor extends BaseExecutorAdapter<RequestContext, String> {
-
-    public static Error getError(Throwable throwable) {
-        Error error = null;
-        if (throwable instanceof ZuulException) {
-            ZuulException ex = (ZuulException) throwable;
-            Throwable cause = ex.getCause();
-            if (cause instanceof ApiException) {
-                ApiException apiException = (ApiException) cause;
-                error = apiException.getError();
-            }
-        } else if (throwable instanceof ApiException) {
-            ApiException apiException = (ApiException) throwable;
-            error = apiException.getError();
-        }
-
-        if (error == null) {
-            error = ErrorEnum.ISP_UNKNOWN_ERROR.getErrorMeta().getError();
-        }
-        return error;
-    }
+public class ZuulResultExecutor extends BaseExecutorAdapter<RequestContext, String> implements ResultExecutorForZuul {
 
     @Override
     public int getResponseStatus(RequestContext requestContext) {
@@ -55,32 +39,70 @@ public class ZuulResultExecutor extends BaseExecutorAdapter<RequestContext, Stri
 
     @Override
     public String getResponseErrorMessage(RequestContext requestContext) {
-        List<Pair<String, String>> bizHeaders = requestContext.getZuulResponseHeaders();
-        int index = -1;
-        String errorMsg = null;
-        for (int i = 0; i < bizHeaders.size(); i++) {
-            Pair<String, String> header = bizHeaders.get(i);
-            if (SopConstants.X_SERVICE_ERROR_MESSAGE.equals(header.first())) {
-                errorMsg = header.second();
-                index = i;
-                break;
+        return getHeader(requestContext, SopConstants.X_SERVICE_ERROR_MESSAGE, (index)->{
+            if (index > -1) {
+                requestContext.getZuulResponseHeaders().remove(index);
             }
-        }
-        if (index > -1) {
-            requestContext.getZuulResponseHeaders().remove(index);
-        }
-        return errorMsg;
+        });
     }
 
     @Override
-    public Map<String, Object> getApiParam(RequestContext requestContext) {
+    public ApiParam getApiParam(RequestContext requestContext) {
         return ZuulContext.getApiParam();
     }
 
     @Override
-    public String buildErrorResult(RequestContext request, Throwable throwable) {
-        Error error = getError(throwable);
-        return isMergeResult(request) ? this.merge(request, (JSONObject) JSON.toJSON(error))
+    protected Locale getLocale(RequestContext requestContext) {
+        return requestContext.getRequest().getLocale();
+    }
+
+    @Override
+    protected RouteInterceptorContext getRouteInterceptorContext(RequestContext requestContext) {
+        return (RouteInterceptorContext) requestContext.get(SopConstants.CACHE_ROUTE_INTERCEPTOR_CONTEXT);
+    }
+
+    @Override
+    public String buildErrorResult(RequestContext requestContext, Throwable throwable) {
+        Locale locale = getLocale(requestContext);
+        Error error = getError(locale, throwable);
+        return isMergeResult(requestContext) ? this.merge(requestContext, (JSONObject) JSON.toJSON(error))
                 : JSON.toJSONString(error);
+    }
+
+    public static Error getError(Locale locale, Throwable throwable) {
+        Error error = null;
+        if (throwable instanceof ZuulException) {
+            ZuulException ex = (ZuulException) throwable;
+            Throwable cause = ex.getCause();
+            if (cause instanceof ApiException) {
+                ApiException apiException = (ApiException) cause;
+                error = apiException.getError(locale);
+            }
+        } else if (throwable instanceof ApiException) {
+            ApiException apiException = (ApiException) throwable;
+            error = apiException.getError(locale);
+        }
+        if (error == null) {
+            error = ErrorEnum.ISP_UNKNOWN_ERROR.getErrorMeta().getError(locale);
+        }
+        return error;
+    }
+
+    private String getHeader(RequestContext requestContext, String name, Consumer<Integer> after) {
+        List<Pair<String, String>> bizHeaders = requestContext.getZuulResponseHeaders();
+        int index = -1;
+        String value = null;
+        for (int i = 0; i < bizHeaders.size(); i++) {
+            Pair<String, String> header = bizHeaders.get(i);
+            if (name.equals(header.first())) {
+                value = header.second();
+                index = i;
+                break;
+            }
+        }
+        if (after != null) {
+            after.accept(index);
+        }
+        return value;
     }
 }

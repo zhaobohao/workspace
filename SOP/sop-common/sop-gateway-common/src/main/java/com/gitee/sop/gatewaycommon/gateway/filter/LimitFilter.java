@@ -7,7 +7,8 @@ import com.gitee.sop.gatewaycommon.gateway.ServerWebExchangeUtil;
 import com.gitee.sop.gatewaycommon.limit.LimitManager;
 import com.gitee.sop.gatewaycommon.limit.LimitType;
 import com.gitee.sop.gatewaycommon.manager.LimitConfigManager;
-import com.gitee.sop.gatewaycommon.message.ErrorImpl;
+import com.gitee.sop.gatewaycommon.message.ErrorEnum;
+import com.gitee.sop.gatewaycommon.message.ErrorMeta;
 import com.gitee.sop.gatewaycommon.param.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -17,15 +18,17 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
+ * spring cloud gateway限流过滤器
  * @author tanghc
  */
 @Slf4j
 public class LimitFilter implements GlobalFilter, Ordered {
+
+    private static final ErrorMeta LIMIT_ERROR_META = ErrorEnum.ISV_REQUEST_LIMIT.getErrorMeta();
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -43,13 +46,14 @@ public class LimitFilter implements GlobalFilter, Ordered {
         if (configLimitDto.getLimitStatus() == ConfigLimitDto.LIMIT_STATUS_CLOSE) {
             return chain.filter(exchange);
         }
-        byte limitType = configLimitDto.getLimitType().byteValue();
+        Byte limitType = configLimitDto.getLimitType();
         LimitManager limitManager = ApiConfig.getInstance().getLimitManager();
         // 如果是漏桶策略
         if (limitType == LimitType.LEAKY_BUCKET.getType()) {
             boolean acquire = limitManager.acquire(configLimitDto);
+            // 被限流，返回错误信息
             if (!acquire) {
-                throw new ApiException(new ErrorImpl(configLimitDto.getLimitCode(), configLimitDto.getLimitMsg()));
+                throw new ApiException(LIMIT_ERROR_META);
             }
         } else if (limitType == LimitType.TOKEN_BUCKET.getType()) {
             limitManager.acquireToken(configLimitDto);

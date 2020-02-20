@@ -68,9 +68,11 @@ public class ApiValidator implements Validator {
     @Override
     public void validate(ApiParam param) {
         checkIP(param);
-        checkEnable(param);
+        TargetRoute targetRoute = checkEnable(param);
+        initFields(targetRoute, param);
         ApiConfig apiConfig = ApiContext.getApiConfig();
-        if (apiConfig.isIgnoreValidate() || param.fetchIgnoreValidate()) {
+        if (apiConfig.isIgnoreValidate()
+                || BooleanUtils.toBoolean(targetRoute.getRouteDefinition().getIgnoreValidate())) {
             if (log.isDebugEnabled()) {
                 log.debug("忽略所有验证(ignoreValidate=true), name:{}, version:{}", param.fetchName(), param.fetchVersion());
             }
@@ -103,7 +105,7 @@ public class ApiValidator implements Validator {
      *
      * @param param 接口参数
      */
-    protected void checkEnable(ApiParam param) {
+    protected TargetRoute checkEnable(ApiParam param) {
         String name = param.fetchName();
         if (name == null) {
             throw ErrorEnum.ISV_MISSING_METHOD.getErrorMeta().getException();
@@ -114,12 +116,29 @@ public class ApiValidator implements Validator {
         }
         String routeId = param.fetchNameVersion();
         // 检查路由是否存在
-        RouteRepositoryContext.checkExist(routeId, ErrorEnum.ISV_INVALID_METHOD);
+        TargetRoute targetRoute = RouteRepositoryContext.getTargetRoute(routeId);
+        if (targetRoute == null) {
+            throw ErrorEnum.ISV_INVALID_METHOD.getErrorMeta().getException();
+        }
         // 检查路由是否启用
         RouteConfig routeConfig = routeConfigManager.get(routeId);
         if (!routeConfig.enable()) {
             throw ErrorEnum.ISP_API_DISABLED.getErrorMeta().getException();
         }
+        return targetRoute;
+    }
+
+    private void initFields(TargetRoute targetRoute, ApiParam apiParam) {
+        apiParam.setServiceId(targetRoute.getServiceRouteInfo().getServiceId());
+        boolean mergeResult;
+        Boolean defaultSetting = ApiContext.getApiConfig().getMergeResult();
+        if (defaultSetting != null) {
+            mergeResult = defaultSetting;
+        } else {
+            RouteDefinition routeDefinition = targetRoute.getRouteDefinition();
+            mergeResult = routeDefinition == null || BooleanUtils.toBoolean(routeDefinition.getMergeResult());
+        }
+        apiParam.setMergeResult(mergeResult);
     }
 
     /**

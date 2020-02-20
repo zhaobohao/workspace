@@ -7,13 +7,13 @@ import org.springframework.util.StringValueResolver;
  */
 public class ApiMappingStringValueResolver implements StringValueResolver {
 
-    private static final String END_CHAR = "/";
+    private static final String END = "/";
 
     @Override
     public String resolveStringValue(String strVal) {
-        if (strVal != null && !strVal.endsWith(END_CHAR)) {
-            return strVal + END_CHAR;
+        if (strVal == null) {
+            return null;
         }
-        return null;
+        return strVal + END;
     }
 }

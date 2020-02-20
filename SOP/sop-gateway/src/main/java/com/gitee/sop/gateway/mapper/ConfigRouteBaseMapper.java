@@ -8,4 +8,5 @@ import com.gitee.sop.gateway.entity.ConfigRouteBase;
  * @author tanghc
  */
 public interface ConfigRouteBaseMapper extends CrudMapper<ConfigRouteBase, Long> {
+
 }

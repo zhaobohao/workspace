@@ -3,6 +3,7 @@ package com.gitee.sop.gatewaycommon.manager;
 import com.gitee.sop.gatewaycommon.bean.ConfigLimitDto;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,6 +26,11 @@ public class DefaultLimitConfigManager implements LimitConfigManager {
     protected static Map<Long, Set<String>> idKeyMap = new HashMap<>();
 
     @Override
+    public void load(String serviceId) {
+
+    }
+
+    @Override
     public void update(ConfigLimitDto configLimitDto) {
         Long id = configLimitDto.getId();
         this.remove(id);
@@ -39,22 +45,60 @@ public class DefaultLimitConfigManager implements LimitConfigManager {
         }
     }
 
+    /**
+     *                  // 根据路由ID限流
+     *                 routeId,
+     *                 // 根据appKey限流
+     *                 appKey,
+     *                 // 根据路由ID + appKey限流
+     *                 routeId + appKey,
+     *
+     *                 // 根据ip限流
+     *                 ip,
+     *                 // 根据ip+路由id限流
+     *                 ip + routeId,
+     *                 // 根据ip+appKey限流
+     *                 ip + appKey,
+     *                 // 根据ip+路由id+appKey限流
+     *                 ip + routeId + appKey,
+     * @param configLimitDto
+     * @return
+     */
     protected Set<String> buildKeys(ConfigLimitDto configLimitDto) {
         Set<String> keys = new HashSet<>();
         String routeId = Optional.ofNullable(configLimitDto.getRouteId()).orElse("");
         String appKey = Optional.ofNullable(configLimitDto.getAppKey()).orElse("");
         String limitIp = Optional.ofNullable(configLimitDto.getLimitIp()).orElse("").replaceAll("\\s", "");
 
-        String baseKey = routeId.trim() + appKey.trim();
-        keys.add(baseKey);
-
+        // 根据路由ID限流
+        if (StringUtils.isNotBlank(routeId) && StringUtils.isBlank(appKey) && StringUtils.isBlank(limitIp)) {
+            keys.add(routeId);
+        }
+        // 根据appKey限流
+        if (StringUtils.isBlank(routeId) && StringUtils.isNotBlank(appKey) && StringUtils.isBlank(limitIp)) {
+            keys.add(appKey);
+        }
+        // 根据路由ID + appKey限流
+        if (StringUtils.isNotBlank(routeId) && StringUtils.isNotBlank(appKey) && StringUtils.isBlank(limitIp)) {
+            keys.add(routeId.trim() + appKey.trim());
+        }
+        Set<String> baseKeys = new HashSet<>(keys);
+        // 根据ip限流
+        if (StringUtils.isBlank(routeId) && StringUtils.isBlank(appKey) && StringUtils.isNotBlank(limitIp)) {
+            String[] ips = limitIp.split("\\,|\\，");
+            keys.addAll(Arrays.asList(ips));
+        }
+        // 根据ip+路由id限流
+        // 根据ip+appKey限流
+        // 根据ip+路由id+appKey限流
         if (StringUtils.isNotBlank(limitIp)) {
             String[] ips = limitIp.split("\\,|\\，");
             for (String ip : ips) {
-                keys.add(ip + baseKey);
+                for (String baseKey : baseKeys) {
+                    keys.add(ip + baseKey);
+                }
             }
         }
-
         return keys;
     }
 
@@ -80,8 +124,4 @@ public class DefaultLimitConfigManager implements LimitConfigManager {
         return limitCache.get(limitKey);
     }
 
-    @Override
-    public void load() {
-
-    }
 }

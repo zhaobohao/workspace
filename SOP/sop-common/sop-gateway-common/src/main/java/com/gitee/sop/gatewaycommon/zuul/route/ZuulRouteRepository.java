@@ -45,6 +45,10 @@ public class ZuulRouteRepository implements RouteRepository<ZuulTargetRoute> {
 
     private ZuulTargetRoute clone(String path, ZuulTargetRoute zuulTargetRoute) {
         Route targetRouteDefinition = zuulTargetRoute.getTargetRouteDefinition();
+        String prefix = "/" + zuulTargetRoute.getServiceRouteInfo().getServiceId();
+        if (path.startsWith(prefix)) {
+            path = path.substring(prefix.length());
+        }
         Route route = new Route(
                 targetRouteDefinition.getId()
                 ,path

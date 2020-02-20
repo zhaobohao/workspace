@@ -13,6 +13,7 @@ import java.util.List;
 public class FileUploadResult {
 
     private List<FileMeta> files = new ArrayList();
+    private String remark;
 
     @Data
     public static class FileMeta {

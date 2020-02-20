@@ -6,7 +6,8 @@ import com.gitee.sop.gatewaycommon.exception.ApiException;
 import com.gitee.sop.gatewaycommon.limit.LimitManager;
 import com.gitee.sop.gatewaycommon.limit.LimitType;
 import com.gitee.sop.gatewaycommon.manager.LimitConfigManager;
-import com.gitee.sop.gatewaycommon.message.ErrorImpl;
+import com.gitee.sop.gatewaycommon.message.ErrorEnum;
+import com.gitee.sop.gatewaycommon.message.ErrorMeta;
 import com.gitee.sop.gatewaycommon.param.ApiParam;
 import com.gitee.sop.gatewaycommon.util.RequestUtil;
 import com.gitee.sop.gatewaycommon.zuul.ZuulContext;
@@ -16,16 +17,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * 限流拦截器
+ * zuul限流过滤器
  *
  * @author tanghc
  */
 public class PreLimitFilter extends BaseZuulFilter {
+
+    private static final ErrorMeta LIMIT_ERROR_META = ErrorEnum.ISV_REQUEST_LIMIT.getErrorMeta();
 
     @Autowired
     private LimitManager limitManager;
@@ -63,8 +65,9 @@ public class PreLimitFilter extends BaseZuulFilter {
         // 如果是漏桶策略
         if (limitType == LimitType.LEAKY_BUCKET.getType()) {
             boolean acquire = limitManager.acquire(configLimitDto);
+            // 被限流，返回错误信息
             if (!acquire) {
-                throw new ApiException(new ErrorImpl(configLimitDto.getLimitCode(), configLimitDto.getLimitMsg()));
+                throw new ApiException(LIMIT_ERROR_META);
             }
         } else if (limitType == LimitType.TOKEN_BUCKET.getType()) {
             limitManager.acquireToken(configLimitDto);

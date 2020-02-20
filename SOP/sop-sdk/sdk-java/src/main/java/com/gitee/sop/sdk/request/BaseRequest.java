@@ -36,10 +36,12 @@ import java.util.Map;
  */
 public abstract class BaseRequest<T extends BaseResponse> {
 
+    private static final String EMPTY_JSON = "{}";
+
     private String method;
     private String version;
 
-    private String bizContent;
+    private String bizContent = EMPTY_JSON;
     private Object bizModel;
 
     /**

@@ -34,7 +34,6 @@ public class FileUploadDemoController {
     @ApiOperation(value = "文件上传例1", notes = "上传文件demo")
     @ApiMapping(value = "demo.file.upload")
     public FileUploadResult file1(FileUploadParam param) {
-        System.out.println(param.getRemark());
         // 获取上传的文件
         MultipartFile file1 = param.getFile1();
         MultipartFile file2 = param.getFile2();
@@ -43,6 +42,7 @@ public class FileUploadDemoController {
         FileUploadResult.FileMeta fileMeta1 = buildFileMeta(file1);
         FileUploadResult.FileMeta fileMeta2 = buildFileMeta(file2);
 
+        result.setRemark(param.getRemark());
         result.getFiles().add(fileMeta1);
         result.getFiles().add(fileMeta2);
         return result;

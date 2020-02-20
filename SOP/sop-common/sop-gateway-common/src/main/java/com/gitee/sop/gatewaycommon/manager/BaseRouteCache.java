@@ -5,12 +5,9 @@ import com.gitee.sop.gatewaycommon.bean.RouteDefinition;
 import com.gitee.sop.gatewaycommon.bean.ServiceRouteInfo;
 import com.gitee.sop.gatewaycommon.bean.TargetRoute;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,21 +52,15 @@ public abstract class BaseRouteCache<T extends TargetRoute> implements RouteLoad
             }
             serviceIdMd5Map.put(serviceId, newMd5);
 
-            List<RouteDefinition> extRouteDefinitionList = this.getExtRouteDefinitionList(serviceRouteInfo);
             List<RouteDefinition> routeDefinitionList = serviceRouteInfo.getRouteDefinitionList();
-            int size = extRouteDefinitionList.size() + routeDefinitionList.size();
-            List<RouteDefinition> allRoutes = new ArrayList<>(size);
-            if (CollectionUtils.isNotEmpty(extRouteDefinitionList)) {
-                allRoutes.addAll(extRouteDefinitionList);
-            }
-            allRoutes.addAll(routeDefinitionList);
-            for (RouteDefinition routeDefinition : allRoutes) {
+            for (RouteDefinition routeDefinition : routeDefinitionList) {
                 T targetRoute = this.buildTargetRoute(serviceRouteInfo, routeDefinition);
                 routeRepository.add(targetRoute);
                 if (log.isDebugEnabled()) {
                     log.debug("新增路由：{}", JSON.toJSONString(routeDefinition));
                 }
             }
+            this.routeRepository.refresh();
             callback.accept(null);
         } catch (Exception e) {
             log.error("加载路由信息失败，serviceRouteInfo:{}", serviceRouteInfo, e);
@@ -89,14 +80,6 @@ public abstract class BaseRouteCache<T extends TargetRoute> implements RouteLoad
                 .collect(Collectors.toList());
         String md5Source = org.apache.commons.lang3.StringUtils.join(routeIdList, "");
         return DigestUtils.md5DigestAsHex(md5Source.getBytes(StandardCharsets.UTF_8));
-    }
-
-    /**
-     * 返回附加的路由选项
-     * @return 返回附加的路由选项
-     */
-    protected List<RouteDefinition> getExtRouteDefinitionList(ServiceRouteInfo serviceRouteInfo) {
-        return Collections.emptyList();
     }
 
     @Override

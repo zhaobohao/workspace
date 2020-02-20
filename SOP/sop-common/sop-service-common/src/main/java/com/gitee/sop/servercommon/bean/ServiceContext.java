@@ -13,6 +13,7 @@ public class ServiceContext extends ConcurrentHashMap<String, Object> {
     public static final String REQUEST_KEY = "request";
     public static final String RESPONSE_KEY = "response";
     public static final String OPEN_CONTEXT_KEY = "openContext";
+    public static final String SOP_MVC = "sop.mvc";
 
     public static final String RESTFUL_KEY = "sop-restful";
 

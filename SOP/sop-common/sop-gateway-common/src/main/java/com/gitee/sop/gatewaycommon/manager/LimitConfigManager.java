@@ -1,12 +1,12 @@
 package com.gitee.sop.gatewaycommon.manager;
 
-import com.gitee.sop.gatewaycommon.bean.BeanInitializer;
 import com.gitee.sop.gatewaycommon.bean.ConfigLimitDto;
+import com.gitee.sop.gatewaycommon.bean.ServiceBeanInitializer;
 
 /**
  * @author tanghc
  */
-public interface LimitConfigManager extends BeanInitializer {
+public interface LimitConfigManager extends ServiceBeanInitializer {
     /**
      * 更新限流配置
      * @param configLimitDto 路由配置

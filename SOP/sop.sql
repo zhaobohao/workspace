@@ -1,4 +1,6 @@
-
+/**
+适用于MYSQL 5.6+版本
+**/
 CREATE DATABASE IF NOT EXISTS `sop` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 USE `sop`;
 

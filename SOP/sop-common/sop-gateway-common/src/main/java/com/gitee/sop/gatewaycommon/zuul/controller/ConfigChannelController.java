@@ -40,7 +40,7 @@ public class ConfigChannelController {
         processorMap.put(NacosConfigs.GROUP_CHANNEL + NacosConfigs.DATA_ID_ROUTE_CONFIG, RouteConfigManager.class);
     }
 
-    @Value("${zuul.secret}")
+    @Value("${sop.secret}")
     private String secret;
 
     @PostMapping("/configChannelMsg")

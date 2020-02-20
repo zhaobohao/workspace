@@ -1,5 +1,7 @@
 # sop-common
 
+- sop-bridge-gateway：网关桥接器，供sop-gateway依赖，依赖后使用spring cloud gateway网关
+- sop-bridge-zuul：网关桥接器，供sop-gateway依赖，依赖后使用spring cloud zuul网关
 - sop-gateway-common：提供给网关使用
 - sop-service-common：提供给微服务端使用，需要打成jar
 

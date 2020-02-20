@@ -1,6 +1,6 @@
 package com.gitee.sop.gatewaycommon.manager;
 
-import com.gitee.sop.gatewaycommon.loadbalancer.EnvironmentServerChooser;
+import com.gitee.sop.gatewaycommon.zuul.loadbalancer.EnvironmentServerChooser;
 
 public enum EnvironmentKeys {
     SPRING_PROFILES_ACTIVE("spring.profiles.active", "default"),
@@ -9,7 +9,7 @@ public enum EnvironmentKeys {
      */
     SPRING_APPLICATION_NAME("spring.application.name"),
     /**
-     * 指定负载均衡规则类，默认使用com.gitee.sop.gateway.loadbalancer.PreEnvironmentServerChooser
+     * 指定负载均衡规则类
      */
     ZUUL_CUSTOM_RULE_CLASSNAME("zuul.custom-rule-classname", EnvironmentServerChooser.class.getName()),
 
@@ -31,8 +31,15 @@ public enum EnvironmentKeys {
     /**
      * 排除其它微服务，多个用英文逗号隔开
      */
-    SOP_SERVICE_EXCLUDE("sop.service.exclude")
-    ;
+    SOP_SERVICE_EXCLUDE("sop.service.exclude"),
+    /**
+     * 排除其它微服务，正则形式，多个用英文逗号隔开
+     */
+    SOP_SERVICE_EXCLUDE_REGEX("sop.service.exclude-regex"),
+    /**
+     * 预发布域名
+     */
+    PRE_DOMAIN("pre.domain");
 
     private String key;
     private String defaultValue;
@@ -51,6 +58,10 @@ public enum EnvironmentKeys {
     }
 
     public String getValue() {
+        return EnvironmentContext.getValue(key, defaultValue);
+    }
+
+    public String getValue(String defaultValue) {
         return EnvironmentContext.getValue(key, defaultValue);
     }
 }

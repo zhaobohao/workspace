@@ -1,4 +1,4 @@
-package com.gitee.sop.gateway.config;
+package com.gitee.sop.bridge;
 
 import com.gitee.sop.gatewaycommon.gateway.configuration.AlipayGatewayConfiguration;
 
@@ -16,7 +16,6 @@ import com.gitee.sop.gatewaycommon.gateway.configuration.AlipayGatewayConfigurat
  * @author tanghc
  */
 
-//@Configuration
 public class GatewayConfig extends AlipayGatewayConfiguration {
 
 }

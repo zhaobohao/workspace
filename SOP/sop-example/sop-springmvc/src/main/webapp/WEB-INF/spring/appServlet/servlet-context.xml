@@ -34,6 +34,11 @@
 	</mvc:annotation-driven>
 
 	<bean class="com.gitee.app.config.OpenServiceConfig"/>
+
+	<!-- swagger2 配置 -->
+	<mvc:resources location="classpath:/META-INF/resources/" mapping="doc.html"/>
+	<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
+	<bean class="com.gitee.app.config.Swagger2"/>
 	<!-- 接入SOP配置 end -->
 
 </beans>

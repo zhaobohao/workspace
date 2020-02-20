@@ -3,8 +3,10 @@ package com.gitee.sop.servercommon.mapping;
 import com.gitee.sop.servercommon.annotation.ApiAbility;
 import com.gitee.sop.servercommon.annotation.ApiMapping;
 import com.gitee.sop.servercommon.bean.ServiceConfig;
+import com.gitee.sop.servercommon.bean.ServiceContext;
+import com.gitee.sop.servercommon.util.OpenUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.core.PriorityOrdered;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringValueResolver;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -17,14 +19,24 @@ import java.lang.reflect.Method;
  */
 public class ApiMappingHandlerMapping extends RequestMappingHandlerMapping implements PriorityOrdered {
 
-    private static StringValueResolver stringValueResolver = new ApiMappingStringValueResolver();
+    private static StringValueResolver stringValueResolverMVC = new ApiMappingStringValueResolverMVC();
 
     @Override
     protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
+        String sopMvc = System.getProperty(ServiceContext.SOP_MVC);
+        boolean isMvc = sopMvc != null;
         ApiMapping apiMapping = method.getAnnotation(ApiMapping.class);
+        ApiAbility apiAbility = OpenUtil.getAnnotationFromMethodOrClass(method, ApiAbility.class);
         StringValueResolver valueResolver = null;
         if (apiMapping != null) {
-            valueResolver = stringValueResolver;
+            String version = apiMapping.version();
+            if (StringUtils.isBlank(version)) {
+                version = ServiceConfig.getInstance().getDefaultVersion();
+            }
+            valueResolver = new ApiMappingStringValueResolverVersion(version);
+        }
+        if (isMvc || apiAbility != null) {
+            valueResolver = stringValueResolverMVC;
         }
         this.setEmbeddedValueResolver(valueResolver);
         return super.getMappingForMethod(method, handlerType);
@@ -38,7 +50,8 @@ public class ApiMappingHandlerMapping extends RequestMappingHandlerMapping imple
         boolean ignoreValidate;
         boolean mergeResult;
         boolean permission;
-        boolean needToken = false;
+        boolean needToken;
+        boolean compatibleMode = false;
         ApiMapping apiMapping = method.getAnnotation(ApiMapping.class);
         if (apiMapping != null) {
             name = apiMapping.value()[0];
@@ -48,13 +61,14 @@ public class ApiMappingHandlerMapping extends RequestMappingHandlerMapping imple
             permission = apiMapping.permission();
             needToken = apiMapping.needToken();
         } else {
-            ApiAbility apiAbility = this.findApiAbilityAnnotation(method);
+            ApiAbility apiAbility = OpenUtil.getAnnotationFromMethodOrClass(method, ApiAbility.class);
             if (apiAbility != null) {
                 version = apiAbility.version();
                 ignoreValidate = apiAbility.ignoreValidate();
                 mergeResult = apiAbility.mergeResult();
                 permission = apiAbility.permission();
                 needToken = apiAbility.needToken();
+                compatibleMode = true;
             } else {
                 return super.getCustomMethodCondition(method);
             }
@@ -79,16 +93,9 @@ public class ApiMappingHandlerMapping extends RequestMappingHandlerMapping imple
         apiMappingInfo.setMergeResult(mergeResult);
         apiMappingInfo.setPermission(permission);
         apiMappingInfo.setNeedToken(needToken);
+        apiMappingInfo.setCompatibleMode(compatibleMode);
         logger.info("注册接口，name:" + method + "， version:" + version);
         return new ApiMappingRequestCondition(apiMappingInfo);
     }
 
-    protected ApiAbility findApiAbilityAnnotation(Method method) {
-        ApiAbility apiAbility = method.getAnnotation(ApiAbility.class);
-        if (apiAbility == null) {
-            Class<?> controllerClass = method.getDeclaringClass();
-            apiAbility = AnnotationUtils.findAnnotation(controllerClass, ApiAbility.class);
-        }
-        return apiAbility;
-    }
 }

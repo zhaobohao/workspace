@@ -1,6 +1,5 @@
 package com.gitee.sop.gatewaycommon.zuul.param;
 
-import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import com.gitee.sop.gatewaycommon.param.ApiParam;
 import com.gitee.sop.gatewaycommon.param.BaseParamBuilder;
 import com.gitee.sop.gatewaycommon.util.RequestUtil;
@@ -63,11 +62,6 @@ public class ZuulParamBuilder extends BaseParamBuilder<RequestContext> {
 
     @Override
     protected void processApiParam(ApiParam apiParam, RequestContext ctx) {
-        HttpServletRequest request = ctx.getRequest();
-        String method = (String) request.getAttribute(SopConstants.REDIRECT_METHOD_KEY);
-        String version = (String) request.getAttribute(SopConstants.REDIRECT_VERSION_KEY);
-        apiParam.setRestName(method);
-        apiParam.setRestVersion(version);
     }
 
 }

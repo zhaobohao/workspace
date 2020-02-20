@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-Vue.use(Router)
+Vue.use(Router);
 
 /* Layout */
 import Layout from '@/layout'
@@ -74,16 +74,16 @@ export const constantRoutes = [
         meta: { title: '路由管理' }
       },
       {
+        path: 'monitor',
+        name: 'Monitor',
+        component: () => import('@/views/service/monitor'),
+        meta: { title: '路由监控' }
+      },
+      {
         path: 'limit',
         name: 'Limit',
         component: () => import('@/views/service/limit'),
         meta: { title: '限流管理' }
-      },
-      {
-        path: 'log',
-        name: 'Log',
-        component: () => import('@/views/service/log'),
-        meta: { title: '监控日志' }
       },
       {
         path: 'blacklist',
@@ -123,19 +123,19 @@ export const constantRoutes = [
   },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
-]
+];
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
-})
+});
 
-const router = createRouter()
+const router = createRouter();
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter()
+  const newRouter = createRouter();
   router.matcher = newRouter.matcher // reset router
 }
 

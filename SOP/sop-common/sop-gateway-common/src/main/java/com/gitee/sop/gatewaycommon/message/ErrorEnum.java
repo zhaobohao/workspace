@@ -9,10 +9,11 @@ public enum ErrorEnum {
     SUCCESS(Codes.CODE_SUCCESS, ""),
 
     /** 服务暂不可用 */
-    ISP_UNKNOWN_ERROR(Codes.CODE_UNKNOW, "isp.unknown-error"),
+    ISP_UNKNOWN_ERROR(Codes.CODE_UNKNOWN, "isp.unknown-error"),
     /** 服务不可用，路由被禁用 */
-    ISP_API_DISABLED(Codes.CODE_UNKNOW, "isp.service-not-available"),
-
+    ISP_API_DISABLED(Codes.CODE_UNKNOWN, "isp.service-not-available"),
+    /** 限流处理 */
+    ISV_REQUEST_LIMIT(Codes.CODE_UNKNOWN, "isv.service-busy"),
 
     /** 无效的访问令牌 */
     AOP_INVALID_AUTH_TOKEN(Codes.CODE_AUTH, "aop.invalid-auth-token"),
@@ -119,7 +120,7 @@ public enum ErrorEnum {
         public static final String CODE_INVALID = "40002";
         public static final String CODE_BIZ = "40004";
         public static final String CODE_ISV_PERM = "40006";
-        public static final String CODE_UNKNOW = "20000";
+        public static final String CODE_UNKNOWN = "20000";
     }
 
 }

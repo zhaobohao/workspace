@@ -1,4 +1,4 @@
-package com.gitee.sop.gateway.config;
+package com.gitee.sop.bridge;
 
 /**
  * 使用Spring Cloud Zuul，推荐使用
@@ -10,16 +10,13 @@ import com.gitee.sop.gatewaycommon.bean.ApiConfig;
 import com.gitee.sop.gatewaycommon.limit.RedisLimitManager;
 import com.gitee.sop.gatewaycommon.result.CustomDataNameBuilder;
 import com.gitee.sop.gatewaycommon.session.RedisSessionManager;
-import com.gitee.sop.gatewaycommon.zuul.configuration.AlipayZuulConfiguration;
 import com.gitee.sop.gatewaycommon.zuul.configuration.PabZuulConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * 开通平安加密算法的开放平台能力。
  */
-@Configuration
 public class ZuulConfig extends PabZuulConfiguration {
     @Autowired
     private RedisTemplate redisTemplate;

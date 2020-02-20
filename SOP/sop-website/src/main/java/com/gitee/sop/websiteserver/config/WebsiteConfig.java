@@ -3,6 +3,7 @@ package com.gitee.sop.websiteserver.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.gitee.sop.gatewaycommon.manager.EnvironmentContext;
 import com.gitee.sop.gatewaycommon.route.EurekaRegistryListener;
 import com.gitee.sop.gatewaycommon.route.NacosRegistryListener;
 import com.gitee.sop.gatewaycommon.route.RegistryListener;
@@ -20,6 +21,9 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author tanghc
@@ -32,6 +36,9 @@ public class WebsiteConfig implements ApplicationRunner {
 
     @Autowired
     private RegistryListener registryListener;
+
+    @Autowired
+    private Environment environment;
 
     /**
      * 使用fastjson代替jackson
@@ -84,6 +91,11 @@ public class WebsiteConfig implements ApplicationRunner {
      */
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        docManager.load(null);
+
+    }
+
+    @PostConstruct
+    public void after() {
+        EnvironmentContext.setEnvironment(environment);
     }
 }

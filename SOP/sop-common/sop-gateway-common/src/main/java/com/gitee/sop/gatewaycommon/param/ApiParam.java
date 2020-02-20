@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class ApiParam extends JSONObject implements Param {
 
+
+
     public ApiParam() {
     }
 
@@ -27,9 +29,23 @@ public class ApiParam extends JSONObject implements Param {
     private String restName;
     private String restVersion;
 
+    private String serviceId;
     private String ip;
+    private boolean restful;
+    private boolean mergeResult = true;
+
+    private boolean isGrayRequest;
 
     private transient UploadContext uploadContext;
+
+    public static ApiParam createRestfulApiParam(String path) {
+        ApiParam apiParam = new ApiParam();
+        apiParam.setName(path);
+        apiParam.setVersion("");
+        apiParam.setRestful(true);
+        apiParam.setMergeResult(false);
+        return apiParam;
+    }
 
     public void fitNameVersion() {
         if (restName != null) {
@@ -200,12 +216,7 @@ public class ApiParam extends JSONObject implements Param {
 
     @Override
     public String fetchSignMethod() {
-        String signMethod = getString(ParamNames.SIGN_TYPE_NAME);
-        if (signMethod == null) {
-            return SopConstants.DEFAULT_SIGN_METHOD;
-        } else {
-            return signMethod;
-        }
+        return getString(ParamNames.SIGN_TYPE_NAME);
     }
 
     @Override
@@ -245,5 +256,37 @@ public class ApiParam extends JSONObject implements Param {
 
     public String fetchIp() {
         return ip;
+    }
+
+    public boolean fetchGrayRequest() {
+        return isGrayRequest;
+    }
+
+    public void setGrayRequest(boolean grayRequest) {
+        isGrayRequest = grayRequest;
+    }
+
+    public String fetchServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public boolean fetchMergeResult() {
+        return mergeResult;
+    }
+
+    public void setMergeResult(boolean mergeResult) {
+        this.mergeResult = mergeResult;
+    }
+
+    public boolean fetchRestful() {
+        return restful;
+    }
+
+    public void setRestful(boolean restful) {
+        this.restful = restful;
     }
 }

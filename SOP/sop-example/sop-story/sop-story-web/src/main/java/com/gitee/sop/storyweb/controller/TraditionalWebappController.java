@@ -1,6 +1,8 @@
 package com.gitee.sop.storyweb.controller;
 
 import com.gitee.sop.servercommon.util.UploadUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +22,13 @@ import java.util.Collection;
  */
 @RestController
 @RequestMapping("food")
+@Api(tags = "食物接口")
 public class TraditionalWebappController {
 
 
-    // http://localhost:8081/rest/food/getFoodById?id=1  网关入口
+    // http://localhost:8081/rest/story-service/food/getFoodById?id=1  网关入口
     // http://localhost:2222/food/getFoodById/?id=12  本地入口
+    @ApiOperation(value="获取食物", notes = "根据id获取食物")
     @RequestMapping(value = "getFoodById", method = RequestMethod.GET)
     public Food getFoodById(Integer id) {
         Food food = new Food();
@@ -34,13 +38,13 @@ public class TraditionalWebappController {
         return food;
     }
 
-    // http://localhost:8081/rest/food/getFoodByObj?id=2
+    // http://localhost:8081/rest/story-service/food/getFoodByObj?id=2
     @RequestMapping(value = "getFoodByObj", method = RequestMethod.GET)
     public Food getFoodByObj(Food food) {
         return food;
     }
 
-    // http://localhost:8081/rest/food/saveFood
+    // http://localhost:8081/rest/story-service/food/saveFood
     @RequestMapping(value = "saveFood", method = RequestMethod.POST)
     public Food saveFood(@RequestBody Food food) {
         food.setId(3);
@@ -75,11 +79,13 @@ public class TraditionalWebappController {
     }
 
     // http://localhost:2222/food/get/3  本地
-    // http://localhost:8081/rest/food/get/3  网关访问
+    // http://localhost:8081/rest/story-service/food/get/3  网关访问
     @RequestMapping("/get/{id}")
     public Food getById(@PathVariable("id") Integer id) {
         Food food = new Food();
         food.setId(id);
+        food.setName("香蕉");
+        food.setPrice(BigDecimal.valueOf(100));
         return food;
     }
 

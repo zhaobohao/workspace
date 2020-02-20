@@ -67,6 +67,9 @@ public class ErrorFactory {
      * @return 如果没有配置国际化消息，则直接返回errorMeta中的信息
      */
     public static Error getError(ErrorMeta errorMeta, Locale locale, Object... params) {
+        if (locale == null) {
+            locale = Locale.SIMPLIFIED_CHINESE;
+        }
         String key = errorMeta.getModulePrefix() + errorMeta.getCode() + errorMeta.getSubCode() + locale.toString();
         Error error = errorCache.get(key);
         if (error == null) {

@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 @Service
 public class ConfigPushService {
 
-    private static final String GATEWAY_PUSH_URL = "http://%s/configChannelMsg";
+    private static final String GATEWAY_PUSH_URL = "http://%s/sop/configChannelMsg";
     private static final String API_GATEWAY_SERVICE_ID = "sop-gateway";
 
     private static HttpTool httpTool = new HttpTool();
@@ -40,7 +40,7 @@ public class ConfigPushService {
     @Value("${gateway.host:}")
     private String gatewayHost;
 
-    @Value("${zuul.secret}")
+    @Value("${sop.secret}")
     private String secret;
 
     public void publishConfig(String dataId, String groupId, ChannelMsg channelMsg) {
@@ -59,6 +59,11 @@ public class ConfigPushService {
     private void pushByHost(Collection<String> hosts, GatewayPushDTO gatewayPushDTO) {
         for (String host : hosts) {
             String url = String.format(GATEWAY_PUSH_URL, host);
+            log.info("推送配置, dataId={}, groupId={}, operation={}， url={}",
+                    gatewayPushDTO.getDataId()
+                    , gatewayPushDTO.getGroupId()
+                    , gatewayPushDTO.getChannelMsg().getOperation()
+                    , url);
             try {
                 String requestBody = JSON.toJSONString(gatewayPushDTO);
                 Map<String, String> header = new HashMap<>(8);

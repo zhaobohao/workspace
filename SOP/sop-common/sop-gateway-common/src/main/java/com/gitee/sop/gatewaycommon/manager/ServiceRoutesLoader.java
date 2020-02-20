@@ -9,7 +9,9 @@ import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
 import com.gitee.sop.gatewaycommon.bean.NacosConfigs;
 import com.gitee.sop.gatewaycommon.bean.ServiceRouteInfo;
+import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import com.gitee.sop.gatewaycommon.bean.TargetRoute;
+import com.gitee.sop.gatewaycommon.route.RegistryMetadata;
 import com.gitee.sop.gatewaycommon.route.RegistryListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -38,15 +40,13 @@ import java.util.Objects;
  */
 @Deprecated
 @Slf4j
-public class ServiceRoutesLoader<T extends TargetRoute> {
+public class ServiceRoutesLoader<T extends TargetRoute> implements RegistryMetadata {
 
     private static final String SOP_ROUTES_PATH = "/sop/routes";
 
-    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq9i3jxnd";
+    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq";
 
     private static final int FIVE_SECONDS = 1000 * 5;
-
-    private static final String METADATA_SERVER_CONTEXT_PATH = "server.servlet.context-path";
 
     private static final String METADATA_SOP_ROUTES_PATH = "sop.routes.path";
 
@@ -141,7 +141,7 @@ public class ServiceRoutesLoader<T extends TargetRoute> {
      * @param instance 服务实例
      * @return 返回最终url
      */
-    private static String getRouteRequestUrl(Instance instance) {
+    private String getRouteRequestUrl(Instance instance) {
         Map<String, String> metadata = instance.getMetadata();
         String customPath = metadata.get(METADATA_SOP_ROUTES_PATH);
         String homeUrl;
@@ -159,7 +159,7 @@ public class ServiceRoutesLoader<T extends TargetRoute> {
         } else {
             // 默认处理
             homeUrl = getHomeUrl(instance);
-            String contextPath = metadata.getOrDefault(METADATA_SERVER_CONTEXT_PATH, "");
+            String contextPath = this.getContextPath(metadata);
             servletPath = contextPath + SOP_ROUTES_PATH;
         }
         if (StringUtils.isNotBlank(servletPath) && !servletPath.startsWith("/")) {

@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 灰度发布判断，改变版本号
  *
  * @author tanghc
+ * @deprecated
+ * @see com.gitee.sop.gatewaycommon.zuul.route.ZuulForwardChooser
  */
+@Deprecated
 public class PreEnvGrayFilter extends BaseZuulFilter {
 
     @Autowired

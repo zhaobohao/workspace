@@ -77,11 +77,30 @@
     </div>
 
     <div class="site-content">
-        <h1 class="site-h1"><i class="layui-icon layui-icon-slider"></i> <span class="sop-name"></span>(<span
-                class="sop-summary"></span>)
+        <h1 class="site-h1">
+            <i class="layui-icon layui-icon-slider"></i><span class="sop-summary"></span> <span class="sop-version"></span>
         </h1>
-        <blockquote class="layui-elem-quote layui-text sop-description">
-        </blockquote>
+
+        <div class="site-text">
+            <table class="layui-table">
+                <tbody>
+                <tr>
+                    <td style="width: 60px;background-color: #f2f2f2;">接口名</td>
+                    <td><span class="sop-name"></span></td>
+                    <td style="width: 60px;background-color: #f2f2f2;">版本号</td>
+                    <td style="width: 40px;"><span class="sop-version"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="site-title">
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend>接口描述</legend>
+            </fieldset>
+        </div>
+        <!-- 接口描述 -->
+        <div class="site-text sop-description"></div>
 
         <div class="site-title">
             <fieldset class="layui-elem-field layui-field-title site-title">

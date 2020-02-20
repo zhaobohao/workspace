@@ -3,7 +3,7 @@ var docEvent = {
         this.onSelectDocItem = fn;
     },
     onSelectDocItem: function () {}
-}
+};
 layui.config({
     base: '../../assets/lib/layuiext/module/'
 }).extend({
@@ -61,7 +61,7 @@ layui.config({
                 </li>
                      */
                     html.push('<li class="site-tree-noicon" nameversion="'+docItem.nameVersion+'">');
-                    html.push('<a href="#"><cite>' + docItem['summary'] + '</cite></a>')
+                    html.push('<a href="#"><cite>' + docItem['summary'] + ' ' + docItem.version + '</cite></a>')
                 }
             }
 
@@ -75,7 +75,7 @@ layui.config({
     function initEvent() {
         form.on('select(moduleListFilter)', function (data) {
             selectDocInfo(data.value);
-        })
+        });
         $('#docItemTree').on('click', 'li', function () {
             var $li = $(this);
             selectDocItem($li.attr('nameversion'));

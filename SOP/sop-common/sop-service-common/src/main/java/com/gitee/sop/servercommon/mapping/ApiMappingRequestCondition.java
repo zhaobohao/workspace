@@ -37,6 +37,11 @@ public class ApiMappingRequestCondition implements RequestCondition<ApiMappingRe
      */
     @Override
     public ApiMappingRequestCondition getMatchingCondition(HttpServletRequest request) {
+        String servletPath = request.getServletPath();
+        String path = apiMappingInfo.getName() + "/" + apiMappingInfo.getVersion() + "/";
+        if (servletPath.contains(path)) {
+            return this;
+        }
         String version = this.getVersion(request);
         if (version.equals(this.apiMappingInfo.getVersion())) {
             return this;

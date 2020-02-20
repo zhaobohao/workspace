@@ -210,12 +210,6 @@
               每 <el-input-number v-model="limitDialogFormData.durationSeconds" controls-position="right" :min="1" /> 秒可处理
               <el-input-number v-model="limitDialogFormData.execCountPerSecond" controls-position="right" :min="1" /> 个请求
             </el-form-item>
-            <el-form-item v-show="isWindowType()" label="错误码" prop="limitCode" :rules="isWindowType() ? rulesLimit.limitCode : []">
-              <el-input v-model="limitDialogFormData.limitCode" />
-            </el-form-item>
-            <el-form-item v-show="isWindowType()" label="错误信息" prop="limitMsg" :rules="isWindowType() ? rulesLimit.limitMsg : []">
-              <el-input v-model="limitDialogFormData.limitMsg" />
-            </el-form-item>
             <el-form-item v-show="isTokenType()" label="令牌桶容量" prop="tokenBucketCount" :rules="isTokenType() ? rulesLimit.tokenBucketCount : []">
               <el-input-number v-model="limitDialogFormData.tokenBucketCount" controls-position="right" :min="1" />
             </el-form-item>
@@ -305,14 +299,6 @@ export default {
         // window
         execCountPerSecond: [
           { required: true, message: '不能为空', trigger: 'blur' }
-        ],
-        limitCode: [
-          { required: true, message: '不能为空', trigger: 'blur' },
-          { min: 1, max: 64, message: '长度在 1 到 64 个字符', trigger: 'blur' }
-        ],
-        limitMsg: [
-          { required: true, message: '不能为空', trigger: 'blur' },
-          { min: 1, max: 100, message: '长度在 1 到 100 个字符', trigger: 'blur' }
         ],
         // token
         tokenBucketCount: [
@@ -442,9 +428,7 @@ export default {
     infoRender: function(row) {
       if (row.limitType === 1) {
         const durationSeconds = row.durationSeconds
-        return `每 ${durationSeconds} 秒可处理 ${row.execCountPerSecond} 个请求
-              <br>subCode：${row.limitCode}
-              <br>subMsg：${row.limitMsg}`
+        return `每 ${durationSeconds} 秒可处理 ${row.execCountPerSecond} 个请求`
       } else if (row.limitType === 2) {
         return `令牌桶容量：${row.tokenBucketCount}`
       }

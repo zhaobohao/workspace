@@ -45,4 +45,9 @@ public interface RouteRepository<T extends TargetRoute> {
      * @param serviceId 服务id
      */
     void deleteAll(String serviceId);
+
+    /**
+     * 刷新
+     */
+    default void refresh() {}
 }

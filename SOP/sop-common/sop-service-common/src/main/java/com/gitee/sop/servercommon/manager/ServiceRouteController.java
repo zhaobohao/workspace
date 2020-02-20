@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class ServiceRouteController {
 
-    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq9i3jxnd";
+    private static final String SECRET = "a3d9sf!1@odl90zd>fkASwq";
     private static final String HEADER_RESTFUL = "restful";
 
     @Autowired

@@ -11,7 +11,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 简易客户端
@@ -140,6 +145,40 @@ public class Client {
         return responseData;
     }
 
+    /**
+     * 发送请求
+     *
+     * @param requestBuilder 请求信息
+     * @return 返回结果
+     */
+    public InputStream download(RequestBuilder requestBuilder) throws Exception {
+        RequestInfo requestInfo = requestBuilder.build(appId, privateKey);
+        HttpTool.HTTPMethod httpMethod = requestInfo.getHttpMethod();
+        boolean postJson = requestInfo.isPostJson();
+        Map<String, ?> form = requestInfo.getForm();
+        Map<String, String> header = requestInfo.getHeader();
+        String requestUrl = requestInfo.getUrl() != null ? requestInfo.getUrl() : url;
+        List<HttpTool.UploadFile> uploadFileList = requestBuilder.getUploadFileList();
+        InputStream responseData = null;
+        // 发送请求
+        try {
+            // 如果有上传文件
+            if (uploadFileList != null && uploadFileList.size() > 0) {
+                responseData = httpTool.downloadByRequestFile(url, form, header, uploadFileList);
+            } else {
+                if (httpMethod == HttpTool.HTTPMethod.POST && postJson) {
+                    responseData = httpTool.downloadJson(requestUrl, JSON.toJSONString(form), header);
+                } else {
+                    responseData = httpTool.download(requestUrl, form, header, httpMethod);
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return responseData;
+    }
+
     public interface Callback {
         /**
          * 请求成功后回调
@@ -148,6 +187,16 @@ public class Client {
          * @param responseData 返回结果
          */
         void callback(RequestInfo requestInfo, String responseData);
+    }
+
+    public interface DownloadCallback {
+        /**
+         * 请求成功后回调
+         *
+         * @param requestInfo  请求信息
+         * @param responseData 返回结果
+         */
+        void callback(RequestInfo requestInfo, InputStream responseData);
     }
 
     public static class RequestBuilder {
@@ -250,6 +299,9 @@ public class Client {
          */
         public RequestBuilder postJson(boolean postJson) {
             this.postJson = postJson;
+            if (postJson) {
+                this.httpMethod(HttpTool.HTTPMethod.POST);
+            }
             return this;
         }
 

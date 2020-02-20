@@ -41,13 +41,15 @@ public class LogApi {
     public static final String LOG_MONITOR_INSTANCE = "log.monitor.instance";
     public static final String CODE_SUCCESS = "10000";
     private static final String CODE_KEY = "code";
+    public static final String SOP_LIST_ERRORS_PATH = "/sop/listErrors";
+    public static final String SOP_CLEAR_ERRORS_PATH = "/sop/clearErrors";
 
     @Autowired
     ConfigCommonMapper configCommonMapper;
 
     RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${zuul.secret}")
+    @Value("${sop.secret}")
     private String secret;
 
     @Api(name = "monitor.log.list")
@@ -66,7 +68,7 @@ public class LogApi {
             logMonitorInstanceVOParent.setMonitorName(configCommon.getContent());
             ret.add(logMonitorInstanceVOParent);
             try {
-                String logData = this.requestLogServer(ipPort, "listErrors");
+                String logData = this.requestLogServer(ipPort, SOP_LIST_ERRORS_PATH);
                 JSONObject jsonObject = JSON.parseObject(logData);
                 if (CODE_SUCCESS.equals(jsonObject.getString("code"))) {
                     int errorTotal = 0;
@@ -97,7 +99,7 @@ public class LogApi {
         }
         try {
             String ipPort = configCommon.getConfigKey();
-            this.requestLogServer(ipPort, "clearErrors");
+            this.requestLogServer(ipPort, SOP_CLEAR_ERRORS_PATH);
         } catch (Exception e) {
             throw new BizException("清除失败");
         }
@@ -134,7 +136,7 @@ public class LogApi {
 
     private void checkInstance(String ipPort) {
         try {
-            String json = this.requestLogServer(ipPort, "listErrors");
+            String json = this.requestLogServer(ipPort, SOP_LIST_ERRORS_PATH);
             JSONObject jsonObject = JSON.parseObject(json);
             if (!CODE_SUCCESS.equals(jsonObject.getString(CODE_KEY))) {
                 log.error("请求结果:{}", json);
@@ -153,6 +155,7 @@ public class LogApi {
         String sign = md5Verifier.buildSign(params, secret);
         params.put("sign", sign);
         String query = QueryUtil.buildQueryString(params);
+        path = path.startsWith("/") ? path.substring(1) : path;
         String url = "http://" + ipPort + "/" + path + "?" + query;
         ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
         if (entity.getStatusCode() != HttpStatus.OK) {

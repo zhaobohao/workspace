@@ -1,6 +1,7 @@
 package com.gitee.sop.gatewaycommon.validate.taobao;
 
 
+import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import com.gitee.sop.gatewaycommon.message.ErrorEnum;
 import com.gitee.sop.gatewaycommon.param.ApiParam;
 import com.gitee.sop.gatewaycommon.validate.AbstractSigner;
@@ -35,6 +36,9 @@ public class TaobaoSigner extends AbstractSigner {
     @Override
     public String buildServerSign(ApiParam param, String secret) {
         String signMethod = param.fetchSignMethod();
+        if (signMethod == null) {
+            signMethod = SopConstants.DEFAULT_SIGN_METHOD;
+        }
         SignEncipher signEncipher = signEncipherMap.get(signMethod);
         if (signEncipher == null) {
             throw ErrorEnum.ISV_INVALID_SIGNATURE_TYPE.getErrorMeta().getException(signMethod);

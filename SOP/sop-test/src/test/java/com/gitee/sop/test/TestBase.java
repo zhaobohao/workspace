@@ -5,6 +5,8 @@ import junit.framework.TestCase;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Map;
 
@@ -69,6 +71,18 @@ public class TestBase extends TestCase {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             sb.append("&").append(entry.getKey()).append("=").append(entry.getValue());
+        }
+        return sb.toString().substring(1);
+    }
+
+    protected static String buildUrlQuery(Map<String, String> params) {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            try {
+                sb.append("&").append(entry.getKey()).append("=").append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
         return sb.toString().substring(1);
     }

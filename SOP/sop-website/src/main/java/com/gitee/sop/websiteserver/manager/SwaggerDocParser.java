@@ -8,6 +8,7 @@ import com.gitee.sop.websiteserver.bean.DocModule;
 import com.gitee.sop.websiteserver.bean.DocParameter;
 import com.gitee.sop.websiteserver.bean.DocParserContext;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -48,6 +49,9 @@ public class SwaggerDocParser implements DocParser {
                 String method = first.get();
                 JSONObject docInfo = pathInfo.getJSONObject(method);
                 DocItem docItem = buildDocItem(docInfo, docRoot);
+                if (docItem == null) {
+                    continue;
+                }
                 if (docItem.isUploadRequest()) {
                     docItem.setHttpMethodList(Sets.newHashSet("post"));
                 } else {
@@ -105,8 +109,13 @@ public class SwaggerDocParser implements DocParser {
     }
 
     protected DocItem buildDocItem(JSONObject docInfo, JSONObject docRoot) {
+        String apiName = docInfo.getString("sop_name");
+        // 非开放接口
+        if (StringUtils.isBlank(apiName)) {
+            return null;
+        }
         DocItem docItem = new DocItem();
-        docItem.setName(docInfo.getString("sop_name"));
+        docItem.setName(apiName);
         docItem.setVersion(docInfo.getString("sop_version"));
         docItem.setSummary(docInfo.getString("summary"));
         docItem.setDescription(docInfo.getString("description"));

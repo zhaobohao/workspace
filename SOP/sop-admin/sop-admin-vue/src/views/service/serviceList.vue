@@ -63,29 +63,26 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="updateTime"
-        label="最后更新时间"
-        width="160"
-      />
-      <el-table-column
         label="操作"
         width="250"
       >
         <template slot-scope="scope">
-          <div v-if="scope.row.parentId === 0">
-            <el-button type="text" size="mini" @click="onGrayConfigUpdate(scope.row)">设置灰度参数</el-button>
-          </div>
-          <div v-if="scope.row.parentId > 0">
+          <div v-if="scope.row.serviceId.toLowerCase() !== 'sop-gateway'">
+            <div v-if="scope.row.parentId === 0">
+              <el-button type="text" size="mini" @click="onGrayConfigUpdate(scope.row)">设置灰度参数</el-button>
+            </div>
+            <div v-if="scope.row.parentId > 0">
             <span v-if="scope.row.status === 'UP'">
               <el-button v-if="scope.row.metadata.env === 'pre'" type="text" size="mini" @click="onEnvPreClose(scope.row)">结束预发布</el-button>
               <el-button v-if="scope.row.metadata.env === 'gray'" type="text" size="mini" @click="onEnvGrayClose(scope.row)">结束灰度</el-button>
               <el-button v-if="!scope.row.metadata.env" type="text" size="mini" @click="onEnvPreOpen(scope.row)">开启预发布</el-button>
               <el-button v-if="!scope.row.metadata.env" type="text" size="mini" @click="onEnvGrayOpen(scope.row)">开启灰度</el-button>
             </span>
-            <span style="margin-left: 10px;">
+              <span style="margin-left: 10px;">
               <el-button v-if="scope.row.status === 'UP'" type="text" size="mini" @click="onDisable(scope.row)">禁用</el-button>
               <el-button v-if="scope.row.status === 'OUT_OF_SERVICE'" type="text" size="mini" @click="onEnable(scope.row)">启用</el-button>
             </span>
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -109,7 +106,7 @@
         <el-tabs v-model="tabsActiveName" type="card">
           <el-tab-pane label="灰度用户" name="first">
             <el-alert
-              title="可以是appId，或userId，多个用英文逗号隔开"
+              title="可以是appId或IP地址，多个用英文逗号隔开"
               type="info"
               :closable="false"
               style="margin-bottom: 20px;"
@@ -117,7 +114,7 @@
             <el-form-item prop="userKeyContent">
               <el-input
                 v-model="grayForm.userKeyContent"
-                placeholder="可以是appId，或userId，多个用英文逗号隔开"
+                placeholder="可以是appId或IP地址，多个用英文逗号隔开"
                 type="textarea"
                 :rows="6"
               />

@@ -8,6 +8,7 @@ import com.gitee.sop.gatewaycommon.result.CustomDataNameBuilder;
  *
  * @author tanghc
  */
+@Deprecated
 public class WebappZuulConfiguration extends BaseZuulConfiguration {
 
     static {

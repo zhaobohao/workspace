@@ -246,10 +246,8 @@ public class IsvApi {
         isvFormVO.setPublicKeyIsv(keyStoreIsv.getPublicKey());
         isvFormVO.setPrivateKeyIsv(keyStoreIsv.getPrivateKey());
 
-        RSATool rsaToolPlatform = new RSATool(RSATool.KeyFormat.PKCS8, RSATool.KeyLength.LENGTH_2048);
-        RSATool.KeyStore keyStorePlatform = rsaToolPlatform.createKeys();
-        isvFormVO.setPublicKeyPlatform(keyStorePlatform.getPublicKey());
-        isvFormVO.setPrivateKeyPlatform(keyStorePlatform.getPrivateKey());
+        isvFormVO.setPublicKeyPlatform("");
+        isvFormVO.setPrivateKeyPlatform("");
         return isvFormVO;
     }
 

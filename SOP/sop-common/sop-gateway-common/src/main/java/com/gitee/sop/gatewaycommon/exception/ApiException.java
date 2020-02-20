@@ -2,25 +2,43 @@ package com.gitee.sop.gatewaycommon.exception;
 
 
 import com.gitee.sop.gatewaycommon.message.Error;
+import com.gitee.sop.gatewaycommon.message.ErrorFactory;
+import com.gitee.sop.gatewaycommon.message.ErrorMeta;
+
+import java.util.Locale;
 
 /**
  * @author tanghc
  */
 public class ApiException extends RuntimeException {
 
-    private transient final Error error;
+    private transient Error error;
 
-    public ApiException(Throwable cause, Error error) {
+    private transient ErrorMeta errorMeta;
+    private transient Object[] params;
+
+    public ApiException(ErrorMeta errorMeta, Object... params) {
+        this.errorMeta = errorMeta;
+        this.params = params;
+    }
+
+    public ApiException(Throwable cause, ErrorMeta errorMeta, Object... params) {
         super(cause);
-        this.error = error;
+        this.errorMeta = errorMeta;
+        this.params = params;
     }
 
-    public ApiException(Error error) {
-        super(error.toString());
-        this.error = error;
-    }
-
-    public Error getError() {
+    public Error getError(Locale locale) {
+        if (error == null) {
+            error = ErrorFactory.getError(this.errorMeta, locale, params);
+        }
         return error;
     }
+
+    @Override
+    public String getMessage() {
+        String message = super.getMessage();
+        return message == null ? errorMeta.toString() : message;
+    }
+
 }

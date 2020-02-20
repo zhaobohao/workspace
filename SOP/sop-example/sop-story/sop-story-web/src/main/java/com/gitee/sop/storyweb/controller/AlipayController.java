@@ -17,7 +17,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +41,9 @@ import java.util.List;
 @Api(tags = "故事接口")
 public class AlipayController {
 
+    @Autowired
+    private Environment environment;
+
     // http://localhost:2222/story_get
     // 原生的接口，可正常调用
     @RequestMapping("story_get")
@@ -48,7 +54,7 @@ public class AlipayController {
         return result;
     }
 
-    // http://localhost:2222/story.get/
+    // http://localhost:2222/story.get/1.0/
     // 接口名，使用默认版本号
     @ApiMapping(value = "story.get")
     public StoryResult storyget() {
@@ -61,7 +67,7 @@ public class AlipayController {
         return result;
     }
 
-    // http://localhost:2222/story.get/?version=1.1
+    // http://localhost:2222/story.get/1.1/
     // 接口名 + 版本号
     @ApiMapping(value = "story.get", version = "1.1")
     public StoryResult getStory2() {
@@ -71,7 +77,7 @@ public class AlipayController {
         return result;
     }
 
-    // http://localhost:2222/story.get/?name=111&version=2.0
+    // http://localhost:2222/story.get/2.0/?name=111
     // 接口名 + 版本号
     // StoryParam对应biz_content内容
     @ApiMapping(value = "story.get", version = "2.0")
@@ -141,6 +147,17 @@ public class AlipayController {
         return story;
     }
 
+    // http://localhost:2222/getStory33
+    // 遗留接口具备开放平台能力
+    @ApiAbility
+    @PostMapping("getStory33")
+    public StoryResult getStory22(@RequestBody StoryParam param) {
+        StoryResult story = new StoryResult();
+        story.setId(1L);
+        story.setName("遗留接口,param:" + param);
+        return story;
+    }
+
     // http://localhost:2222/getStory2?version=2.1
     // 遗留接口具备开放平台能力，在原来的基础上加版本号
     @ApiAbility(version = "2.1")
@@ -162,13 +179,13 @@ public class AlipayController {
         return story;
     }
 
-    // http://localhost:2222/alipay.story.get/
-    @ApiOperation(value="获取故事信息2", notes = "获取故事信息2的详细信息")
+    // http://localhost:2222/alipay.story.get/1.0/?name=Jim
+    @ApiOperation(value="获取故事信息", notes = "获取故事信息的详细信息")
     @ApiMapping(value = "alipay.story.get")
     public StoryResult getStory(StoryParam param) {
         StoryResult story = new StoryResult();
         story.setId(1L);
-        story.setName("海底小纵队(alipay.story.get1.0), param:" + param);
+        story.setName("海底小纵队(alipay.story.get1.0), port:" + environment.getProperty("server.port") + ", param:" + param);
         return story;
     }
 
@@ -176,6 +193,7 @@ public class AlipayController {
      * @param param 对应biz_content中的内容，并自动JSR-303校验
      * @return
      */
+    @ApiOperation(value="获取故事信息", notes = "获取故事信息的详细信息")
     @ApiMapping(value = "alipay.story.get", version = "1.2")
     public StoryResult getStory11(StoryParam param) {
         StoryResult story2 = new StoryResult();

@@ -2,15 +2,15 @@ package com.gitee.sop.gatewaycommon.gateway.handler;
 
 import com.gitee.sop.gatewaycommon.bean.ApiContext;
 import com.gitee.sop.gatewaycommon.gateway.ServerWebExchangeUtil;
-import com.gitee.sop.gatewaycommon.gateway.result.GatewayResult;
 import com.gitee.sop.gatewaycommon.param.ApiParam;
 import com.gitee.sop.gatewaycommon.result.ResultExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.codec.HttpMessageReader;
 import org.springframework.http.codec.HttpMessageWriter;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RequestPredicates;
@@ -33,24 +33,6 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GatewayExceptionHandler.class);
 
-    @Override
-    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
-        ResultExecutor<ServerWebExchange, GatewayResult> resultExecutor = ApiContext.getApiConfig().getGatewayResultExecutor();
-        GatewayResult errorResult = resultExecutor.buildErrorResult(exchange, ex);
-        ApiParam apiParam = ServerWebExchangeUtil.getApiParam(exchange);
-        // 错误记录
-        log.error("gateway网关报错，params:{}, errorMsg:{}", apiParam, ex.getMessage(), ex);
-        // 参考AbstractErrorWebExceptionHandler
-        if (exchange.getResponse().isCommitted()) {
-            return Mono.error(ex);
-        }
-        ServerRequest newRequest = ServerRequest.create(exchange, this.messageReaders);
-        return RouterFunctions.route(RequestPredicates.all(), (serverRequest) -> this.renderErrorResponse(errorResult)).route(newRequest)
-                .switchIfEmpty(Mono.error(ex))
-                .flatMap((handler) -> handler.handle(newRequest))
-                .flatMap((response) -> write(exchange, response));
-
-    }
 
     /**
      * MessageReader
@@ -66,6 +48,25 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
      * ViewResolvers
      */
     private List<ViewResolver> viewResolvers = Collections.emptyList();
+
+    @Override
+    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        ResultExecutor<ServerWebExchange, String> resultExecutor = ApiContext.getApiConfig().getGatewayResultExecutor();
+        String errorResult = resultExecutor.buildErrorResult(exchange, ex);
+        ApiParam apiParam = ServerWebExchangeUtil.getApiParam(exchange);
+        // 错误记录
+        log.error("gateway网关报错，params:{}, errorMsg:{}", apiParam, ex.getMessage(), ex);
+        // 参考AbstractErrorWebExceptionHandler
+        if (exchange.getResponse().isCommitted()) {
+            return Mono.error(ex);
+        }
+        ServerRequest newRequest = ServerRequest.create(exchange, this.messageReaders);
+        return RouterFunctions.route(RequestPredicates.all(), (serverRequest) -> this.renderErrorResponse(errorResult)).route(newRequest)
+                .switchIfEmpty(Mono.error(ex))
+                .flatMap((handler) -> handler.handle(newRequest))
+                .flatMap((response) -> write(exchange, response));
+
+    }
 
     /**
      * 参考AbstractErrorWebExceptionHandler
@@ -103,11 +104,11 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
      * @param result 返回结果
      * @return 返回mono
      */
-    protected Mono<ServerResponse> renderErrorResponse(GatewayResult result) {
+    protected Mono<ServerResponse> renderErrorResponse(String result) {
         return ServerResponse
-                .status(result.getHttpStatus())
-                .contentType(result.getContentType())
-                .body(BodyInserters.fromObject(result.getBody()));
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(BodyInserters.fromObject(result));
     }
 
     /**

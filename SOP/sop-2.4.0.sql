@@ -1,1 +1,0 @@
-ALTER TABLE `sop`.`config_limit` ADD COLUMN `duration_seconds` INT NOT NULL DEFAULT 1 COMMENT '限流持续时间，默认1秒，即每durationSeconds秒允许多少请求（当limit_type=1时有效）' AFTER `exec_count_per_second`;

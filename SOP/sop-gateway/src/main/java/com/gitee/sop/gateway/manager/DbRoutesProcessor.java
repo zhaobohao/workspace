@@ -4,15 +4,19 @@ import com.alibaba.fastjson.JSON;
 import com.gitee.fastmybatis.core.query.Query;
 import com.gitee.sop.gateway.entity.ConfigServiceRoute;
 import com.gitee.sop.gateway.mapper.ConfigServiceRouteMapper;
+import com.gitee.sop.gatewaycommon.bean.BeanInitializer;
 import com.gitee.sop.gatewaycommon.bean.InstanceDefinition;
+import com.gitee.sop.gatewaycommon.bean.ServiceBeanInitializer;
 import com.gitee.sop.gatewaycommon.bean.ServiceRouteInfo;
 import com.gitee.sop.gatewaycommon.route.RoutesProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +28,9 @@ public class DbRoutesProcessor implements RoutesProcessor {
 
     @Autowired
     private ConfigServiceRouteMapper configServiceRouteMapper;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Override
     public void removeAllRoutes(String serviceId) {
@@ -65,6 +72,13 @@ public class DbRoutesProcessor implements RoutesProcessor {
         if (CollectionUtils.isNotEmpty(configServiceRoutes)) {
             // 批量保存
             configServiceRouteMapper.saveBatch(configServiceRoutes);
+            // 后续处理操作
+            this.initServiceBeanInitializer(serviceId);
         }
+    }
+
+    private void initServiceBeanInitializer(String serviceId) {
+        Map<String, ServiceBeanInitializer> serviceBeanInitializerMap = applicationContext.getBeansOfType(ServiceBeanInitializer.class);
+        serviceBeanInitializerMap.values().forEach(serviceBeanInitializer -> serviceBeanInitializer.load(serviceId));
     }
 }
