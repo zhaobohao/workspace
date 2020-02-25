@@ -27,9 +27,9 @@ public class GeneratorUtils {
 			// 开始生成ddl文件内容
 			// 1.开始输出 创建表的语句
 			sw.append("create table ").append(" ").append(table.getName()).append("\n");
-			sw.append("{\n");
+			sw.append("(\n");
 			// 2.生成字段语句
-			sw.append("Id").append("    ").append("NUMBER NOT NULL,\n");
+			sw.append(table.getName()).append("_Id").append("    ").append("varchar2(64 char) NOT NULL,\n");
 			columns.forEach(column -> {
 				sw.append(column.getName()).append("   ")
 					.append(column.getTypeKey())
@@ -45,31 +45,31 @@ public class GeneratorUtils {
 			sw.append("created_date timestamp default systimestamp,\n");
 			sw.append("updated_by varchar2(50 char),\n");
 			sw.append("updated_date timestamp default systimestamp,\n");
-			sw.append("is_deleted int(2) default 0\n");
-			sw.append("}\n");
+			sw.append("is_deleted int default 0\n");
+			sw.append(")\n");
 			// 对表进行分区处理
 			sw.append("PARTITION BY RANGE (CREATE_DATE) INTERVAL (NUMTOYMINTERVAL(1,'MONTH'))\n");
-			sw.append("{\n");
+			sw.append("(\n");
 			sw.append(" PARTITION PART_20190801 VALUES LESS THAN(TO_DATE('20190801','YYYYMMDD')),\n");
 			sw.append(" PARTITION PART_20190901 VALUES LESS THAN(TO_DATE('20190901','YYYYMMDD')),\n");
 			sw.append(" PARTITION PART_20191001 VALUES LESS THAN(TO_DATE('20191001','YYYYMMDD'))\n");
-			sw.append("}INITRANS 6;\n");
+			sw.append(")INITRANS 6;\n");
 			//创建表的同义词
 			sw.append("create or replace public synonym ").append(table.getName()).append(" for ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append(";\n");
 			//先创建索引，在创建主键
-			sw.append("create unique index PK_").append(table.getName()).append("_ID").append(" on ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append("(").append("Id").append(")INITRANS 16;\n");
-			sw.append("alter table ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append(" add constraint PK_").append(table.getName()).append("_ID").append(" primary key(").append(table.getName()).append("Id) using index ").append("PK_").append(table.getName()).append("_ID;\n");
+			sw.append("create unique index PK_").append(table.getName()).append("_ID").append(" on ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append("(").append(table.getName()).append("Id").append(")INITRANS 16;\n");
+			sw.append("alter table ").append(dbInstance.getDataUser()).append(".").append(table.getName()).append(" add constraint PK_").append(table.getName()).append("_ID").append(" primary key (").append(table.getName()).append("_Id) using index ").append("PK_").append(table.getName()).append("_ID;\n");
 			//创建注解
 			sw.append("comment on table ").append(table.getName()).append(" is ").append("'").append(table.getComment()).append("';\n");
 			columns.forEach(column -> {
-				sw.append("commont on column ").append(table.getName()).append(".").append(column.getName()).append(" is ").append("'").append(column.getComment()).append("';\n");
+				sw.append("comment on column ").append(table.getName()).append(".").append(column.getName()).append(" is ").append("'").append(column.getComment()).append("';\n");
 			});
 			// 进行授权
 			sw.append("grant select,insert,update,delete on ").append(table.getName()).append(" to ").append(dbInstance.getEtlUser()).append(";\n");
 			sw.append("grant select,insert,update,delete on ").append(table.getName()).append(" to ").append(dbInstance.getOprUser()).append(";\n");
 			sw.append("grant select,insert,update,delete on ").append(table.getName()).append(" to ").append(dbInstance.getRptUser()).append(";\n");
 			//创建sequnce
-			sw.append("create sequence").append(dbInstance.getDataUser()).append(".SEQ_").append(table.getName()).append("\n")
+			sw.append("create sequence ").append(dbInstance.getDataUser()).append(".SEQ_").append(table.getName()).append("\n")
 				.append("minvalue 1\n")
 				.append("maxvalue 9999999999999999999999999999\n")
 				.append("start with 1\n")
