@@ -164,7 +164,7 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
      */
     protected boolean isMergeResult(T request) {
         ApiParam params = this.getApiParam(request);
-        return params.fetchMergeResult();
+        return params != null && params.fetchMergeResult();
     }
 
     protected String formatResult(String serviceResult) {
@@ -181,6 +181,10 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
     public String merge(T exchange, JSONObject responseData) {
         JSONObject finalData = new JSONObject(true);
         ApiParam params = this.getApiParam(exchange);
+        if (params == null) {
+            params = new ApiParam();
+            params.setName("error");
+        }
         ApiConfig apiConfig = ApiConfig.getInstance();
         // 点换成下划线
         DataNameBuilder dataNameBuilder = apiConfig.getDataNameBuilder();

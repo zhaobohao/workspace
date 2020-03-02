@@ -2,6 +2,7 @@ package com.gitee.sop.gatewaycommon.zuul.param;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gitee.sop.gatewaycommon.manager.EnvironmentKeys;
 import com.gitee.sop.gatewaycommon.param.FormHttpOutputMessage;
 import com.gitee.sop.gatewaycommon.util.RequestUtil;
 import com.netflix.zuul.context.RequestContext;
@@ -44,6 +45,11 @@ public class ZuulParameterUtil {
      * @param <T> 参数类型
      */
     public static <T extends Map<String, Object>> void format(T apiParam, Consumer<T> consumer) {
+        String restfulEnableValue = EnvironmentKeys.SOP_RESTFUL_ENABLE.getValue();
+        // restful请求不支持动态修改参数
+        if ("true".equals(restfulEnableValue)) {
+            return;
+        }
         RequestContext requestContext = RequestContext.getCurrentContext();
         consumer.accept(apiParam);
         HttpServletRequest request = requestContext.getRequest();
