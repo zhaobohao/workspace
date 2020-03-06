@@ -1,6 +1,7 @@
 
 package org.springclouddev.core.tool.jackson;
 
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
@@ -14,6 +15,7 @@ import org.springclouddev.core.tool.utils.DateUtil;
 import org.springclouddev.core.tool.utils.Exceptions;
 import org.springclouddev.core.tool.utils.StringPool;
 import org.springclouddev.core.tool.utils.StringUtil;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -312,5 +314,20 @@ public class JsonUtil {
 			return super.copy();
 		}
 	}
+	public static String getString(String jsonStr, String key) {
 
+		cn.hutool.json.JSONObject jsonObject = cn.hutool.json.JSONUtil.parseObj(jsonStr);
+		return jsonObject.getStr(key);
+
+	}
+
+	public static Integer getInteger(String jsonStr, String key) {
+		cn.hutool.json.JSONObject jsonObject = cn.hutool.json.JSONUtil.parseObj(jsonStr);
+		return jsonObject.getInt(key);
+	}
+
+	public static Integer[] getIntegerArr(String jsonStr, String key) {
+		cn.hutool.json.JSONObject jsonObject = cn.hutool.json.JSONUtil.parseObj(jsonStr);
+		return jsonObject.get(key, Integer[].class);
+	}
 }

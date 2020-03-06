@@ -15,7 +15,6 @@
     <name>${project.artifactId}</name>
     <version>${springclouddev.project.version}</version>
     <properties>
-        <hutool-all.version>5.0.7</hutool-all.version>
     </properties>
     <packaging>jar</packaging>
 
@@ -57,11 +56,6 @@
              <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-dict-api</artifactId>
             <version>${springclouddev.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool-all.version}</version>
         </dependency>
     </dependencies>
 
