@@ -16,7 +16,7 @@ package $!{package.Entity};
 import $!{pkg};
 #end
 #if($!{entityLombokModel})
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,7 +39,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 @Data
 @Accessors(chain = true)
 @Builder
-@AllArgsConstructor
+@NoArgsConstructor
 #end
 #if($!{table.convert})
 @TableName("$!{table.name}")
