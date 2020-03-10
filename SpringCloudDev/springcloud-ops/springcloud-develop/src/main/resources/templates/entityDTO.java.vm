@@ -17,6 +17,9 @@ import lombok.EqualsAndHashCode;
 #if($!{entityLombokModel})
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Builder
+@NoArgsConstructor
+@ToString
 #end
 public class $!{entity}DTO extends $!{entity} {
 	private static final long serialVersionUID = 1L;

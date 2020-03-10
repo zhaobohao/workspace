@@ -3,7 +3,10 @@ package org.springclouddev.core.mp.support;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -11,9 +14,12 @@ import lombok.experimental.Accessors;
  *
  * @author zhaobohao
  */
+@ApiModel(description = "查询条件")
 @Data
 @Accessors(chain = true)
-@ApiModel(description = "查询条件")
+@Builder
+@NoArgsConstructor
+@ToString
 public class Query {
 
 	/**

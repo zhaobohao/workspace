@@ -330,4 +330,8 @@ public class JsonUtil {
 		cn.hutool.json.JSONObject jsonObject = cn.hutool.json.JSONUtil.parseObj(jsonStr);
 		return jsonObject.get(key, Integer[].class);
 	}
+	public static Long[] getLongArr(String jsonStr, String key) {
+		cn.hutool.json.JSONObject jsonObject = cn.hutool.json.JSONUtil.parseObj(jsonStr);
+		return jsonObject.get(key, Long[].class);
+	}
 }

@@ -14,7 +14,7 @@
   `status`	int(1)	NULL	DEFAULT	NULL	COMMENT '状态',
   `tenant_id` varchar(12) NULL DEFAULT '000000' COMMENT '租户ID',
 ```
-以上字段已经做了自动填充，只要在建表的时候加上字段即可，java程序中不需要做处理。
+以上字段已经做了自动填充，只要在建表的时候加上字段即可，java程序中不需要做处理。要继承BaseEntity。
 
 ###树形结构表处理
 ```java
