@@ -1,6 +1,7 @@
 
 package org.springclouddev;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.springclouddev.core.cloud.feign.EnableCustomFeign;
 import org.springclouddev.core.launch.SpingCloudDevApplication;
 import org.springclouddev.core.launch.constant.AppConstant;
@@ -15,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringCloudApplication
 @EnableCustomFeign(AppConstant.BASE_PACKAGES)
 @EnableConfigurationProperties
+@EnableApolloConfig
 public class SystemApplication {
 
 	public static void main(String[] args) {
