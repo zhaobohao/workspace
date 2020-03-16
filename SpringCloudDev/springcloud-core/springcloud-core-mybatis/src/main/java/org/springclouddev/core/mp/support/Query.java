@@ -17,8 +17,6 @@ import lombok.experimental.Accessors;
 @ApiModel(description = "查询条件")
 @Data
 @Accessors(chain = true)
-@Builder
-@NoArgsConstructor
 @ToString
 public class Query {
 
