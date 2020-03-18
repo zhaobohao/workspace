@@ -9,6 +9,7 @@ import $!{package.Service}.$!{table.serviceName};
 import $!{superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import lombok.extern.slf4j.Slf4j;
 #foreach($field in $!{table.fields})
 #if($!{field.name}=="parent_id")
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springclouddev.core.tool.node.ForestNodeMerger;
  * @since $!{date}
  */
 @Service
+@Slf4j
 #if($!{kotlin})
 open class $!{table.serviceImplName} : $!{superServiceImplClass}<$!{table.mapperName}, $!{entity}>(), $!{table.serviceName} {
 

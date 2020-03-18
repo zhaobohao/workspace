@@ -24,10 +24,10 @@ SpringcloudDev
 ├    ├── springcloud-desk-api -- 工作台api
 ├    ├── springcloud-dict-api -- 字典api
 ├    ├── springcloud-system-api -- 系统api
-└──  └── springcloud-user-api -- 用户api
+├    └── springcloud-user-api -- 用户api
 ├── springcloud-business --  外挂业务模块
-└──  └── springcloud-crm -- 客户关系管理系统
-└──  └── springcloud-integral -- 积分核心
+├    ├── springcloud-crm -- 客户关系管理系统
+├    └── springcloud-integral -- 积分核心
 ├── springcloud-business-api --  外挂业务api模块
-└──  └── springcloud-crm-api -- 客户关系管理系统户api
-└──  └── springcloud-integral-api -- 积分核心api
+├    ├── springcloud-crm-api -- 客户关系管理系统户api
+├    └── springcloud-integral-api -- 积分核心api
