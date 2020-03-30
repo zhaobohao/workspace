@@ -43,7 +43,7 @@ public class ConfigChannelController {
     @Value("${sop.secret}")
     private String secret;
 
-    @PostMapping("/configChannelMsg")
+    @PostMapping("/sop/configChannelMsg")
     public String configChannel(HttpServletRequest request) throws IOException {
         String requestJson = RequestUtil.getText(request);
         String sign = request.getHeader("sign");
