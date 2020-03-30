@@ -43,9 +43,7 @@ CREATE TABLE `db_db_instance`  (
 -- ----------------------------
 INSERT INTO `db_db_instance` VALUES (1, '网商贷oracle业务数据库', 'DistrlData', 'DistrlEtl', 'DistrlOpr', 'DistrlRpt', 1, '2019-12-17 15:48:12', 1, '2019-12-17 15:56:08', 0, 1);
 INSERT INTO `db_db_instance` VALUES (2, '马上金融oracle业务数据库', 'DistrlMaData', 'DistrlMaEtl', 'DistrlMaOpr', 'DistrlMaRpt', 1, '2019-12-17 15:52:52', 1, '2019-12-17 15:52:52', 0, 1);
-INSERT INTO `db_db_instance` VALUES (3, '232', '2323', '323', '23', '2323', 1, '2019-12-17 15:57:53', 1, '2019-12-17 15:57:53', 1, 1);
-INSERT INTO `db_db_instance` VALUES (4, '234', '4234234', '234', '23', '234', 1, '2019-12-17 15:58:02', 1, '2019-12-17 15:58:02', 1, 1);
-INSERT INTO `db_db_instance` VALUES (5, '3333333333333333', '234234', '423', '234', '4234', 1, '2019-12-17 15:58:14', 1, '2019-12-17 15:58:19', 1, 1);
+
 
 -- ----------------------------
 -- Table structure for db_table_info
@@ -59,7 +57,7 @@ CREATE TABLE `db_table_info`  (
   `is_empty` int(2) NULL DEFAULT NULL COMMENT '是否为空 1为空2不为空',
   `default_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '默认值 ',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '注释说明',
-  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级菜单',
+  `parent_id` bigint(32) NULL DEFAULT 0 COMMENT '父级菜单',
   `category` int(2) NULL DEFAULT NULL COMMENT '1表，2字段',
   `db_instance_id` int(11) NULL DEFAULT NULL COMMENT '数据库id',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
@@ -3455,7 +3453,7 @@ CREATE TABLE `mk_datasource`  (
 -- ----------------------------
 INSERT INTO `mk_datasource` VALUES (1, 'mysql', 'com.mysql.cj.jdbc.Driver', 'jdbc:mysql://localhost:3306/mk?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroTIMESTAMP Behavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true', 'root', '1qaz2wsx', 'mysql', 1, 1, '2019-08-14 11:43:06', 1, '2019-12-16 22:28:10', 1, 0);
 INSERT INTO `mk_datasource` VALUES (2, 'postgresql', 'org.postgresql.Driver', 'jdbc:postgresql://127.0.0.1:5432/blade', 'postgres', '123456', 'postgresql', 1, 1, '2019-08-14 11:43:41', 1, '2019-08-14 11:43:41', 1, 0);
-INSERT INTO `mk_datasource` VALUES (3, 'oracle', 'oracle.jdbc.OracleDriver', 'jdbc:oracle:thin:@127.0.0.1:49161:orcl', 'root', 'root', 'oracle', 1, 1, '2019-08-14 11:44:03', 1, '2019-08-14 11:44:03', 1, 0);
+INSERT INTO `mk_datasource` VALUES (3, 'oracle', 'oracle.jdbc.driver.OracleDriver', 'jdbc:oracle:thin:@127.0.0.1:49161:orcl', 'root', 'root', 'oracle', 1, 1, '2019-08-14 11:44:03', 1, '2019-08-14 11:44:03', 1, 0);
 
 -- ----------------------------
 -- Table structure for mk_dept
