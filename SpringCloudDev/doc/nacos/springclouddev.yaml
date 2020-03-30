@@ -12,6 +12,10 @@ server:
 
 #spring配置
 spring:
+  cloud:
+    sentinel:
+      #禁用sentinel的懒加载
+      eager: true
   devtools:
     restart:
       log-condition-evaluation-delta: false
