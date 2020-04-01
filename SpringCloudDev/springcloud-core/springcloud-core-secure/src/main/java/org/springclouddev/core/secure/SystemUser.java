@@ -51,5 +51,9 @@ public class SystemUser implements Serializable {
 	 */
 	@ApiModelProperty(hidden = true)
 	private String roleName;
-
+	/**
+	 * 资源列表
+	 */
+	@ApiModelProperty(hidden=true)
+	private String resources;
 }

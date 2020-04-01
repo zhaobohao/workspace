@@ -54,6 +54,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
 		}
+		if (Func.isNotEmpty(user)) {
+			List<String> resources = baseMapper.getResources(Func.toStrArray(user.getRoleId()));
+			userInfo.setResources(resources);
+		}
 		return userInfo;
 	}
 
@@ -65,6 +69,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		if (Func.isNotEmpty(user)) {
 			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
+		}
+		if (Func.isNotEmpty(user)) {
+			List<String> resources = baseMapper.getResources(Func.toStrArray(user.getRoleId()));
+			userInfo.setResources(resources);
 		}
 		return userInfo;
 	}

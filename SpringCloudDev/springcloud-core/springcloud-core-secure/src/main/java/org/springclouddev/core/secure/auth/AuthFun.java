@@ -62,4 +62,35 @@ public class AuthFun {
 		return false;
 	}
 
+	/**
+	 * 判断是否有该角色权限
+	 *
+	 * @param resource 单资源
+	 * @return {boolean}
+	 */
+	public boolean hasResource(String resource) {
+		return hasAnyResource(resource);
+	}
+
+
+	/**
+	 * 判断是否有该角色权限
+	 *
+	 * @param resource 资源集合
+	 * @return {boolean}
+	 */
+	public boolean hasAnyResource(String... resource) {
+		String userResources = SecureUtil.getUser().getResources();
+		if (StringUtil.isBlank(userResources)) {
+			return false;
+		}
+		String[] resources = Func.toStrArray(userResources);
+		for (String r : resource) {
+			if (CollectionUtil.contains(resources, r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

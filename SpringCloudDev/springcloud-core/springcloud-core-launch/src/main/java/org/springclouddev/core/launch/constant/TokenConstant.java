@@ -28,4 +28,5 @@ public interface TokenConstant {
 	String DEFAULT_AVATAR = "https://gw.alipayobjects.com/";
 	Integer AUTH_LENGTH = 7;
 
+	String RESOURCES_NAME = "resource_name";
 }

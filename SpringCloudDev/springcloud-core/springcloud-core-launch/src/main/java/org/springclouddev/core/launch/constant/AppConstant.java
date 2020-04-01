@@ -95,4 +95,8 @@ public interface AppConstant {
 	 * seata order模块名称
 	 */
 	String APPLICATION_SEATA_ORDER = APPLICATION_NAME_PREFIX+"seata-order";
+	/**
+	 * mock server 模块名称
+	 */
+	String APPLICATION_MOCKSERVER_NAME = APPLICATION_NAME_PREFIX+"mock-server";
 }

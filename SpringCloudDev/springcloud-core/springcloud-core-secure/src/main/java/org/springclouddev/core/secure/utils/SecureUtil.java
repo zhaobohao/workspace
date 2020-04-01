@@ -38,6 +38,7 @@ public class SecureUtil {
 	private final static String TENANT_ID = TokenConstant.TENANT_ID;
 	private final static String CLIENT_ID = TokenConstant.CLIENT_ID;
 	private final static Integer AUTH_LENGTH = TokenConstant.AUTH_LENGTH;
+	private final static String RESOURCES_NAME = TokenConstant.RESOURCES_NAME;
 	private static String BASE64_SECURITY = Base64.getEncoder().encodeToString(TokenConstant.SIGN_KEY.getBytes(Charsets.UTF_8));
 
 	private static IClientDetailsService clientDetailsService;
@@ -87,6 +88,7 @@ public class SecureUtil {
 		String account = Func.toStr(claims.get(SecureUtil.ACCOUNT));
 		String roleName = Func.toStr(claims.get(SecureUtil.ROLE_NAME));
 		String userName = Func.toStr(claims.get(SecureUtil.USER_NAME));
+        String resources= Func.toStr(claims.get(SecureUtil.RESOURCES_NAME));
 		SystemUser systemUser = new SystemUser();
 		systemUser.setClientId(clientId);
 		systemUser.setUserId(userId);
@@ -95,6 +97,7 @@ public class SecureUtil {
 		systemUser.setRoleId(roleId);
 		systemUser.setRoleName(roleName);
 		systemUser.setUserName(userName);
+		systemUser.setResources(resources);
 		return systemUser;
 	}
 

@@ -39,18 +39,18 @@ public interface UserMapper extends SuperMapper<User> {
 	/**
 	 * 获取角色名
 	 *
-	 * @param ids
+	 * @param roleIds
 	 * @return
 	 */
-	List<String> getRoleName(String[] ids);
+	List<String> getRoleName(String[] roleIds);
 
 	/**
 	 * 获取角色别名
 	 *
-	 * @param ids
+	 * @param roleIds
 	 * @return
 	 */
-	List<String> getRoleAlias(String[] ids);
+	List<String> getRoleAlias(String[] roleIds);
 
 	/**
 	 * 获取部门名
@@ -60,4 +60,10 @@ public interface UserMapper extends SuperMapper<User> {
 	 */
 	List<String> getDeptName(String[] ids);
 
+	/**
+	 * 获取菜单别名，当做资源名称使用
+	 * @param roleIds
+	 * @return
+	 */
+	List<String> getResources(String[] roleIds);
 }
