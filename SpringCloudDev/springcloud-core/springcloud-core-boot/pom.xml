@@ -25,6 +25,7 @@
         <guava.version>27.1-jre</guava.version>
         <poi-ooxml.version>4.1.1</poi-ooxml.version>
         <apollo-client.version>1.5.1</apollo-client.version>
+        <redisson-spring-boot-starter.version>3.12.4</redisson-spring-boot-starter.version>
     </properties>
 
     <dependencies>
@@ -109,7 +110,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.12.3</version>
+            <version>${redisson-spring-boot-starter.version}</version>
         </dependency>
         <!--MyBatis-->
         <dependency>
