@@ -40,7 +40,7 @@
         <dependency>
             <groupId>net.oschina.durcframework</groupId>
             <artifactId>fastmybatis-spring-boot-starter</artifactId>
-            <version>1.6.0</version>
+            <version>1.8.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -124,6 +124,11 @@
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
+        </repository>
+        <repository>
+            <id>maven2</id>
+            <name>maven2</name>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
     </repositories>
 
