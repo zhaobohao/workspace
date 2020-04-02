@@ -31,7 +31,7 @@ public class AlipayClientPostTest extends TestBase {
     timestamp	    String	是	        19	    发送请求的时间，格式"yyyy-MM-dd HH:mm:ss"	2014-07-24 03:07:50
     version	        String	是	        3	    调用的接口版本，固定为：1.0	1.0
     app_auth_token	String	否	        40	    详见应用授权概述
-    biz_content	    String	是		请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
+     data	    String	是		请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
      */
     // 这个请求会路由到story服务
     @Test
@@ -52,7 +52,7 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("id", "1");
         bizContent.put("name", "葫芦娃");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -91,7 +91,7 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "葫芦娃");
 //        bizContent.put("name", "葫芦娃1234567890葫芦娃1234567890"); // 超出长度
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -129,7 +129,7 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "葫芦娃");
 //        bizContent.put("name", "葫芦娃1234567890葫芦娃1234567890"); // 超出长度
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -163,7 +163,7 @@ public class AlipayClientPostTest extends TestBase {
         Map<String, String> bizContent = new HashMap<>();
         bizContent.put("id", "222");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -192,7 +192,7 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("id", "222");
         bizContent.put("name", "忽略验证name");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 返回结果 -----------");
         String responseData = post(url, params);// 发送请求
@@ -215,7 +215,7 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("id", "222");
         bizContent.put("name", "忽略验证22");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -248,7 +248,7 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "Jim");
         bizContent.put("age", "2");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -281,7 +281,7 @@ public class AlipayClientPostTest extends TestBase {
         bizContent.put("name", "Jim");
         bizContent.put("age", "2");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));

@@ -80,22 +80,18 @@ function createResponseCode(docItem) {
     var responseParameters = docItem.responseParameters;
     var bizResult = buildResult(responseParameters);
     var json = '{\n' +
-        '    "'+method+'_response": {\n' +
         '        "code": "10000",\n' +
         '        "msg": "Success",\n' +
         bizResult +
-        '    }' +
         '}';
     json = formatJson(json);
     $('#responseExampleJson').text(json);
 
-    var errorJson = '{\n' +
-        '    "'+method+'_response": {\n' +
+    var errorJson = ' {\n' +
         '        "code": "20000",\n' +
         '        "msg": "Service is temporarily unavailable",\n' +
         '        "sub_code": "isp.unknown-error",\n' +
         '        "sub_msg": "服务暂不可用"\n' +
-        '    }' +
         '}';
     errorJson = formatJson(errorJson);
     $('#responseErrorJson').text(errorJson);

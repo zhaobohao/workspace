@@ -36,7 +36,7 @@ public class PostJsonTest extends TestBase {
         Map<String, String> bizContent = new HashMap<>();
         bizContent.put("name", "葫芦娃");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -70,7 +70,7 @@ public class PostJsonTest extends TestBase {
         Map<String, String> bizContent = new HashMap<>();
         bizContent.put("name", "葫芦娃");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));

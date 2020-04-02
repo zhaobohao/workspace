@@ -35,7 +35,7 @@ public class PabClientPostTest extends TestBase {
     timestamp	    String	是	        19	    发送请求的时间，格式"yyyy-MM-dd HH:mm:ss"	2014-07-24 03:07:50
     version	        String	是	        3	    调用的接口版本，固定为：1.0	1.0
     app_auth_token	String	否	        40	    详见应用授权概述
-    biz_content	    String	是		请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
+     data	    String	是		请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
      */
     // 这个请求会路由到story服务
     @Test
@@ -58,7 +58,7 @@ public class PabClientPostTest extends TestBase {
 
         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));
@@ -98,7 +98,7 @@ public class PabClientPostTest extends TestBase {
 
         params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
 
         System.out.println("----------- 请求信息 -----------");
@@ -139,7 +139,7 @@ public class PabClientPostTest extends TestBase {
 
          params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
 
         System.out.println("----------- 请求信息 -----------");
@@ -176,7 +176,7 @@ public class PabClientPostTest extends TestBase {
 
          params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
 
         System.out.println("----------- 请求信息 -----------");
@@ -207,7 +207,7 @@ public class PabClientPostTest extends TestBase {
         bizContent.put("name", "忽略验证name");
          params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
 
         System.out.println("----------- 返回结果 -----------");
@@ -233,7 +233,7 @@ public class PabClientPostTest extends TestBase {
 
          params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
 
         System.out.println("----------- 请求信息 -----------");
@@ -269,7 +269,7 @@ public class PabClientPostTest extends TestBase {
 
          params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
 
         System.out.println("----------- 请求信息 -----------");
@@ -305,7 +305,7 @@ public class PabClientPostTest extends TestBase {
 
          params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
         // 业务参数，加密
-        params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, params.get("charset")));
 
 
         System.out.println("----------- 请求信息 -----------");

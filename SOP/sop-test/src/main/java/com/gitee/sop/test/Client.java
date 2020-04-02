@@ -412,10 +412,10 @@ public class Client {
             if (StringUtils.areNotEmpty(pabPublicKey) && !ignoreSign) {
                 params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
                 // 业务参数，加密
-                params.put("biz_content", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent), pabPublicKey, params.get("charset")));
+                params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent), pabPublicKey, params.get("charset")));
             } else {
                 // 业务参数,不加密
-                params.put("biz_content", JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent));
+                params.put("data", JSON.toJSONString(bizContent == null ? Collections.emptyMap() : bizContent));
             }
             if (!ignoreSign) {
                 String content = AlipaySignature.getSignContent(params);

@@ -118,6 +118,7 @@ function doTest() {
     var data = {
         appId: $('#appId').val()
         , privateKey: $('#privateKey').val()
+        , publicKey: $('#publicKey').val()
         , method: method
         , version: version
         , httpMethod: $('#httpMethodList').val()
@@ -282,6 +283,7 @@ function resetResultDiv() {
         beforeSign: '',
         params: '',
         privateKey: '',
+        publicKey: '',
         sign: ''
     });
     setRespInfo('');

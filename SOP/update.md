@@ -8,3 +8,4 @@
 * com.gitee.sop.sdk.common.OpenConfig
 * com.gitee.sop.sdk.client.OpenClient
 每次升级的时候，把上面3个文件，单独的拿出来，然后全量copy过来。最后上面3个文件着重修改即可。
+还要修改websit,沙盒环境的参数。

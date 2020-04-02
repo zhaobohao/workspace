@@ -1,5 +1,7 @@
 package com.gitee.sop.websiteserver.controller;
 
+import com.gitee.sop.gatewaycommon.param.ParamNames;
+import com.gitee.sop.gatewaycommon.validate.pab.PabSignature;
 import com.gitee.sop.websiteserver.bean.HttpTool;
 import com.gitee.sop.websiteserver.sign.AlipayApiException;
 import com.gitee.sop.websiteserver.sign.AlipaySignature;
@@ -59,6 +61,7 @@ public class SandboxController {
     public SandboxResult proxy(
             @RequestParam String appId
             , @RequestParam String privateKey
+            , @RequestParam String publicKey
             , @RequestParam String method
             , @RequestParam String version
             , @RequestParam String bizContent
@@ -73,7 +76,7 @@ public class SandboxController {
         Assert.isTrue(StringUtils.isNotBlank(method), "method不能为空");
 
         // 公共请求参数
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("app_id", appId);
         params.put("method", method);
         params.put("format", "json");
@@ -81,15 +84,14 @@ public class SandboxController {
         params.put("sign_type", "RSA2");
         params.put("timestamp", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         params.put("version", version);
-
+        params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA2");
         // 业务参数
-        params.put("biz_content", bizContent);
+        params.put("data", PabSignature.rsaEncrypt(bizContent, publicKey, (String)params.get("charset")));
 
         SandboxResult result = new SandboxResult();
 
+        String content = PabSignature.getSignContent(params);
         result.params = buildParamQuery(params);
-
-        String content = AlipaySignature.getSignContent(params);
         result.beforeSign = content;
 
         String sign = null;
@@ -198,9 +200,9 @@ public class SandboxController {
         return null;
     }
 
-    protected String buildParamQuery(Map<String, String> params) {
+    protected String buildParamQuery(Map<String, Object> params) {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> entry : params.entrySet()) {
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
             sb.append("&").append(entry.getKey()).append("=").append(entry.getValue());
         }
         return sb.toString().substring(1);

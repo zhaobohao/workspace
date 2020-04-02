@@ -70,7 +70,7 @@ namespace SDKCSharp.Common
         /// <summary> 
         /// data名称 
         /// </summary>
-        public string DataName { get; set; } = "biz_content";
+        public string DataName { get; set; } = "data";
 
         /// <summary> 
         /// 时间戳名称 

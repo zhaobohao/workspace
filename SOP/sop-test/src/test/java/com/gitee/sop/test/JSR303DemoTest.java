@@ -38,7 +38,7 @@ public class JSR303DemoTest extends TestBase {
 //        bizContent.put("goods_remark", "iphone6");
 //        bizContent.put("goods_comment", "1");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));

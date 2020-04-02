@@ -13,7 +13,7 @@ package com.gitee.sop.sdk.sign;
  * timestamp	    String	是	    19	    发送请求的时间，格式"yyyy-MM-dd HH:mm:ss"	2014-07-24 03:07:50
  * version	        String	是	    3	    调用的接口版本，固定为：1.0	1.0
  * app_auth_token	String	否	    40	    详见应用授权概述
- * biz_content	    String	是		        请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
+ * data	    String	是		        请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
  *
  * @author tanghc
  */
@@ -38,7 +38,7 @@ public class ParamNames {
     /** OAuth 2.0授权token */
     public static String APP_AUTH_TOKEN_NAME = "app_auth_token";
     /** 请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档 */
-    public static String BIZ_CONTENT_NAME = "biz_content";
+    public static String BIZ_CONTENT_NAME = "data";
 
     /** 时间戳格式 */
     public static String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm:ss";

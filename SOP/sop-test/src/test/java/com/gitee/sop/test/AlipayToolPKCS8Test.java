@@ -34,7 +34,7 @@ public class AlipayToolPKCS8Test extends TestBase {
         bizContent.put("id", "1");
         bizContent.put("name", "葫芦娃");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
     }
 
     /**

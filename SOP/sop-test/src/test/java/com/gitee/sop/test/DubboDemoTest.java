@@ -37,7 +37,7 @@ public class DubboDemoTest extends TestBase {
         Map<String, String> bizContent = new HashMap<>();
         bizContent.put("id", "222");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));

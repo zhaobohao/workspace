@@ -33,7 +33,7 @@ public class OpenConfig {
     /** appKey名称 */
     private String appKeyName = "app_id";
     /** data名称 */
-    private String dataName = "biz_content";
+    private String dataName = "data";
     /** 时间戳名称 */
     private String timestampName = "timestamp";
     /** 签名串名称 */

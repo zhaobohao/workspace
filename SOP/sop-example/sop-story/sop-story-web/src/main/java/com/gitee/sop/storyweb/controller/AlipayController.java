@@ -79,7 +79,7 @@ public class AlipayController {
 
     // http://localhost:2222/story.get/2.0/?name=111
     // 接口名 + 版本号
-    // StoryParam对应biz_content内容
+    // StoryParam对应data内容
     @ApiMapping(value = "story.get", version = "2.0")
     public StoryResult getStory20(StoryParam param) {
         StoryResult result = new StoryResult();
@@ -190,7 +190,7 @@ public class AlipayController {
     }
 
     /**
-     * @param param 对应biz_content中的内容，并自动JSR-303校验
+     * @param param 对应data中的内容，并自动JSR-303校验
      * @return
      */
     @ApiOperation(value="获取故事信息", notes = "获取故事信息的详细信息")
@@ -219,7 +219,7 @@ public class AlipayController {
     /**
      * 参数绑定
      *
-     * @param story 对应biz_content中的内容，并自动JSR-303校验
+     * @param story 对应data的内容，并自动JSR-303校验
      * @return
      */
     @ApiOperation(value = "获取故事信息", notes = "说明接口的详细信息，介绍，用途，注意事项等。")
@@ -291,7 +291,7 @@ public class AlipayController {
         return new TreeResult();
     }
 
-    // 测试参数绑定，http://localhost:2222/story/getStory4?biz_content=%7b%22id%22%3a1%2c%22name%22%3a%22aaaa%22%7d
+    // 测试参数绑定，http://localhost:2222/story/getStory4?data=%7b%22id%22%3a1%2c%22name%22%3a%22aaaa%22%7d
     @ApiAbility
     @GetMapping("getStory4")
     public StoryResult getStory4(Story param, P p2) {

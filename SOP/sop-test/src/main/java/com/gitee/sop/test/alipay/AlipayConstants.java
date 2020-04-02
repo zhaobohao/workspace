@@ -57,7 +57,7 @@ public class AlipayConstants {
 
     //-----===-------///
 
-    public static final String BIZ_CONTENT_KEY                = "biz_content";
+    public static final String BIZ_CONTENT_KEY                = "data";
 
     /** 默认时间格式 **/
     public static final String DATE_TIME_FORMAT               = "yyyy-MM-dd HH:mm:ss";

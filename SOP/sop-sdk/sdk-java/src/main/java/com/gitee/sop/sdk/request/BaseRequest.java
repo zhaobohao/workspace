@@ -28,7 +28,7 @@ import java.util.Map;
  * timestamp	    String	是	        19	    发送请求的时间，格式"yyyy-MM-dd HH:mm:ss"	2014-07-24 03:07:50
  * version	        String	是	        3	    调用的接口版本，固定为：1.0	1.0
  * app_auth_token	String	否	        40	    详见应用授权概述
- * biz_content	    String	是		请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
+ * data	    String	是		请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
  *
  * @param <T> 对应的Response对象
  *
@@ -96,9 +96,9 @@ public abstract class BaseRequest<T extends BaseResponse> {
         params.put(openConfig.getVersionName(), v);
 
         // 业务参数
-        String biz_content = buildBizContent();
+        String data = buildBizContent();
 
-        params.put(openConfig.getDataName(), biz_content);
+        params.put(openConfig.getDataName(), data);
 
         RequestForm requestForm = new RequestForm(params);
         requestForm.setRequestMethod(getRequestMethod());

@@ -40,7 +40,7 @@ public class RestUrlTest extends TestBase {
         // 业务参数
         Map<String, String> bizContent = new HashMap<>();
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         System.out.println("----------- 请求信息 -----------");
         System.out.println("请求参数：" + buildParamQuery(params));

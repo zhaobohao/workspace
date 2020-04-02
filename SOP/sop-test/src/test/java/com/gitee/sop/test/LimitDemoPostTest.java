@@ -70,7 +70,7 @@ public class LimitDemoPostTest extends TestBase {
         bizContent.put("id", "1");
         bizContent.put("name", "葫芦娃");
 
-        params.put("biz_content", JSON.toJSONString(bizContent));
+        params.put("data", JSON.toJSONString(bizContent));
 
         String content = AlipaySignature.getSignContent(params);
         String sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
