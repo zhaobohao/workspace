@@ -1,4 +1,4 @@
-package org.springclouddev.integral;
+package org.springclouddev;
 
 import org.springclouddev.core.cloud.feign.EnableCustomFeign;
 import org.springclouddev.core.launch.SpingCloudDevApplication;
