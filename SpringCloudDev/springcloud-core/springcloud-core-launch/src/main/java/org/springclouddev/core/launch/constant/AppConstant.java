@@ -79,6 +79,18 @@ public interface AppConstant {
 	 */
 	String DEV_CODE = "dev";
 	/**
+	 * 开发环境
+	 */
+	String FAT_CODE = "fat";
+	/**
+	 * 开发环境
+	 */
+	String UAT_CODE = "uat";
+	/**
+	 * 开发环境
+	 */
+	String SIT_CODE = "sit";
+	/**
 	 * 生产环境
 	 */
 	String PROD_CODE = "prod";

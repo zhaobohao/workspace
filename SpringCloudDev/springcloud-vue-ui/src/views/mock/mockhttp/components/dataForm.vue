@@ -47,7 +47,7 @@
         </el-form-item>
       </fieldset>
       <fieldset style="border-color: #a2ae26;border-width: 1px;border-style: solid;">
-        <legend>回执参数</legend>
+        <legend>回执参数（优先级低）</legend>
         <el-form-item label="回执headers" prop="responseHeaders">
           <el-tooltip class="item" effect="dark" content="response报文里的headers,录入为json.程序会正确拆分，附值 。" placement="top">
             <el-input v-model="temp.responseHeaders" style="width: 305px;" />
@@ -55,7 +55,8 @@
         </el-form-item>
         <el-form-item label="回执报文" prop="responseBody">
           <el-tooltip class="item" effect="dark" content="response报文里的body" placement="top">
-            <el-input style="width: 305px;" v-model="temp.responseBody" :autosize="{ minRows: 2, maxRows: 40}" type="textarea" placeholder="输入报文体" />
+            <el-input style="width: 305px;" v-model="temp.responseBody" :autosize="{ minRows: 2, maxRows: 40}"
+              type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
         <el-form-item label="回执编码" prop="responseCharsets">
@@ -81,7 +82,7 @@
         </el-form-item>
       </fieldset>
       <fieldset style="border-color: #12aed6;border-width: 1px;border-style: solid;">
-        <legend>跳转参数</legend>
+        <legend>跳转参数（优先级中）</legend>
         <el-form-item label="跳转域名" prop="forwardHost">
           <el-tooltip class="item" effect="dark" content="跳转域名" placement="top">
             <el-input v-model="temp.forwardHost" style="width: 305px;" />
@@ -103,7 +104,9 @@
           </el-tooltip>
         </el-form-item>
         <el-form-item label="路转地址" prop="forwardSocketAddress">
-          <el-tooltip class="item" effect="dark" content="跳转时，重写request时的，请求地址。录入时为json数据格式。程序会自动拆分。withSocketAddress(' target.host.com', 1234,SocketAddress.Scheme.HTTPS)" placement="top">
+          <el-tooltip class="item" effect="dark"
+            content="跳转时，重写request时的，请求地址。录入时为json数据格式。程序会自动拆分。withSocketAddress(' target.host.com', 1234,SocketAddress.Scheme.HTTPS)"
+            placement="top">
             <el-input v-model="temp.forwardSocketAddress" style="width: 305px;" />
           </el-tooltip>
         </el-form-item>
@@ -114,12 +117,13 @@
         </el-form-item>
         <el-form-item label="跳转报文" prop="forwardBody">
           <el-tooltip class="item" effect="dark" content="跳转时，重写转给第三方的body." placement="top">
-              <el-input style="width: 305px;" v-model="temp.forwardBody" :autosize="{ minRows: 2, maxRows: 40}" type="textarea" placeholder="输入报文体" />
+            <el-input style="width: 305px;" v-model="temp.forwardBody" :autosize="{ minRows: 2, maxRows: 40}"
+              type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
       </fieldset>
       <fieldset style="border-color: #b60404;border-width: 1px;border-style: solid;">
-        <legend>错误参数</legend>
+        <legend>错误参数（优先级高）</legend>
         <el-form-item label="丢弃链接" prop="errorDropConnection">
           <el-tooltip class="item" effect="dark" content="是否丢失链接，true,false" placement="top">
             <el-input v-model="temp.errorDropConnection" style="width: 305px;" />
@@ -127,7 +131,8 @@
         </el-form-item>
         <el-form-item label="错误报文" prop="errorResponseBytes">
           <el-tooltip class="item" effect="dark" content="出错时，返回的报文" placement="top">
-            <el-input style="width: 305px;" v-model="temp.errorResponseBytes" :autosize="{ minRows: 2, maxRows: 40}" type="textarea" placeholder="输入报文体" />
+            <el-input style="width: 305px;" v-model="temp.errorResponseBytes" :autosize="{ minRows: 2, maxRows: 40}"
+              type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
       </fieldset>
