@@ -43,7 +43,9 @@ CREATE TABLE `db_db_instance`  (
 -- ----------------------------
 INSERT INTO `db_db_instance` VALUES (1, '网商贷oracle业务数据库', 'DistrlData', 'DistrlEtl', 'DistrlOpr', 'DistrlRpt', 1, '2019-12-17 15:48:12', 1, '2019-12-17 15:56:08', 0, 1);
 INSERT INTO `db_db_instance` VALUES (2, '马上金融oracle业务数据库', 'DistrlMaData', 'DistrlMaEtl', 'DistrlMaOpr', 'DistrlMaRpt', 1, '2019-12-17 15:52:52', 1, '2019-12-17 15:52:52', 0, 1);
-
+INSERT INTO `db_db_instance` VALUES (3, '232', '2323', '323', '23', '2323', 1, '2019-12-17 15:57:53', 1, '2019-12-17 15:57:53', 1, 1);
+INSERT INTO `db_db_instance` VALUES (4, '234', '4234234', '234', '23', '234', 1, '2019-12-17 15:58:02', 1, '2019-12-17 15:58:02', 1, 1);
+INSERT INTO `db_db_instance` VALUES (5, '3333333333333333', '234234', '423', '234', '4234', 1, '2019-12-17 15:58:14', 1, '2019-12-17 15:58:19', 1, 1);
 
 -- ----------------------------
 -- Table structure for db_table_info
@@ -57,7 +59,7 @@ CREATE TABLE `db_table_info`  (
   `is_empty` int(2) NULL DEFAULT NULL COMMENT '是否为空 1为空2不为空',
   `default_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '默认值 ',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '注释说明',
-  `parent_id` bigint(32) NULL DEFAULT 0 COMMENT '父级菜单',
+  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级菜单',
   `category` int(2) NULL DEFAULT NULL COMMENT '1表，2字段',
   `db_instance_id` int(11) NULL DEFAULT NULL COMMENT '数据库id',
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
@@ -3406,7 +3408,7 @@ CREATE TABLE `mk_code`  (
   `datasource_id` bigint(32) NULL DEFAULT NULL COMMENT '数据源主键',
   `service_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '服务名称',
   `code_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模块名称',
-  `table_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '表名',
+  `table_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '表名',
   `table_prefix` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '表前缀',
   `pk_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主键名',
   `package_name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '后端包名',
@@ -3421,10 +3423,10 @@ CREATE TABLE `mk_code`  (
 -- ----------------------------
 -- Records of mk_code
 -- ----------------------------
-INSERT INTO `mk_code` VALUES (1, 1, 'springcloud-demo', '通知公告', 'mk_notice', 'mk_', 'id', 'org.springclouddev.desktop', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
-INSERT INTO `mk_code` VALUES (9, 1, 'springcloud-develop', '数据库管理', 'db_db_instance', 'db_', 'id', 'org.springclouddev.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 1);
-INSERT INTO `mk_code` VALUES (10, 1, 'springcloud-develop', '表元数据管理', 'db_table_info', 'db_', 'id', 'org.springclouddev.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
-INSERT INTO `mk_code` VALUES (11, 1, 'springcloud-system', '行政地区模块', 'mk_area', 'mk_', 'id', 'org.springclouddev.system', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
+INSERT INTO `mk_code` VALUES (1, 1, 'springcloud-demo', '通知公告', 'mk_notice', 'mk_', 'id', 'org.springbootdev.modules.desktop', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
+INSERT INTO `mk_code` VALUES (9, 1, 'springcloud-develop', '数据库管理', 'db_db_instance', 'db_', 'id', 'org.springbootdev.modules.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 1);
+INSERT INTO `mk_code` VALUES (10, 1, 'springcloud-develop', '表元数据管理', 'db_table_info', 'db_', 'id', 'org.springbootdev.modules.develop', 2, 2, 'D:\\Develop\\WorkSpace\\Git\\\\springcloud-ops\\springcloud-develop', 'D:\\Develop\\WorkSpace\\Git\\Sword', 0);
+INSERT INTO `mk_code` VALUES (11, 1, 'springcloud-system', '行政地区模块', 'mk_area', 'mk_', 'id', 'org.springbootdev.modules.system', 2, 2, 'springcloud-ops\\springcloud-develop', 'vue-element-admin', 0);
 
 -- ----------------------------
 -- Table structure for mk_datasource
@@ -3453,7 +3455,7 @@ CREATE TABLE `mk_datasource`  (
 -- ----------------------------
 INSERT INTO `mk_datasource` VALUES (1, 'mysql', 'com.mysql.cj.jdbc.Driver', 'jdbc:mysql://localhost:3306/mk?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroTIMESTAMP Behavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true', 'root', '1qaz2wsx', 'mysql', 1, 1, '2019-08-14 11:43:06', 1, '2019-12-16 22:28:10', 1, 0);
 INSERT INTO `mk_datasource` VALUES (2, 'postgresql', 'org.postgresql.Driver', 'jdbc:postgresql://127.0.0.1:5432/blade', 'postgres', '123456', 'postgresql', 1, 1, '2019-08-14 11:43:41', 1, '2019-08-14 11:43:41', 1, 0);
-INSERT INTO `mk_datasource` VALUES (3, 'oracle', 'oracle.jdbc.driver.OracleDriver', 'jdbc:oracle:thin:@127.0.0.1:49161:orcl', 'root', 'root', 'oracle', 1, 1, '2019-08-14 11:44:03', 1, '2019-08-14 11:44:03', 1, 0);
+INSERT INTO `mk_datasource` VALUES (3, 'oracle', 'oracle.jdbc.OracleDriver', 'jdbc:oracle:thin:@127.0.0.1:49161:orcl', 'root', 'root', 'oracle', 1, 1, '2019-08-14 11:44:03', 1, '2019-08-14 11:44:03', 1, 0);
 
 -- ----------------------------
 -- Table structure for mk_dept
@@ -3954,5 +3956,56 @@ CREATE TABLE `mk_user`  (
 -- Records of mk_user
 -- ----------------------------
 INSERT INTO `mk_user` VALUES (1, '000000', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', '管理员', '管理员', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 'admin@xxxxxx.vip', '22233322', '2018-08-08 00:00:00', 1, '1,2', '1', 1, '2018-08-08 00:00:00', 1, '2019-12-26 14:37:47', 1, 0, '我是超级管理员');
+DROP TABLE IF EXISTS `mk_mock_web_site`;
+CREATE TABLE `mk_mock_web_site`  (
+  `id` bigint(32) UNSIGNED NOT NULL COMMENT '表id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '站点名称',
+  `address_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '远端的访问地址，带端口号。例如：http://xxxx.yyy.com:9090/uri',
+  `create_user`	bigint(32) NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_deleted`	int(1) NOT NULL COMMENT '是否已删除',
+  `status`	int(1)	NULL	DEFAULT	NULL	COMMENT '状态',
+  `tenant_id` varchar(12) NULL DEFAULT '000000' COMMENT '租户ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+DROP TABLE IF EXISTS `mk_mock_http`;
+CREATE TABLE `mk_mock_http`  (
+  `id` bigint(32) NOT NULL COMMENT '表id',
+   `web_site_id` bigint(32) NOT NULL COMMENT 'web_site表id',
+  `request_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '配置的url路径，支持正则表达式',
+  `request_method` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http的method,例如get,put,delete,post,支持正则表达式',
+  `request_params` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的参数，录入为json结构。key,value支持正则表达式',
+  `request_headers` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的头部参数，录入为json结构，key,value支持正则表达式',
+  `request_cookies` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'htpp传过来的cookies参数，录入为json结构，key,value支持正则表达式',
+  `request_json_body` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的request报文里的body段所包含的值，默认是使用正则表达式',
+  `request_charsets` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'request报文的编码，默认为utf-8',
+  `request_form_body` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的request报文里的body段所包含的值，默认是使用正则表达式',
+  `response_headers` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'response报文里的headers,录入为json.程序会正确拆分，附值 。',
+  `response_body` text CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT 'response报文里的body',
+  `response_charsets` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'response报文里的body的编码',
+  `response_status_code` int(6) NULL DEFAULT NULL COMMENT 'response报文里的 status code.例如：400，302，501',
+  `response_reason_phrase` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '配合statuscode使用的，状态码解释文本。',
+  `response_delay` int(8) NULL DEFAULT NULL COMMENT '延迟响应时候，默认时间单位为秒。',
+  `forward_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转域名',
+  `forward_port` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转域名接口',
+  `forward_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转路径',
+  `forward_headers` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时头部参数，录入为json.程序自动拆分配置。',
+  `forward_socket_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时，重写request时的，请求地址。录入时为json数据格式。程序会自动拆分。withSocketAddress(\"target.host.com\", 1234, SocketAddress.Scheme.HTTPS)',
+  `forward_delay` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时的延迟时间，默认时间单位为秒',
+  `forward_body` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时，重写转给第三方的body.',
+  `error_drop_connection` varchar(8) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '是否丢失链接，true,false',
+  `error_response_bytes` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '出错时，返回的报文',
+  `create_user`	bigint(32) NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_deleted`	int(1) NOT NULL COMMENT '是否已删除',
+  `status`	int(1)	NULL	DEFAULT	NULL	COMMENT '状态',
+  `tenant_id` varchar(12) NULL DEFAULT '000000' COMMENT '租户ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

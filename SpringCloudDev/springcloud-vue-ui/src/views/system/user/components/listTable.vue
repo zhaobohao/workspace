@@ -4,16 +4,16 @@
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="alert" icon="el-icon-search"
       @click="handleIsSearchCardShow">
       {{ $t('table.fliter') }}</el-button>
-    <el-button v-waves v-permission="['23']" class="filter-item" style="margin-left: 10px;" round type="primary"
+    <el-button v-waves v-permission="['system.user.add']" class="filter-item" style="margin-left: 10px;" round type="primary"
       icon="el-icon-edit" @click="handleCreateAction">{{
       $t('table.add') }}</el-button>
-    <el-button v-waves v-permission="['25']" class="filter-item" style="margin-left: 10px;" round type="danger"
+    <el-button v-waves v-permission="['api.springcloud-user.remove']" class="filter-item" style="margin-left: 10px;" round type="danger"
       icon="el-icon-delete" @click="handleBatchDeleteAction">{{
       $t('table.delete') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="warning" icon="el-icon-refresh"
       @click="getList">{{
       $t('table.refresh') }}</el-button>
-    <el-button v-waves v-permission="['27']" class="filter-item" style="margin-left: 10px;" round type="warning"
+    <el-button v-waves v-permission="['api.springcloud-user.reset-password']" class="filter-item" style="margin-left: 10px;" round type="warning"
       icon="el-icon-warning" @click="resetpassword">{{
       $t('table.resetpassword') }}</el-button>
     <el-button v-waves :loading="downloadLoading" class="filter-item" round type="success" icon="el-icon-download"
@@ -83,10 +83,10 @@
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-waves v-permission="['24']" type="primary" size="mini" @click="handleUpdate(scope.row)">
+          <el-button v-waves v-permission="['system.user.edit']" type="primary" size="mini" @click="handleUpdate(scope.row)">
             {{ $t('table.edit') }}
           </el-button>
-          <el-button v-if="scope.row.isDeleted!='1'" v-permission="['25']" v-waves size="mini" type="danger"
+          <el-button v-if="scope.row.isDeleted!='1'" v-permission="['api.springcloud-user.remove']" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">{{
             $t('table.delete') }}
           </el-button>

@@ -31,20 +31,20 @@
       <!--表格的序号-->
       <el-table-column :label="$t('table.id')" fixed type="index" width="50px"></el-table-column>
       <!--
-      <el-table-column :label="$t('table.id')" prop="id" sortable="custom" align="center" width="65">
+      <el-table-column :label="$t('table.id')" prop="id" sortable="custom" align="center" width="65" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
 </el-table-column>-->
 #foreach($field in $!{table.fields})
-      <el-table-column label="$!{field.comment}" min-width="150px">
+      <el-table-column label="$!{field.comment}" min-width="150px" show-overflow-tooltip>
         <template slot-scope="scope">
           <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.$!{field.propertyName}#if($!{field.comment.indexOf("字典")}!=-1)| translateVlaue2Lable($!{field.propertyName}Options)#end }}</span>
         </template>
       </el-table-column>
 #end
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
-        class-name="small-padding fixed-width">
+        class-name="small-padding fixed-width" >
         <template slot-scope="scope">
           <el-button v-waves v-permission="['system.param.edit']" type="primary" size="mini" @click="handleUpdate(scope.row)">
             {{ $t('table.edit') }}
@@ -310,3 +310,6 @@
   }
 
 </script>
+<style lang="scss" scoped>
+    .el-tooltip__popper{max-width:50%}
+</style>

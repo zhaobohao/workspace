@@ -4,9 +4,7 @@ package $!{voPackage};
 
 import $!{package.Entity}.$!{entity};
 #if($!{entityLombokModel})
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.*;
 #end
 #if($!{swagger2})
 import io.swagger.annotations.ApiModel;

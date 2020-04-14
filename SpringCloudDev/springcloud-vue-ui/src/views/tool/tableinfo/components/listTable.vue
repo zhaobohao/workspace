@@ -3,10 +3,10 @@
     <el-button v-waves class="filter-item" style="margin-left: 10px" round type="alert" icon="el-icon-search"
       @click="handleIsSearchCardShow">
       {{ $t('table.fliter') }}</el-button>
-    <el-button v-waves v-permission="['85']" class="filter-item" style="margin-left: 10px" round type="primary"
+    <el-button v-waves v-permission="['develop.tableinfo.add']" class="filter-item" style="margin-left: 10px" round type="primary"
       icon="el-icon-edit" @click="handleCreateAction">{{
       $t('table.add') }}</el-button>
-    <el-button v-waves v-permission="['87']" class="filter-item" style="margin-left: 10px" round type="danger"
+    <el-button v-waves v-permission="['api.springcloud-develop.tableinfo.remove']" class="filter-item" style="margin-left: 10px" round type="danger"
       icon="el-icon-delete" @click="handleBatchDeleteAction">{{
       $t('table.delete') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px" round type="warning" icon="el-icon-refresh"
@@ -15,10 +15,10 @@
     <el-button v-waves :loading="downloadLoading" class="filter-item" round type="success" icon="el-icon-download"
       @click="handleDownload">{{
       $t('table.export') }}</el-button>
-    <el-button v-if="listQuery.query.category === 1" v-waves v-permission="['88']" class="filter-item"
+    <el-button v-if="listQuery.query.category === 1" v-waves v-permission="['develop.tableinfo.view']" class="filter-item"
       style="margin-left: 10px" round type="alert" icon="el-icon-s-grid" @click="handleExportDdlAction">导出DDL文件
     </el-button>
-    <el-button v-if="listQuery.query.category === 1" v-waves v-permission="['88']" class="filter-item"
+    <el-button v-if="listQuery.query.category === 1" v-waves v-permission="['develop.tableinfo.view']" class="filter-item"
       style="margin-left: 10px" round type="success" icon="el-icon-s-promotion" @click="handleUploadAction">上传excel
     </el-button>
     <!--主表显示 区域-->
@@ -69,14 +69,14 @@
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="250"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-waves v-permission="['86']" type="primary" size="mini" @click="handleUpdate(scope.row)">
+          <el-button v-waves v-permission="['develop.tableinfo.edit']" type="primary" size="mini" @click="handleUpdate(scope.row)">
             {{ $t('table.edit') }}
           </el-button>
-          <el-button v-if="scope.row.isDeleted!='1'" v-permission="['87']" v-waves size="mini" type="danger"
+          <el-button v-if="scope.row.isDeleted!='1'" v-permission="['api.springcloud-develop.tableinfo.remove']" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">{{
             $t('table.delete') }}
           </el-button>
-          <el-button v-permission="['85']" v-waves size="mini" type="danger" @click="handleCopyAction(scope.row)">
+          <el-button v-permission="['develop.tableinfo.add']" v-waves size="mini" type="danger" @click="handleCopyAction(scope.row)">
             复制
           </el-button>
         </template>

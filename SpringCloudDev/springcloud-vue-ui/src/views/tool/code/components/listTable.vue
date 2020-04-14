@@ -1,9 +1,9 @@
 <template>
   <el-card>
-    <el-button v-waves v-permission="['52']" class="filter-item" style="margin-left: 10px;" round type="alert"
+    <el-button v-waves v-permission="['tool.code.add']" class="filter-item" style="margin-left: 10px;" round type="alert"
       icon="el-icon-search" @click="handleIsSearchCardShow">
       {{ $t('table.fliter') }}</el-button>
-    <el-button v-waves v-permission="['54']" class="filter-item" style="margin-left: 10px;" round type="primary"
+    <el-button v-waves v-permission="['api.springcloud-system.code.remove']" class="filter-item" style="margin-left: 10px;" round type="primary"
       icon="el-icon-edit" @click="handleCreateAction">
       {{ $t('table.add') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="danger" icon="el-icon-delete"
@@ -14,7 +14,7 @@
       {{ $t('table.refresh') }}</el-button>
     <el-button v-waves :loading="downloadLoading" class="filter-item" round type="success" icon="el-icon-download"
       @click="handleDownload">{{ $t('table.export') }}</el-button>
-    <el-button v-waves v-permission="['54']" class="filter-item" style="margin-left: 10px;" round type="alert"
+    <el-button v-waves v-permission="['api.springcloud-system.code.remove']" class="filter-item" style="margin-left: 10px;" round type="alert"
       icon="el-icon-video-camera-solid" @click="handleBuildCard">
       代码生成</el-button>
     <!--主表显示 区域-->
@@ -61,14 +61,14 @@
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="230"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-waves v-permission="['53']" type="primary" size="mini" @click="handleUpdate(scope.row)">
+          <el-button v-waves v-permission="['tool.code.edit']" type="primary" size="mini" @click="handleUpdate(scope.row)">
             {{ $t('table.edit') }}
           </el-button>
-          <el-button v-if="scope.row.status!='deleted'" v-permission="['54']" v-waves size="mini" type="danger"
+          <el-button v-if="scope.row.status!='deleted'" v-permission="['api.springcloud-system.code.remove']" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">
             {{ $t('table.delete') }}
           </el-button>
-          <el-button v-permission="['52']" v-waves size="mini" type="danger" @click="handleCopyAction(scope.row)">
+          <el-button v-permission="['tool.code.add']" v-waves size="mini" type="danger" @click="handleCopyAction(scope.row)">
             复制
           </el-button>
         </template>

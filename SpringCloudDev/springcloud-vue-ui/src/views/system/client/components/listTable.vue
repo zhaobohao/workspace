@@ -1,9 +1,9 @@
 <template>
   <el-card>
-    <el-button v-waves v-permission="['62']" class="filter-item" style="margin-left: 10px;" round type="alert"
+    <el-button v-waves v-permission="['system.client.add']" class="filter-item" style="margin-left: 10px;" round type="alert"
       icon="el-icon-search" @click="handleIsSearchCardShow">
       {{ $t('table.fliter') }}</el-button>
-    <el-button v-waves v-permission="['64']" class="filter-item" style="margin-left: 10px;" round type="primary"
+    <el-button v-waves v-permission="['api.springcloud-system.client.remove']" class="filter-item" style="margin-left: 10px;" round type="primary"
       icon="el-icon-edit" @click="handleCreateAction">
       {{ $t('table.add') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="danger" icon="el-icon-delete"
@@ -89,10 +89,10 @@
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-waves v-permission="['63']" type="primary" size="mini" @click="handleUpdate(scope.row)">
+          <el-button v-waves v-permission="['system.client.edit']" type="primary" size="mini" @click="handleUpdate(scope.row)">
             {{ $t('table.edit') }}
           </el-button>
-          <el-button v-if="scope.row.status!='deleted'" v-permission="['64']" v-waves size="mini" type="danger"
+          <el-button v-if="scope.row.status!='deleted'" v-permission="['api.springcloud-system.client.remove']" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">
             {{ $t('table.delete') }}
           </el-button>

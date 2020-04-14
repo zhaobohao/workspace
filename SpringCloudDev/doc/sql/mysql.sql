@@ -3956,5 +3956,56 @@ CREATE TABLE `mk_user`  (
 -- Records of mk_user
 -- ----------------------------
 INSERT INTO `mk_user` VALUES (1, '000000', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', '管理员', '管理员', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 'admin@xxxxxx.vip', '22233322', '2018-08-08 00:00:00', 1, '1,2', '1', 1, '2018-08-08 00:00:00', 1, '2019-12-26 14:37:47', 1, 0, '我是超级管理员');
+DROP TABLE IF EXISTS `mk_mock_web_site`;
+CREATE TABLE `mk_mock_web_site`  (
+  `id` bigint(32) UNSIGNED NOT NULL COMMENT '表id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '站点名称',
+  `address_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '远端的访问地址，带端口号。例如：http://xxxx.yyy.com:9090/uri',
+  `create_user`	bigint(32) NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_deleted`	int(1) NOT NULL COMMENT '是否已删除',
+  `status`	int(1)	NULL	DEFAULT	NULL	COMMENT '状态',
+  `tenant_id` varchar(12) NULL DEFAULT '000000' COMMENT '租户ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+DROP TABLE IF EXISTS `mk_mock_http`;
+CREATE TABLE `mk_mock_http`  (
+  `id` bigint(32) NOT NULL COMMENT '表id',
+   `web_site_id` bigint(32) NOT NULL COMMENT 'web_site表id',
+  `request_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '配置的url路径，支持正则表达式',
+  `request_method` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http的method,例如get,put,delete,post,支持正则表达式',
+  `request_params` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的参数，录入为json结构。key,value支持正则表达式',
+  `request_headers` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的头部参数，录入为json结构，key,value支持正则表达式',
+  `request_cookies` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'htpp传过来的cookies参数，录入为json结构，key,value支持正则表达式',
+  `request_json_body` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的request报文里的body段所包含的值，默认是使用正则表达式',
+  `request_charsets` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'request报文的编码，默认为utf-8',
+  `request_form_body` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'http传过来的request报文里的body段所包含的值，默认是使用正则表达式',
+  `response_headers` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'response报文里的headers,录入为json.程序会正确拆分，附值 。',
+  `response_body` text CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT 'response报文里的body',
+  `response_charsets` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'response报文里的body的编码',
+  `response_status_code` int(6) NULL DEFAULT NULL COMMENT 'response报文里的 status code.例如：400，302，501',
+  `response_reason_phrase` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '配合statuscode使用的，状态码解释文本。',
+  `response_delay` int(8) NULL DEFAULT NULL COMMENT '延迟响应时候，默认时间单位为秒。',
+  `forward_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转域名',
+  `forward_port` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转域名接口',
+  `forward_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转路径',
+  `forward_headers` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时头部参数，录入为json.程序自动拆分配置。',
+  `forward_socket_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时，重写request时的，请求地址。录入时为json数据格式。程序会自动拆分。withSocketAddress(\"target.host.com\", 1234, SocketAddress.Scheme.HTTPS)',
+  `forward_delay` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时的延迟时间，默认时间单位为秒',
+  `forward_body` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时，重写转给第三方的body.',
+  `error_drop_connection` varchar(8) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '是否丢失链接，true,false',
+  `error_response_bytes` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '出错时，返回的报文',
+  `create_user`	bigint(32) NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_deleted`	int(1) NOT NULL COMMENT '是否已删除',
+  `status`	int(1)	NULL	DEFAULT	NULL	COMMENT '状态',
+  `tenant_id` varchar(12) NULL DEFAULT '000000' COMMENT '租户ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

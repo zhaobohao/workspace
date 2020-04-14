@@ -81,4 +81,8 @@ public interface AppConstant {
 	 */
 	String OS_NAME_LINUX = "LINUX";
 
+	/**
+	 * mock server 模块名称
+	 */
+	String APPLICATION_MOCKSERVER_NAME = APPLICATION_NAME_PREFIX+"mock-server";
 }

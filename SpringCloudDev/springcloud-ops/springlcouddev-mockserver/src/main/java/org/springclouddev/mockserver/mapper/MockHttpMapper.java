@@ -1,0 +1,26 @@
+package org.springclouddev.mockserver.mapper;
+
+import org.springclouddev.mockserver.entity.MockHttp;
+import org.springclouddev.mockserver.vo.MockHttpVO;
+import org.springclouddev.core.mp.base.SuperMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+/**
+ *  Mapper 接口
+ *
+ * @author zhaobohao
+ * @since 2020-04-07
+ */
+@Mapper
+public interface MockHttpMapper extends SuperMapper<MockHttp> {
+
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param mockHttp
+	 * @return
+	 */
+	List<MockHttpVO> selectMockHttpPage(IPage page, MockHttpVO mockHttp);
+                                                                                                                                                                                                                    }

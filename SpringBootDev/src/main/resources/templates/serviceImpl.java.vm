@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 #foreach($field in $!{table.fields})
     #if($!{field.name}=="parent_id")
     import java.util.List;
-    import org.springclouddev.core.tool.node.ForestNodeMerger;
+    import org.springbootdev.core.tool.node.ForestNodeMerger;
     #end
 #end
 /**

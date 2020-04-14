@@ -129,14 +129,16 @@ export const componentMap = {
   dbinstance: () => import('@/views/tool/dbinstance/index'),
   tableinfo: () => import('@/views/tool/tableinfo/index'),
   areas: () => import('@/views/system/area/index'),
-  activity_manager: () => import('@/views/integral/actprm/index'),
+  activity_manager: () => import('@/views/integral/marketingact/index'),
   activity_audit: () => import('@/views/integral/actprm/index'),
   integral_balance: () => import('@/views/integral/actprm/index'),
   trade_detail: () => import('@/views/integral/actprm/index'),
   integral_adjust: () => import('@/views/integral/actprm/index'),
   integral_adjust_aduit: () => import('@/views/integral/actprm/index'),
   integral_terminal: () => import('@/views/integral/actprm/index'),
-  integral_terminal_aduit: () => import('@/views/integral/actprm/index')
+  integral_terminal_aduit: () => import('@/views/integral/actprm/index'),
+  mock_website: () => import('@/views/mock/mockwebsite/index'),
+  mock_interface: () => import('@/views/mock/mockhttp/index')
 }
 const createRouter = () => new Router({
   // mode: 'history', // require service support

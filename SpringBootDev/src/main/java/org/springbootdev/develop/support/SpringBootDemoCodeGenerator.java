@@ -3,6 +3,7 @@ package org.springbootdev.develop.support;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -171,7 +172,7 @@ public class SpringBootDemoCodeGenerator {
 		tableFillList.add(new TableFill("update_time", FieldFill.UPDATE));
 		tableFillList.add(new TableFill("status", FieldFill.INSERT));
 		tableFillList.add(new TableFill("is_deleted", FieldFill.INSERT));
-		tableFillList.add(new TableFill("tenant_id", FieldFill.INSERT_UPDATE));
+		tableFillList.add(new TableFill("tenant_id", FieldFill.INSERT));
 		tableFillList.add(new TableFill("is_leaf", FieldFill.INSERT));
 		tableFillList.add(new TableFill("parent_id", FieldFill.INSERT));
 		tableFillList.add(new TableFill("sort", FieldFill.INSERT));
@@ -198,6 +199,9 @@ public class SpringBootDemoCodeGenerator {
 		strategy.setEntityBuilderModel(false);
 		strategy.setEntityLombokModel(true);
 		strategy.setControllerMappingHyphenStyle(true);
+		strategy.setLogicDeleteFieldName("is_deleted");
+		strategy.setVersionFieldName("version");
+		strategy.setEntityTableFieldAnnotationEnable(true);
 		mpg.setStrategy(strategy);
 		// 包配置
 		PackageConfig pc = new PackageConfig();
@@ -353,3 +357,4 @@ public class SpringBootDemoCodeGenerator {
 	}
 
 }
+

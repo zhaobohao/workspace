@@ -6,7 +6,7 @@ import $!{voPackage}.$!{entity}VO;
 import $!{superMapperClassPackage};
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
-
+import org.apache.ibatis.annotations.Mapper;
 /**
  * $!{table.comment} Mapper 接口
  *

@@ -165,15 +165,15 @@ public class SpringCloudDEmoCodeGenerator {
 		strategy.setTablePrefix(tablePrefix);
 		// 设置自动填充字段
 		List<TableFill> tableFillList=new LinkedList<>();
-		tableFillList.add(new TableFill("createUser", FieldFill.INSERT));
-		tableFillList.add(new TableFill("createTime", FieldFill.INSERT));
-		tableFillList.add(new TableFill("updateUser", FieldFill.UPDATE));
-		tableFillList.add(new TableFill("updateTime", FieldFill.UPDATE));
+		tableFillList.add(new TableFill("create_user", FieldFill.INSERT));
+		tableFillList.add(new TableFill("create_time", FieldFill.INSERT));
+		tableFillList.add(new TableFill("update_user", FieldFill.UPDATE));
+		tableFillList.add(new TableFill("update_time", FieldFill.UPDATE));
 		tableFillList.add(new TableFill("status", FieldFill.INSERT));
-		tableFillList.add(new TableFill("isDeleted", FieldFill.INSERT));
-		tableFillList.add(new TableFill("tenantId", FieldFill.INSERT_UPDATE));
-		tableFillList.add(new TableFill("isLeaf", FieldFill.INSERT));
-		tableFillList.add(new TableFill("parentId", FieldFill.INSERT));
+		tableFillList.add(new TableFill("is_deleted", FieldFill.INSERT));
+		tableFillList.add(new TableFill("tenant_id", FieldFill.INSERT));
+		tableFillList.add(new TableFill("is_leaf", FieldFill.INSERT));
+		tableFillList.add(new TableFill("parent_id", FieldFill.INSERT));
 		tableFillList.add(new TableFill("sort", FieldFill.INSERT));
 
 		strategy.setTableFillList(tableFillList);
@@ -198,6 +198,9 @@ public class SpringCloudDEmoCodeGenerator {
 		strategy.setEntityBuilderModel(false);
 		strategy.setEntityLombokModel(true);
 		strategy.setControllerMappingHyphenStyle(true);
+		strategy.setLogicDeleteFieldName("is_deleted");
+		strategy.setVersionFieldName("version");
+		strategy.setEntityTableFieldAnnotationEnable(true);
 		mpg.setStrategy(strategy);
 		// 包配置
 		PackageConfig pc = new PackageConfig();

@@ -16,12 +16,12 @@ import lombok.AllArgsConstructor;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springclouddev.core.mp.support.Condition;
-import org.springclouddev.core.mp.support.Query;
-import org.springclouddev.core.secure.SystemUser;
-import org.springclouddev.core.tool.api.R;
-import org.springclouddev.core.tool.constant.ToolConstant;
-import org.springclouddev.core.tool.utils.Func;
+import org.springbootdev.core.mp.support.Condition;
+import org.springbootdev.core.mp.support.Query;
+import org.springbootdev.core.secure.SystemUser;
+import org.springbootdev.core.tool.api.R;
+import org.springbootdev.core.tool.constant.ToolConstant;
+import org.springbootdev.core.tool.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 #if($!{superEntityClass})

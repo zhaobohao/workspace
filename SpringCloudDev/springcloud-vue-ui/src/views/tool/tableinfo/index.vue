@@ -54,7 +54,7 @@
       // 初始化整个页面用到的数据
       return {
         treeProps: {
-          label: 'name',
+          label: 'title',
           leaf: 'isLeaf',
           children: 'children'
         },

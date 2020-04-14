@@ -119,7 +119,7 @@ swagger:
 
 #oss配置
 
-#springclouddev配置
+#springbootdevv配置
 springbootdev:
   xss:
     enable: true

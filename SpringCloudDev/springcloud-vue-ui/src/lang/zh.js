@@ -97,9 +97,12 @@ export default {
     integral_balance: '积分余额查询',
     trade_detail: '积分明细查询',
     integral_adjust: '积分调整',
-    integral_adjust_aduit: '积分调整',
+    integral_adjust_aduit: '积分调整审核',
     integral_terminal: '积分冻结/解冻',
-    integral_terminal_aduit: '积分冻结/解冻审核'
+    integral_terminal_aduit: '积分冻结/解冻审核',
+    mockserver: 'mock服务',
+    mock_interface: '接口参数设置',
+    mock_website: '站点设置'
   },
   navbar: {
     dashboard: '首页',

@@ -3,7 +3,7 @@
     <el-container>
       <el-aside id="aside-style" width="10%">
 
-        <el-tree :props="treeProps" :data="treeData" :default-expand-all="true" :highlight-current="true"
+        <el-tree :props="treeProps" :data="treeData" :default-expand-all="false" :highlight-current="true"
           :expand-on-click-node="false" node-key="id" @node-click="handleNodeClick">
         </el-tree>
 

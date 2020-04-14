@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/$!{cfg.serviceName}/$!{cfg.entityKey}/list',
+    url: '/$!{cfg.serviceName}/$!{cfg.entityKey}/list/page',
     method: 'get',
     params: {
       ...params,
@@ -28,7 +28,7 @@ export const remove = (ids) => {
     url: '/$!{cfg.serviceName}/$!{cfg.entityKey}/remove',
     method: 'post',
     params: {
-      ids,
+      ids
     }
   })
 }

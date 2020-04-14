@@ -13,6 +13,7 @@ import org.springclouddev.core.tool.utils.DateUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -38,7 +39,7 @@ public class BaseEntity implements Serializable {
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@ApiModelProperty(value = "创建时间")
 	@TableField(fill = FieldFill.INSERT)
-	private Date createTime;
+	private LocalDateTime createTime;
 
 	/**
 	 * 更新人
@@ -54,7 +55,7 @@ public class BaseEntity implements Serializable {
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@ApiModelProperty(value = "更新时间")
 	@TableField(fill = FieldFill.UPDATE)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
 	/**
 	 * 状态[1:正常]

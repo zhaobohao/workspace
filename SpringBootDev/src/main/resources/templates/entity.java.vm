@@ -35,9 +35,8 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 #if($!{entityLombokModel})
 @Data
 @Accessors(chain = true)
-@Builder
 @NoArgsConstructor
-@ToString
+    @ToString
 #end
 #if($!{table.convert})
 @TableName("$!{table.name}")
@@ -76,15 +75,13 @@ private static final long serialVersionUID = 1L;
         #if($!{field.keyFlag})
         ## 主键
             #if($!{field.keyIdentityFlag})
-            @TableId(value = "$!{field.name}", type = IdType.NONE)
+            @TableId(value = "${field.name}", type = IdType.AUTO
             #elseif(!$null.isNull($!{idType}) && "$!idType" != "")
             @TableId(value = "$!{field.name}", type = IdType.$!{idType})
-            #elseif($!{field.convert})
-            @TableId("$!{field.name}")
+            #else
+            @TableId(value = "$!{field.name}", type = IdType.NONE)
             #end
-            #if($!{field.keyIdentityFlag})
-        @JsonSerialize(using= ToStringSerializer.class)
-            #end
+         @JsonSerialize(using= ToStringSerializer.class)
         ## 普通字段
         #elseif($!{field.fill})
         ## -----   存在字段填充设置   -----
@@ -109,6 +106,13 @@ private static final long serialVersionUID = 1L;
         #else
           private $!{field.propertyType} $!{field.propertyName};
         #end
+    #else
+    /**
+    * 租户ID
+    */
+    @ApiModelProperty(value = "租户ID")
+    @TableField(fill = FieldFill.INSERT)
+    private String tenantId;
     #end
 #end
 ## ----------  END 字段循环遍历  ----------
