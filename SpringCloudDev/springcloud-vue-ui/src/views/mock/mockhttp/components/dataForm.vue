@@ -21,7 +21,8 @@
           </el-tooltip>
         </el-form-item>
         <el-form-item label="请求header" prop="requestHeaders">
-          <el-tooltip class="item" effect="dark" content="http传过来的头部参数，录入为json结构，key,value支持正则表达式" placement="top">
+          <el-tooltip class="item" effect="dark"
+            content="http传过来的头部参数，录入为json结构，key,value支持正则表达式。参考org.springframework.http.HttpHeaders" placement="top">
             <el-input v-model="temp.requestHeaders" style="width: 305px;" />
           </el-tooltip>
         </el-form-item>
@@ -55,7 +56,7 @@
         </el-form-item>
         <el-form-item label="回执报文" prop="responseBody">
           <el-tooltip class="item" effect="dark" content="response报文里的body" placement="top">
-            <el-input style="width: 305px;" v-model="temp.responseBody" :autosize="{ minRows: 2, maxRows: 40}"
+            <el-input v-model="temp.responseBody" style="width: 305px;" :autosize="{ minRows: 2, maxRows: 40}"
               type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
@@ -117,7 +118,7 @@
         </el-form-item>
         <el-form-item label="跳转报文" prop="forwardBody">
           <el-tooltip class="item" effect="dark" content="跳转时，重写转给第三方的body." placement="top">
-            <el-input style="width: 305px;" v-model="temp.forwardBody" :autosize="{ minRows: 2, maxRows: 40}"
+            <el-input v-model="temp.forwardBody" style="width: 305px;" :autosize="{ minRows: 2, maxRows: 40}"
               type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
@@ -131,7 +132,7 @@
         </el-form-item>
         <el-form-item label="错误报文" prop="errorResponseBytes">
           <el-tooltip class="item" effect="dark" content="出错时，返回的报文" placement="top">
-            <el-input style="width: 305px;" v-model="temp.errorResponseBytes" :autosize="{ minRows: 2, maxRows: 40}"
+            <el-input v-model="temp.errorResponseBytes" style="width: 305px;" :autosize="{ minRows: 2, maxRows: 40}"
               type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
