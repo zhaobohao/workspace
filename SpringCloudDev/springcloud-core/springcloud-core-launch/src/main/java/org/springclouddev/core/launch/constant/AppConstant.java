@@ -111,4 +111,8 @@ public interface AppConstant {
 	 * mock server 模块名称
 	 */
 	String APPLICATION_MOCKSERVER_NAME = APPLICATION_NAME_PREFIX+"mock-server";
+	/**
+	 * hasor模块，快速开发sql接口。
+	 */
+	String APPLICATION_HASOR_NAME = APPLICATION_NAME_PREFIX+"hasor-server";
 }

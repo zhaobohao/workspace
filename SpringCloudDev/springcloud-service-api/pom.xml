@@ -21,6 +21,7 @@
         <module>springcloud-system-api</module>
         <module>springcloud-user-api</module>
         <module>springclouddev-uploadfile-api</module>
+        <module>springcloud-hasor-api</module>
     </modules>
 
     <dependencies>

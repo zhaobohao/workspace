@@ -21,6 +21,7 @@
         <module>springcloud-system</module>
         <module>springcloud-user</module>
         <module>springcloud-uploadfile</module>
+        <module>springcloud-hasor</module>
     </modules>
 
     <dependencies>
