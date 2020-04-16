@@ -1,29 +1,25 @@
 package org.springbootdev.modules.mockserver.config;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.core.config.Order;
 import org.mockserver.client.MockServerClient;
-import org.mockserver.matchers.MatchType;
-import org.mockserver.model.*;
+import org.mockserver.model.HttpError;
+import org.mockserver.model.HttpForward;
+import org.mockserver.model.HttpRequest;
+import org.mockserver.model.HttpResponse;
 import org.springbootdev.modules.mockserver.entity.MockHttp;
 import org.springbootdev.modules.mockserver.service.IMockHttpService;
+import org.springbootdev.modules.mockserver.wrapper.MockWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static org.mockserver.model.HttpError.error;
-import static org.mockserver.model.HttpForward.forward;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-import static org.mockserver.model.JsonBody.json;
+import static org.mockserver.model.HttpOverrideForwardedRequest.forwardOverriddenRequest;
 
 /**
  * 在项目启动的时候，初始化mock-server
@@ -39,100 +35,65 @@ public class MockServerInit implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<MockHttp> mockHttpList = mockHttpService.list();
-		mockHttpList.forEach(mockHttp -> {
-			//通过mock-server来初始化所有的接口。
-			//通过参数，构造匹配的请求
-			HttpRequest request = request();
-			if (StrUtil.isNotBlank(mockHttp.getRequestPath()))
-				request.withPath(mockHttp.getRequestPath());
-			if (StrUtil.isNotBlank(mockHttp.getRequestMethod()))
-				request.withMethod(mockHttp.getRequestMethod());
+		MockServerClient mockClient = new MockServerClient("localhost", serverProperties.getPort());
+		mockHttpService.list().forEach(mockHttp -> {
+			compileMockInterface(mockHttp, mockClient);
+		});
+	}
 
-			if (StrUtil.isNotBlank(mockHttp.getRequestCookies())) {
-				JSONObject jsonObject = JSONUtil.parseObj(mockHttp.getRequestCookies());
-				if (jsonObject.size() > 0) {
-					Cookies cookies = new Cookies();
-					jsonObject.forEach((key, value) -> {
-						cookies.withEntry(key, (String) value);
-					});
-					request.withCookies(cookies);
-				}
-			}
-			if (StrUtil.isNotBlank(mockHttp.getRequestParams())) {
-				JSONObject jsonObject = JSONUtil.parseObj(mockHttp.getRequestParams());
-				if (jsonObject.size() > 0) {
-					Parameters parameters = new Parameters();
-					jsonObject.forEach((key, value) -> {
-						parameters.withEntry(key, (String) value);
-					});
-					request.withQueryStringParameters(parameters);
-				}
-			}
-			if (StrUtil.isNotBlank(mockHttp.getRequestFormBody())) {
-				request.withHeaders(
-					Header.header(HttpHeaders.CONTENT_TYPE,MediaType.FORM_DATA.toString())
-				);
-				JSONObject jsonObject = JSONUtil.parseObj(mockHttp.getRequestFormBody());
-				if (jsonObject.size() > 0) {
-					Parameters parameters = new Parameters();
-					jsonObject.forEach((key, value) -> {
-						parameters.withEntry(key, (String) value);
-					});
-					request.withBody(ParameterBody.params(parameters.getEntries()));
-				}
-			}
-			if (StrUtil.isNotBlank(mockHttp.getRequestJsonBody())) {
-				request.withBody(json(mockHttp.getRequestJsonBody(), MatchType.ONLY_MATCHING_FIELDS)).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
-			}
-			// 把headers放到最后，这样可以覆盖前面的默认设置
-			if (StrUtil.isNotBlank(mockHttp.getRequestHeaders())) {
-				JSONObject jsonObject = JSONUtil.parseObj(mockHttp.getForwardHeaders());
-				if (jsonObject.containsKey(HttpHeaders.CONTENT_TYPE)) {
-					request.withContentType(MediaType.parse((String) jsonObject.get(HttpHeaders.CONTENT_TYPE)));
-					jsonObject.remove(HttpHeaders.CONTENT_TYPE);
-				}
-				if (jsonObject.size() > 0) {
-					Headers headers = new Headers();
-					jsonObject.forEach((key, value) -> {
-							headers.withEntry(key, (String) value);
-						}
-					);
-					request.withHeaders(headers);
-				}
-			}
+	/**
+	 * 编译成mock接口，并发布接口到mockserver
+	 *
+	 * @param mockHttp
+	 * @param mockClient
+	 */
+	public static void compileMockInterface(MockHttp mockHttp, MockServerClient mockClient) {
 
-			//通过参数构造返回mock对象Response，优先级最低。
-			HttpResponse response = response();
-			response.withBody();
-			response.withStatusCode();
+		//通过mock-server来初始化所有的接口。
+		//通过参数，构造匹配的请求
+		HttpRequest request = MockWrapper.mockRequest(mockHttp);
+		//通过参数构造返回mock对象HttpError，优先级最高。
+		HttpError error = MockWrapper.mockError(mockHttp);
 
+		if (null != error) {
+			mockClient
+				.when(
+					request
+				).error(error);
+			return;
+		}
 
-			//通过参数构造返回mock对象HttpError，优先级最高。
-			HttpError error = error();
-			if(StrUtil.isNotBlank(mockHttp.getErrorResponseBytes()) || StrUtil.isNotBlank(mockHttp.getErrorDropConnection()))
-			{
-				new MockServerClient("localhost", serverProperties.getPort())
-					.when(
-						request
-					).error(error().withDropConnection(StrUtil.isBlank(mockHttp.getErrorDropConnection())?Boolean.FALSE:Boolean.valueOf(mockHttp.getErrorDropConnection())).withResponseBytes(StrUtil.isNotBlank(mockHttp.getErrorResponseBytes())?mockHttp.getErrorResponseBytes().getBytes():String.valueOf("").getBytes()));
-				return;
-			}
-
-//通过参数构造返回mock对象HttpForward，优先级中。
-			HttpForward forward = forward();
-			if(StrUtil.isNotBlank(mockHttp.getForwardPath()))
-			{
-				HttpForward httpForward=forward();
-				httpForward.wi
-
-			}
-			new MockServerClient("localhost", serverProperties.getPort())
+		//通过参数构造返回mock对象HttpForward，优先级中。
+		HttpForward httpForward = MockWrapper.mockForward(mockHttp);
+		if (null != httpForward) {
+			mockClient
 				.when(
 					request
 				)
-				.respond(
-					response
+				.forward(
+					httpForward
 				);
-		});
+			return;
+		}
+
+		HttpRequest forwardRequest = MockWrapper.mockForwarRequest(mockHttp);
+		if (null != forwardRequest) {
+			mockClient
+				.when(
+					request
+				)
+				.forward(
+					forwardOverriddenRequest(
+						forwardRequest
+					).withDelay(TimeUnit.SECONDS, StrUtil.isNotBlank(mockHttp.getForwardDelay()) ? Long.valueOf(mockHttp.getForwardDelay()) : 0L)
+				);
+			return;
+		}
+		//通过参数构造返回mock对象Response，优先级最低。
+		HttpResponse response = MockWrapper.mockHttpResponse(mockHttp);
+		//最后，生成response对象，并发布mock接口
+		mockClient
+			.when(request)
+			.respond(response);
 	}
+}

@@ -23,7 +23,8 @@
         <el-form-item label="请求header" prop="requestHeaders">
           <el-tooltip class="item" effect="dark"
             content="http传过来的头部参数，录入为json结构，key,value支持正则表达式。参考org.springframework.http.HttpHeaders" placement="top">
-            <el-input v-model="temp.requestHeaders" style="width: 305px;" />
+            <el-input v-model="temp.requestHeaders" style="width: 305px;" :autosize="{ minRows: 2, maxRows: 40}"
+              type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
         <el-form-item label="请求cookies" prop="requestCookies">
@@ -50,8 +51,10 @@
       <fieldset style="border-color: #a2ae26;border-width: 1px;border-style: solid;">
         <legend>回执参数（优先级低）</legend>
         <el-form-item label="回执headers" prop="responseHeaders">
-          <el-tooltip class="item" effect="dark" content="response报文里的headers,录入为json.程序会正确拆分，附值 。" placement="top">
-            <el-input v-model="temp.responseHeaders" style="width: 305px;" />
+          <el-tooltip class="item" effect="dark"
+            content="response报文里的headers,录入为json.程序会正确拆分，附值 。参考org.springframework.http.HttpHeaders" placement="top">
+            <el-input v-model="temp.responseHeaders" style="width: 305px;" :autosize="{ minRows: 2, maxRows: 40}"
+              type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
         <el-form-item label="回执报文" prop="responseBody">

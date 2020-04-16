@@ -131,8 +131,8 @@ public class MockHttp extends BaseEntity implements TenantEntity {
     @TableField("forward_host")
     private String forwardHost;
     /**
-     * 跳转域名接口
-     */
+	 * 跳转域名接口
+	 */
     @ApiModelProperty(value = "跳转域名接口")
     @TableField("forward_port")
     private String forwardPort;
