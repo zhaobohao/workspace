@@ -1,4 +1,4 @@
-package org.springbootdev.modules.mockserver.config;
+package org.springclouddev.mockserver.config;
 
 
 import com.google.common.collect.ImmutableSet;
@@ -8,13 +8,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.rtsp.RtspResponseStatuses;
-import java.util.concurrent.TimeUnit;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.mockserver.configuration.ConfigurationProperties;
 import org.mockserver.log.MockServerEventLog;
@@ -36,6 +29,13 @@ import org.mockserver.serialization.PortBindingSerializer;
 import org.mockserver.servlet.responsewriter.ServletResponseWriter;
 import org.mockserver.socket.tls.NettySslContextFactory;
 import org.slf4j.event.Level;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 
 //@WebServlet(name="mockserverServlet",urlPatterns = {"/mockserver/*"})
 //由于当前需要使用callback模式。但以war环境部署，不支持。所以改为netty启动mock-server

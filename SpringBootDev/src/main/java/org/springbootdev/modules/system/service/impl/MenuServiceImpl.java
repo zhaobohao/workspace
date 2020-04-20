@@ -79,8 +79,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 	@Override
 	public List<String> roleTreeKeys(String roleIds) {
-		List<RoleMenu> roleMenus = roleMenuService.list(Wrappers.<RoleMenu>query().lambda().in(RoleMenu::getRoleId, Func.toIntList(roleIds)));
-		return roleMenus.stream().map(roleMenu -> Func.toStr(roleMenu.getMenuId())).collect(Collectors.toList());
+		List<RoleMenu> roleMenus = roleMenuService.list(Wrappers.<RoleMenu>query().lambda().in(RoleMenu::getRoleId, Func.toLongList(roleIds)));
+		List<String>  menuAlias=list(Wrappers.<Menu>query().lambda().in(Menu::getId,
+			roleMenus.stream().map(roleMenu -> Func.toLong(roleMenu.getMenuId())).collect(Collectors.toList())
+		)).stream().map(menu -> menu.getAlias()).collect(Collectors.toList());
+		return menuAlias;
 	}
 
 	@Override

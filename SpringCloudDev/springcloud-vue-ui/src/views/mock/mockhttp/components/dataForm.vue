@@ -32,19 +32,21 @@
             <el-input v-model="temp.requestCookies" style="width: 305px;" />
           </el-tooltip>
         </el-form-item>
-        <el-form-item label="JsonBody" prop="requestJsonBody">
-          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的jsonbody段所包含的值，默认是使用正则表达式" placement="top">
-            <el-input v-model="temp.requestJsonBody" style="width: 305px;" />
-          </el-tooltip>
-        </el-form-item>
         <el-form-item label="请求编码" prop="requestCharsets">
           <el-tooltip class="item" effect="dark" content="request报文的编码，默认为utf-8" placement="top">
             <el-input v-model="temp.requestCharsets" style="width: 305px;" />
           </el-tooltip>
         </el-form-item>
+        <el-form-item label="JsonBody" prop="requestJsonBody">
+          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的jsonbody段所包含的值，录入为json结构，默认是使用正则表达式"
+            placement="top">
+            <el-input v-model="temp.requestJsonBody" style="width: 825px;" />
+          </el-tooltip>
+        </el-form-item>
         <el-form-item label="FormBody" prop="requestFormBody">
-          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的formbody段所包含的值，默认是使用正则表达式" placement="top">
-            <el-input v-model="temp.requestFormBody" style="width: 305px;" />
+          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的formbody段所包含的值，录入为json结构，默认是使用正则表达式"
+            placement="top">
+            <el-input v-model="temp.requestFormBody" style="width: 825px;" />
           </el-tooltip>
         </el-form-item>
       </fieldset>
@@ -53,13 +55,13 @@
         <el-form-item label="回执headers" prop="responseHeaders">
           <el-tooltip class="item" effect="dark"
             content="response报文里的headers,录入为json.程序会正确拆分，附值 。参考org.springframework.http.HttpHeaders" placement="top">
-            <el-input v-model="temp.responseHeaders" style="width: 305px;" :autosize="{ minRows: 2, maxRows: 40}"
+            <el-input v-model="temp.responseHeaders" style="width: 825px;" :autosize="{ minRows: 2, maxRows: 40}"
               type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
         <el-form-item label="回执报文" prop="responseBody">
           <el-tooltip class="item" effect="dark" content="response报文里的body" placement="top">
-            <el-input v-model="temp.responseBody" style="width: 305px;" :autosize="{ minRows: 2, maxRows: 40}"
+            <el-input v-model="temp.responseBody" style="width: 825px;" :autosize="{ minRows: 2, maxRows: 40}"
               type="textarea" placeholder="输入报文体" />
           </el-tooltip>
         </el-form-item>
@@ -69,7 +71,8 @@
           </el-tooltip>
         </el-form-item>
         <el-form-item label="回执状态" prop="responseStatusCode">
-          <el-tooltip class="item" effect="dark" content="response报文里的 status code.例如：400，302，501" placement="top">
+          <el-tooltip class="item" effect="dark" content="response报文里的 status
+            code.例如：400，302，501,参考javax.servlet.http.HttpServletResponse" placement="top">
             <el-input-number v-model="temp.responseStatusCode" :precision="0" :step="1" :max="9000"
               style="width: 305px;" />
           </el-tooltip>
@@ -84,6 +87,7 @@
             <el-input-number v-model="temp.responseDelay" :precision="0" :step="1" :max="100" style="width: 305px;" />
           </el-tooltip>
         </el-form-item>
+
       </fieldset>
       <fieldset style="border-color: #12aed6;border-width: 1px;border-style: solid;">
         <legend>跳转参数（优先级中）</legend>

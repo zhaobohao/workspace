@@ -1,12 +1,13 @@
-package org.springbootdev.modules.mockserver.wrapper;
+package org.springclouddev.mockserver.wrapper;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.mockserver.matchers.MatchType;
 import org.mockserver.model.*;
-import org.springbootdev.modules.mockserver.entity.MockHttp;
+import org.springclouddev.mockserver.entity.MockHttp;
 import org.springframework.http.HttpHeaders;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;

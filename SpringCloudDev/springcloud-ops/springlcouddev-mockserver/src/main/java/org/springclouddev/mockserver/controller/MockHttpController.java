@@ -6,17 +6,24 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.ClearType;
 import org.springclouddev.core.boot.ctrl.AbstractController;
+import org.springclouddev.core.launch.constant.AppConstant;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
+import org.springclouddev.mockserver.config.GlobalMockServerClient;
+import org.springclouddev.mockserver.config.MockServerInit;
 import org.springclouddev.mockserver.entity.MockHttp;
 import org.springclouddev.mockserver.service.IMockHttpService;
 import org.springclouddev.mockserver.vo.MockHttpVO;
 import org.springclouddev.mockserver.wrapper.MockHttpWrapper;
+import org.springclouddev.mockserver.wrapper.MockWrapper;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -40,6 +47,9 @@ public class MockHttpController extends AbstractController {
 
     private IMockHttpService mockHttpService;
 
+    private MockServerInit mockServerInit;
+
+	private ServerProperties serverProperties;
     /**
      * 详情
      */
@@ -118,7 +128,14 @@ public class MockHttpController extends AbstractController {
     @ApiOperationSupport(order = 9)
     @ApiOperation(value = "新增或修改", notes = "传入mockHttp")
     public R submit(@Valid @RequestBody MockHttp mockHttp) {
+		ClientAndServer mockClient = GlobalMockServerClient.INSTANCE.getInstance();
+    	if(mockHttp.getId()!=null){
+    		//清理之前的mock接口
+			mockClient.clear(MockWrapper.mockRequest(mockHttpService.getById(mockHttp.getId())).get(), ClearType.ALL);
+		}
         if (mockHttpService.saveOrUpdate(mockHttp)) {
+        	//创建新的mock接口
+			this.mockServerInit.compileMockInterface(mockHttp,mockClient);
             return R.data(mockHttp);
         } else {
             return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, mockHttp, ToolConstant.DEFAULT_FAILURE_MESSAGE);

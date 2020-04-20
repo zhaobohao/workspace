@@ -1,10 +1,10 @@
 <template>
   <el-card>
-    <el-button v-waves v-permission="['system.param.add']" class="filter-item" style="margin-left: 10px;" round
-      type="alert" icon="el-icon-search" @click="handleIsSearchCardShow">
+    <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="alert" icon="el-icon-search"
+      @click="handleIsSearchCardShow">
       {{ $t('table.fliter') }}</el-button>
-    <el-button v-waves v-permission="['api.springcloud-system.param.remove']" class="filter-item"
-      style="margin-left: 10px;" round type="primary" icon="el-icon-edit" @click="handleCreateAction">
+    <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="primary" icon="el-icon-edit"
+      @click="handleCreateAction">
       {{ $t('table.add') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="danger" icon="el-icon-delete"
       @click="handleBatchDeleteAction">
@@ -122,7 +122,7 @@
         list: null, // Table里显示的数据
         total: 0, // 数据总量，分页用
         listLoading: true, // true,显示table的loading框
-        listQuery: {}, // 你的查询条件，和searchCard.vue的查询区域相对应
+        listQuery: listQuery(), // 你的查询条件，和searchCard.vue的查询区域相对应
         // 增加options的数据源
         temp: {
           id: undefined,
@@ -178,7 +178,11 @@
           this.listQuery = listQuery
         }
         this.listLoading = true
-        getList(this.listQuery.current, this.listQuery.size, this.listQuery.query).then(response => {
+        getList(this.listQuery.current, this.listQuery.size, {
+          webSiteId_equal: this.listQuery.query.webSiteId_equal,
+          requestPath_like: this.listQuery.query.requestPath_like,
+          requestMethod_like: this.listQuery.query.requestMethod_like
+        }).then(response => {
           if (response.code === 200) {
             this.list = response.data.records
             this.total = response.data.total

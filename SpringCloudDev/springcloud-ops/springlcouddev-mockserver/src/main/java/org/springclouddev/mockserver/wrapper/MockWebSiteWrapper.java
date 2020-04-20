@@ -12,7 +12,7 @@ import org.springclouddev.mockserver.vo.MockWebSiteVO;
  * @author zhaobohao
  * @since 2020-04-07
  */
-public class MockWebSiteWrapper extends BaseEntityWrapper<MockWebSite, MockWebSiteVO>  {
+public class MockWebSiteWrapper extends BaseEntityWrapper<MockWebSite, MockWebSiteVO> {
 
     public static MockWebSiteWrapper build() {
         return new MockWebSiteWrapper();

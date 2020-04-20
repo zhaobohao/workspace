@@ -1,21 +1,18 @@
 
 package org.springclouddev.mockserver.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import org.springclouddev.core.mp.support.Condition;
-import org.springclouddev.core.tool.node.TreeNode;
-import org.springclouddev.mockserver.entity.MockWebSite;
-import org.springclouddev.mockserver.vo.MockWebSiteVO;
-import org.springclouddev.mockserver.mapper.MockWebSiteMapper;
-import org.springclouddev.mockserver.service.IMockWebSiteService;
-import org.springclouddev.core.mp.base.BaseServiceImpl;
-import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
+import org.springclouddev.core.mp.base.BaseServiceImpl;
+import org.springclouddev.core.tool.node.TreeNode;
+import org.springclouddev.mockserver.entity.MockWebSite;
+import org.springclouddev.mockserver.mapper.MockWebSiteMapper;
+import org.springclouddev.mockserver.service.IMockWebSiteService;
+import org.springclouddev.mockserver.vo.MockWebSiteVO;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *  服务实现类

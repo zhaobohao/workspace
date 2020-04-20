@@ -1,6 +1,7 @@
 
 package org.springclouddev.mockserver.wrapper;
 
+
 import org.springclouddev.core.mp.support.BaseEntityWrapper;
 import org.springclouddev.core.tool.utils.BeanUtil;
 import org.springclouddev.mockserver.entity.MockHttp;
@@ -12,7 +13,7 @@ import org.springclouddev.mockserver.vo.MockHttpVO;
  * @author zhaobohao
  * @since 2020-04-07
  */
-public class MockHttpWrapper extends BaseEntityWrapper<MockHttp, MockHttpVO>  {
+public class MockHttpWrapper extends BaseEntityWrapper<MockHttp, MockHttpVO> {
 
     public static MockHttpWrapper build() {
         return new MockHttpWrapper();

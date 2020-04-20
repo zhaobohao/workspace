@@ -3,6 +3,8 @@ package org.springclouddev.core.tool.utils;
 
 import org.springframework.lang.Nullable;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -382,5 +384,20 @@ public class RegexUtil {
 		}
 		return null;
 	}
-
+	/**
+	 * 编译传入正则表达式在字符串中寻找，返回所有找到的结果
+	 * @param regex
+	 * @param beFoundString
+	 * @return
+	 */
+	@Nullable
+	public static List<String> findResults(String regex, String beFoundString) {
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(beFoundString);
+		List<String> keys=new LinkedList<>();
+		while (matcher.find()) {
+			keys.add(matcher.group());
+		}
+		return keys;
+	}
 }

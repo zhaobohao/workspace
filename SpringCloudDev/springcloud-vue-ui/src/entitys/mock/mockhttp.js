@@ -9,7 +9,7 @@ export default function area() {
       // web_site表id
       webSiteId: undefined,
       // 配置的url路径，支持正则表达式
-      requestPath: '.*',
+      requestPath: '/.*',
       // http的method,例如get,put,delete,post,支持正则表达式
       requestMethod: 'get',
       // http传过来的参数，录入为json结构。key,value支持正则表达式
@@ -29,7 +29,7 @@ export default function area() {
       // response报文里的body
       responseBody: undefined,
       // response报文里的body的编码
-      responseCharsets: 'utf-8',
+      responseCharsets: undefined,
       // response报文里的 status code.例如：400，302，501
       responseStatusCode: 200,
       // 配合statuscode使用的，状态码解释文本。

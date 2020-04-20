@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springclouddev.core.mp.base.BaseEntity;
 import org.springclouddev.core.mp.base.TenantEntity;
@@ -131,8 +134,8 @@ public class MockHttp extends BaseEntity implements TenantEntity {
     @TableField("forward_host")
     private String forwardHost;
     /**
-     * 跳转域名接口
-     */
+	 * 跳转域名接口
+	 */
     @ApiModelProperty(value = "跳转域名接口")
     @TableField("forward_port")
     private String forwardPort;

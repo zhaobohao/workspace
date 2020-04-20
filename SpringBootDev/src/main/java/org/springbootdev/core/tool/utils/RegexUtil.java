@@ -1,8 +1,12 @@
 
 package org.springbootdev.core.tool.utils;
 
+import cn.hutool.core.util.StrUtil;
 import org.springframework.lang.Nullable;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,7 +88,7 @@ public class RegexUtil {
 	 *
 	 * @param regex         正则
 	 * @param beFoundString 字符串
-	 * @return {boolean}
+	 * @return {String}
 	 */
 	@Nullable
 	public static String findResult(String regex, String beFoundString) {
@@ -94,6 +98,23 @@ public class RegexUtil {
 			return matcher.group();
 		}
 		return null;
+	}
+
+	/**
+	 * 编译传入正则表达式在字符串中寻找，返回所有找到的结果
+	 * @param regex
+	 * @param beFoundString
+	 * @return
+	 */
+	@Nullable
+	public static List<String> findResults(String regex, String beFoundString) {
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(beFoundString);
+		List<String> keys=new LinkedList<>();
+		while (matcher.find()) {
+			keys.add(matcher.group());
+		}
+		return keys;
 	}
 
 }

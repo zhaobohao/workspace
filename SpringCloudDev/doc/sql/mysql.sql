@@ -3997,7 +3997,7 @@ CREATE TABLE `mk_mock_http`  (
   `forward_delay` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时的延迟时间，默认时间单位为秒',
   `forward_body` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '跳转时，重写转给第三方的body.',
   `error_drop_connection` varchar(8) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '是否丢失链接，true,false',
-  `error_response_bytes` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '出错时，返回的报文',
+  `error_response_bytes` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin  NULL COMMENT '出错时，返回的报文',
   `create_user`	bigint(32) NULL DEFAULT NULL COMMENT '创建人',
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
