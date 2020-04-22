@@ -29,7 +29,7 @@
         <bouncycastle.version>1.62</bouncycastle.version>
         <j2cache-spring-boot2-starter.version>2.7.6-release</j2cache-spring-boot2-starter.version>
         <j2cache-core.version>2.7.8-release</j2cache-core.version>
-        <drools.version>7.32.0.Final</drools.version>
+        <drools.version>7.36.1.Final</drools.version>
 
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
         <spring.platform.version>Cairo-SR8</spring.platform.version>

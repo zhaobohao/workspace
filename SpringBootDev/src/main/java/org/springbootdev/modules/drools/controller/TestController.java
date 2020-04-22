@@ -1,6 +1,7 @@
 package org.springbootdev.modules.drools.controller;
 
 import org.kie.api.runtime.KieSession;
+import org.kie.internal.utils.KieHelper;
 import org.springbootdev.modules.drools.entity.Address;
 import org.springbootdev.modules.drools.entity.AddressCheckResult;
 import org.springframework.stereotype.Controller;
@@ -14,11 +15,12 @@ import javax.annotation.Resource;
 public class TestController {
 
 	@Resource
-	private KieSession kieSession;
+	private KieHelper kieHelper;
 
 	@ResponseBody
 	@RequestMapping("/address")
 	public void test(){
+		KieSession kieSession=kieHelper.build().newKieSession();
 		Address address = new Address();
 		address.setPostcode("99425");
 

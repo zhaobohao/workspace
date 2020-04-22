@@ -1,14 +1,17 @@
 package org.springbootdev.modules.drools.configure;
-import org.kie.api.KieBase;
-import org.kie.api.KieServices;
-import org.kie.api.builder.*;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
-import org.kie.internal.io.ResourceFactory;
-import org.kie.spring.KModuleBeanFactoryPostProcessor;
+
+import org.kie.api.io.ResourceType;
+import org.kie.internal.utils.KieHelper;
+import org.springbootdev.core.tool.utils.SpringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -20,19 +23,26 @@ import java.io.IOException;
  */
 @Configuration
 public class DroolsAutoConfiguration {
-
 	/** 特别要注意 rule的存放位置  */
 	private static final String RULES_PATH = "rules/";
-
+    @Autowired
+	ApplicationContext applicationContext;
 	@Bean
-	@ConditionalOnMissingBean(KieFileSystem.class)
-	public KieFileSystem kieFileSystem() throws IOException {
-		KieFileSystem kieFileSystem = getKieServices().newKieFileSystem();
+	@ConditionalOnMissingBean(KieHelper.class)
+	public KieHelper kieHelper() throws  IOException
+ 	{
+		KieHelper helper = new KieHelper();
+		//从配置文件中加载规则
 		for (Resource file : getRuleFiles()) {
 			String path = file.getURI().getPath().substring(file.getURI().getPath().indexOf(RULES_PATH));
-			kieFileSystem.write(ResourceFactory.newClassPathResource(path, "UTF-8"));
+			helper.addFromClassPath("/"+path,"UTF-8");
 		}
-		return kieFileSystem;
+		//从数据库中加载规则
+		//helper.addContent("", ResourceType.DRL);
+		//注册 KieSession kSession
+		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) ((AbstractApplicationContext)applicationContext).getBeanFactory();
+		beanFactory.registerSingleton("kSession",helper.build().newKieSession());
+		return helper;
 	}
 
 	/**
@@ -44,45 +54,6 @@ public class DroolsAutoConfiguration {
 	private Resource[] getRuleFiles() throws IOException {
 		ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 		return resourcePatternResolver.getResources("classpath*:" + RULES_PATH + "**/*.*");
-	}
-
-	@Bean
-	@ConditionalOnMissingBean(KieContainer.class)
-	public KieContainer kieContainer() throws IOException {
-		final KieRepository kieRepository = getKieServices().getRepository();
-
-		kieRepository.addKieModule(new KieModule() {
-			public ReleaseId getReleaseId() {
-				return kieRepository.getDefaultReleaseId();
-			}
-		});
-
-		KieBuilder kieBuilder = getKieServices().newKieBuilder(kieFileSystem());
-		kieBuilder.buildAll();
-
-		return getKieServices().newKieContainer(kieRepository.getDefaultReleaseId());
-	}
-
-	private KieServices getKieServices() {
-		return KieServices.Factory.get();
-	}
-
-	@Bean
-	@ConditionalOnMissingBean(KieBase.class)
-	public KieBase kieBase() throws IOException {
-		return kieContainer().getKieBase();
-	}
-
-	@Bean
-	@ConditionalOnMissingBean(KieSession.class)
-	public KieSession kieSession() throws IOException {
-		return kieContainer().newKieSession();
-	}
-
-	@Bean
-	@ConditionalOnMissingBean(KModuleBeanFactoryPostProcessor.class)
-	public KModuleBeanFactoryPostProcessor kiePostProcessor() {
-		return new KModuleBeanFactoryPostProcessor();
 	}
 }
 

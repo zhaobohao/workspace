@@ -3,9 +3,11 @@ package org.springclouddev.core.tool.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.context.support.AbstractApplicationContext;
 
 /**
  * spring 工具类
@@ -15,11 +17,11 @@ import org.springframework.context.ApplicationEvent;
 @Slf4j
 public class SpringUtil implements ApplicationContextAware {
 
-	private static ApplicationContext context;
+	private static AbstractApplicationContext context;
 
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		SpringUtil.context = context;
+		SpringUtil.context = (AbstractApplicationContext)context;
 	}
 
 	public static <T> T getBean(Class<T> clazz) {
@@ -63,5 +65,18 @@ public class SpringUtil implements ApplicationContextAware {
 			log.error(ex.getMessage());
 		}
 	}
-
+	/**
+	 * 注册bean
+	 * @param apply
+	 */
+	public static void register(Object apply,String beanName){
+		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();
+		//BeanDefinitionBuilder构造过程
+		//BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(beanClass);
+		//builder.addPropertyReference("refBean11", "refBean11");//value是String类型，其实就是beanName
+		//builder.addPropertyValue("property222", Object22);//value是object类型，与xml配置一样
+		//beanFactory.registerBeanDefinition(beanName, beanDefinitionBuilder.getBeanDefinition());
+		//当前已经new出一个对象了，所以不用像上面二句来生成了。
+		beanFactory.registerSingleton(beanName,apply);
+	}
 }
