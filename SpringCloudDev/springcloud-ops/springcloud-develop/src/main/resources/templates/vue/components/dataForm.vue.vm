@@ -13,31 +13,48 @@
 #foreach($field in $!{table.fields})
 #if($!{field.name}=="remarks")
     <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-tooltip class="item" effect="dark"
+                    content="$!{field.comment}" placement="top">
         <el-input v-model="temp.$!{field.propertyName}" type="textarea" autosize style="width: 815px;" />
+        </el-tooltip>
     </el-form-item>
 #elseif($!{field.name}=="sort")
     <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-tooltip class="item" effect="dark"
+                    content="$!{field.comment}" placement="top">
         <el-input-number v-model="temp.$!{field.propertyName}" :precision="0" :step="1" :max="100" style="width: 305px;" />
+        </el-tooltip>
     </el-form-item>
 #elseif($!{logicDeleteFieldName}==$!{field.name} || $!{field.name}=="tenant_id" || $!{field.keyFlag})
 
 #elseif($!{field.comment.indexOf("字典")}!=-1)
     <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-tooltip class="item" effect="dark"
+                    content="$!{field.comment}" placement="top">
         <el-select v-model="temp.$!{field.propertyName}" :placeholder="$!{dollar}t('table.pleaseSelect')" class="filter-item"
                    style="width: 305px;">
             <el-option v-for="item in $!{field.propertyName}Options" :key="parseFloat(item.value)" :label="parseFloat(item.label)"" :value="parseFloat(item.value)" />
         </el-select>
+        </el-tooltip>
     </el-form-item>
 #elseif($!{field.propertyType}=="Integer" || $!{field.propertyType}=="Long")
     <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-tooltip class="item" effect="dark"
+                    content="$!{field.comment}" placement="top">
         <el-input-number v-model="temp.$!{field.propertyName}" :precision="0" :step="1" :max="100" style="width: 305px;" />
+        </el-tooltip>
     </el-form-item>
 #elseif($!{field.propertyType}=="Float" || $!{field.propertyType}=="Double")
     <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-tooltip class="item" effect="dark"
+                    content="$!{field.comment}" placement="top">
         <el-input-number v-model="temp.$!{field.propertyName}" :precision="2" :step="0.1" :max="10" style="width: 305px;" />
+        </el-tooltip>
     </el-form-item>
 #elseif($!{field.propertyType}=="LocalDateTime")
     <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+        <el-tooltip class="item" effect="dark"
+                    content="$!{field.comment}" placement="top">
         <el-date-picker
             v-model="temp.$!{field.propertyName}"
             type="datetime"
@@ -45,10 +62,14 @@
             align="right"
             :picker-options="pickerOptions">
         </el-date-picker>
+        </el-tooltip>
     </el-form-item>
 #else
       <el-form-item label="$!{field.comment}" prop="$!{field.propertyName}">
+          <el-tooltip class="item" effect="dark"
+                      content="$!{field.comment}" placement="top">
         <el-input v-model="temp.$!{field.propertyName}" style="width: 305px;" />
+          </el-tooltip>
       </el-form-item>
 #end
 #end

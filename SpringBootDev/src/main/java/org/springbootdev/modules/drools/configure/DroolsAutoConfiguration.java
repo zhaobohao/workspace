@@ -34,8 +34,8 @@ public class DroolsAutoConfiguration {
 		KieHelper helper = new KieHelper();
 		//从配置文件中加载规则
 		for (Resource file : getRuleFiles()) {
-			String path = file.getURI().getPath().substring(file.getURI().getPath().indexOf(RULES_PATH));
-			helper.addFromClassPath("/"+path,"UTF-8");
+				String path = file.getURI().toString().substring(file.getURI().toString().indexOf(RULES_PATH));
+				helper.addFromClassPath("/" + path, "UTF-8");
 		}
 		//从数据库中加载规则
 		//helper.addContent("", ResourceType.DRL);
@@ -53,7 +53,7 @@ public class DroolsAutoConfiguration {
 	 */
 	private Resource[] getRuleFiles() throws IOException {
 		ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-		return resourcePatternResolver.getResources("classpath*:" + RULES_PATH + "**/*.*");
+		return resourcePatternResolver.getResources("classpath*:" + RULES_PATH + "**/*.drl");
 	}
 }
 

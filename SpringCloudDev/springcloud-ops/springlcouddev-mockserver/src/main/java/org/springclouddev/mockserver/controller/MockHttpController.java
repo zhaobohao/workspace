@@ -16,6 +16,7 @@ import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
+import org.springclouddev.mockserver.config.Constants;
 import org.springclouddev.mockserver.config.GlobalMockServerClient;
 import org.springclouddev.mockserver.config.MockServerInit;
 import org.springclouddev.mockserver.entity.MockHttp;
@@ -24,6 +25,7 @@ import org.springclouddev.mockserver.vo.MockHttpVO;
 import org.springclouddev.mockserver.wrapper.MockHttpWrapper;
 import org.springclouddev.mockserver.wrapper.MockWrapper;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -48,6 +50,8 @@ public class MockHttpController extends AbstractController {
     private IMockHttpService mockHttpService;
 
     private MockServerInit mockServerInit;
+
+    private RedisTemplate j2CacheRedisTemplate;
 
 	private ServerProperties serverProperties;
     /**
@@ -128,19 +132,18 @@ public class MockHttpController extends AbstractController {
     @ApiOperationSupport(order = 9)
     @ApiOperation(value = "新增或修改", notes = "传入mockHttp")
     public R submit(@Valid @RequestBody MockHttp mockHttp) {
-		ClientAndServer mockClient = GlobalMockServerClient.INSTANCE.getInstance();
-    	if(mockHttp.getId()!=null){
-    		//清理之前的mock接口
-			mockClient.clear(MockWrapper.mockRequest(mockHttpService.getById(mockHttp.getId())).get(), ClearType.ALL);
-		}
+        //由于正式上线使用时，会分布式部署，这里必须要实现redis的订阅发布功能，通知其它的mockserver更新接口
+        if(mockHttp.getId()!=null){
+            mockHttp.setWebSiteId(null);
+        }
         if (mockHttpService.saveOrUpdate(mockHttp)) {
-        	//创建新的mock接口
-			this.mockServerInit.compileMockInterface(mockHttp,mockClient);
+            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER,  mockHttp.getId());
             return R.data(mockHttp);
         } else {
             return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, mockHttp, ToolConstant.DEFAULT_FAILURE_MESSAGE);
         }
     }
+
 
 
     /**

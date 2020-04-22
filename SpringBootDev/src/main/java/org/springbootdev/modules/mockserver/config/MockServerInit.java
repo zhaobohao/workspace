@@ -16,6 +16,7 @@ import org.springbootdev.modules.mockserver.wrapper.MockWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -35,7 +36,8 @@ public class MockServerInit implements CommandLineRunner {
 	IMockHttpService mockHttpService;
 	@Autowired
 	ServerProperties serverProperties;
-
+@Resource
+RedisTemplate j2CacheRedisTemplate;
 	@Override
 	public void run(String... args) throws Exception {
 		ClientAndServer mockClient =  GlobalMockServerClient.INSTANCE.getInstance();

@@ -29,17 +29,21 @@
           <span>{{ scope.row.id }}</span>
         </template>
 </el-table-column>-->
+
       <el-table-column label="请求路径" min-width="150px">
         <template slot-scope="scope">
-          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.requestPath }}</span>
+          <el-tooltip class="item" effect="dark" content="请将端口号改为1080" placement="top">
+            <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.requestPath }}</span>
+          </el-tooltip>
         </template>
       </el-table-column>
+
       <el-table-column label="请求方法" min-width="150px">
         <template slot-scope="scope">
           <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.requestMethod }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="回执报文" min-width="150px">
+      <el-table-column label="回执报文" min-width="150px" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.responseBody }}</span>
         </template>
@@ -359,3 +363,15 @@
   }
 
 </script>
+<style>
+  .el-tooltip__popper {
+    max-width: 70%;
+  }
+
+  .el-tooltip__popper,
+  .el-tooltip__popper.is-dark {
+    background: #f5f5f5 !important;
+    color: #0a3386 !important;
+  }
+
+</style>

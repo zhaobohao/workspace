@@ -2,19 +2,20 @@ package org.springclouddev.mockserver.config;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.core.config.Order;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.HttpError;
 import org.mockserver.model.HttpForward;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
-import org.springclouddev.mockserver.callback.ReplaceBodyParamtersCallBack;
-import org.springclouddev.mockserver.entity.MockHttp;
-import org.springclouddev.mockserver.service.IMockHttpService;
-import org.springclouddev.mockserver.wrapper.MockWrapper;
+import org.springbootdev.modules.mockserver.callback.ReplaceBodyParamtersCallBack;
+import org.springbootdev.modules.mockserver.entity.MockHttp;
+import org.springbootdev.modules.mockserver.service.IMockHttpService;
+import org.springbootdev.modules.mockserver.wrapper.MockWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -34,7 +35,8 @@ public class MockServerInit implements CommandLineRunner {
 	IMockHttpService mockHttpService;
 	@Autowired
     ServerProperties serverProperties;
-
+@Resource
+RedisTemplate j2CacheRedisTemplate;
 	@Override
 	public void run(String... args) throws Exception {
 		ClientAndServer mockClient =  GlobalMockServerClient.INSTANCE.getInstance();

@@ -37,7 +37,7 @@
         </template>
 </el-table-column>-->
 #foreach($field in $!{table.fields})
-      <el-table-column label="$!{field.comment}" min-width="150px" show-overflow-tooltip>
+      <el-table-column label="$!{field.comment}" min-width="150px" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.$!{field.propertyName}#if($!{field.comment.indexOf("字典")}!=-1)| translateVlaue2Lable($!{field.propertyName}Options)#end }}</span>
         </template>
@@ -310,6 +310,15 @@
   }
 
 </script>
-<style lang="scss" scoped>
-    .el-tooltip__popper{max-width:50%}
+<style>
+    .el-tooltip__popper {
+        max-width: 70%;
+    }
+
+    .el-tooltip__popper,
+    .el-tooltip__popper.is-dark {
+        background: #f5f5f5 !important;
+        color: #0a3386 !important;
+    }
+
 </style>

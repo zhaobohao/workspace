@@ -11,12 +11,14 @@ import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.ClearType;
 import org.springbootdev.core.boot.ctrl.AbstractController;
 import org.springbootdev.core.launch.constant.AppConstant;
+import org.springbootdev.core.launch.utils.INetUtil;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.core.mp.support.Query;
 import org.springbootdev.core.secure.SystemUser;
 import org.springbootdev.core.tool.api.R;
 import org.springbootdev.core.tool.constant.ToolConstant;
 import org.springbootdev.core.tool.utils.Func;
+import org.springbootdev.modules.mockserver.config.Constants;
 import org.springbootdev.modules.mockserver.config.GlobalMockServerClient;
 import org.springbootdev.modules.mockserver.config.MockServerInit;
 import org.springbootdev.modules.mockserver.entity.MockHttp;
@@ -26,6 +28,7 @@ import org.springbootdev.modules.mockserver.wrapper.MockHttpWrapper;
 import org.springbootdev.modules.mockserver.wrapper.MockWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -53,6 +56,8 @@ public class MockHttpController extends AbstractController {
     private MockServerInit  mockServerInit;
 
 	private ServerProperties serverProperties;
+
+	private RedisTemplate j2CacheRedisTemplate;
     /**
      * 详情
      */
@@ -131,14 +136,12 @@ public class MockHttpController extends AbstractController {
     @ApiOperationSupport(order = 9)
     @ApiOperation(value = "新增或修改", notes = "传入mockHttp")
     public R submit(@Valid @RequestBody MockHttp mockHttp) {
-		ClientAndServer mockClient = GlobalMockServerClient.INSTANCE.getInstance();
+    	//由于正式上线使用时，会分布式部署，这里必须要实现redis的订阅发布功能，通知其它的mockserver更新接口
     	if(mockHttp.getId()!=null){
-    		//清理之前的mock接口
-			mockClient.clear(MockWrapper.mockRequest(mockHttpService.getById(mockHttp.getId())).get(), ClearType.ALL);
+			mockHttp.setWebSiteId(null);
 		}
         if (mockHttpService.saveOrUpdate(mockHttp)) {
-        	//创建新的mock接口
-			this.mockServerInit.compileMockInterface(mockHttp,mockClient);
+			j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER,  mockHttp.getId());
             return R.data(mockHttp);
         } else {
             return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, mockHttp, ToolConstant.DEFAULT_FAILURE_MESSAGE);
