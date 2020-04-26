@@ -45,6 +45,7 @@
         <module>springcloud-core-tool</module>
         <module>springcloud-core-oss</module>
         <module>springcloud-core-transaction</module>
+        <module>springcloud-core-share-jdbc</module>
     </modules>
 
     <dependencyManagement>

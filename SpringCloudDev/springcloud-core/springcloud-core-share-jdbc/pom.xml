@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>springclouddev-core</artifactId>
+        <groupId>org.springclouddev</groupId>
+        <version>1.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>springcloud-core-share-jdbc</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <sharding-jdbc-spring-boot-starter.version>4.0.1</sharding-jdbc-spring-boot-starter.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-mybatis</artifactId>
+            <version>${project.tool.version}</version>
+        </dependency>
+        <!-- Cloud-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-commons</artifactId>
+        </dependency>
+        <!-- for spring boot -->
+        <!-- https://mvnrepository.com/artifact/org.apache.shardingsphere/sharding-jdbc-spring-boot-starter -->
+        <!-- 官方文档 ：https://shardingsphere.apache.org/document/current/cn/manual/sharding-jdbc/usage/read-write-splitting/ -->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>${sharding-jdbc-spring-boot-starter.version}</version>
+        </dependency>
+        <!-- for spring namespace -->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-namespace</artifactId>
+            <version>${sharding-jdbc-spring-boot-starter.version}</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
