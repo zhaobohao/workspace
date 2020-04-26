@@ -33,4 +33,12 @@ public interface RoleMapper extends SuperMapper<Role> {
 	 */
 	List<RoleVO> tree( String excludeRole,String parentId);
 
+	/**
+	 * 获取角色名
+	 *
+	 * @param ids
+	 * @return
+	 */
+	List<String> getRoleNames(Long[] ids);
+
 }

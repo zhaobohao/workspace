@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 服务实现类
@@ -64,6 +65,20 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 		}));
 		// 新增配置
 		return roleMenuService.saveBatch(roleMenus);
+	}
+
+	@Override
+	public String getRoleIds(String tenantId, String roleNames) {
+		List<Role> roleList = baseMapper.selectList(Wrappers.<Role>query().lambda().eq(Role::getTenantId, tenantId).in(Role::getRoleName, Func.toStrList(roleNames)));
+		if (roleList != null && roleList.size() > 0) {
+			return roleList.stream().map(role -> Func.toStr(role.getId())).distinct().collect(Collectors.joining(","));
+		}
+		return null;
+	}
+
+	@Override
+	public List<String> getRoleNames(String roleIds) {
+		return baseMapper.getRoleNames(Func.toLongArray(roleIds));
 	}
 
 }

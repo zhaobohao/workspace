@@ -38,4 +38,21 @@ public interface IDeptService extends IService<Dept> {
 	 * @return
 	 */
 	boolean submit(Dept dept);
+
+	/**
+	 * 获取部门ID
+	 *
+	 * @param tenantId
+	 * @param deptNames
+	 * @return
+	 */
+	String getDeptIds(String tenantId, String deptNames);
+
+	/**
+	 * 获取部门名
+	 *
+	 * @param deptIds
+	 * @return
+	 */
+	List<String> getDeptNames(String deptIds);
 }

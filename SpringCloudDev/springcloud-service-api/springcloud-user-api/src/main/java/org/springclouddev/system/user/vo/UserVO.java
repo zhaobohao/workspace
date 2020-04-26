@@ -37,7 +37,10 @@ private Long id;
 	 * 部门名
 	 */
 	private String deptName;
-
+	/**
+	 * 岗位名
+	 */
+	private String postName;
 	/**
 	 * 性别
 	 */

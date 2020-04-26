@@ -16,6 +16,8 @@ import java.util.List;
 @ConfigurationProperties("springclouddev.secure.url")
 public class SecureProperties {
 
-	private final List<String> excludePatterns = new ArrayList<>();
+	private final List<ClientSecure> client = new ArrayList<>();
+
+	private final List<String> skipUrl = new ArrayList<>();
 
 }

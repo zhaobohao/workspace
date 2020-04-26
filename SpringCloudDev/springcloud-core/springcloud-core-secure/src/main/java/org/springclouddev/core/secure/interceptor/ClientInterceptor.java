@@ -3,6 +3,7 @@ package org.springclouddev.core.secure.interceptor;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.apache.bcel.classfile.Constant;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.secure.utils.SecureUtil;
 import org.springclouddev.core.tool.api.R;
@@ -38,7 +39,7 @@ public class ClientInterceptor extends HandlerInterceptorAdapter {
 		} else {
 			log.warn("客户端认证失败，请求接口：{}，请求IP：{}，请求参数：{}", request.getRequestURI(), WebUtil.getIP(request), JsonUtil.toJson(request.getParameterMap()));
 			R result = R.fail(ResultCode.UN_AUTHORIZED);
-			response.setHeader(ToolConstant.CONTENT_TYPE_NAME, MediaType.APPLICATION_JSON_UTF8_VALUE);
+			response.setHeader(ToolConstant.CONTENT_TYPE_NAME, MediaType.APPLICATION_JSON_VALUE);
 			response.setCharacterEncoding(ToolConstant.UTF_8);
 			response.setStatus(HttpServletResponse.SC_OK);
 			try {

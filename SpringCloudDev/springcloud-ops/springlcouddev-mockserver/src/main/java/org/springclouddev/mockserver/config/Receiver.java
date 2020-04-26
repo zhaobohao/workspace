@@ -4,9 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.ClearType;
-import org.springbootdev.modules.mockserver.entity.MockHttp;
-import org.springbootdev.modules.mockserver.service.IMockHttpService;
-import org.springbootdev.modules.mockserver.wrapper.MockWrapper;
+import org.springclouddev.mockserver.entity.MockHttp;
+import org.springclouddev.mockserver.service.IMockHttpService;
+import org.springclouddev.mockserver.wrapper.MockWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

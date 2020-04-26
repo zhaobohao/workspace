@@ -38,6 +38,10 @@ private Long id;
 	@TableField(fill = FieldFill.INSERT)
 	private String tenantId;
 	/**
+	 * 编号
+	 */
+	private String code;
+	/**
 	 * 账号
 	 */
 	private String account;
@@ -77,6 +81,10 @@ private Long id;
 	 * 部门id
 	 */
 	private String deptId;
+	/**
+	 * 岗位id
+	 */
+	private String postId;
 	/**
 	 * 个人介绍
 	 */

@@ -1,10 +1,13 @@
 
 package org.springclouddev.system.user.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import org.apache.ibatis.annotations.Param;
 import org.springclouddev.core.mp.base.SuperMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.springclouddev.system.user.entity.User;
+import org.springclouddev.system.user.excel.UserExcel;
 
 import java.util.List;
 
@@ -66,4 +69,12 @@ public interface UserMapper extends SuperMapper<User> {
 	 * @return
 	 */
 	List<String> getResources(String[] roleIds);
+
+	/**
+	 * 获取导出用户数据
+	 *
+	 * @param queryWrapper
+	 * @return
+	 */
+	List<UserExcel> exportUser(@Param("ew") Wrapper<User> queryWrapper);
 }

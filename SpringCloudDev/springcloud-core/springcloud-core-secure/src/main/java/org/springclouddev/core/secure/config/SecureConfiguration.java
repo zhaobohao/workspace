@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springclouddev.core.secure.aspect.AuthAspect;
 import org.springclouddev.core.secure.interceptor.ClientInterceptor;
 import org.springclouddev.core.secure.interceptor.SecureInterceptor;
-import org.springclouddev.core.secure.props.ClientProperties;
 import org.springclouddev.core.secure.props.SecureProperties;
 import org.springclouddev.core.secure.provider.ClientDetailsServiceImpl;
 import org.springclouddev.core.secure.provider.IClientDetailsService;
@@ -28,26 +27,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Order
 @Configuration
 @AllArgsConstructor
-@EnableConfigurationProperties({SecureProperties.class, ClientProperties.class})
+@EnableConfigurationProperties({SecureProperties.class})
 public class SecureConfiguration implements WebMvcConfigurer {
 
 	private final SecureRegistry secureRegistry;
 
 	private final SecureProperties secureProperties;
 
-	private final ClientProperties clientProperties;
-
 	private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		clientProperties.getClient().forEach(cs -> registry.addInterceptor(new ClientInterceptor(cs.getClientId())).addPathPatterns(cs.getPathPatterns()));
-
-		if (secureRegistry.isEnable()) {
+		secureProperties.getClient().forEach(cs -> registry.addInterceptor(new ClientInterceptor(cs.getClientId())).addPathPatterns(cs.getPathPatterns()));
+		if (secureRegistry.isEnabled()) {
 			registry.addInterceptor(new SecureInterceptor())
 				.excludePathPatterns(secureRegistry.getExcludePatterns())
 				.excludePathPatterns(secureRegistry.getDefaultExcludePatterns())
-				.excludePathPatterns(secureProperties.getExcludePatterns());
+				.excludePathPatterns(secureProperties.getSkipUrl());
 		}
 	}
 

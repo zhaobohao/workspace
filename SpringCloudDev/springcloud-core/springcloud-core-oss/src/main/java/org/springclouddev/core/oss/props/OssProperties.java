@@ -16,7 +16,7 @@ public class OssProperties {
 	/**
 	 * 是否启用
 	 */
-	private Boolean enable;
+	private Boolean enabled;
 
 	/**
 	 * 对象存储名称

@@ -13,6 +13,7 @@ import org.springclouddev.core.secure.constant.SecureConstant;
 import org.springclouddev.core.secure.exception.SecureException;
 import org.springclouddev.core.secure.provider.IClientDetails;
 import org.springclouddev.core.secure.provider.IClientDetailsService;
+import org.springclouddev.core.tool.constant.RoleConstant;
 import org.springclouddev.core.tool.utils.*;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -71,10 +72,10 @@ public class SecureUtil {
 
 	/**
 	 * 获取用户信息
-	 * @note 如果token过期，返回null.
 	 *
 	 * @param request request
 	 * @return SystemUser
+	 * @note 如果token过期，返回null.
 	 */
 	public static SystemUser getUser(HttpServletRequest request) {
 		Claims claims = getClaims(request);
@@ -88,7 +89,7 @@ public class SecureUtil {
 		String account = Func.toStr(claims.get(SecureUtil.ACCOUNT));
 		String roleName = Func.toStr(claims.get(SecureUtil.ROLE_NAME));
 		String userName = Func.toStr(claims.get(SecureUtil.USER_NAME));
-        String resources= Func.toStr(claims.get(SecureUtil.RESOURCES_NAME));
+		String resources = Func.toStr(claims.get(SecureUtil.RESOURCES_NAME));
 		SystemUser systemUser = new SystemUser();
 		systemUser.setClientId(clientId);
 		systemUser.setUserId(userId);
@@ -101,6 +102,14 @@ public class SecureUtil {
 		return systemUser;
 	}
 
+	/**
+	 * 是否为超管
+	 *
+	 * @return boolean
+	 */
+	public static boolean isAdministrator() {
+		return StringUtil.containsAny(getUserRole(), RoleConstant.ADMIN);
+	}
 
 	/**
 	 * 获取用户id
@@ -236,11 +245,16 @@ public class SecureUtil {
 	 */
 	public static Claims getClaims(HttpServletRequest request) {
 		String auth = request.getHeader(SecureUtil.HEADER);
-		if ((auth != null) && (auth.length() > AUTH_LENGTH)) {
+		if (StringUtil.isNotBlank(auth) && auth.length() > AUTH_LENGTH) {
 			String headStr = auth.substring(0, 6).toLowerCase();
 			if (headStr.compareTo(SecureUtil.BEARER) == 0) {
 				auth = auth.substring(7);
 				return SecureUtil.parseJWT(auth);
+			} else {
+				String parameter = request.getParameter(SecureUtil.HEADER);
+				if (StringUtil.isNotBlank(parameter)) {
+					return SecureUtil.parseJWT(parameter);
+				}
 			}
 		}
 		return null;

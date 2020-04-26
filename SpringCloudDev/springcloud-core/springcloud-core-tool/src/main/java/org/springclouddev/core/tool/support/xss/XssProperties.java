@@ -19,7 +19,7 @@ public class XssProperties {
 	/**
 	 * 开启xss
 	 */
-	private Boolean enable = true;
+	private Boolean enabled = true;
 
 	/**
 	 * 放行url

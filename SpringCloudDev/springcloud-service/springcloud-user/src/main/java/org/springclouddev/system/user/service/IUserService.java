@@ -2,10 +2,12 @@
 package org.springclouddev.system.user.service;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.core.mp.base.BaseService;
 import org.springclouddev.system.user.entity.User;
 import org.springclouddev.system.user.entity.UserInfo;
+import org.springclouddev.system.user.excel.UserExcel;
 
 import java.util.List;
 
@@ -99,4 +101,21 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	List<String> getDeptName(String deptIds);
+
+
+	/**
+	 * 导入用户数据
+	 *
+	 * @param data
+	 * @return
+	 */
+	void importUser(List<UserExcel> data);
+
+	/**
+	 * 获取导出用户数据
+	 *
+	 * @param queryWrapper
+	 * @return
+	 */
+	List<UserExcel> exportUser(Wrapper<User> queryWrapper);
 }

@@ -20,6 +20,7 @@
         <protostuff.version>1.6.0</protostuff.version>
         <captcha.version>1.6.2</captcha.version>
         <mica.auto.version>1.1.0</mica.auto.version>
+        <easyexcel.version>2.1.6</easyexcel.version>
         <alibaba.cloud.version>2.2.0.RELEASE</alibaba.cloud.version>
         <spring.boot.admin.version>2.2.2</spring.boot.admin.version>
 

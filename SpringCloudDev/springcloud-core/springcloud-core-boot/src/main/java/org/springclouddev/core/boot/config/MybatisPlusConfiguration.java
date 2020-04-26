@@ -53,7 +53,7 @@ public class MybatisPlusConfiguration {
 	 * sql 日志
 	 */
 	@Bean
-	@ConditionalOnProperty(value = "springclouddev.mybatis-plus.sql-log.enable", matchIfMissing = true)
+	@ConditionalOnProperty(value = "springclouddev.mybatis-plus.sql-log.enabled", matchIfMissing = true)
 	public SqlLogInterceptor sqlLogInterceptor() {
 		return new SqlLogInterceptor();
 	}

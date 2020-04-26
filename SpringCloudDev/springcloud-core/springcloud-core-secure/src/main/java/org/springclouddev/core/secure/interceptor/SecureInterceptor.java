@@ -34,7 +34,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
 			log.warn("签名过期或认证失败，请求接口：{}，请求IP：{}，请求参数：{}", request.getRequestURI(), WebUtil.getIP(request), JsonUtil.toJson(request.getParameterMap()));
 			R result = R.fail(ResultCode.UN_AUTHORIZED);
 			response.setCharacterEncoding(ToolConstant.UTF_8);
-			response.setHeader(ToolConstant.CONTENT_TYPE_NAME, MediaType.APPLICATION_JSON_UTF8_VALUE);
+			response.setHeader(ToolConstant.CONTENT_TYPE_NAME, MediaType.APPLICATION_JSON_VALUE);
 			response.setStatus(HttpServletResponse.SC_OK);
 			try {
 				response.getWriter().write(Objects.requireNonNull(JsonUtil.toJson(result)));

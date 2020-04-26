@@ -15,32 +15,62 @@ import java.util.List;
 @Component
 public class ISysClientFallback implements ISysClient {
 	@Override
-	public String getDeptName(Integer id) {
+	public String getDeptName(Long id) {
 		return null;
 	}
 
 	@Override
-	public Dept getDept(Integer id) {
+	public Dept getDept(Long id) {
 		return null;
 	}
 
 	@Override
-	public String getRoleName(Integer id) {
+	public String getRoleName(Long id) {
 		return null;
 	}
 
 	@Override
-	public String getRoleAlias(Integer id) {
+	public String getRoleAlias(Long id) {
 		return null;
 	}
 
 	@Override
-	public Role getRole(Integer id) {
+	public List<String> getRoleNames(String roleIds) {
+		return null;
+	}
+
+	@Override
+	public Role getRole(Long id) {
 		return null;
 	}
 
 	@Override
 	public List<String> getPermission(String id) {
+		return null;
+	}
+
+	@Override
+	public String getDeptIds(String tenantId, String deptNames) {
+		return null;
+	}
+
+	@Override
+	public List<String> getDeptNames(String deptIds) {
+		return null;
+	}
+
+	@Override
+	public String getPostIds(String tenantId, String postNames) {
+		return null;
+	}
+
+	@Override
+	public List<String> getPostNames(String postIds) {
+		return null;
+	}
+
+	@Override
+	public String getRoleIds(String tenantId, String roleNames) {
 		return null;
 	}
 }

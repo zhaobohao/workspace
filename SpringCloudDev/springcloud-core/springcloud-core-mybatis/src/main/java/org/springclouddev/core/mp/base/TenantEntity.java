@@ -14,5 +14,4 @@ public interface TenantEntity   {
 	 */
 	public String getTenantId();
 
-
 }

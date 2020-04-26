@@ -30,4 +30,11 @@ public interface DeptMapper extends SuperMapper<Dept> {
 	 * @return
 	 */
 	List<DeptVO> tree(String parentId);
+	/**
+	 * 获取部门名
+	 *
+	 * @param ids
+	 * @return
+	 */
+	List<String> getDeptNames(Long[] ids);
 }
