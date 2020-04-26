@@ -1,34 +1,152 @@
-spring:
-  shardingsphere:
-    datasource:
-      names: ds0
-      ds0:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://xx.xx.xx.xx:3306/database?useSSL=FALSE&serverTimezone=GMT%2B8
-        username: root
-        password: xxxxx
-        type: com.alibaba.druid.pool.DruidDataSource
-        filters: stat
-        maxActive: 20
-        initialSize: 1
-        maxWait: 60000
-        minIdle: 1
-        timeBetweenEvictionRunsMillis: 60000
-        minEvictableIdleTimeMillis: 300000
-        validationQuery: select 'x'
-        testWhileIdle: true
-        testOnBorrow: false
-        testOnReturn: false
-        poolPreparedStatements: true
-        maxOpenPreparedStatements: 20
-    sharding:
-      tables:
-        table_data:
-          key-generator:
-            column: id
-            type: SNOWFLAKE
-          actual-data-nodes: ds0.table_data$->{0..4}
-          table-strategy:
-            inline:
-              sharding-column: id
-              algorithm-expression: table_data$->{id % 5}
+#分表
+#spring:
+#  shardingsphere:
+#    datasource:
+#      names: ds0
+#      ds0:
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://xx.xx.xx.xx:3306/database?useSSL=FALSE&serverTimezone=GMT%2B8
+#        username: root
+#        password: xxxxx
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        filters: stat
+#        maxActive: 20
+#        initialSize: 1
+#        maxWait: 60000
+#        minIdle: 1
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: select 'x'
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        poolPreparedStatements: true
+#        maxOpenPreparedStatements: 20
+#    sharding:
+#      tables:
+#        table_data:
+#          key-generator:
+#            column: id
+#            type: SNOWFLAKE
+#          actual-data-nodes: ds0.table_data$->{0..4}
+#          table-strategy:
+#            inline:
+#              sharding-column: id
+#              algorithm-expression: table_data$->{id % 5}
+#读写分离
+#spring:
+#  shardingsphere:
+#    datasource:
+#      names: master,slave0,slave1
+#      master:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://xx.xx.xx.xx:3306/database?useSSL=FALSE&serverTimezone=GMT%2B8
+#        username: root
+#        password: xxxxx
+#        filters: stat
+#        maxActive: 20
+#        initialSize: 1
+#        maxWait: 60000
+#        minIdle: 1
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: select 'x'
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        poolPreparedStatements: true
+#        maxOpenPreparedStatements: 20
+#      slave0:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://xx.xx.xx.xx:3306/database?useSSL=FALSE&serverTimezone=GMT%2B8
+#        username: root
+#        password: xxxxx
+#        filters: stat
+#        maxActive: 20
+#        initialSize: 1
+#        maxWait: 60000
+#        minIdle: 1
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: select 'x'
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        poolPreparedStatements: true
+#        maxOpenPreparedStatements: 20
+#      slave1:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://xx.xx.xx.xx:3306/database?useSSL=FALSE&serverTimezone=GMT%2B8
+#        username: root
+#        password: xxxxx
+#        filters: stat
+#        maxActive: 20
+#        initialSize: 1
+#        maxWait: 60000
+#        minIdle: 1
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: select 'x'
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        poolPreparedStatements: true
+#        maxOpenPreparedStatements: 20
+#    masterslave:
+#      load-balance-algorithm-type: round_robin
+#      name: ms
+#      master-data-source-name: master
+#      slave-data-source-names: slave0,slave1
+#    props:
+#      sql:
+#        show: false
+# 数据脱敏
+#spring:
+#  shardingsphere:
+#    datasource:
+#      name: ds
+#      ds:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://xx.xx.xx.xx:3306/database?useSSL=FALSE&serverTimezone=GMT%2B8
+#        username: root
+#        password: xxxxx
+#        filters: stat
+#        maxActive: 20
+#        initialSize: 1
+#        maxWait: 60000
+#        minIdle: 1
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: select 'x'
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        poolPreparedStatements: true
+#        maxOpenPreparedStatements: 20
+#    encrypt:
+#      encryptors:
+#        encryptor_aes:
+#          type: aes
+#          props:
+#            aes:
+#              key:
+#                value: 123456
+#      tables:
+#        t_order:
+#          columns:
+#            user_id:
+#              plainColumn: user_decrypt
+#              cipherColumn: user_encrypt
+#              assistedQueryColumn: user_assisted
+#              encryptor: encryptor_aes
+#    props:
+#      sql:
+#        show: false
+#      query:
+#        with:
+#          cipher:
+#            column: true
