@@ -159,6 +159,10 @@ public class SwaggerDocParser implements DocParser {
             }
         }
 
+        return requestParametersResolveHandle(docParameterList);
+    }
+
+    private List<DocParameter> requestParametersResolveHandle(List<DocParameter> docParameterList) {
         Map<String, List<DocParameter>> collect = docParameterList.stream()
                 .filter(docParameter -> docParameter.getName().contains("."))
                 .map(docParameter -> {
@@ -178,6 +182,7 @@ public class SwaggerDocParser implements DocParser {
             DocParameter moduleDoc = new DocParameter();
             moduleDoc.setName(key);
             moduleDoc.setType("object");
+            value=requestParametersResolveHandle(value);
             moduleDoc.setRefs(value);
             docParameterList.add(moduleDoc);
         });
