@@ -56,17 +56,19 @@ function createRequestParameter(docItem) {
     createTreeTable('treeTableReq', data);
 }
 
-function buildTreeData(parameters, parentId) {
+function buildTreeData(parameters, parentId,parentMoudle) {
     var data = [];
     parentId = parentId || 0;
+    parentMoudle=parentMoudle||"";
     for (var i = 0; i < parameters.length; i++) {
         var parameter = parameters[i];
         parameter.id = parentId * 100 + (i + 1);
         parameter.parentId = parentId;
+        parameter.module=parentMoudle;
         data.push(parameter);
         var refs = parameter.refs;
         if (refs && refs.length > 0) {
-            var childData = buildTreeData(refs, parameter.id);
+            var childData = buildTreeData(refs, parameter.id,parentMoudle===""?parameter.name:parentMoudle+"."+parameter.name);
             data = data.concat(childData);
         }
     }
@@ -129,10 +131,23 @@ function doTest() {
     $inputs.each(function () {
         var module = $(this).attr('module');
         if (module) {
-            if (!bizContent[module]) {
-                bizContent[module] = {};
-            }
-            var moduleObj = bizContent[module];
+            var bizContentModule=bizContent;
+            module.split(".").forEach(function(val,idx,arr){
+                if(!bizContentModule[val])
+                {
+                    if(val.indexOf("["))
+                    {
+                        bizContentModule[val]=[{}];
+                    }else{
+                        bizContentModule[val]={};
+                    }
+                }
+                if(val.indexOf("[")){
+                    bizContentModule=bizContentModule[val][0];
+                }else{
+                    bizContentModule=bizContentModule[val];
+                }
+            });
             putVal(moduleObj, this);
         } else {
             putVal(bizContent, this);

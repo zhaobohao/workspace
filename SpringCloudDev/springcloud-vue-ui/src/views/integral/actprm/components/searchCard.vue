@@ -43,7 +43,7 @@
       <el-input v-model="listQuery.query.value" placeholder="转换表达式" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{
-        $t('table.search')  }}</el-button>
+        $t('table.search') }}</el-button>
       <el-button v-waves style="margin: 10px;" icon="el-icon-delete" round @click="resetListQuery()">{{
         $t('table.reset')
          }}</el-button>
@@ -77,21 +77,21 @@
           shortcuts: [{
             text: '今天',
             onClick(picker) {
-              picker.$emit('pick', new Date());
+              picker.$emit('pick', new Date())
             }
           }, {
             text: '昨天',
             onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              picker.$emit('pick', date)
             }
           }, {
             text: '一周前',
             onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
             }
           }]
         }

@@ -7,6 +7,7 @@ import org.mockserver.matchers.MatchType;
 import org.mockserver.model.*;
 import org.springbootdev.modules.mockserver.entity.MockHttp;
 import org.springframework.http.HttpHeaders;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import static org.mockserver.model.HttpForward.forward;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.JsonBody.json;
+import static org.mockserver.model.RegexBody.regex;
 
 /**
  * mock接口报文的wrapper类
@@ -32,7 +34,7 @@ public class MockWrapper {
 		if (StrUtil.isNotBlank(mockHttp.getResponseBody())) {
 			if (StrUtil.isNotBlank(mockHttp.getResponseCharsets())) {
 				try {
-					response.withBody( mockHttp.getResponseBody().getBytes(mockHttp.getResponseCharsets()));
+					response.withBody(mockHttp.getResponseBody().getBytes(mockHttp.getResponseCharsets()));
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
@@ -174,7 +176,11 @@ public class MockWrapper {
 				request.withQueryStringParameters(parameters);
 			}
 		}
-		if (StrUtil.isNotBlank(mockHttp.getRequestFormBody())) {
+		if (StrUtil.isNotBlank(mockHttp.getRequestStringBody())) {
+			request.withBody(regex(mockHttp.getRequestStringBody()));
+		} else if (StrUtil.isNotBlank(mockHttp.getRequestJsonBody())) {
+			request.withBody(json(mockHttp.getRequestJsonBody(), MatchType.ONLY_MATCHING_FIELDS)).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
+		} else if (StrUtil.isNotBlank(mockHttp.getRequestFormBody())) {
 			request.withHeaders(
 				Header.header(HttpHeaders.CONTENT_TYPE, MediaType.FORM_DATA.toString())
 			);
@@ -186,9 +192,6 @@ public class MockWrapper {
 				});
 				request.withBody(ParameterBody.params(parameters.getEntries()));
 			}
-		}
-		if (StrUtil.isNotBlank(mockHttp.getRequestJsonBody())) {
-			request.withBody(json(mockHttp.getRequestJsonBody(), MatchType.ONLY_MATCHING_FIELDS)).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
 		}
 		// 把headers放到最后，这样可以覆盖前面的默认设置
 		if (StrUtil.isNotBlank(mockHttp.getRequestHeaders())) {

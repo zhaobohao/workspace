@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.util.zip.GZIPInputStream;
 
 /**
  * 合并微服务结果，统一返回格式
@@ -62,12 +63,22 @@ public class PostResultFilter extends BaseZuulFilter {
      */
     private String getServiceResponseBody(RequestContext requestContext) {
         String serviceResult;
-        InputStream responseDataStream = requestContext.getResponseDataStream();
-        try {
-            serviceResult = IOUtils.toString(responseDataStream, SopConstants.CHARSET_UTF8);
-        } catch (Exception e) {
-            log.error("业务方无数据返回", e);
-            serviceResult = SopConstants.EMPTY_JSON;
+        if(!requestContext.getResponseGZipped()) {
+            InputStream responseDataStream = requestContext.getResponseDataStream();
+            try {
+                serviceResult = IOUtils.toString(responseDataStream, SopConstants.CHARSET_UTF8);
+            } catch (Exception e) {
+                log.error("业务方无数据返回", e);
+                serviceResult = SopConstants.EMPTY_JSON;
+            }
+        }else{
+            try {
+                GZIPInputStream gzipInputStream=new GZIPInputStream(requestContext.getResponseDataStream());
+                serviceResult = IOUtils.toString(gzipInputStream, SopConstants.CHARSET_UTF8);
+            } catch (Exception e) {
+                log.error("业务方无数据返回", e);
+                serviceResult = SopConstants.EMPTY_JSON;
+            }
         }
         return serviceResult;
     }

@@ -3,6 +3,11 @@
   <el-dialog v-el-drag-dialog :width="dialogWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
     <el-form ref="dataForm" :inline="true" :rules="rules" :model="temp" label-position="left" label-width="100px"
       style="width: 1000px; margin-left:10px;">
+      <el-form-item label="接口名称" prop="name">
+        <el-tooltip class="item" effect="dark" content="接口名称" placement="top">
+          <el-input v-model="temp.name" style="width: 805px;" />
+        </el-tooltip>
+      </el-form-item>
       <fieldset style="border-color: #32ded6;border-width: 1px;border-style: solid;">
         <legend>请求参数</legend>
         <el-form-item label="请求url" prop="requestPath">
@@ -37,14 +42,19 @@
             <el-input v-model="temp.requestCharsets" style="width: 305px;" />
           </el-tooltip>
         </el-form-item>
+        <el-form-item label="StringBody" prop="requestStringBody">
+          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的body段所包含的值，支持正则表达式" placement="top">
+            <el-input v-model="temp.requestStringBody" style="width: 825px;" />
+          </el-tooltip>
+        </el-form-item>
         <el-form-item label="JsonBody" prop="requestJsonBody">
-          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的jsonbody段所包含的值，录入为json结构，默认是使用正则表达式"
+          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的jsonbody段所包含的值，录入为json结构，不支持正则表达式"
             placement="top">
             <el-input v-model="temp.requestJsonBody" style="width: 825px;" />
           </el-tooltip>
         </el-form-item>
         <el-form-item label="FormBody" prop="requestFormBody">
-          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的formbody段所包含的值，录入为json结构，默认是使用正则表达式"
+          <el-tooltip class="item" effect="dark" content="http传过来的request报文里的formbody段所包含的值，录入为json结构，不支持正则表达式"
             placement="top">
             <el-input v-model="temp.requestFormBody" style="width: 825px;" />
           </el-tooltip>

@@ -10,6 +10,8 @@ export default function area() {
       webSiteId: undefined,
       // 配置的url路径，支持正则表达式
       requestPath: '/.*',
+      // 接口名称，方便管理
+      name: undefined,
       // http的method,例如get,put,delete,post,支持正则表达式
       requestMethod: 'get',
       // http传过来的参数，录入为json结构。key,value支持正则表达式
@@ -18,12 +20,14 @@ export default function area() {
       requestHeaders: undefined,
       // htpp传过来的cookies参数，录入为json结构，key,value支持正则表达式
       requestCookies: undefined,
-      // http传过来的request报文里的body段所包含的值，默认是使用正则表达式
+      // http传过来的request报文里的body段所包含的值，不支持正则表达式
       requestJsonBody: undefined,
       // request报文的编码，默认为utf-8
       requestCharsets: 'utf-8',
-      // http传过来的request报文里的body段所包含的值，默认是使用正则表达式
+      // http传过来的request报文里的body段所包含的值，不支持正则表达式
       requestFormBody: undefined,
+      // http传过来的request报文里的body段所包含的值，支持正则表达式
+      requestStringBody: undefined,
       // response报文里的headers,录入为json.程序会正确拆分，附值 。
       responseHeaders: undefined,
       // response报文里的body
@@ -69,6 +73,11 @@ export default function area() {
         message: '请输入http的method,例如get,put,delete,post,支持正则表达式',
         trigger: 'blur'
       }],
+      name: [{
+        required: true,
+        message: '接口名称，方便管理',
+        trigger: 'blur'
+      }],
       requestParams: [{
         required: false,
         message: '请输入http传过来的参数，录入为json结构。key,value支持正则表达式',
@@ -86,7 +95,7 @@ export default function area() {
       }],
       requestJsonBody: [{
         required: false,
-        message: '请输入http传过来的request报文里的body段所包含的值，默认是使用正则表达式',
+        message: '请输入http传过来的request报文里的body段所包含的值，不支持正则表达式',
         trigger: 'blur'
       }],
       requestCharsets: [{
@@ -96,7 +105,7 @@ export default function area() {
       }],
       requestFormBody: [{
         required: false,
-        message: '请输入http传过来的request报文里的body段所包含的值，默认是使用正则表达式',
+        message: '请输入http传过来的request报文里的body段所包含的值，不支持正则表达式',
         trigger: 'blur'
       }],
       responseHeaders: [{

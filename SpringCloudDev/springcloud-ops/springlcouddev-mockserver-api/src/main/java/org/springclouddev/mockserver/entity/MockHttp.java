@@ -74,9 +74,9 @@ public class MockHttp extends BaseEntity implements TenantEntity {
     @TableField("request_cookies")
     private String requestCookies;
     /**
-     * http传过来的request报文里的body段所包含的值，默认是使用正则表达式
+     * http传过来的request报文里的body段所包含的值，不支持正则表达式
      */
-    @ApiModelProperty(value = "http传过来的request报文里的body段所包含的值，默认是使用正则表达式")
+    @ApiModelProperty(value = "http传过来的request报文里的body段所包含的值，不支持正则表达式")
     @TableField("request_json_body")
     private String requestJsonBody;
     /**
@@ -86,11 +86,17 @@ public class MockHttp extends BaseEntity implements TenantEntity {
     @TableField("request_charsets")
     private String requestCharsets;
     /**
-     * http传过来的request报文里的body段所包含的值，默认是使用正则表达式
+     * http传过来的request报文里的body段所包含的值，不支持正则表达式
      */
-    @ApiModelProperty(value = "http传过来的request报文里的body段所包含的值，默认是使用正则表达式")
+    @ApiModelProperty(value = "http传过来的request报文里的body段所包含的值，不支持正则表达式")
     @TableField("request_form_body")
     private String requestFormBody;
+    /**
+     * http传过来的request报文里的body段所包含的值，默认是使用正则表达式
+     */
+    @ApiModelProperty(value = "http传过来的request报文当成字符串，默认是使用正则表达式")
+    @TableField("request_string_body")
+    private String requestStringBody;
     /**
      * response报文里的headers,录入为json.程序会正确拆分，附值 。
      */

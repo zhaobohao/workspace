@@ -60,9 +60,9 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel')  }}</el-button>
+      <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
       <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">
-        {{ $t('table.confirm')  }}</el-button>
+        {{ $t('table.confirm') }}</el-button>
     </div>
   </el-dialog>
 </template>
@@ -111,21 +111,21 @@
           shortcuts: [{
             text: '今天',
             onClick(picker) {
-              picker.$emit('pick', new Date());
+              picker.$emit('pick', new Date())
             }
           }, {
             text: '昨天',
             onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              picker.$emit('pick', date)
             }
           }, {
             text: '一周前',
             onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
             }
           }]
         }

@@ -4,8 +4,10 @@
     <!--查询条件区域-->
     <div class="filter-container">
       <!--具体的查询条件，使用placeholder来显示标题-->
-        <el-input-number v-model="temp.groupId" placeholder="组群编号" :precision="0" :step="1" :max="100" style="width: 305px;" />
-        <el-input-number v-model="temp.groupNm" placeholder="组群号码" :precision="0" :step="1" :max="100" style="width: 305px;" />
+      <el-input-number v-model="temp.groupId" placeholder="组群编号" :precision="0" :step="1" :max="100"
+        style="width: 305px;" />
+      <el-input-number v-model="temp.groupNm" placeholder="组群号码" :precision="0" :step="1" :max="100"
+        style="width: 305px;" />
       <el-input v-model="listQuery.query.groupName" placeholder="组群名称" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.query.groupDesc" placeholder="组群描述" style="width: 200px;"
@@ -17,7 +19,7 @@
       <el-input v-model="listQuery.query.reserveColumn3" placeholder="预留字段三" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{
-        $t('table.search')  }}</el-button>
+        $t('table.search') }}</el-button>
       <el-button v-waves style="margin: 10px;" icon="el-icon-delete" round @click="resetListQuery()">{{
         $t('table.reset')
          }}</el-button>
@@ -48,27 +50,27 @@
         rangeDate: undefined,
         listQuery: listQuery(),
         pickerOptions: {
-              shortcuts: [{
-                  text: '今天',
-                  onClick(picker) {
-                      picker.$emit('pick', new Date());
-                  }
-              }, {
-                  text: '昨天',
-                  onClick(picker) {
-                      const date = new Date();
-                      date.setTime(date.getTime() - 3600 * 1000 * 24);
-                      picker.$emit('pick', date);
-                  }
-              }, {
-                  text: '一周前',
-                  onClick(picker) {
-                      const date = new Date();
-                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                      picker.$emit('pick', date);
-                  }
-              }]
-          }
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date())
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              picker.$emit('pick', date)
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
+            }
+          }]
+        }
       }
     },
     // 初始化所有的数据
@@ -77,11 +79,11 @@
       resetListQuery() {
         this.listQuery = listQuery()
         this.$parent.$refs.listTable.listQuery = this.listQuery // 修改listTable里的listQuery
-            },
+      },
       handleFilter() {
         this.listQuery.current = 1
-                  this.$parent.$refs.listTable.getList(this.listQuery) // 查询列表页面数据
-            }
+        this.$parent.$refs.listTable.getList(this.listQuery) // 查询列表页面数据
+      }
     }
   }
 

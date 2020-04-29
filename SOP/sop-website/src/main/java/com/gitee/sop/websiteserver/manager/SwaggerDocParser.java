@@ -159,10 +159,10 @@ public class SwaggerDocParser implements DocParser {
             }
         }
 
-        return requestParametersResolveHandle(docParameterList);
+        return requestParametersResolveHandler(docParameterList);
     }
 
-    private List<DocParameter> requestParametersResolveHandle(List<DocParameter> docParameterList) {
+    private List<DocParameter> requestParametersResolveHandler(List<DocParameter> docParameterList) {
         Map<String, List<DocParameter>> collect = docParameterList.stream()
                 .filter(docParameter -> docParameter.getName().contains("."))
                 .map(docParameter -> {
@@ -181,8 +181,8 @@ public class SwaggerDocParser implements DocParser {
         collect.forEach((key, value) -> {
             DocParameter moduleDoc = new DocParameter();
             moduleDoc.setName(key);
-            moduleDoc.setType("object");
-            value=requestParametersResolveHandle(value);
+            value=requestParametersResolveHandler(value);
+            value.sort(Comparator.comparing(DocParameter::isRequired).reversed());
             moduleDoc.setRefs(value);
             docParameterList.add(moduleDoc);
         });
@@ -213,6 +213,7 @@ public class SwaggerDocParser implements DocParser {
     protected List<DocParameter> buildDocParameters(String ref, JSONObject docRoot, boolean doSubRef) {
         JSONObject responseObject = docRoot.getJSONObject("definitions").getJSONObject(ref);
         JSONObject properties = responseObject.getJSONObject("properties");
+        JSONArray  required=responseObject.getJSONArray("required");
         Set<String> fieldNames = properties.keySet();
         List<DocParameter> docParameterList = new ArrayList<>();
         for (String fieldName : fieldNames) {
@@ -225,6 +226,9 @@ public class SwaggerDocParser implements DocParser {
             JSONObject fieldInfo = properties.getJSONObject(fieldName);
             DocParameter docParameter = fieldInfo.toJavaObject(DocParameter.class);
             docParameter.setName(fieldName);
+            if(required!=null && required.contains(fieldName)){
+                docParameter.setRequired(Boolean.TRUE);
+            }
             docParameterList.add(docParameter);
             RefInfo refInfo = this.getRefInfo(fieldInfo);
             if (refInfo != null && doSubRef) {
@@ -234,6 +238,13 @@ public class SwaggerDocParser implements DocParser {
                 List<DocParameter> refs = buildDocParameters(subRef, docRoot, nextDoRef);
                 docParameter.setRefs(refs);
             }
+        }
+        if(docParameterList.isEmpty())
+        {
+
+        }else
+        {
+            docParameterList.sort(Comparator.comparing(DocParameter::isRequired).reversed());
         }
         return docParameterList;
     }

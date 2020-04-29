@@ -2,18 +2,18 @@
   <el-card>
     <el-button v-waves v-permission="['system.param.add']" class="filter-item" style="margin-left: 10px;" round type="alert"
       icon="el-icon-search" @click="handleIsSearchCardShow">
-      {{ $t('table.fliter')  }}</el-button>
+      {{ $t('table.fliter') }}</el-button>
     <el-button v-waves v-permission="['api.springcloud-system.param.remove']" class="filter-item" style="margin-left: 10px;" round type="primary"
       icon="el-icon-edit" @click="handleCreateAction">
-      {{ $t('table.add')  }}</el-button>
+      {{ $t('table.add') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="danger" icon="el-icon-delete"
       @click="handleBatchDeleteAction">
-      {{ $t('table.delete')  }}</el-button>
+      {{ $t('table.delete') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="warning" icon="el-icon-refresh"
       @click="getList">
-      {{ $t('table.refresh')  }}</el-button>
+      {{ $t('table.refresh') }}</el-button>
     <el-button v-waves :loading="downloadLoading" class="filter-item" round type="success" icon="el-icon-download"
-      @click="handleDownload">{{ $t('table.export')  }}</el-button>
+      @click="handleDownload">{{ $t('table.export') }}</el-button>
     <!--主表显示 区域-->
     <el-table :key="tableKey" ref="messageTable" v-loading="listLoading" :data="list" :height="tableHeight"
       :stripe="isStripe" border fit highlight-current-row
@@ -98,11 +98,11 @@
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-waves v-permission="['system.param.edit']" type="primary" size="mini" @click="handleUpdate(scope.row)">
-            {{ $t('table.edit')  }}
+            {{ $t('table.edit') }}
           </el-button>
           <el-button v-if="scope.row.status!='deleted'" v-permission="['api.springcloud-system.param.remove']" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">
-            {{ $t('table.delete')  }}
+            {{ $t('table.delete') }}
           </el-button>
         </template>
       </el-table-column>

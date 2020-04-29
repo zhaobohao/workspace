@@ -135,9 +135,16 @@ public class MockHttpController extends AbstractController {
         //由于正式上线使用时，会分布式部署，这里必须要实现redis的订阅发布功能，通知其它的mockserver更新接口
         if(mockHttp.getId()!=null){
             mockHttp.setWebSiteId(null);
+            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_CLEAR,  mockHttp.getId());
+            try {
+                //等待清理事件完成。
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         if (mockHttpService.saveOrUpdate(mockHttp)) {
-            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER,  mockHttp.getId());
+            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_RECEIVE,  mockHttp.getId());
             return R.data(mockHttp);
         } else {
             return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, mockHttp, ToolConstant.DEFAULT_FAILURE_MESSAGE);

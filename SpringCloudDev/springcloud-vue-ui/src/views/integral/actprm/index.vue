@@ -1,6 +1,6 @@
-/** eslint-disable */
+/* eslint-disable */
 <template>
-    <div class="app-container">
+  <div class="app-container">
 
     <search-card ref="searchCard" :is-search-card-show="isSearchCardShow" />
     <listTable ref="listTable" :is-search-card-show.sync="isSearchCardShow" />
@@ -10,9 +10,9 @@
 <script>
   // 调用相应的api文件中的方法，来操纵数据
   import {
-      getDictionary
+    getDictionary
   }
-      from '@/api/system/dict'
+  from '@/api/system/dict'
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
   // 引入相应的工具来处理数据转换需求
@@ -37,21 +37,19 @@
     data() {
       // 初始化整个页面用到的数据
       return {
-         isSearchCardShow: false
+        isSearchCardShow: false
       }
     },
     watch: {
 
     },
     // 初始化所有的数据
-    created() {
-    },
+    created() {},
     mounted() {
 
     },
     methods: {
-        initTreeData() {
-        }
+      initTreeData() {}
 
     }
   }

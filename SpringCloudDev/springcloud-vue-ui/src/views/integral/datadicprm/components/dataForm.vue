@@ -7,9 +7,9 @@
       <el-form-item label="参数编号" prop="code">
         <el-input v-model="temp.code" style="width: 305px;" />
       </el-form-item>
-    <el-form-item label="父级菜单" prop="parentId">
+      <el-form-item label="父级菜单" prop="parentId">
         <el-input-number v-model="temp.parentId" :precision="0" :step="1" :max="100" style="width: 305px;" />
-    </el-form-item>
+      </el-form-item>
       <el-form-item label="参数名称" prop="name">
         <el-input v-model="temp.name" style="width: 305px;" />
       </el-form-item>
@@ -28,13 +28,14 @@
       <el-form-item label="预留字段3" prop="reserveCokumn3">
         <el-input v-model="temp.reserveCokumn3" style="width: 305px;" />
       </el-form-item>
-    <el-form-item label="是否是叶子节点，0是，1不是" prop="isLeaf">
+      <el-form-item label="是否是叶子节点，0是，1不是" prop="isLeaf">
         <el-input-number v-model="temp.isLeaf" :precision="0" :step="1" :max="100" style="width: 305px;" />
-    </el-form-item>
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel')  }}</el-button>
-      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('table.confirm')  }}</el-button>
+      <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
+      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">
+        {{ $t('table.confirm') }}</el-button>
     </div>
   </el-dialog>
 </template>
@@ -65,8 +66,7 @@
     filters: {
 
     },
-    props: {
-    },
+    props: {},
     data() {
       // 初始化整个页面用到的数据
       return {
@@ -81,27 +81,27 @@
         temp: listQuery().query,
         rules: listQuery().rules,
         pickerOptions: {
-              shortcuts: [{
-                  text: '今天',
-                  onClick(picker) {
-                      picker.$emit('pick', new Date());
-                  }
-              }, {
-                  text: '昨天',
-                  onClick(picker) {
-                      const date = new Date();
-                      date.setTime(date.getTime() - 3600 * 1000 * 24);
-                      picker.$emit('pick', date);
-                  }
-              }, {
-                  text: '一周前',
-                  onClick(picker) {
-                      const date = new Date();
-                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                      picker.$emit('pick', date);
-                  }
-              }]
-          }
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date())
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              picker.$emit('pick', date)
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
+            }
+          }]
+        }
       }
     },
     computed: {
@@ -112,7 +112,7 @@
     },
     // 初始化所有的数据
     created() {
-        this.initTreeOptions()
+      this.initTreeOptions()
     },
     mounted() {
       window.onresize = () => {
@@ -137,12 +137,12 @@
       },
       resetTemp() {
         this.temp = listQuery().query
-          this.temp.parentId = this.$parent.$parent.$parent.$parent.$refs.listTable.listQuery.query.parentId_equal
-         },
+        this.temp.parentId = this.$parent.$parent.$parent.$parent.$refs.listTable.listQuery.query.parentId_equal
+      },
       handleCreateAction() {
         this.resetTemp()
         this.dialogStatus = 'create'
-          this.dialogFormVisible = true
+        this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })
@@ -153,9 +153,9 @@
             // 开始保存数据
             add(this.temp).then((response) => {
               if (response.code === 200) {
-                  this.$parent.$parent.$parent.$parent.initTreeData()
-                  this.$parent.$parent.$parent.$parent.$refs.listTable.list.unshift(response.data)
-                  this.dialogFormVisible = false
+                this.$parent.$parent.$parent.$parent.initTreeData()
+                this.$parent.$parent.$parent.$parent.$refs.listTable.list.unshift(response.data)
+                this.dialogFormVisible = false
                 notify.success(this)
               } else {
                 notify.error(this)
@@ -167,7 +167,7 @@
       handleUpdate(row) {
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
-          this.dialogFormVisible= true
+        this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })
@@ -179,14 +179,14 @@
             // 开始更新数据
             update(tempData).then((response) => {
               if (response.code === 200) {
-                   this.$parent.$parent.$parent.$parent.initTreeData()
-                  for (const v of this.$parent.$parent.$parent.$parent.$refs.listTable.list) {
-                      if (v.id === this.temp.id) {
-                          const index = this.$parent.$parent.$parent.$parent.$refs.listTable.list.indexOf(v)
-                                  this.$parent.$parent.$parent.$parent.$refs.listTable.list.splice(index, 1, tempData)
-                                  break
-                      }
+                this.$parent.$parent.$parent.$parent.initTreeData()
+                for (const v of this.$parent.$parent.$parent.$parent.$refs.listTable.list) {
+                  if (v.id === this.temp.id) {
+                    const index = this.$parent.$parent.$parent.$parent.$refs.listTable.list.indexOf(v)
+                    this.$parent.$parent.$parent.$parent.$refs.listTable.list.splice(index, 1, tempData)
+                    break
                   }
+                }
                 this.dialogFormVisible = false
                 notify.successEdit(this)
               } else {

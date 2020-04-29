@@ -29,16 +29,19 @@
           <span>{{ scope.row.id }}</span>
         </template>
 </el-table-column>-->
-
-      <el-table-column label="请求路径" min-width="150px">
+      <el-table-column label="接口名称" min-width="150px">
+        <template slot-scope="scope">
+          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="请求路径" min-width="250px">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="请将端口号改为1080" placement="top">
             <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.requestPath }}</span>
           </el-tooltip>
         </template>
       </el-table-column>
-
-      <el-table-column label="请求方法" min-width="150px">
+      <el-table-column label="请求方法" min-width="90px">
         <template slot-scope="scope">
           <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.requestMethod }}</span>
         </template>
