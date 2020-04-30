@@ -1,12 +1,11 @@
-
-docEvent.bind(function (docItem,layui) {
+docEvent.bind(function (docItem, layui) {
     selectItem(docItem, layui);
 });
 
-layui.use('form', function(){
+layui.use('form', function () {
     var form = layui.form;
     //监听提交
-    form.on('submit(formSend)', function(data){
+    form.on('submit(formSend)', function (data) {
         doTest();
         return false;
     });
@@ -34,7 +33,7 @@ function selectItem(docItem, layui) {
 
     $('#httpMethodList').html(buildHttpMethodOptions(docItem));
 
-    var $li = $('#docItemTree').find('li[nameversion="'+nameVersion+'"]');
+    var $li = $('#docItemTree').find('li[nameversion="' + nameVersion + '"]');
     $li.addClass('layui-this').siblings().removeClass('layui-this');
 
     form.render();
@@ -56,19 +55,19 @@ function createRequestParameter(docItem) {
     createTreeTable('treeTableReq', data);
 }
 
-function buildTreeData(parameters, parentId,parentMoudle) {
+function buildTreeData(parameters, parentId, parentMoudle) {
     var data = [];
     parentId = parentId || 0;
-    parentMoudle=parentMoudle||"";
+    parentMoudle = parentMoudle || "";
     for (var i = 0; i < parameters.length; i++) {
         var parameter = parameters[i];
         parameter.id = parentId * 100 + (i + 1);
         parameter.parentId = parentId;
-        parameter.module=parentMoudle;
+        parameter.module = parentMoudle;
         data.push(parameter);
         var refs = parameter.refs;
         if (refs && refs.length > 0) {
-            var childData = buildTreeData(refs, parameter.id,parentMoudle===""?parameter.name:parentMoudle+"."+parameter.name);
+            var childData = buildTreeData(refs, parameter.id, parentMoudle === "" ? parameter.name : parentMoudle + "." + parameter.name);
             data = data.concat(childData);
         }
     }
@@ -92,24 +91,26 @@ function createTreeTable(id, data) {
             return required + row.name;
         },
         cols: [[
-            {field: 'name', title: '参数',width: 200}
-            ,{field: 'val', title: '值', width: 300, templet:function (row) {
+            {field: 'name', title: '参数', width: 200}
+            , {
+                field: 'val', title: '值', width: 300, templet: function (row) {
                     var id = currentItem.nameVersion + '-' + row.name;
                     var requiredTxt = row.required ? 'required  lay-verify="required"' : '';
                     var module = row.module;
                     var type = row.type == 'file' ? 'file' : 'text';
                     var attrs = [
                         'id="' + id + '"'
-                        , 'name="'+row.name+'"'
+                        , 'name="' + row.name + '"'
                         , 'class="layui-input test-input"'
                         , 'type="' + type + '"'
                         , requiredTxt
-                        , 'module="'+module+'"'
+                        , 'module="' + module + '"'
                     ];
 
                     return !row.refs ? '<input ' + attrs.join(' ') + '/>' : '';
-                }}
-            ,{field: 'description', title: '描述'}
+                }
+            }
+            , {field: 'description', title: '描述'}
         ]]
     });
 }
@@ -131,23 +132,22 @@ function doTest() {
     $inputs.each(function () {
         var module = $(this).attr('module');
         if (module) {
-            var bizContentModule=bizContent;
-            module.split(".").forEach(function(val,idx,arr){
-                if(!bizContentModule[val])
-                {
-                    if(val.indexOf("["))
-                    {
-                        bizContentModule[val]=[{}];
-                    }else{
-                        bizContentModule[val]={};
+            var bizContentModule = bizContent;
+            module.split(".").forEach(function (val, idx, arr) {
+                    if (val.indexOf("[")) {
+                        if (!bizContentModule[val.substr(0, val.indexOf("["))]) {
+                            bizContentModule[val.substr(0, val.indexOf("["))] = [{}];
+                        }
+                    } else if (!bizContentModule[val]) {
+                        bizContentModule[val] = {};
+                    }
+                    if (val.indexOf("[")) {
+                        bizContentModule = bizContentModule[val.substr(0, val.indexOf("["))][0];
+                    } else {
+                        bizContentModule = bizContentModule[val];
                     }
                 }
-                if(val.indexOf("[")){
-                    bizContentModule=bizContentModule[val][0];
-                }else{
-                    bizContentModule=bizContentModule[val];
-                }
-            });
+            );
             putVal(moduleObj, this);
         } else {
             putVal(bizContent, this);
@@ -224,7 +224,7 @@ function postJson(data) {
 }
 
 function postFile(data, formData) {
-    for(var key in data) {
+    for (var key in data) {
         formData.append(key, data[key]);
     }
     $.ajax({
@@ -248,7 +248,7 @@ function downloadFile(data) {
         .attr("action", url)
         .attr("method", "post");
 
-    for(var key in data) {
+    for (var key in data) {
         form.append($("<input>")
             .attr("type", "hidden")
             .attr("name", key)
@@ -262,7 +262,7 @@ function successHandler(resp) {
     showRespnfo(resp.apiResult);
 }
 
-function errorHandler(xhr,status,error) {
+function errorHandler(xhr, status, error) {
     // {"timestamp":"2019-06-19 15:57:36","status":500,"error":"Internal Server Error","message":"appId不能为空","path":"/sandbox/test"}
     var errorData = xhr.responseJSON;
     if (errorData) {
