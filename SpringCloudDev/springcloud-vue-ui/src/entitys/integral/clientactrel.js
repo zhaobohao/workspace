@@ -11,7 +11,7 @@
       // 积分活动ID
   actId: undefined,
       // 账户ID
-  accountId: undefined,
+  accountId: undefined
           },
     rules: {
         clientActRelId: [{
@@ -33,7 +33,7 @@
   required: true,
   message: '请输入账户ID',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

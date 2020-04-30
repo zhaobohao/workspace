@@ -28,7 +28,7 @@ export const remove = (ids) => {
     url: '/springcloud-integral/ruleexp/remove',
     method: 'post',
     params: {
-      ids,
+      ids
     }
   })
 }

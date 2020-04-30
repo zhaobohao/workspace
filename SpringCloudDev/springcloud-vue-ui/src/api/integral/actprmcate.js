@@ -28,7 +28,7 @@ export const remove = (ids) => {
     url: '/springcloud-integral/actprmcate/remove',
     method: 'post',
     params: {
-      ids,
+      ids
     }
   })
 }

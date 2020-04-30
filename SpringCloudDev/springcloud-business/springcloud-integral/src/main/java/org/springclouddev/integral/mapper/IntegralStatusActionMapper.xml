@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.IntegralStatusActionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="integralStatusActionResultMap" type="org.springclouddev.integral.entity.IntegralStatusAction">
+        <id column="integral_status_action_id" property="integralStatusActionId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="CUST_NAME" property="custName"/>
+        <result column="INTEGRAL_TYPE" property="integralType"/>
+        <result column="BLANCE" property="blance"/>
+        <result column="OPERATION_TYPE" property="operationType"/>
+        <result column="REJECT_REASON" property="rejectReason"/>
+        <result column="ACCOUNT_STATUS_ID" property="accountStatusId"/>
+        <result column="ACCOUNT_STATUS" property="accountStatus"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+    </resultMap>
+
+                                                                                                                                                                    <select id="selectIntegralStatusActionPage" resultMap="integralStatusActionResultMap">
+        select * from tbl_integral_status_action where is_deleted = 0
+    </select>
+
+</mapper>

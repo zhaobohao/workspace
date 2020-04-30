@@ -28,7 +28,7 @@ export const remove = (ids) => {
     url: '/springcloud-integral/grpcls/remove',
     method: 'post',
     params: {
-      ids,
+      ids
     }
   })
 }

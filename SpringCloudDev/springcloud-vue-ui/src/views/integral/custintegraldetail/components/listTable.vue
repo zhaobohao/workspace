@@ -352,7 +352,7 @@
                                                  '账户状态ID',
                                                  '预留字段一',
                                                  '预留字段二',
-                                                 '预留字段三',
+                                                 '预留字段三'
                                 ]
           const filterVal = [
   'custIntegralDetailId',
@@ -373,7 +373,7 @@
   'accountStatusId',
   'reserveColumn1',
   'reserveColumn2',
-  'reserveColumn3',
+  'reserveColumn3'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

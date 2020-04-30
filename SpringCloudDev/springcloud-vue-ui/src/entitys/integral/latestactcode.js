@@ -9,7 +9,7 @@
       // 活动编号前缀
   prefixActCode: undefined,
       // 活动编号后缀
-  suffixActCode: undefined,
+  suffixActCode: undefined
           },
     rules: {
         actCodeId: [{
@@ -26,7 +26,7 @@
   required: true,
   message: '请输入活动编号后缀',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

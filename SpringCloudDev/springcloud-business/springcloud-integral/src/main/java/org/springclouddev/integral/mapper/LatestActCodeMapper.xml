@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.LatestActCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="latestActCodeResultMap" type="org.springclouddev.integral.entity.LatestActCode">
+        <id column="ACT_CODE_ID" property="actCodeId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="PREFIX_ACT_CODE" property="prefixActCode"/>
+        <result column="SUFFIX_ACT_CODE" property="suffixActCode"/>
+    </resultMap>
+
+                                            <select id="selectLatestActCodePage" resultMap="latestActCodeResultMap">
+        select * from tbl_latest_act_code where is_deleted = 0
+    </select>
+
+</mapper>

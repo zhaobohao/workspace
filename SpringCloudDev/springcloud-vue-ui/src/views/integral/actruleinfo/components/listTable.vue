@@ -292,7 +292,7 @@
                                                  '预留字段一',
                                                  '预留字段二',
                                                  '预留字段三',
-                                                 '规则名称',
+                                                 '规则名称'
                                 ]
           const filterVal = [
   'actRuleInfoId',
@@ -303,7 +303,7 @@
   'reserveColumn1',
   'reserveColumn2',
   'reserveColumn3',
-  'ruleName',
+  'ruleName'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

@@ -6,11 +6,11 @@
     query: {
     // 表id编号
   actRuleInfoId: undefined,
-      // 
+      //
   actCode: undefined,
-      // 
+      //
   ruleId: undefined,
-      // 规则计算类型 
+      // 规则计算类型
   type: undefined,
       // 优先级
   grade: undefined,
@@ -21,7 +21,7 @@
       // 预留字段三
   reserveColumn3: undefined,
       // 规则名称
-  ruleName: undefined,
+  ruleName: undefined
           },
     rules: {
         actRuleInfoId: [{
@@ -68,7 +68,7 @@
   required: true,
   message: '请输入规则名称',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.IntegralAdjustActionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="integralAdjustActionResultMap" type="org.springclouddev.integral.entity.IntegralAdjustAction">
+        <id column="integral_adjust_action_id" property="integralAdjustActionId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="ADJUST_NUM" property="adjustNum"/>
+        <result column="STATUS_VALUE" property="statusValue"/>
+        <result column="STATUS_NAME" property="statusName"/>
+        <result column="CRT_USER" property="crtUser"/>
+        <result column="INTEGRAL_TYPE" property="integralType"/>
+        <result column="INTEGRAL_TYPE_ID" property="integralTypeId"/>
+        <result column="LST_UPD_USER" property="lstUpdUser"/>
+        <result column="LST_UPD_TIME" property="lstUpdTime"/>
+        <result column="ADJUST_DATE" property="adjustDate"/>
+        <result column="ADJUST_REASON" property="adjustReason"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+    </resultMap>
+
+                                                                                                                                                                                                        <select id="selectIntegralAdjustActionPage" resultMap="integralAdjustActionResultMap">
+        select * from tbl_integral_adjust_action where is_deleted = 0
+    </select>
+
+</mapper>

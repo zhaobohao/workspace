@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.AccountIntegralDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="accountIntegralDetailResultMap" type="org.springclouddev.integral.entity.AccountIntegralDetail">
+        <id column="account_integral_detail_id" property="accountIntegralDetailId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="IDENTY_TYPE" property="identyType"/>
+        <result column="IDENTY_CARD" property="identyCard"/>
+        <result column="CHANGE_INTEGRAL" property="changeIntegral"/>
+        <result column="CHANGE_DATE" property="changeDate"/>
+        <result column="INTEGRAL_VALID_BLANCE" property="integralValidBlance"/>
+        <result column="INTEGRAL_VALID_DATE" property="integralValidDate"/>
+        <result column="ACCOUNT_BLANCE" property="accountBlance"/>
+        <result column="BUSINESS" property="business"/>
+        <result column="remark" property="remark"/>
+        <result column="INTEGRAL_TYPE" property="integralType"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+    </resultMap>
+
+                                                                                                                                                                                                        <select id="selectAccountIntegralDetailPage" resultMap="accountIntegralDetailResultMap">
+        select * from tbl_account_integral_detail where is_deleted = 0
+    </select>
+
+</mapper>

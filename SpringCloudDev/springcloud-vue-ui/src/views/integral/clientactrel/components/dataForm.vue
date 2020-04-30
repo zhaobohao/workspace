@@ -16,8 +16,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">
-        {{ $t('table.confirm') }}</el-button>
+      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('table.confirm') }}</el-button>
     </div>
   </el-dialog>
 </template>
@@ -48,7 +47,8 @@
     filters: {
 
     },
-    props: {},
+    props: {
+    },
     data() {
       // 初始化整个页面用到的数据
       return {
@@ -63,27 +63,27 @@
         temp: listQuery().query,
         rules: listQuery().rules,
         pickerOptions: {
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date())
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24)
-              picker.$emit('pick', date)
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', date)
-            }
-          }]
-        }
+              shortcuts: [{
+                  text: '今天',
+                  onClick(picker) {
+                      picker.$emit('pick', new Date())
+                  }
+              }, {
+                  text: '昨天',
+                  onClick(picker) {
+                      const date = new Date()
+                      date.setTime(date.getTime() - 3600 * 1000 * 24)
+                      picker.$emit('pick', date)
+                  }
+              }, {
+                  text: '一周前',
+                  onClick(picker) {
+                      const date = new Date()
+                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+                      picker.$emit('pick', date)
+                  }
+              }]
+          }
       }
     },
     computed: {
@@ -94,7 +94,7 @@
     },
     // 初始化所有的数据
     created() {
-      this.initTreeOptions()
+        this.initTreeOptions()
     },
     mounted() {
       window.onresize = () => {
@@ -123,7 +123,7 @@
       handleCreateAction() {
         this.resetTemp()
         this.dialogStatus = 'create'
-        this.dialogFormVisible = true
+          this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })
@@ -135,7 +135,7 @@
             add(this.temp).then((response) => {
               if (response.code === 200) {
                 this.$parent.$refs.listTable.list.unshift(response.data)
-                this.dialogFormVisible = false
+                  this.dialogFormVisible = false
                 notify.success(this)
               } else {
                 notify.error(this)
@@ -147,7 +147,7 @@
       handleUpdate(row) {
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
-        this.dialogFormVisible = true
+          this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })

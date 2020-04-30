@@ -6,7 +6,7 @@
     query: {
     // 编号
   grpClsId: undefined,
-      // 
+      //
   listId: undefined,
       // 组群码
   code: undefined,
@@ -21,7 +21,7 @@
       // 预留字段二
   reserveColumn2: undefined,
       // 预留字段三
-  reserveColumn3: undefined,
+  reserveColumn3: undefined
           },
     rules: {
         grpClsId: [{
@@ -68,7 +68,7 @@
   required: true,
   message: '请输入预留字段三',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

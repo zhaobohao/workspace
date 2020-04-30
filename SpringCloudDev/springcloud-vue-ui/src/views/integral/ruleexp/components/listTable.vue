@@ -292,7 +292,7 @@
                                                  '更新时间',
                                                  '更新人',
                                                 'version',
-                                                'params',
+                                                'params'
                                 ]
           const filterVal = [
   'ruleId',
@@ -303,7 +303,7 @@
   'updTime',
   'updUser',
   'version',
-  'params',
+  'params'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

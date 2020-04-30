@@ -262,13 +262,13 @@
                                      '表id编号',
                                                  '客户ID',
                                                  '积分活动ID',
-                                                 '账户ID',
+                                                 '账户ID'
                                 ]
           const filterVal = [
   'clientActRelId',
   'clientId',
   'actId',
-  'accountId',
+  'accountId'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

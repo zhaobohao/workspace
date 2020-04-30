@@ -299,7 +299,7 @@
                                                  '预留字段1',
                                                  '预留字段2',
                                                  '预留字段3',
-                                                 '是否是叶子节点，0是，1不是',
+                                                 '是否是叶子节点，0是，1不是'
                                 ]
           const filterVal = [
   'dataDicPrmId',
@@ -311,7 +311,7 @@
   'reserveCokumn1',
   'reserveCokumn2',
   'reserveCokumn3',
-  'isLeaf',
+  'isLeaf'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

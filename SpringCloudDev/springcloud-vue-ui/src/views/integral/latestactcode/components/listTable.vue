@@ -256,12 +256,12 @@
           const tHeader = [
                                      '活动codeid',
                                                  '活动编号前缀',
-                                                 '活动编号后缀',
+                                                 '活动编号后缀'
                                 ]
           const filterVal = [
   'actCodeId',
   'prefixActCode',
-  'suffixActCode',
+  'suffixActCode'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

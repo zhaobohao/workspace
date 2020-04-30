@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.ActRuleInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="actRuleInfoResultMap" type="org.springclouddev.integral.entity.ActRuleInfo">
+        <id column="act_rule_info_ID" property="actRuleInfoId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="ACT_CODE" property="actCode"/>
+        <result column="RULE_ID" property="ruleId"/>
+        <result column="type" property="type"/>
+        <result column="GRADE" property="grade"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+        <result column="RULE_NAME" property="ruleName"/>
+    </resultMap>
+
+                                                                                                                    <select id="selectActRuleInfoPage" resultMap="actRuleInfoResultMap">
+        select * from tbl_act_rule_info where is_deleted = 0
+    </select>
+
+</mapper>

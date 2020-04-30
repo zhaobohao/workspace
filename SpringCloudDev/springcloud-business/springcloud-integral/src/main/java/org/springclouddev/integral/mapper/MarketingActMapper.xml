@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.MarketingActMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="marketingActResultMap" type="org.springclouddev.integral.entity.MarketingAct">
+        <id column="marketing_act_id" property="marketingActId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="ACT_CODE" property="actCode"/>
+        <result column="ACT_NAME" property="actName"/>
+        <result column="BEGIN_TIME" property="beginTime"/>
+        <result column="END_TIME" property="endTime"/>
+        <result column="CARD_TIEKET_ID" property="cardTieketId"/>
+        <result column="INTEGRAL_TYPE" property="integralType"/>
+        <result column="INTEGRAL_ID" property="integralId"/>
+        <result column="ACT_LINK" property="actLink"/>
+        <result column="ACT_STATUS" property="actStatus"/>
+        <result column="ACT_STATUS_ID" property="actStatusId"/>
+        <result column="ACT_EXPLAIN" property="actExplain"/>
+        <result column="ACT_TARGET_BREIF" property="actTargetBreif"/>
+        <result column="ACT_CARD_TICKET_NUM" property="actCardTicketNum"/>
+        <result column="ACT_TARGET_TYPE" property="actTargetType"/>
+        <result column="ACT_TARGET_NUM_NUM" property="actTargetNumNum"/>
+        <result column="ACT_INTEGRAL_NUM_NUM" property="actIntegralNumNum"/>
+        <result column="REVIEW_COMMENTS" property="reviewComments"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+    </resultMap>
+
+                                                                                                                                                                                                                                                                    <select id="selectMarketingActPage" resultMap="marketingActResultMap">
+        select * from tbl_marketing_act where is_deleted = 0
+    </select>
+
+</mapper>

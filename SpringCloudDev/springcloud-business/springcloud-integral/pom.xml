@@ -40,6 +40,13 @@
             <version>${project.tool.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.aviator/aviator -->
+        <dependency>
+            <groupId>com.googlecode.aviator</groupId>
+            <artifactId>aviator</artifactId>
+            <version>4.2.9</version>
+        </dependency>
+
     </dependencies>
 
     <build>

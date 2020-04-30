@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.IntegralStatusMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="integralStatusResultMap" type="org.springclouddev.integral.entity.IntegralStatus">
+        <id column="integral_status_id" property="integralStatusId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="STATUS_Value" property="statusValue"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+    </resultMap>
+
+                                                                                            <select id="selectIntegralStatusPage" resultMap="integralStatusResultMap">
+        select * from tbl_integral_status where is_deleted = 0
+    </select>
+
+</mapper>

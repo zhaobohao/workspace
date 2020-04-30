@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.RuleExpMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ruleExpResultMap" type="org.springclouddev.integral.entity.RuleExp">
+        <id column="RULE_ID" property="id"/>
+        <result column="EXP_ID" property="expId"/>
+        <result column="MCC_ID" property="mccId"/>
+        <result column="NAME_ID" property="nameId"/>
+        <result column="CRT_TIME" property="crtTime"/>
+        <result column="UPD_TIME" property="updTime"/>
+        <result column="UPD_USER" property="updUser"/>
+        <result column="version" property="version"/>
+        <result column="params" property="params"/>
+    </resultMap>
+    <resultMap id="BaseResultMap" type="org.springclouddev.integral.entity.RuleExp">
+        <id column="RULE_ID" jdbcType="BIGINT" property="id"/>
+        <result column="EXP_ID" jdbcType="VARCHAR" property="expId"/>
+        <result column="MCC_ID" jdbcType="VARCHAR" property="mccId"/>
+        <result column="NAME_ID" jdbcType="VARCHAR" property="nameId"/>
+        <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime"/>
+        <result column="UPD_TIME" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="UPD_USER" jdbcType="VARCHAR" property="updUser"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="params" jdbcType="VARCHAR" property="params"/>
+        <result column="RULE_NAME" jdbcType="VARCHAR" property="ruleName"/>
+    </resultMap>
+    <select id="selectRuleExpPage" resultMap="ruleExpResultMap">
+        select * from tbl_rule_exp where is_deleted = 0
+    </select>
+    <select id="selectAllRuleExp" parameterType="org.springclouddev.integral.entity.RuleExp" resultMap="BaseResultMap">
+  	SELECT A.*,B.RULE_NAME FROM TBL_RULE_EXP A LEFT JOIN TBL_RULE_INFO B ON A.RULE_ID=B.RULE_ID
+  </select>
+</mapper>

@@ -292,7 +292,7 @@
                                                  '预留字段1',
                                                  '预留字段2',
                                                  '预留字段3',
-                                                 '显示顺序',
+                                                 '显示顺序'
                                 ]
           const filterVal = [
   'actPrmCateId',
@@ -303,7 +303,7 @@
   'reserveCokumn1',
   'reserveCokumn2',
   'reserveCokumn3',
-  'apOrder',
+  'apOrder'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

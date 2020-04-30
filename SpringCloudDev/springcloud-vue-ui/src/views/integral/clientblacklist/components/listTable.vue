@@ -292,7 +292,7 @@
                                                  '联系电话',
                                                  '预留字段一',
                                                  '预留字段二',
-                                                 '预留字段三',
+                                                 '预留字段三'
                                 ]
           const filterVal = [
   'blackId',
@@ -303,7 +303,7 @@
   'mobile',
   'reserveColumn1',
   'reserveColumn2',
-  'reserveColumn3',
+  'reserveColumn3'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({

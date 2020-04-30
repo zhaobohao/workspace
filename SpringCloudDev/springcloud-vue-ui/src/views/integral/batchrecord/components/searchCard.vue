@@ -4,14 +4,12 @@
     <!--查询条件区域-->
     <div class="filter-container">
       <!--具体的查询条件，使用placeholder来显示标题-->
-      <el-input-number v-model="temp.batchId" placeholder="批量编号" :precision="0" :step="1" :max="100"
-        style="width: 305px;" />
+        <el-input-number v-model="temp.batchId" placeholder="批量编号" :precision="0" :step="1" :max="100" style="width: 305px;" />
       <el-input v-model="listQuery.query.batchType" placeholder="批量所属类型" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.query.batchDesc" placeholder="批量描述" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
-      <el-input-number v-model="temp.batchNm" placeholder="批量数量" :precision="0" :step="1" :max="100"
-        style="width: 305px;" />
+        <el-input-number v-model="temp.batchNm" placeholder="批量数量" :precision="0" :step="1" :max="100" style="width: 305px;" />
       <el-input v-model="listQuery.query.reserveColumn1" placeholder="预留字段一" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.query.reserveColumn2" placeholder="预留字段二" style="width: 200px;"
@@ -50,27 +48,27 @@
         rangeDate: undefined,
         listQuery: listQuery(),
         pickerOptions: {
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date())
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24)
-              picker.$emit('pick', date)
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', date)
-            }
-          }]
-        }
+              shortcuts: [{
+                  text: '今天',
+                  onClick(picker) {
+                      picker.$emit('pick', new Date())
+                  }
+              }, {
+                  text: '昨天',
+                  onClick(picker) {
+                      const date = new Date()
+                      date.setTime(date.getTime() - 3600 * 1000 * 24)
+                      picker.$emit('pick', date)
+                  }
+              }, {
+                  text: '一周前',
+                  onClick(picker) {
+                      const date = new Date()
+                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+                      picker.$emit('pick', date)
+                  }
+              }]
+          }
       }
     },
     // 初始化所有的数据
@@ -79,11 +77,11 @@
       resetListQuery() {
         this.listQuery = listQuery()
         this.$parent.$refs.listTable.listQuery = this.listQuery // 修改listTable里的listQuery
-      },
+            },
       handleFilter() {
         this.listQuery.current = 1
-        this.$parent.$refs.listTable.getList(this.listQuery) // 查询列表页面数据
-      }
+                  this.$parent.$refs.listTable.getList(this.listQuery) // 查询列表页面数据
+            }
     }
   }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.IntegralActMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="integralActResultMap" type="org.springclouddev.integral.entity.IntegralAct">
+        <id column="integral_act_id" property="integralActId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="ACT_CODE" property="actCode"/>
+        <result column="ACT_NAME" property="actName"/>
+        <result column="MARKET_ACT_ID" property="marketActId"/>
+        <result column="end_time" property="endTime"/>
+        <result column="DEPARTMENT" property="department"/>
+        <result column="INTEGRAL_TYPE" property="integralType"/>
+        <result column="INTEGRAL_LIMIT_TIME_TYPE" property="integralLimitTimeType"/>
+        <result column="INTEGRAL_LIMIT_YEAR_NUM" property="integralLimitYearNum"/>
+        <result column="INTEGRAL_END_MONTH" property="integralEndMonth"/>
+        <result column="PREPARE_INTEGRAL_NUM" property="prepareIntegralNum"/>
+        <result column="PREPARE_COUNT" property="prepareCount"/>
+        <result column="ACT_BREIF" property="actBreif"/>
+        <result column="STATE" property="state"/>
+        <result column="RULE_TEAM" property="ruleTeam"/>
+        <result column="OPINION" property="opinion"/>
+        <result column="CRT_USER" property="crtUser"/>
+        <result column="CRT_TIME" property="crtTime"/>
+        <result column="LST_UPD_USER" property="lstUpdUser"/>
+        <result column="LST_UPD_TIME" property="lstUpdTime"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+    </resultMap>
+
+                                                                                                                                                                                                                                                                                            <select id="selectIntegralActPage" resultMap="integralActResultMap">
+        select * from tbl_integral_act where is_deleted = 0
+    </select>
+
+</mapper>

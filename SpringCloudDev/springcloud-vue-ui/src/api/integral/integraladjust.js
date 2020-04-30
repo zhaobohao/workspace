@@ -28,7 +28,7 @@ export const remove = (ids) => {
     url: '/springcloud-integral/integraladjust/remove',
     method: 'post',
     params: {
-      ids,
+      ids
     }
   })
 }

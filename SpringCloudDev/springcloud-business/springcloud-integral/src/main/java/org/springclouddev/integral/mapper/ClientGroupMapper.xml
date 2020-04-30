@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.ClientGroupMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="clientGroupResultMap" type="org.springclouddev.integral.entity.ClientGroup">
+        <id column="GROUP_ID" property="groupId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="GROUP_NM" property="groupNm"/>
+        <result column="GROUP_NAME" property="groupName"/>
+        <result column="GROUP_DESC" property="groupDesc"/>
+        <result column="RESERVE_COLUMN1" property="reserveColumn1"/>
+        <result column="RESERVE_COLUMN2" property="reserveColumn2"/>
+        <result column="RESERVE_COLUMN3" property="reserveColumn3"/>
+    </resultMap>
+
+    <select id="selectClientGroupPage" resultMap="clientGroupResultMap">
+        select * from tbl_client_group where is_deleted = 0
+    </select>
+
+</mapper>

@@ -76,7 +76,7 @@
   required: true,
   message: '请输入是否是叶子节点，0是，1不是',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

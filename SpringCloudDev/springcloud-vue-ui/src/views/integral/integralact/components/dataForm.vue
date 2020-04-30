@@ -25,24 +25,22 @@
       <el-form-item label="积分有效期类型" prop="integralLimitTimeType">
         <el-input v-model="temp.integralLimitTimeType" style="width: 305px;" />
       </el-form-item>
-      <el-form-item label="积分有效期年限" prop="integralLimitYearNum">
-        <el-input-number v-model="temp.integralLimitYearNum" :precision="0" :step="1" :max="100"
-          style="width: 305px;" />
-      </el-form-item>
+    <el-form-item label="积分有效期年限" prop="integralLimitYearNum">
+        <el-input-number v-model="temp.integralLimitYearNum" :precision="0" :step="1" :max="100" style="width: 305px;" />
+    </el-form-item>
       <el-form-item label="积分到期月份" prop="integralEndMonth">
         <el-input v-model="temp.integralEndMonth" style="width: 305px;" />
       </el-form-item>
-      <el-form-item label="计划积分" prop="prepareIntegralNum">
+    <el-form-item label="计划积分" prop="prepareIntegralNum">
         <el-input-number v-model="temp.prepareIntegralNum" :precision="0" :step="1" :max="100" style="width: 305px;" />
-      </el-form-item>
-      <el-form-item label="计划人数" prop="prepareCount">
+    </el-form-item>
+    <el-form-item label="计划人数" prop="prepareCount">
         <el-input-number v-model="temp.prepareCount" :precision="0" :step="1" :max="100" style="width: 305px;" />
-      </el-form-item>
+    </el-form-item>
       <el-form-item label="活动描述" prop="actBreif">
         <el-input v-model="temp.actBreif" style="width: 305px;" />
       </el-form-item>
-      <el-form-item label="状态: audit_status_tosub：新增，audit_status_wait提交待审核，audit_status_pass审核通过，audit_status_nopass退回"
-        prop="state">
+      <el-form-item label="状态: audit_status_tosub：新增，audit_status_wait提交待审核，audit_status_pass审核通过，audit_status_nopass退回" prop="state">
         <el-input v-model="temp.state" style="width: 305px;" />
       </el-form-item>
       <el-form-item label="所属规则组" prop="ruleTeam">
@@ -54,19 +52,27 @@
       <el-form-item label="创建人" prop="crtUser">
         <el-input v-model="temp.crtUser" style="width: 305px;" />
       </el-form-item>
-      <el-form-item label="创建时间" prop="crtTime">
-        <el-date-picker v-model="temp.crtTime" type="datetime" placeholder="选择日期时间" align="right"
-          :picker-options="pickerOptions">
+    <el-form-item label="创建时间" prop="crtTime">
+        <el-date-picker
+            v-model="temp.crtTime"
+            type="datetime"
+            placeholder="选择日期时间"
+            align="right"
+            :picker-options="pickerOptions">
         </el-date-picker>
-      </el-form-item>
+    </el-form-item>
       <el-form-item label="最后更新人" prop="lstUpdUser">
         <el-input v-model="temp.lstUpdUser" style="width: 305px;" />
       </el-form-item>
-      <el-form-item label="最后更新时间" prop="lstUpdTime">
-        <el-date-picker v-model="temp.lstUpdTime" type="datetime" placeholder="选择日期时间" align="right"
-          :picker-options="pickerOptions">
+    <el-form-item label="最后更新时间" prop="lstUpdTime">
+        <el-date-picker
+            v-model="temp.lstUpdTime"
+            type="datetime"
+            placeholder="选择日期时间"
+            align="right"
+            :picker-options="pickerOptions">
         </el-date-picker>
-      </el-form-item>
+    </el-form-item>
       <el-form-item label="预留字段一" prop="reserveColumn1">
         <el-input v-model="temp.reserveColumn1" style="width: 305px;" />
       </el-form-item>
@@ -79,8 +85,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">
-        {{ $t('table.confirm') }}</el-button>
+      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('table.confirm') }}</el-button>
     </div>
   </el-dialog>
 </template>
@@ -111,7 +116,8 @@
     filters: {
 
     },
-    props: {},
+    props: {
+    },
     data() {
       // 初始化整个页面用到的数据
       return {
@@ -126,27 +132,27 @@
         temp: listQuery().query,
         rules: listQuery().rules,
         pickerOptions: {
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date())
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24)
-              picker.$emit('pick', date)
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', date)
-            }
-          }]
-        }
+              shortcuts: [{
+                  text: '今天',
+                  onClick(picker) {
+                      picker.$emit('pick', new Date())
+                  }
+              }, {
+                  text: '昨天',
+                  onClick(picker) {
+                      const date = new Date()
+                      date.setTime(date.getTime() - 3600 * 1000 * 24)
+                      picker.$emit('pick', date)
+                  }
+              }, {
+                  text: '一周前',
+                  onClick(picker) {
+                      const date = new Date()
+                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+                      picker.$emit('pick', date)
+                  }
+              }]
+          }
       }
     },
     computed: {
@@ -157,7 +163,7 @@
     },
     // 初始化所有的数据
     created() {
-      this.initTreeOptions()
+        this.initTreeOptions()
     },
     mounted() {
       window.onresize = () => {
@@ -186,7 +192,7 @@
       handleCreateAction() {
         this.resetTemp()
         this.dialogStatus = 'create'
-        this.dialogFormVisible = true
+          this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })
@@ -198,7 +204,7 @@
             add(this.temp).then((response) => {
               if (response.code === 200) {
                 this.$parent.$refs.listTable.list.unshift(response.data)
-                this.dialogFormVisible = false
+                  this.dialogFormVisible = false
                 notify.success(this)
               } else {
                 notify.error(this)
@@ -210,7 +216,7 @@
       handleUpdate(row) {
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
-        this.dialogFormVisible = true
+          this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })

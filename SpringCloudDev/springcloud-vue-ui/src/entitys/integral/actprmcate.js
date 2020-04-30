@@ -21,7 +21,7 @@
       // 预留字段3
   reserveCokumn3: undefined,
       // 显示顺序
-  apOrder: undefined,
+  apOrder: undefined
           },
     rules: {
         actPrmCateId: [{
@@ -68,7 +68,7 @@
   required: true,
   message: '请输入显示顺序',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

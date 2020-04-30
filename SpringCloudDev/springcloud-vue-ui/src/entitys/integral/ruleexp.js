@@ -4,7 +4,7 @@
     size: 20,
     isNewRecord: false,
     query: {
-    // 
+    //
   ruleId: undefined,
       // 表达式
   expId: undefined,
@@ -18,10 +18,10 @@
   updTime: undefined,
       // 更新人
   updUser: undefined,
-      // 
+      //
   version: undefined,
-      // 
-  params: undefined,
+      //
+  params: undefined
           },
     rules: {
         ruleId: [{
@@ -68,7 +68,7 @@
   required: true,
   message: '请输入',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

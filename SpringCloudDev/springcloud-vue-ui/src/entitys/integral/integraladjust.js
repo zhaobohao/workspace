@@ -29,7 +29,7 @@
       // 预留字段二
   reserveColumn2: undefined,
       // 预留字段三
-  reserveColumn3: undefined,
+  reserveColumn3: undefined
           },
     rules: {
         integralAdjustId: [{
@@ -96,7 +96,7 @@
   required: true,
   message: '请输入预留字段三',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }

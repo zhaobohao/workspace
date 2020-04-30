@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springclouddev.integral.mapper.ActPrmMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="actPrmResultMap" type="org.springclouddev.integral.entity.ActPrm">
+        <id column="act_prm_ID" property="actPrmId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+        <result column="CODE" property="code"/>
+        <result column="NAME" property="name"/>
+        <result column="AP_DESC" property="apDesc"/>
+        <result column="stat" property="stat"/>
+        <result column="sort" property="sort"/>
+        <result column="HIDE_DEPT_ID" property="hideDeptId"/>
+        <result column="DATA_MODE_ID" property="dataModeId"/>
+        <result column="PARENT_CODER_ID" property="parentCoderId"/>
+        <result column="SELECTOR_MODE_ID" property="selectorModeId"/>
+        <result column="CONDITION_TYPE_ID" property="conditionTypeId"/>
+        <result column="SYS_ID" property="sysId"/>
+        <result column="reserve_cokumn1" property="reserveCokumn1"/>
+        <result column="reserve_cokumn2" property="reserveCokumn2"/>
+        <result column="reserve_cokumn3" property="reserveCokumn3"/>
+        <result column="DATE_TYPE" property="dateType"/>
+        <result column="trial_show" property="trialShow"/>
+        <result column="parent_value" property="parentValue"/>
+        <result column="value" property="value"/>
+    </resultMap>
+
+                                                                                                                                                                                                                                            <select id="selectActPrmPage" resultMap="actPrmResultMap">
+        select * from tbl_act_prm where is_deleted = 0
+    </select>
+
+</mapper>

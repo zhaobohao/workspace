@@ -10,7 +10,7 @@
   ruleName: undefined,
       // 规则状态
   ruleStatus: undefined,
-      // 
+      //
   ruleExp: undefined,
       // 备注
   remark: undefined,
@@ -27,7 +27,7 @@
       // 预留字段二
   reserveColumn2: undefined,
       // 预留字段三
-  reserveColumn3: undefined,
+  reserveColumn3: undefined
           },
     rules: {
         ruleId: [{
@@ -89,7 +89,7 @@
   required: true,
   message: '请输入预留字段三',
   trigger: 'blur'
-  }],
+  }]
       }
   }
 }
