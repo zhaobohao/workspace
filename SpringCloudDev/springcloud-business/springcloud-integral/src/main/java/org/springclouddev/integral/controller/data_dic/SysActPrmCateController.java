@@ -19,6 +19,7 @@ import org.springclouddev.integral.vo.data_dic.ActPrmCateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -74,7 +75,7 @@ public class SysActPrmCateController {
 			return R.fail(ReturnCode.DUOLICATE_KEY_ERROR);
 		}
 		actPrmCate.setUpdateUser(SecureUtil.getUserId());
-		actPrmCate.setCreateTime(new Date());
+		actPrmCate.setCreateTime(LocalDateTime.now());
 		if(actPrmCateService.crtCate(actPrmCate)==1) {
 			return R.success("操作成功");
 		}

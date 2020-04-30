@@ -9,6 +9,9 @@ import org.springclouddev.integral.service.config.LocalDictCache;
 import org.springclouddev.integral.vo.ActIntegralInfoVo;
 import org.springclouddev.integral.vo.AdjustIntegralVo;
 
+import java.time.ZoneId;
+import java.util.Date;
+
 /**
  * 行政区划包装类,返回视图层所需的字段
  *
@@ -41,9 +44,10 @@ public class ActIntegralInfoWrapper extends BaseEntityWrapper<IntegralAct, ActIn
 		actIntegralInfoVo.setRuleTeam(actIntegralInfo.getRuleTeam());
 		actIntegralInfoVo.setStatus(actIntegralInfo.getState());
 		actIntegralInfoVo.setCrtUser(String.valueOf(actIntegralInfo.getCreateUser()));
-		actIntegralInfoVo.setCrtTime(actIntegralInfo.getCreateTime());
+		actIntegralInfoVo.setCrtTime(Date.from( actIntegralInfo.getCreateTime().atZone( ZoneId.systemDefault()).toInstant())
+);
 		actIntegralInfoVo.setLstUpdUser(String.valueOf(actIntegralInfo.getUpdateUser()));
-		actIntegralInfoVo.setLstUpdTime(actIntegralInfo.getUpdateTime());
+		actIntegralInfoVo.setLstUpdTime(Date.from( actIntegralInfo.getUpdateTime().atZone( ZoneId.systemDefault()).toInstant()));
 		actIntegralInfoVo.setStatusName(LocalDictCache.getDicNameById(""+actIntegralInfo.getStatus()));
 
 		return actIntegralInfoVo;

@@ -20,6 +20,7 @@ import org.springclouddev.integral.vo.data_dic.DataDicPrmVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class SysDataDicPrmController {
 		if(dataDicPrmService.getOne(Condition.getQueryWrapper(new DataDicPrm().setCode(code)))!=null) {
 			return R.fail(ReturnCode.DUOLICATE_KEY_ERROR);
 		}
-		sysDataDicPrm.setCreateTime(new Date());
+		sysDataDicPrm.setCreateTime(LocalDateTime.now());
 		sysDataDicPrm.setCreateUser(SecureUtil.getUserId());
 		if(sysDataDicPrm.getParentId().equals(0L)) {
 			sysDataDicPrm.setParentId(0L);

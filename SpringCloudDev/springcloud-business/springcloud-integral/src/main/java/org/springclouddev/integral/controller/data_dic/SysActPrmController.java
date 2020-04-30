@@ -28,6 +28,7 @@ import org.springclouddev.integral.vo.data_dic.ActPrmVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Api("系统活动参数接口")
@@ -113,7 +114,7 @@ public class SysActPrmController {
 			actPrm.setParentValue(actPrm.getCode());
 		}
 		actPrm.setUpdateUser(SecureUtil.getUserId());
-		actPrm.setUpdateTime(new Date());
+		actPrm.setUpdateTime(LocalDateTime.now());
 		if(actPrmService.crtActPrm(actPrm)==1) {
 			actPrmCache.reload();
 			return R.success("操作成功");

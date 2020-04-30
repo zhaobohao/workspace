@@ -52,12 +52,12 @@ public class IntegralUtil {
 		IntegralStatusActionVo.setAccountStatus(integralStatusAction.getAccountStatus());
 		IntegralStatusActionVo.setAccountStatusId(integralStatusAction.getAccountStatusId());
 		IntegralStatusActionVo.setBlance(integralStatusAction.getBlance());
-		IntegralStatusActionVo.setCrtTime(integralStatusAction.getCreateTime().toLocaleString());
+		IntegralStatusActionVo.setCrtTime(integralStatusAction.getCreateTime().toString());
 		IntegralStatusActionVo.setCrtUser(integralStatusAction.getCreateUser().toString());
 		IntegralStatusActionVo.setCustId(integralStatusAction.getCustId());
 		IntegralStatusActionVo.setCustName(integralStatusAction.getCustName());
 		IntegralStatusActionVo.setIntegralType(integralStatusAction.getIntegralType());
-		IntegralStatusActionVo.setLstUpdTime(integralStatusAction.getUpdateTime().toLocaleString());
+		IntegralStatusActionVo.setLstUpdTime(integralStatusAction.getUpdateTime().toString());
 		IntegralStatusActionVo.setLstUpdUser(integralStatusAction.getUpdateUser().toString());
 		IntegralStatusActionVo.setOperationType(integralStatusAction.getOperationType());
 		IntegralStatusActionVo.setRejectReason(integralStatusAction.getRejectReason());

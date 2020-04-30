@@ -34,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Api("账户积分相关API")
@@ -494,7 +495,7 @@ public class CustIntegralController {
 //		}else{
         integralStatusAction.setAccountId(custIntegralVo.getAccountId());
         integralStatusAction.setBlance(custIntegralVo.getBlance());
-        integralStatusAction.setCreateTime((new Date()));
+        integralStatusAction.setCreateTime(LocalDateTime.now());
         integralStatusAction.setCreateUser(SecureUtil.getUserId());
         integralStatusAction.setCustId(custIntegralVo.getCustId());
         integralStatusAction.setCustName(custIntegralVo.getCustName());
@@ -602,7 +603,7 @@ public class CustIntegralController {
         custIntegralDetail.setAccountId(integralStatusAction.getAccountId());
 
         IntegralStatusAction integralStatusAction1 = new IntegralStatusAction();
-        integralStatusAction1.setUpdateTime(new Date());
+        integralStatusAction1.setUpdateTime(LocalDateTime.now());
         integralStatusAction1.setUpdateUser(SecureUtil.getUserId());
         if ("audit_status_pass".equals(integralStatusAction.getReserveColumn1())) {
             if ("2".equals(integralStatusAction.getAccountStatusId())) {
