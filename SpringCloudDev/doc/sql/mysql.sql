@@ -4236,4 +4236,56 @@ INSERT INTO `mk_dict`(`id`, `parent_id`, `code`, `dict_key`, `dict_value`, `sort
 VALUES (1123598814738777223, 1123598814738777220, 'post_category', '3', '基层', 3, NULL, 0);
 INSERT INTO `mk_dict`(`id`, `parent_id`, `code`, `dict_key`, `dict_value`, `sort`, `remark`, `is_deleted`)
 VALUES (1123598814738777224, 1123598814738777220, 'post_category', '4', '其他', 4, NULL, 0);
+
+-- ----------------------------
+-- Table structure for mk_drools_group
+-- ----------------------------
+DROP TABLE IF EXISTS `mk_drools_group`;
+CREATE TABLE `mk_drools_group`  (
+  `id` bigint(32) UNSIGNED NOT NULL COMMENT '表id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '分组名称',
+  `remarks` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分组说明',
+  `create_user` bigint(32) NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_deleted` int(1) NOT NULL COMMENT '是否已删除',
+  `status` int(1) NULL DEFAULT NULL COMMENT '状态',
+  `tenant_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '000000' COMMENT '租户ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mk_drools_group
+-- ----------------------------
+INSERT INTO `mk_drools_group` VALUES (1247697598985281538, '小贷金融', 'http://www.xdfineal.me', 1, '2020-04-08 09:27:43', -1, '2020-04-08 09:29:02', 0, 1, '000000');
+INSERT INTO `mk_drools_group` VALUES (1248162007356567554, '33', '33', 1, NULL, NULL, NULL, 1, 1, '000000');
+INSERT INTO `mk_drools_group` VALUES (1248162060687142914, '5533', '5544', 1, NULL, -1, NULL, 1, 1, '000000');
+INSERT INTO `mk_drools_group` VALUES (1248162814462291970, '联合贷款', 'http://union.fineal.com', 1, NULL, NULL, NULL, 0, 1, '000000');
+
+-- ----------------------------
+-- Table structure for mk_drools_ruls
+-- ----------------------------
+DROP TABLE IF EXISTS `mk_drools_ruls`;
+CREATE TABLE `mk_drools_ruls`  (
+  `id` bigint(32) NOT NULL COMMENT '表id',
+  `group_id` bigint(32) NOT NULL COMMENT 'drools_group表id',
+  `remarks` varchar(512) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '备注信息',
+  `rule_body` text CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT '规则程序',
+  `create_user` bigint(32) NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_user` bigint(32) NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_deleted` int(1) NOT NULL COMMENT '是否已删除',
+  `status` int(1) NULL DEFAULT NULL COMMENT '状态',
+  `tenant_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '000000' COMMENT '租户ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mk_drools_ruls
+-- ----------------------------
+INSERT INTO `mk_drools_ruls` VALUES (1252057126321303554, 1248162814462291970, NULL, 'u name is :${name}', 1, '2020-04-20 10:10:56', NULL, NULL, 0, 1, '000000');
+INSERT INTO `mk_drools_ruls` VALUES (1252091455818768386, 1248162814462291970, NULL, '', 1, '2020-04-20 12:27:20', -1, '2020-04-20 12:37:32', 0, 1, '000000');
+
 SET FOREIGN_KEY_CHECKS = 1;
