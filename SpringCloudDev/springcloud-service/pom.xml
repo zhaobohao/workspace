@@ -22,6 +22,7 @@
         <module>springcloud-user</module>
         <module>springcloud-uploadfile</module>
         <module>springcloud-hasor</module>
+        <module>springclou-drools</module>
     </modules>
 
     <dependencies>

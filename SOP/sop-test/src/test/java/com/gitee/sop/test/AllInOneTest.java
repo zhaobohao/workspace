@@ -240,6 +240,28 @@ public class AllInOneTest extends TestBase {
     }
 
     /**
+     * 演示文件上传
+     */
+    public void testFile3() {
+        Client client = new Client(url, appId, privateKey);
+        String root = System.getProperty("user.dir");
+        Client.RequestBuilder requestBuilder = new Client.RequestBuilder()
+                .method("demo.file.upload3")
+                .version("1.0")
+                .bizContent(new BizContent().add("remark", "test file upload"))
+                // 添加文件
+                .addFile("image", new File(root + "/src/main/resources/img.png"))
+                .callback((requestInfo, responseData) -> {
+                    System.out.println(responseData);
+                    JSONObject jsonObject = JSON.parseObject(responseData);
+                    JSONObject data = jsonObject.getJSONObject(requestInfo.getDataNode());
+                    Assert.assertEquals(data.getString("code"), "10000");
+                })
+                ;
+
+        client.execute(requestBuilder);
+    }
+    /**
      * 下载文件
      */
     public void testDownloadFile() throws Exception {

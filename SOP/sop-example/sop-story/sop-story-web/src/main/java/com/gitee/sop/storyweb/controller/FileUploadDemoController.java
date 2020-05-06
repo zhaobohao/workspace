@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-
+import java.util.Optional;
 /**
  * 演示文件上传
  *
@@ -66,6 +67,24 @@ public class FileUploadDemoController {
         for (MultipartFile multipartFile : uploadFiles) {
             FileUploadResult.FileMeta fileMeta = buildFileMeta(multipartFile);
             result.getFiles().add(fileMeta);
+        }
+        return result;
+    }
+    @ApiMapping(value = "demo.file.upload3")
+    public FileUploadResult file3(FileUploadParam2 param, HttpServletRequest request) {
+        System.out.println(param.getRemark());
+        FileUploadResult result = new FileUploadResult();
+        // 获取上传的文件
+        Collection<MultipartFile> uploadFiles = UploadUtil.getUploadFiles(request);
+        Optional<MultipartFile> first = uploadFiles.stream().findFirst();
+        if (first.isPresent()) {
+            MultipartFile multipartFile = first.get();
+            try {
+                String path = System.getProperty("user.dir");
+                multipartFile.transferTo(new File(path + "/img_"+System.currentTimeMillis()+".png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }

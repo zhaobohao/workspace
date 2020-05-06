@@ -80,15 +80,16 @@ public class IndexFilter implements WebFilter {
             if (request.getMethod() == HttpMethod.POST) {
                 ServerRequest serverRequest = ServerWebExchangeUtil.createReadBodyRequest(exchange);
                 // 读取请求体中的内容
-                Mono<?> modifiedBody = serverRequest.bodyToMono(String.class)
-                        .flatMap(body -> {
+                Mono<?> modifiedBody = serverRequest.bodyToMono(byte[].class)
+                        .flatMap(data -> {
+                            String body = new String(data, SopConstants.CHARSET_UTF8);
                             // 构建ApiParam
                             ApiParam apiParam = ServerWebExchangeUtil.getApiParam(exchange, body);
                             // 签名验证
                             doValidate(exchange, apiParam);
-                            return Mono.just(body);
+                            return Mono.just(data);
                         });
-                BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, (Class) String.class);
+                BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, (Class)byte[].class);
                 HttpHeaders headers = new HttpHeaders();
                 headers.putAll(exchange.getRequest().getHeaders());
 
