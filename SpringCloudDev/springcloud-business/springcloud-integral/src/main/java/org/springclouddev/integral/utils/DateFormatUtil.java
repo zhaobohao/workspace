@@ -26,13 +26,6 @@ public class DateFormatUtil {
 		
 		return sdf.format(date);
 	}
-	
-	public static void main(String[] args) throws ParseException{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
-		System.out.println(sdf.format(new Date()));
-	}
-	
 	public static String dateToString(Date date) throws ParseException{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
