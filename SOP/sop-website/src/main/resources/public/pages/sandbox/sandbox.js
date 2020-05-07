@@ -259,7 +259,12 @@ function downloadFile(data) {
 
 function successHandler(resp) {
     setReqInfo(resp);
-    showRespnfo(resp.apiResult);
+    var txt='';
+    var html = [];
+    html.push('【原始报文】：' + resp.apiResult);
+    html.push('【解密后业务报文】：' + resp.decodeApiResult);
+    txt = html.join('\r\n')
+    showRespnfo(txt);
 }
 
 function errorHandler(xhr, status, error) {
@@ -284,6 +289,7 @@ function setReqInfo(resp) {
         html.push('【请求参数】：' + resp.params);
         html.push('【待签名内容】：' + resp.beforeSign);
         html.push('【签名(sign)】：' + resp.sign);
+        html.push('【请求报文】：' + resp.finalParams);
         txt = html.join('\r\n')
     }
     $('#req-info-result').val(txt);

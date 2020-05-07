@@ -1,10 +1,11 @@
 package com.gitee.sop.websiteserver.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gitee.sop.gatewaycommon.param.ParamNames;
 import com.gitee.sop.gatewaycommon.validate.pab.PabSignature;
 import com.gitee.sop.websiteserver.bean.HttpTool;
 import com.gitee.sop.websiteserver.sign.AlipayApiException;
-import com.gitee.sop.websiteserver.sign.AlipaySignature;
 import com.gitee.sop.websiteserver.util.UploadUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -33,18 +34,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 /**
  * 沙箱环境代理类
+ *
  * @author tanghc
  */
 @Slf4j
@@ -69,7 +65,7 @@ public class SandboxController {
             , @RequestParam(defaultValue = "false") boolean isDownloadRequest
             , HttpServletRequest request
             , HttpServletResponse response
-    ) throws AlipayApiException {
+    ) {
 
         Assert.isTrue(StringUtils.isNotBlank(appId), "AppId不能为空");
         Assert.isTrue(StringUtils.isNotBlank(privateKey), "PrivateKey不能为空");
@@ -84,25 +80,27 @@ public class SandboxController {
         params.put("sign_type", "RSA2");
         params.put("timestamp", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         params.put("version", version);
-        params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA2");
-        // 业务参数
-        params.put("data", PabSignature.rsaEncrypt(bizContent, publicKey, (String)params.get("charset")));
+        params.put(ParamNames.ENCRYPTION_TYPE_NAME, "RSA");
+        // 业务参数，加密
+        params.put("data", PabSignature.rsaEncrypt(JSON.toJSONString(bizContent), publicKey, (String) params.get("charset")));
+
+        System.out.println("----------- 请求信息 -----------");
+        System.out.println("请求参数：" + buildParamQuery(params));
+        System.out.println("商户秘钥：" + privateKey);
+        String content = PabSignature.getSignContent(params);
+        System.out.println("待签名内容：" + content);
 
         SandboxResult result = new SandboxResult();
-
-        String content = PabSignature.getSignContent(params);
         result.params = buildParamQuery(params);
         result.beforeSign = content;
 
         String sign = null;
-        try {
-            sign = AlipaySignature.rsa256Sign(content, privateKey, "utf-8");
-        } catch (AlipayApiException e) {
-            throw new RuntimeException("构建签名失败");
-        }
-        result.sign = sign;
+        sign = PabSignature.rsa256Sign(content, privateKey, "utf-8");
+        System.out.println("签名(sign)：" + sign);
 
+        result.sign = sign;
         params.put("sign", sign);
+        result.finalParams = JSON.toJSONString(params);
 
         Collection<MultipartFile> uploadFiles = UploadUtil.getUploadFiles(request);
         List<HttpTool.UploadFile> files = uploadFiles.stream()
@@ -139,6 +137,12 @@ public class SandboxController {
                 responseData = httpTool.request(url, params, Collections.emptyMap(), HttpTool.HTTPMethod.fromValue(httpMethod));
             }
             result.apiResult = responseData;
+            //解密返回数据，展示在沙箱里。
+            try {
+                result.decodeApiResult=  PabSignature.rsaDecrypt(responseData, privateKey, (String) params.get("charset"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return result;
         } catch (Exception e) {
             log.error("请求失败", e);
@@ -151,13 +155,16 @@ public class SandboxController {
         private String params;
         private String beforeSign;
         private String sign;
+        private String finalParams;
 
         private String apiResult;
+        private String decodeApiResult;
     }
 
 
     /**
      * 发送get请求
+     *
      * @param url
      * @return JSON或者字符串
      * @throws Exception
@@ -165,7 +172,7 @@ public class SandboxController {
     public static String get(String url, Map<String, String> params) {
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
-        try{
+        try {
             httpClient = HttpClients.createDefault();
             List<NameValuePair> nameValuePairs = params.entrySet()
                     .stream()
@@ -190,10 +197,10 @@ public class SandboxController {
             /**
              * 通过EntityUitls获取返回内容
              */
-            return EntityUtils.toString(response.getEntity(),"UTF-8");
-        }catch (Exception e){
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             IOUtils.closeQuietly(httpClient);
             IOUtils.closeQuietly(response);
         }
