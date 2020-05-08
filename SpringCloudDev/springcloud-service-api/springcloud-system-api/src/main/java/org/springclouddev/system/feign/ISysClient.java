@@ -80,6 +80,7 @@ public interface ISysClient {
 	@GetMapping(API_PREFIX + "/getPostNames")
 	List<String> getPostNames(@RequestParam("postIds") String postIds);
 
+	@GetMapping(API_PREFIX + "/getRoleIds")
 	String getRoleIds(String tenantId, String roleNames);
 
 	/**

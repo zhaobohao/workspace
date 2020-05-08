@@ -31,7 +31,7 @@
             <version>${project.tool.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.springblade</groupId>
+                    <groupId>org.springclouddev</groupId>
                     <artifactId>blade-core-secure</artifactId>
                 </exclusion>
             </exclusions>
