@@ -115,4 +115,8 @@ public interface AppConstant {
 	 * hasor模块，快速开发sql接口。
 	 */
 	String APPLICATION_HASOR_NAME = APPLICATION_NAME_PREFIX+"hasor-server";
+	/**
+	 * drools 规则引擎服务
+	 */
+	String APPLICATION_DROOLS_NAME = APPLICATION_NAME_PREFIX+"drools-server";
 }

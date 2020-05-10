@@ -30,6 +30,7 @@ public class SysClient implements ISysClient {
 
 	private IRoleService roleService;
 
+	private IMenuService menuService;
 	@Override
 	@GetMapping(API_PREFIX + "/getDept")
 	public Dept getDept(Long id) {
@@ -69,8 +70,9 @@ public class SysClient implements ISysClient {
 	}
 
 	@Override
-	public List<String> getPermission(String id) {
-		return null;
+	@GetMapping(API_PREFIX + "/getPermission")
+	public List<String> getPermission(String roleIds) {
+		return menuService.roleTreeKeys(roleIds);
 	}
 
 	@Override

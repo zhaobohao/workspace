@@ -1,0 +1,19 @@
+#服务器端口
+server:
+  port: 8201
+
+#数据源配置
+spring:
+  datasource:
+    url: ${springclouddev.datasource.dev.url}
+    username: ${springclouddev.datasource.dev.username}
+    password: ${springclouddev.datasource.dev.password}
+# apollo的配置
+# 对应 Apollo 中应用的 AppId
+app:
+  id: 100001
+apollo:
+  bootstrap:
+    enabled: true
+    # 添加 application 本身 和 TEST1.Common Namespace 的配置
+    namespaces: application,TEST1.Common

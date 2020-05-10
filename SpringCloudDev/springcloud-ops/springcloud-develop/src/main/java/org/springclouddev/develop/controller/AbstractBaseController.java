@@ -82,7 +82,11 @@ public class AbstractBaseController extends AbstractController {
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "新增或修改", notes = "传入code")
     public R submit(@Valid @RequestBody Code code) {
-        return R.status(codeService.submit(code));
+        if (codeService.saveOrUpdate(code)) {
+            return R.data(code);
+        } else {
+            return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, code, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+        }
     }
 
 

@@ -4236,7 +4236,12 @@ INSERT INTO `mk_dict`(`id`, `parent_id`, `code`, `dict_key`, `dict_value`, `sort
 VALUES (1123598814738777223, 1123598814738777220, 'post_category', '3', '基层', 3, NULL, 0);
 INSERT INTO `mk_dict`(`id`, `parent_id`, `code`, `dict_key`, `dict_value`, `sort`, `remark`, `is_deleted`)
 VALUES (1123598814738777224, 1123598814738777220, 'post_category', '4', '其他', 4, NULL, 0);
-
+-- ----------------------------
+-- 增加用户表字段
+-- ----------------------------
+ALTER TABLE `mk_user`
+    ADD COLUMN `code` varchar(12) NULL COMMENT '用户编号' AFTER `tenant_id`,
+    ADD COLUMN `post_id` varchar(1000) NULL COMMENT '岗位id' AFTER `dept_id`;
 -- ----------------------------
 -- Table structure for mk_drools_group
 -- ----------------------------
