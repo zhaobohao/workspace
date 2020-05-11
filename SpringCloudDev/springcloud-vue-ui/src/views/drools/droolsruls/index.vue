@@ -9,10 +9,10 @@
 </template>
 <script>
   // 调用相应的api文件中的方法，来操纵数据
-  import {
-      getDictionary
-  }
-      from '@/api/system/dict'
+ // import {
+ //     getDictionary
+ // }
+ //     from '@/api/system/dict'
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
   // 引入相应的工具来处理数据转换需求
