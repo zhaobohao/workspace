@@ -163,6 +163,15 @@ public class MockHttpController extends AbstractController {
     @ApiOperationSupport(order = 10)
     @ApiOperation(value = "逻辑删除", notes = "传入ids")
     public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+		for (String id : ids.split(",")) {
+			j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_CLEAR, id);
+		}
+		try {
+			//等待清理事件完成。
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
         return R.status(mockHttpService.deleteLogic(Func.toLongList(ids)));
     }
 

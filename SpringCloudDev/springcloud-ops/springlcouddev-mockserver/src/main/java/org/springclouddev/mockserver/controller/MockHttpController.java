@@ -6,10 +6,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.ClearType;
 import org.springclouddev.core.boot.ctrl.AbstractController;
-import org.springclouddev.core.launch.constant.AppConstant;
 import org.springclouddev.core.mp.support.Condition;
 import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
@@ -17,13 +14,11 @@ import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.mockserver.config.Constants;
-import org.springclouddev.mockserver.config.GlobalMockServerClient;
 import org.springclouddev.mockserver.config.MockServerInit;
 import org.springclouddev.mockserver.entity.MockHttp;
 import org.springclouddev.mockserver.service.IMockHttpService;
 import org.springclouddev.mockserver.vo.MockHttpVO;
 import org.springclouddev.mockserver.wrapper.MockHttpWrapper;
-import org.springclouddev.mockserver.wrapper.MockWrapper;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +48,8 @@ public class MockHttpController extends AbstractController {
 
     private RedisTemplate j2CacheRedisTemplate;
 
-	private ServerProperties serverProperties;
+    private ServerProperties serverProperties;
+
     /**
      * 详情
      */
@@ -133,9 +129,9 @@ public class MockHttpController extends AbstractController {
     @ApiOperation(value = "新增或修改", notes = "传入mockHttp")
     public R submit(@Valid @RequestBody MockHttp mockHttp) {
         //由于正式上线使用时，会分布式部署，这里必须要实现redis的订阅发布功能，通知其它的mockserver更新接口
-        if(mockHttp.getId()!=null){
+        if (mockHttp.getId() != null) {
             mockHttp.setWebSiteId(null);
-            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_CLEAR,  mockHttp.getId());
+            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_CLEAR, mockHttp.getId());
             try {
                 //等待清理事件完成。
                 Thread.sleep(1000);
@@ -144,13 +140,12 @@ public class MockHttpController extends AbstractController {
             }
         }
         if (mockHttpService.saveOrUpdate(mockHttp)) {
-            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_RECEIVE,  mockHttp.getId());
+            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_RECEIVE, mockHttp.getId());
             return R.data(mockHttp);
         } else {
             return R.data(HttpServletResponse.SC_SERVICE_UNAVAILABLE, mockHttp, ToolConstant.DEFAULT_FAILURE_MESSAGE);
         }
     }
-
 
 
     /**
@@ -160,6 +155,15 @@ public class MockHttpController extends AbstractController {
     @ApiOperationSupport(order = 10)
     @ApiOperation(value = "逻辑删除", notes = "传入ids")
     public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+        for (String id : ids.split(",")) {
+            j2CacheRedisTemplate.convertAndSend(Constants.CHANNEL_MOCK_SERVER_CLEAR, id);
+        }
+        try {
+            //等待清理事件完成。
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return R.status(mockHttpService.deleteLogic(Func.toLongList(ids)));
     }
 
