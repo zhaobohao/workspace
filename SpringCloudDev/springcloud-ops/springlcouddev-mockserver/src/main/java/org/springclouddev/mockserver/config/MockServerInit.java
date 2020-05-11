@@ -96,7 +96,7 @@ RedisTemplate j2CacheRedisTemplate;
 		}
 
 		//通过参数构造返回mock对象Response，优先级最低。
-		if(mockHttp.getResponseBody().indexOf("${")>0)
+		if(StrUtil.isNotBlank(mockHttp.getResponseBody()) && mockHttp.getResponseBody().indexOf("${")>0)
 		{
 			//有参数点位符，需要替换。
 			mockClient

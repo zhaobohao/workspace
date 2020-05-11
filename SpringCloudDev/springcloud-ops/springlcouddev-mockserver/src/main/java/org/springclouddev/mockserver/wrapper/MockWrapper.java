@@ -1,6 +1,7 @@
 package org.springclouddev.mockserver.wrapper;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.mockserver.matchers.MatchType;
@@ -179,7 +180,7 @@ public class MockWrapper {
         if (StrUtil.isNotBlank(mockHttp.getRequestStringBody())) {
             request.withBody(regex(mockHttp.getRequestStringBody()));
         } else if (StrUtil.isNotBlank(mockHttp.getRequestJsonBody())) {
-            request.withBody(json(mockHttp.getRequestJsonBody(), MatchType.ONLY_MATCHING_FIELDS)).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
+            request.withBody(json(mockHttp.getRequestJsonBody(), MatchType.ONLY_MATCHING_FIELDS)).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF_8.toString());
         } else if (StrUtil.isNotBlank(mockHttp.getRequestFormBody())) {
             request.withHeaders(
                     Header.header(HttpHeaders.CONTENT_TYPE, MediaType.FORM_DATA.toString())
@@ -195,15 +196,22 @@ public class MockWrapper {
         }
         // 把headers放到最后，这样可以覆盖前面的默认设置
         if (StrUtil.isNotBlank(mockHttp.getRequestHeaders())) {
-            JSONObject jsonObject = JSONUtil.parseObj(mockHttp.getForwardHeaders());
+            JSONObject jsonObject = JSONUtil.parseObj(mockHttp.getRequestHeaders());
             if (jsonObject.containsKey(HttpHeaders.CONTENT_TYPE)) {
-                request.withContentType(MediaType.parse((String) jsonObject.get(HttpHeaders.CONTENT_TYPE)));
+                if (jsonObject.get(HttpHeaders.CONTENT_TYPE) instanceof JSONArray)
+                    request.withContentType(MediaType.parse((((JSONArray) jsonObject.get(HttpHeaders.CONTENT_TYPE)).toString())));
+                else
+                    request.withContentType(MediaType.parse((String) jsonObject.get(HttpHeaders.CONTENT_TYPE)));
                 jsonObject.remove(HttpHeaders.CONTENT_TYPE);
             }
             if (jsonObject.size() > 0) {
                 Headers headers = new Headers();
                 jsonObject.forEach((key, value) -> {
-                            headers.withEntry(key, (String) value);
+                            if (jsonObject.get(HttpHeaders.CONTENT_TYPE) instanceof JSONArray) {
+                                headers.withEntry(key, value.toString());
+                            } else {
+                                headers.withEntry(key, (String) value);
+                            }
                         }
                 );
                 request.withHeaders(headers);

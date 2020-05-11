@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/springcloud-drools/droolsruls/list/page',
+    url: '/springcloud-drools-server/droolsruls/list/page',
     method: 'get',
     params: {
       ...params,
@@ -15,7 +15,7 @@ export const getList = (current, size, params) => {
 
 export const getDetail = (id) => {
   return request({
-    url: '/springcloud-drools/droolsruls/detail',
+    url: '/springcloud-drools-server/droolsruls/detail',
     method: 'get',
     params: {
       id
@@ -25,7 +25,7 @@ export const getDetail = (id) => {
 
 export const remove = (ids) => {
   return request({
-    url: '/springcloud-drools/droolsruls/remove',
+    url: '/springcloud-drools-server/droolsruls/remove',
     method: 'post',
     params: {
       ids
@@ -35,7 +35,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/springcloud-drools/droolsruls/submit',
+    url: '/springcloud-drools-server/droolsruls/submit',
     method: 'post',
     data: row
   })
@@ -43,7 +43,7 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/springcloud-drools/droolsruls/submit',
+    url: '/springcloud-drools-server/droolsruls/submit',
     method: 'post',
     data: row
   })
@@ -51,9 +51,8 @@ export const update = (row) => {
 
 export const selectOption = (row) => {
   return request({
-    url: '/springcloud-drools/droolsruls/select',
+    url: '/springcloud-drools-server/droolsruls/select',
     method: 'get',
     data: row
   })
 }
-
