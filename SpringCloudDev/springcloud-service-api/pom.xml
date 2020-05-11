@@ -22,7 +22,7 @@
         <module>springcloud-user-api</module>
         <module>springclouddev-uploadfile-api</module>
         <module>springcloud-hasor-api</module>
-        <module>springclou-drools-api</module>
+        <module>springcloud-drools-api</module>
     </modules>
 
     <dependencies>

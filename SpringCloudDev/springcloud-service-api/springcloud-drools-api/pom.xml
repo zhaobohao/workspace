@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springclou-drools-api</artifactId>
+    <artifactId>springcloud-drools-api</artifactId>
     <name>${project.artifactId}</name>
     <version>1.0.0</version>
     <packaging>jar</packaging>
