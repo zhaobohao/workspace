@@ -10,6 +10,7 @@ import org.mockserver.mock.action.ExpectationResponseCallback;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.Parameter;
+import org.springbootdev.core.tool.utils.BeanUtil;
 import org.springbootdev.modules.mockserver.entity.MockHttp;
 import org.springbootdev.modules.mockserver.wrapper.MockWrapper;
 import org.springframework.http.HttpHeaders;
@@ -72,9 +73,10 @@ public class ReplaceBodyParamtersCallBack implements ExpectationResponseCallback
 				}
 			}
 		}
-		mockHttp.setResponseBody(responseBody);
-		return MockWrapper.mockHttpResponse(mockHttp).get();
-
+		MockHttp clone = new MockHttp();
+		BeanUtil.copyProperties(mockHttp, clone);
+		clone.setResponseBody(responseBody);
+		return MockWrapper.mockHttpResponse(clone).get();
 	}
 
 	/**

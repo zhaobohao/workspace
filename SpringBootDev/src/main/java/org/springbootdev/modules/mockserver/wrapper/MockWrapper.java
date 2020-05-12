@@ -180,11 +180,8 @@ public class MockWrapper {
 		if (StrUtil.isNotBlank(mockHttp.getRequestStringBody())) {
 			request.withBody(regex(mockHttp.getRequestStringBody()));
 		} else if (StrUtil.isNotBlank(mockHttp.getRequestJsonBody())) {
-			request.withBody(json(mockHttp.getRequestJsonBody(), MatchType.ONLY_MATCHING_FIELDS)).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF_8.toString());
+			request.withBody(json(mockHttp.getRequestJsonBody(), MatchType.ONLY_MATCHING_FIELDS));
 		} else if (StrUtil.isNotBlank(mockHttp.getRequestFormBody())) {
-			request.withHeaders(
-				Header.header(HttpHeaders.CONTENT_TYPE, MediaType.FORM_DATA.toString())
-			);
 			JSONObject jsonObject = JSONUtil.parseObj(mockHttp.getRequestFormBody());
 			if (jsonObject.size() > 0) {
 				Parameters parameters = new Parameters();
