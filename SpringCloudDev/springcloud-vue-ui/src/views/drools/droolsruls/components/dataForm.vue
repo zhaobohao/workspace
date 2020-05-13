@@ -4,29 +4,27 @@
     <el-form ref="dataForm" :inline="true" :rules="rules" :model="temp" label-position="left" label-width="120px"
       style="width: 1000px; margin-left:10px;">
 
-    <el-form-item label="drools_group表id" prop="groupId">
-        <el-tooltip class="item" effect="dark"
-                    content="drools_group表id" placement="top">
-        <el-input-number v-model="temp.groupId" :precision="0" :step="1" :max="100" style="width: 305px;" />
+      <el-form-item label="drools_group表id" prop="groupId">
+        <el-tooltip class="item" effect="dark" content="drools_group表id" placement="top">
+          <el-input-number v-model="temp.groupId" :precision="0" :step="1" :max="100" style="width: 305px;" />
         </el-tooltip>
-    </el-form-item>
-    <el-form-item label="备注信息" prop="remarks">
-        <el-tooltip class="item" effect="dark"
-                    content="备注信息" placement="top">
-        <el-input v-model="temp.remarks" type="textarea" autosize style="width: 815px;" />
+      </el-form-item>
+      <el-form-item label="备注信息" prop="remarks">
+        <el-tooltip class="item" effect="dark" content="备注信息" placement="top">
+          <el-input v-model="temp.remarks" type="textarea" autosize style="width: 815px;" />
         </el-tooltip>
-    </el-form-item>
+      </el-form-item>
       <el-form-item label="规则程序" prop="ruleBody">
-          <el-tooltip class="item" effect="dark"
-                      content="规则程序" placement="top">
-        <el-input v-model="temp.ruleBody" style="width: 305px;" />
-          </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="规则程序" placement="top">
+          <el-input v-model="temp.ruleBody" style="width: 305px;" />
+        </el-tooltip>
       </el-form-item>
 
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">{{ $t('table.confirm') }}</el-button>
+      <el-button v-waves type="primary" @click="dialogStatus==='create'?createData():updateData()">
+        {{ $t('table.confirm') }}</el-button>
     </div>
   </el-dialog>
 </template>
@@ -35,12 +33,12 @@
   import {
     add,
     update
-  } from '@/api/system/droolsruls'
+  } from '@/api/drools/droolsruls'
 
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
   // 引入相应的工具来处理数据转换需求
-  import listQuery from '@/entitys/droolsruls'
+  import listQuery from '@/entitys/drools/droolsruls'
   // 引入相关utils
   import notify from '@/utils/notify'
   import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
@@ -57,8 +55,7 @@
     filters: {
 
     },
-    props: {
-    },
+    props: {},
     data() {
       // 初始化整个页面用到的数据
       return {
@@ -73,27 +70,27 @@
         temp: listQuery().query,
         rules: listQuery().rules,
         pickerOptions: {
-              shortcuts: [{
-                  text: '今天',
-                  onClick(picker) {
-                      picker.$emit('pick', new Date())
-                  }
-              }, {
-                  text: '昨天',
-                  onClick(picker) {
-                      const date = new Date()
-                      date.setTime(date.getTime() - 3600 * 1000 * 24)
-                      picker.$emit('pick', date)
-                  }
-              }, {
-                  text: '一周前',
-                  onClick(picker) {
-                      const date = new Date()
-                      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-                      picker.$emit('pick', date)
-                  }
-              }]
-          }
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date())
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              picker.$emit('pick', date)
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
+            }
+          }]
+        }
       }
     },
     computed: {
@@ -104,7 +101,7 @@
     },
     // 初始化所有的数据
     created() {
-        this.initTreeOptions()
+      this.initTreeOptions()
     },
     mounted() {
       window.onresize = () => {
@@ -133,7 +130,7 @@
       handleCreateAction() {
         this.resetTemp()
         this.dialogStatus = 'create'
-          this.dialogFormVisible = true
+        this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })
@@ -145,7 +142,7 @@
             add(this.temp).then((response) => {
               if (response.code === 200) {
                 this.$parent.$refs.listTable.list.unshift(response.data)
-                  this.dialogFormVisible = false
+                this.dialogFormVisible = false
                 notify.success(this)
               } else {
                 notify.error(this)
@@ -157,7 +154,7 @@
       handleUpdate(row) {
         this.temp = Object.assign({}, row) // copy obj
         this.dialogStatus = 'update'
-          this.dialogFormVisible = true
+        this.dialogFormVisible = true
         this.$nextTick(() => {
           this.$refs.dataForm.clearValidate()
         })
@@ -206,5 +203,8 @@
     background-color: #fafafa;
   }
 
-  .el-tooltip__popper{max-width:50%}
+  .el-tooltip__popper {
+    max-width: 50%
+  }
+
 </style>

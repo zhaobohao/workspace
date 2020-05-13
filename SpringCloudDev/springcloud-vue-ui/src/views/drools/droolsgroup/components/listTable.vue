@@ -72,7 +72,7 @@
   import {
     getList,
     remove
-  } from '@/api/system/droolsgroup'
+  } from '@/api/drools/droolsgroup'
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
   // 引入相应的工具来处理数据转换需求
@@ -248,7 +248,7 @@
       // 处理创建按钮
       handleCreateAction() {
         this.$parent.$refs.dataForm.handleCreateAction()
-              },
+      },
       // 处理编辑按钮
       handleUpdate(row) {
         this.$parent.$refs.dataForm.handleUpdate(row)
@@ -259,16 +259,16 @@
 
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
-                                     '表id',
-                                                 '分组名称',
-                                                 '分组说明',
-                                                 '租户ID'
-                                ]
+            '表id',
+            '分组名称',
+            '分组说明',
+            '租户ID'
+          ]
           const filterVal = [
-  'id',
-  'name',
-  'remarks',
-  'tenantId'
+            'id',
+            'name',
+            'remarks',
+            'tenantId'
           ]
           const data = this.formatJson(filterVal, this.list)
           excel.export_json_to_excel({
@@ -294,14 +294,14 @@
 
 </script>
 <style>
-    .el-tooltip__popper {
-        max-width: 70%;
-    }
+  .el-tooltip__popper {
+    max-width: 70%;
+  }
 
-    .el-tooltip__popper,
-    .el-tooltip__popper.is-dark {
-        background: #f5f5f5 !important;
-        color: #0a3386 !important;
-    }
+  .el-tooltip__popper,
+  .el-tooltip__popper.is-dark {
+    background: #f5f5f5 !important;
+    color: #0a3386 !important;
+  }
 
 </style>

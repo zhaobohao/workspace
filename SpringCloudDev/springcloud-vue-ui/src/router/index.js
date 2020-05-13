@@ -138,7 +138,9 @@ export const componentMap = {
   integral_terminal: () => import('@/views/integral/actprm/index'),
   integral_terminal_aduit: () => import('@/views/integral/actprm/index'),
   mock_website: () => import('@/views/mock/mockwebsite/index'),
-  mock_interface: () => import('@/views/mock/mockhttp/index')
+  mock_interface: () => import('@/views/mock/mockhttp/index'),
+  drools_group: () => import('@/views/drools/droolsgroup/index'),
+  drools_droolsruls: () => import('@/views/drools/droolsruls/index')
 }
 const createRouter = () => new Router({
   // mode: 'history', // require service support

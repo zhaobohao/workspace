@@ -102,7 +102,11 @@ export default {
     integral_terminal_aduit: '积分冻结/解冻审核',
     mockserver: 'mock服务',
     mock_interface: '接口参数设置',
-    mock_website: '站点设置'
+    mock_website: '站点设置',
+    drools: '规则引擎',
+    drools_group: '规则组',
+    drools_droolsruls: '规则定义'
+
   },
   navbar: {
     dashboard: '首页',
