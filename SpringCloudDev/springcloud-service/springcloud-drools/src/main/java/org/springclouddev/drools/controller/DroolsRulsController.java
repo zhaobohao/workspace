@@ -3,6 +3,7 @@ package org.springclouddev.drools.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.boot.ctrl.AbstractController;
@@ -16,10 +17,13 @@ import org.springclouddev.drools.entity.DroolsRuls;
 import org.springclouddev.drools.service.IDroolsRulsService;
 import org.springclouddev.drools.vo.DroolsRulsVO;
 import org.springclouddev.drools.wrapper.DroolsRulsWrapper;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 控制器

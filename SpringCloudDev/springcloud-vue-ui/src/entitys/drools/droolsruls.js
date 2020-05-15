@@ -11,7 +11,8 @@ export default function area() {
       // 备注信息
       remarks: undefined,
       // 规则程序
-      ruleBody: undefined
+      ruleBody: undefined,
+      groupId_equal: undefined
     },
     rules: {
       id: [{

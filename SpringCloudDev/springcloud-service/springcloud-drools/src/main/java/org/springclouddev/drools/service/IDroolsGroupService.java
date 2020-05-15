@@ -2,8 +2,11 @@ package org.springclouddev.drools.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.core.mp.base.BaseService;
+import org.springclouddev.core.tool.node.TreeNode;
 import org.springclouddev.drools.entity.DroolsGroup;
 import org.springclouddev.drools.vo.DroolsGroupVO;
+
+import java.util.List;
 
 /**
  * 服务类
@@ -21,4 +24,6 @@ public interface IDroolsGroupService extends BaseService<DroolsGroup> {
      * @return
      */
     IPage<DroolsGroupVO> selectDroolsGroupPage(IPage<DroolsGroupVO> page, DroolsGroupVO droolsGroup);
+
+    List<TreeNode> tree();
 }

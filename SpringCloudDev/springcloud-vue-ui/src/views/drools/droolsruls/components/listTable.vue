@@ -1,10 +1,10 @@
 <template>
   <el-card>
-    <el-button v-waves v-permission="['45']" class="filter-item" style="margin-left: 10px;" round type="alert"
-      icon="el-icon-search" @click="handleIsSearchCardShow">
+    <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="alert" icon="el-icon-search"
+      @click="handleIsSearchCardShow">
       {{ $t('table.fliter') }}</el-button>
-    <el-button v-waves v-permission="['47']" class="filter-item" style="margin-left: 10px;" round type="primary"
-      icon="el-icon-edit" @click="handleCreateAction">
+    <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="primary" icon="el-icon-edit"
+      @click="handleCreateAction">
       {{ $t('table.add') }}</el-button>
     <el-button v-waves class="filter-item" style="margin-left: 10px;" round type="danger" icon="el-icon-delete"
       @click="handleBatchDeleteAction">
@@ -29,16 +29,6 @@
           <span>{{ scope.row.id }}</span>
         </template>
 </el-table-column>-->
-      <el-table-column label="表id" min-width="150px" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="drools_group表id" min-width="150px" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.groupId }}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="备注信息" min-width="150px" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.remarks }}</span>
@@ -49,18 +39,13 @@
           <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.ruleBody }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="租户ID" min-width="150px" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          <span class="link-type" click="handleUpdate(scope.row)">{{ scope.row.tenantId }}</span>
-        </template>
-      </el-table-column>
       <el-table-column :label="$t('table.actions')" fixed="right" align="center" width="180"
         class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-waves v-permission="['46']" type="primary" size="mini" @click="handleUpdate(scope.row)">
+          <el-button v-waves type="primary" size="mini" @click="handleUpdate(scope.row)">
             {{ $t('table.edit') }}
           </el-button>
-          <el-button v-if="scope.row.status!='deleted'" v-permission="['47']" v-waves size="mini" type="danger"
+          <el-button v-if="scope.row.status!='deleted'" v-waves size="mini" type="danger"
             @click="handleDeleteAction(scope.row)">
             {{ $t('table.delete') }}
           </el-button>
@@ -80,6 +65,8 @@
   } from '@/api/drools/droolsruls'
   // 按钮的水波纹
   import waves from '@/directive/waves' // Waves directive
+  // 调用相应的api文件中的方法，来操纵数据
+  import listQuery from '@/entitys/drools/droolsruls'
   // 引入相应的工具来处理数据转换需求
   import {
     parseTime
@@ -159,6 +146,10 @@
       // 控制searchCard的显示与否
       handleIsSearchCardShow() {
         this.$emit('update:isSearchCardShow', !this.isSearchCardShow)
+      },
+      // 重新初始化listQuery
+      resetListQuery() {
+        this.listQuery = listQuery()
       },
       // 处理多选的数据
       handleSelectionChange(val) {
@@ -252,11 +243,17 @@
       },
       // 处理创建按钮
       handleCreateAction() {
-        this.$parent.$refs.dataForm.handleCreateAction()
+        if (this.listQuery.query === undefined || this.listQuery.query.groupId_equal === undefined) {
+          notify.error(this, {
+            message: '请选择左侧的站点，便于接口管理'
+          })
+        } else {
+          this.$parent.$parent.$parent.$parent.$refs.dataForm.handleCreateAction(this.listQuery.query.groupId_equal)
+        }
       },
       // 处理编辑按钮
       handleUpdate(row) {
-        this.$parent.$refs.dataForm.handleUpdate(row)
+        this.$parent.$parent.$parent.$parent.$refs.dataForm.handleUpdate(row)
       },
       // excel文件下载函数
       handleDownload() {

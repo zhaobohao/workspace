@@ -9,7 +9,8 @@ export default function area() {
       // 分组名称
       name: undefined,
       // 分组说明
-      remarks: undefined
+      remarks: undefined,
+      name_like: undefined
     },
     rules: {
       name: [{

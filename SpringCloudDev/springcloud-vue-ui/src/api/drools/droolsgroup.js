@@ -56,3 +56,10 @@ export const selectOption = (row) => {
     data: row
   })
 }
+
+export const tree = (row) => {
+  return request({
+    url: '/springcloud-drools-server/droolsgroup/tree',
+    method: 'get'
+  })
+}

@@ -33,7 +33,7 @@ export default function area() {
       // response报文里的body
       responseBody: undefined,
       // response报文里的body的编码
-      responseCharsets: undefined,
+      responseCharsets: 'utf-8',
       // response报文里的 status code.例如：400，302，501
       responseStatusCode: 200,
       // 配合statuscode使用的，状态码解释文本。

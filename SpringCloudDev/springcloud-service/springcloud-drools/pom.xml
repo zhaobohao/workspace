@@ -40,6 +40,12 @@
             <version>${project.tool.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springcloud-drools-api</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -4,12 +4,7 @@
     <!--查询条件区域-->
     <div class="filter-container">
       <!--具体的查询条件，使用placeholder来显示标题-->
-      <el-input-number v-model="temp.id" placeholder="表id" :precision="0" :step="1" :max="100" style="width: 305px;" />
-      <el-input v-model="listQuery.query.name" placeholder="分组名称" style="width: 200px;"
-        @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.query.remarks" placeholder="分组说明" style="width: 200px;"
-        @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.query.tenantId" placeholder="租户ID" style="width: 200px;"
+      <el-input v-model="listQuery.query.name_like" placeholder="分组名称" style="width: 200px;"
         @keyup.enter.native="handleFilter" />
       <el-button v-waves type="primary" style="margin:0 0 0 20px;" round icon="el-icon-search" @click="handleFilter">{{
         $t('table.search') }}</el-button>

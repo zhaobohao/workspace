@@ -3,23 +3,18 @@
   <el-dialog v-el-drag-dialog :width="dialogWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
     <el-form ref="dataForm" :inline="true" :rules="rules" :model="temp" label-position="left" label-width="120px"
       style="width: 1000px; margin-left:10px;">
-
-      <el-form-item label="drools_group表id" prop="groupId">
-        <el-tooltip class="item" effect="dark" content="drools_group表id" placement="top">
-          <el-input-number v-model="temp.groupId" :precision="0" :step="1" :max="100" style="width: 305px;" />
-        </el-tooltip>
-      </el-form-item>
       <el-form-item label="备注信息" prop="remarks">
         <el-tooltip class="item" effect="dark" content="备注信息" placement="top">
-          <el-input v-model="temp.remarks" type="textarea" autosize style="width: 815px;" />
+          <el-input v-model="temp.remarks" type="textarea" :autosize="{ minRows: 2, maxRows: 10}"
+            style="width: 815px;" />
         </el-tooltip>
       </el-form-item>
       <el-form-item label="规则程序" prop="ruleBody">
         <el-tooltip class="item" effect="dark" content="规则程序" placement="top">
-          <el-input v-model="temp.ruleBody" style="width: 305px;" />
+          <el-input v-model="temp.ruleBody" type="textarea" :autosize="{ minRows: 5, maxRows: 20}"
+            style="width: 815px;" />
         </el-tooltip>
       </el-form-item>
-
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button v-waves @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
@@ -127,8 +122,9 @@
       resetTemp() {
         this.temp = listQuery().query
       },
-      handleCreateAction() {
+      handleCreateAction(groupId) {
         this.resetTemp()
+        this.temp.groupId = groupId
         this.dialogStatus = 'create'
         this.dialogFormVisible = true
         this.$nextTick(() => {
@@ -141,7 +137,7 @@
             // 开始保存数据
             add(this.temp).then((response) => {
               if (response.code === 200) {
-                this.$parent.$refs.listTable.list.unshift(response.data)
+                this.$parent.$parent.$parent.$parent.$refs.listTable.list.unshift(response.data)
                 this.dialogFormVisible = false
                 notify.success(this)
               } else {
