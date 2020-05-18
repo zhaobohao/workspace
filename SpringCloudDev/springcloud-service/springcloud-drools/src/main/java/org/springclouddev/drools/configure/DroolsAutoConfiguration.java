@@ -1,11 +1,11 @@
-package org.springbootdev.modules.drools.configure;
+package org.springclouddev.drools.configure;
 
 import org.drools.core.impl.KnowledgeBaseImpl;
 import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.utils.KieHelper;
-import org.springbootdev.modules.drools.entity.DroolsRuls;
-import org.springbootdev.modules.drools.service.IDroolsRulsService;
+import org.springclouddev.drools.entity.DroolsRuls;
+import org.springclouddev.drools.service.IDroolsRulsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,7 +28,7 @@ public class DroolsAutoConfiguration {
 	/** 特别要注意 rule的存放位置  */
 	private static final String RULES_PATH = "rules/";
     @Autowired
-	ApplicationContext applicationContext;
+    ApplicationContext applicationContext;
     @Autowired
 	private IDroolsRulsService droolsRulsService;
 	@Bean

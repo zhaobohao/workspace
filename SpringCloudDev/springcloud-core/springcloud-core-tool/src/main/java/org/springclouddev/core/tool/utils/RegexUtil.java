@@ -385,6 +385,23 @@ public class RegexUtil {
 		return null;
 	}
 	/**
+	 * 编译传入正则表达式在字符串中寻找，如果找到返回第一个结果
+	 * 找不到返回null
+	 *
+	 * @param regex         正则
+	 * @param beFoundString 字符串
+	 * @return {boolean}
+	 */
+	@Nullable
+	public static String findResult(String regex, String beFoundString,int index) {
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(beFoundString);
+		if (matcher.find()) {
+			return matcher.group(index);
+		}
+		return null;
+	}
+	/**
 	 * 编译传入正则表达式在字符串中寻找，返回所有找到的结果
 	 * @param regex
 	 * @param beFoundString

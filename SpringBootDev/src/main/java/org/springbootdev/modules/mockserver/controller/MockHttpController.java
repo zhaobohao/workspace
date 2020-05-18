@@ -6,12 +6,8 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mockserver.client.MockServerClient;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.ClearType;
 import org.springbootdev.core.boot.ctrl.AbstractController;
 import org.springbootdev.core.launch.constant.AppConstant;
-import org.springbootdev.core.launch.utils.INetUtil;
 import org.springbootdev.core.mp.support.Condition;
 import org.springbootdev.core.mp.support.Query;
 import org.springbootdev.core.secure.SystemUser;
@@ -19,20 +15,14 @@ import org.springbootdev.core.tool.api.R;
 import org.springbootdev.core.tool.constant.ToolConstant;
 import org.springbootdev.core.tool.utils.Func;
 import org.springbootdev.modules.mockserver.config.Constants;
-import org.springbootdev.modules.mockserver.config.GlobalMockServerClient;
-import org.springbootdev.modules.mockserver.config.MockServerInit;
 import org.springbootdev.modules.mockserver.entity.MockHttp;
 import org.springbootdev.modules.mockserver.service.IMockHttpService;
 import org.springbootdev.modules.mockserver.vo.MockHttpVO;
 import org.springbootdev.modules.mockserver.wrapper.MockHttpWrapper;
-import org.springbootdev.modules.mockserver.wrapper.MockWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -52,10 +42,6 @@ import java.util.Map;
 public class MockHttpController extends AbstractController {
 
     private IMockHttpService mockHttpService;
-
-    private MockServerInit  mockServerInit;
-
-	private ServerProperties serverProperties;
 
 	private RedisTemplate j2CacheRedisTemplate;
     /**
