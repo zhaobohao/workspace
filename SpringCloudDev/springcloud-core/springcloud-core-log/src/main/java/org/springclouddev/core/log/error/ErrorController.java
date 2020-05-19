@@ -2,6 +2,7 @@
 package org.springclouddev.core.log.error;
 
 import org.springclouddev.core.tool.jackson.JsonUtil;
+import org.springclouddev.core.tool.utils.Charsets;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
@@ -30,10 +31,10 @@ public class ErrorController extends BasicErrorController {
 		Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
 		HttpStatus status = getStatus(request);
 		response.setStatus(status.value());
+		response.setCharacterEncoding(Charsets.UTF_8_NAME);
 		MappingJackson2JsonView view = new MappingJackson2JsonView();
 		view.setObjectMapper(JsonUtil.getInstance());
-		view.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+		view.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		return new ModelAndView(view, body);
 	}
-
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.springclouddev</groupId>
+    <artifactId>springclouddev-log-es</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0</version>
+    <name>springclouddev-log-es</name>
+    <modules>
+        <module>springclouddev-log-es_core</module>
+        <module>springclouddev-log-es_demo</module>
+        <module>springclouddev-log-es_server</module>
+        <module>springclouddev-log-es_log4j</module>
+        <module>springclouddev-log-es_logback</module>
+        <module>springclouddev-log-es_log4j2</module>
+        <module>springclouddev-log-es_trace</module>
+    </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+   
+</project>

@@ -26,6 +26,7 @@
         <module>springcloud-asynctools</module>
         <module>springlcouddev-mockserver</module>
         <module>springlcouddev-mockserver-api</module>
+        <module>springclouddev-log-es</module>
     </modules>
 
 </project>
