@@ -7,14 +7,12 @@ import org.redisson.api.RedissonClient;
 import org.redisson.api.listener.MessageListener;
 import org.redisson.codec.SerializationCodec;
 import org.springclouddev.core.tool.utils.RegexUtil;
+import org.springclouddev.core.tool.utils.SpringUtil;
 import org.springclouddev.drools.entity.DroolsRuls;
 import org.springclouddev.drools.service.IDroolsRulsService;
 import org.springclouddev.drools.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -26,8 +24,6 @@ import java.util.regex.Pattern;
 public class DroolsClearListener {
     @Autowired
     RedissonClient redissonClient;
-   @Autowired
-    KnowledgeBaseImpl kieBase;
     @Autowired
     private IDroolsRulsService droolsRulsService;
     public void addClearListener()
@@ -38,7 +34,7 @@ public class DroolsClearListener {
             public void onMessage(CharSequence charSequence, String id) {
                 log.info("id : {} onMessage:{}; Thread: {}",id,charSequence,Thread.currentThread().toString());
                 DroolsRuls dr=droolsRulsService.getById(Long.valueOf(id));
-                kieBase.removeRule(RegexUtil.findResult("package (.*)",dr.getRuleBody(),1).replaceAll(";",""),RegexUtil.findResult("rules (.*)",dr.getRuleBody(),1).replaceAll("\"",""));
+                ((KnowledgeBaseImpl)SpringUtil.getBean("kieBase")).removeRule(RegexUtil.findResult("package (.*)",dr.getRuleBody(),1).replaceAll(";",""),RegexUtil.findResult("rule (.*)",dr.getRuleBody(),1).replaceAll("\"",""));
                 log.info(" we remove drool, package:{}  . name :{}");
             }
         });

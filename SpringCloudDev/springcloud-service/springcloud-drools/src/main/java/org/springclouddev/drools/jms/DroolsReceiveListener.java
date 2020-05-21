@@ -10,6 +10,7 @@ import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.listener.MessageListener;
 import org.redisson.codec.SerializationCodec;
+import org.springclouddev.core.tool.utils.SpringUtil;
 import org.springclouddev.drools.entity.DroolsRuls;
 import org.springclouddev.drools.service.IDroolsRulsService;
 import org.springclouddev.drools.utils.Constants;
@@ -23,8 +24,6 @@ import java.io.UnsupportedEncodingException;
 public class DroolsReceiveListener {
     @Autowired
     RedissonClient redissonClient;
-    @Autowired
-    KnowledgeBaseImpl kieBase;
     @Autowired
     private IDroolsRulsService droolsRulsService;
     public void addClearListener()
@@ -43,7 +42,7 @@ public class DroolsReceiveListener {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                kieBase.addPackages(kb.getKnowledgePackages());
+                ((KnowledgeBaseImpl) SpringUtil.getBean("kieBase")).addPackages(kb.getKnowledgePackages());
                 log.info(" we create drool,id : "+id);
             }
         });

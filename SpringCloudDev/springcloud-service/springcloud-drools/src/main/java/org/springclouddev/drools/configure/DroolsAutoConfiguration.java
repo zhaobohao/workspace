@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -24,6 +25,7 @@ import java.util.List;
  * Created by  zhaobo on 2019/9/27.
  */
 @Configuration
+@Order(200)
 public class DroolsAutoConfiguration {
 	/** 特别要注意 rule的存放位置  */
 	private static final String RULES_PATH = "rules/";
