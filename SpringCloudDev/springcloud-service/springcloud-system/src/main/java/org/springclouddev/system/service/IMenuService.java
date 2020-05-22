@@ -79,4 +79,14 @@ public interface IMenuService extends IService<Menu> {
 	 * @return
 	 */
     boolean submit(Menu menu);
+
+	/**
+	 * create by: zhaobo
+	 * description: 获取已有资源的id树。
+	 * create time: 2020/5/22 14:25
+	 *
+	 * @return a
+	 * @Para: null
+	 */
+	List<String> roleTreeIdKeys(String roleIds);
 }

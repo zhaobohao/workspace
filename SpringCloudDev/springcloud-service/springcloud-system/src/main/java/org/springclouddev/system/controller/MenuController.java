@@ -167,7 +167,15 @@ public class MenuController extends AbstractController {
     public R<List<String>> roleTreeKeys(String roleIds) {
         return R.data(menuService.roleTreeKeys(roleIds));
     }
-
+    /**
+     * 获取权限分配树形结构的id
+     */
+    @GetMapping("/role-tree-id-keys")
+    @ApiOperationSupport(order = 9)
+    @ApiOperation(value = "角色所分配的树", notes = "角色所分配的树")
+    public R<List<String>> roleTreeIdKeys(String roleIds) {
+        return R.data(menuService.roleTreeIdKeys(roleIds));
+    }
     /**
      * 获取配置的角色权限
      */

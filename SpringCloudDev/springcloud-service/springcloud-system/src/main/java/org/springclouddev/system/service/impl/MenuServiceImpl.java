@@ -114,4 +114,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		return saveOrUpdate(menu);
 	}
 
+	@Override
+	public List<String> roleTreeIdKeys(String roleIds) {
+			List<RoleMenu> roleMenus = roleMenuService.list(Wrappers.<RoleMenu>query().lambda().in(RoleMenu::getRoleId, Func.toIntList(roleIds)));
+			return roleMenus.stream().map(roleMenu -> Func.toStr(roleMenu.getMenuId())).collect(Collectors.toList());
+	}
+
 }

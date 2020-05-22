@@ -16,7 +16,7 @@ import org.springclouddev.core.mp.base.TenantEntity;
  * @author zhaobohao
  */
 @Data
-@TableName("blade_post")
+@TableName("mk_post")
 @ApiModel(value = "Post对象", description = "岗位表")
 public class Post extends BaseEntity implements TenantEntity {
 

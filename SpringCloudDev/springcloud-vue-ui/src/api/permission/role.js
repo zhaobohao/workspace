@@ -64,7 +64,15 @@ export const getRole = (roleIds) => {
     }
   })
 }
-
+export const getRoleId = (roleIds) => {
+  return request({
+    url: '/springcloud-system/menu/role-tree-id-keys',
+    method: 'get',
+    params: {
+      roleIds
+    }
+  })
+}
 export const getRoleTree = (tenantId) => {
   return request({
     url: '/springcloud-system/role/tree',

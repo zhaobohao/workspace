@@ -2,10 +2,9 @@
   <!--form 表单，用来显示和编辑数据 -->
   <el-dialog v-el-drag-dialog :width="dialogWidth" title="角色权限配置" :visible.sync="permissionFormVisible">
     <el-form ref="dataForm" :inline="true" :rules="rules" :model="temp" label-position="left" label-width="120px"
-      style="width: 1000px; margin-left:10px;">
+      style="height:700px;width: 1000px; margin-left:10px;">
       <el-cascader-panel v-model="temp.menuIds" :show-all-levels="true" :options="menuOptions" :props="props"
-        :clearable="true" filterable style="width:
-              305px;" @change="handleMenuItemChange">
+        :clearable="true" filterable style="width: 605px;" @change="handleMenuItemChange">
       </el-cascader-panel>
       <br />
     </el-form>
@@ -20,7 +19,7 @@
   // 调用相应的api文件中的方法，来操纵数据
   import {
     grant,
-    getRole,
+    getRoleId,
     grantTree
   } from '@/api/permission/role'
   // 按钮的水波纹
@@ -119,12 +118,12 @@
       setPermission(roleId) {
         const loading = this.$loading(getLoadingOptions())
         this.temp.roleIds = roleId
-        getRole(roleId).then((response) => {
+        getRoleId(roleId).then((response) => {
           loading.close()
           if (response.code === 200) {
             this.temp.menuIds = response.data
             this.temp.reqmenuIds = this.temp.menuIds.join()
-            console.log(this.temp.menuIds)
+            // console.log(this.temp.menuIds)
           } else {
             notify.error(this)
           }
@@ -175,6 +174,12 @@
   .el-table th,
   .el-table tr {
     background-color: #fafafa;
+  }
+
+</style>
+<style lang="scss">
+  .el-cascader-menu__wrap {
+    height: 504px;
   }
 
 </style>

@@ -31,3 +31,5 @@ SpringcloudDev
 ├── springcloud-business-api --  外挂业务api模块
 ├    ├── springcloud-crm-api -- 客户关系管理系统户api
 ├    └── springcloud-integral-api -- 积分核心api
+
+https://www.bilibili.com/video/BV1PZ4y1j7KN/  讲中台的
