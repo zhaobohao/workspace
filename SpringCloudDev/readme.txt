@@ -33,3 +33,4 @@ SpringcloudDev
 ├    └── springcloud-integral-api -- 积分核心api
 
 https://www.bilibili.com/video/BV1PZ4y1j7KN/  讲中台的
+http://www.360doc.com/content/18/0913/22/27972427_786479207.shtml  微服务拆分 时机
