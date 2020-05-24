@@ -89,7 +89,7 @@ public class IndexFilter implements WebFilter {
                             doValidate(exchange, apiParam);
                             return Mono.just(data);
                         });
-                BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, (Class)byte[].class);
+                BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, (Class) byte[].class);
                 HttpHeaders headers = new HttpHeaders();
                 headers.putAll(exchange.getRequest().getHeaders());
 
@@ -131,13 +131,15 @@ public class IndexFilter implements WebFilter {
             validator.validate(apiParam);
             this.afterValidate(exchange, apiParam);
         } catch (ApiException e) {
-            log.error("验证失败，ip:{}, params:{}, errorMsg:{}", apiParam.fetchIp(), apiParam.toJSONString(), e.getMessage());
+            log.error("验证失败，url:{}, ip:{}, params:{}, errorMsg:{}",
+                    exchange.getRequest().getURI().toString(),
+                    apiParam.fetchIp(), apiParam.toJSONString(), e.getMessage());
             ServerWebExchangeUtil.setThrowable(exchange, e);
         }
     }
 
     private void afterValidate(ServerWebExchange exchange, ApiParam param) {
-        RouteInterceptorUtil.runPreRoute(exchange, param, context ->  {
+        RouteInterceptorUtil.runPreRoute(exchange, param, context -> {
             DefaultRouteInterceptorContext defaultRouteInterceptorContext = (DefaultRouteInterceptorContext) context;
             defaultRouteInterceptorContext.setRequestDataSize(exchange.getRequest().getHeaders().getContentLength());
             exchange.getAttributes().put(SopConstants.CACHE_ROUTE_INTERCEPTOR_CONTEXT, context);

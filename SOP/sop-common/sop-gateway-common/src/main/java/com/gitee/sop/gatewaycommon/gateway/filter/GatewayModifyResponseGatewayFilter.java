@@ -59,6 +59,8 @@ public class GatewayModifyResponseGatewayFilter implements GlobalFilter, Ordered
 
                 //TODO: flux or mono
                 Mono modifiedBody = clientResponse.bodyToMono(inClass)
+                        // 修复微服务接口返回void网关不会返回code和msg问题
+                        .switchIfEmpty(Mono.just(""))
                         .flatMap(originalBody -> {
                             // 合并微服务传递过来的结果，变成最终结果
                             ResultExecutor resultExecutor = ApiContext.getApiConfig().getGatewayResultExecutor();

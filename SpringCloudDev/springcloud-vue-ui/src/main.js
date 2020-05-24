@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import Cookies from 'js-cookie'
-import $ from 'jquery'
+// import $ from 'jquery'
 
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 
@@ -32,7 +32,9 @@ import {
 // npm install spark-md5 --save
 import uploader from 'vue-simple-uploader'
 Vue.use(uploader)
-
+/** 事件传递 */
+import VueBus from 'vue-bus'
+Vue.use(VueBus)
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)

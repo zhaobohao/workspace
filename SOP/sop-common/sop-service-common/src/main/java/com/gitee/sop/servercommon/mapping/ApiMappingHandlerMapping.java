@@ -5,7 +5,6 @@ import com.gitee.sop.servercommon.annotation.ApiMapping;
 import com.gitee.sop.servercommon.bean.ServiceConfig;
 import com.gitee.sop.servercommon.bean.ServiceContext;
 import com.gitee.sop.servercommon.util.OpenUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.core.PriorityOrdered;
 import org.springframework.util.StringValueResolver;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
@@ -30,7 +29,7 @@ public class ApiMappingHandlerMapping extends RequestMappingHandlerMapping imple
         StringValueResolver valueResolver = null;
         if (apiMapping != null) {
             String version = apiMapping.version();
-            if (StringUtils.isBlank(version)) {
+            if ("".equals(version)) {
                 version = ServiceConfig.getInstance().getDefaultVersion();
             }
             valueResolver = new ApiMappingStringValueResolverVersion(version);

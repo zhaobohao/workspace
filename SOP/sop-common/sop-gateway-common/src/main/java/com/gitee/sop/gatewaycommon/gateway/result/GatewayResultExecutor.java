@@ -14,8 +14,11 @@ import com.gitee.sop.gatewaycommon.result.ResultExecutorForGateway;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.util.UriUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,6 +48,9 @@ public class GatewayResultExecutor extends BaseExecutorAdapter<ServerWebExchange
         List<String> errorMessageList = exchange.getResponse().getHeaders().get(SopConstants.X_SERVICE_ERROR_MESSAGE);
         if (!CollectionUtils.isEmpty(errorMessageList)) {
             errorMsg = errorMessageList.get(0);
+        }
+        if (StringUtils.hasText(errorMsg)) {
+            errorMsg = UriUtils.decode(errorMsg, StandardCharsets.UTF_8);
         }
         exchange.getResponse().getHeaders().remove(SopConstants.X_SERVICE_ERROR_MESSAGE);
         return errorMsg;

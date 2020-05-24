@@ -1,3 +1,4 @@
+/* eslint-disable */
 import router from './router'
 import store from './store'
 import {
@@ -13,13 +14,11 @@ import getPageTitle from '@/utils/get-page-title'
 NProgress.configure({
   showSpinner: false
 }) // NProgress Configuration
-
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
-
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // start progress bar
   NProgress.start()
-
+  localStorage.setItem('routerBefore', from.path)
   // set page title
   document.title = getPageTitle(to.meta.title)
 
@@ -86,4 +85,13 @@ router.beforeEach(async(to, from, next) => {
 router.afterEach(() => {
   // finish progress bar
   NProgress.done()
+})
+
+router.onError((error) => {
+  const pattern = /Loading chunk (\d)+ failed/g
+  const isChunkLoadFailed = error.message.match(pattern)
+  const targetPath = router.history.pending.fullPath
+  if (isChunkLoadFailed) {
+    router.replace(targetPath)
+  }
 })

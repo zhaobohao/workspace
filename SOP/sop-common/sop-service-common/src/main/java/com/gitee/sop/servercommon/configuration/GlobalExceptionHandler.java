@@ -9,9 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 全局异常处理
@@ -75,7 +77,7 @@ public class GlobalExceptionHandler {
             StackTraceElement stackTraceElement = stackTrace[i];
             msg.append("<br> at ").append(stackTraceElement.toString());
         }
-        response.setHeader("x-service-error-message", msg.toString());
+        response.setHeader("x-service-error-message", UriUtils.encode(msg.toString(), StandardCharsets.UTF_8));
         return this.processError(request, response, new ServiceException("系统繁忙"));
     }
 

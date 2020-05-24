@@ -140,7 +140,8 @@ export const componentMap = {
   mock_website: () => import('@/views/mock/mockwebsite/index'),
   mock_interface: () => import('@/views/mock/mockhttp/index'),
   drools_group: () => import('@/views/drools/droolsgroup/index'),
-  drools_droolsruls: () => import('@/views/drools/droolsruls/index')
+  drools_droolsruls: () => import('@/views/drools/droolsruls/index'),
+  post: () => import('@/views/system/post/index')
 }
 const createRouter = () => new Router({
   // mode: 'history', // require service support

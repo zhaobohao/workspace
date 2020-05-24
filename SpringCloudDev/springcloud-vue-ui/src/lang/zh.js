@@ -105,8 +105,8 @@ export default {
     mock_website: '站点设置',
     drools: '规则引擎',
     drools_group: '规则组',
-    drools_droolsruls: '规则定义'
-
+    drools_droolsruls: '规则定义',
+    post: '岗位管理'
   },
   navbar: {
     dashboard: '首页',

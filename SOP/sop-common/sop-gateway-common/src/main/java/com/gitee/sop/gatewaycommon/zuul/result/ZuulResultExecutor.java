@@ -15,7 +15,10 @@ import com.netflix.util.Pair;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
+import org.springframework.web.util.UriUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
@@ -39,11 +42,15 @@ public class ZuulResultExecutor extends BaseExecutorAdapter<RequestContext, Stri
 
     @Override
     public String getResponseErrorMessage(RequestContext requestContext) {
-        return getHeader(requestContext, SopConstants.X_SERVICE_ERROR_MESSAGE, (index)->{
+        String errorMsg = getHeader(requestContext, SopConstants.X_SERVICE_ERROR_MESSAGE, (index)->{
             if (index > -1) {
                 requestContext.getZuulResponseHeaders().remove(index);
             }
         });
+        if (StringUtils.hasText(errorMsg)) {
+            errorMsg = UriUtils.decode(errorMsg, StandardCharsets.UTF_8);
+        }
+        return errorMsg;
     }
 
     @Override
