@@ -35,7 +35,7 @@ public class GeneratorUtils {
                         .append("(").append(column.getTypeValue())
                         .append("varchar2".equalsIgnoreCase(column.getTypeKey()) ? " CHAR" : " ")
                         .append(") ")
-                        .append(column.getIsEmpty() == 2 ? "NOT NULL" : "")
+                        .append(column.getIsEmpty() == 1 ? "NOT NULL" : "")
                         .append(StringUtils.isEmpty(column.getDefaultValue()) ? "" : " default ")
                         .append(StringUtils.isEmpty(column.getDefaultValue()) ? "" : column.getDefaultValue())
                         .append(",\n");
