@@ -15,7 +15,7 @@
         <swagger.models.version>1.5.21</swagger.models.version>
         <maven.plugin.version>3.8.0</maven.plugin.version>
         <knife4j.version>2.0.1</knife4j.version>
-        <mybatis.plus.version>3.3.0</mybatis.plus.version>
+        <mybatis.plus.version>3.3.2</mybatis.plus.version>
         <curator.framework.version>4.0.1</curator.framework.version>
         <protostuff.version>1.6.0</protostuff.version>
         <disruptor.version>3.4.2</disruptor.version>

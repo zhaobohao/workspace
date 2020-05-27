@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  profiles:
+    active: ${ENV:dev}
+logging:
+  file: ./logback.log
+server:
+  port: 8181
