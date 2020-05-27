@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * @author zhaobo create on 2020/3/5.
  */
 @Entity
-@Table(name = "member")
+@Table(name = "members")
 public class Member extends BaseEntity {
     /**
      * 节点id，用于校验该客户是否合法，客户端启动时需要带着该值。一个公司可能有多个appId，相当于多个服务器节点

@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.mindata.blockchain.core.repository",
+        basePackages = "org.dbchain.blockchain.core.repository",
         transactionManagerRef = "jpaTransactionManager",
         entityManagerFactoryRef = "localContainerEntityManagerFactoryBean"
 )
@@ -48,7 +48,7 @@ public class JpaConfiguration {
     LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(@Qualifier(value =
             "EmbeddeddataSource") DataSource dataSource, EntityManagerFactoryBuilder builder) {
         return builder.dataSource(dataSource)
-                .packages("com.mindata.blockchain.core.model")
+                .packages("org.dbchain.blockchain.core.model")
                 .properties(getVendorProperties(dataSource))
                 .build();
     }

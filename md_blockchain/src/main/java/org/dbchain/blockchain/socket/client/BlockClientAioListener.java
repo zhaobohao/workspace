@@ -5,8 +5,8 @@ import org.dbchain.blockchain.core.event.NodesConnectedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.client.intf.ClientAioListener;
-import org.tio.core.Aio;
 import org.tio.core.ChannelContext;
+import org.tio.core.Tio;
 import org.tio.core.intf.Packet;
 
 /**
@@ -22,7 +22,7 @@ public class BlockClientAioListener implements ClientAioListener {
     public void onAfterConnected(ChannelContext channelContext, boolean isConnected, boolean isReconnect) throws Exception {
 //        if (isConnected) {
 //            logger.info("连接成功：server地址为-" + channelContext.getServerNode());
-//            Aio.bindGroup(channelContext, Const.GROUP_NAME);
+//            Tio.bindGroup(channelContext, Const.GROUP_NAME);
 //        } else {
 //            logger.info("连接失败：server地址为-" + channelContext.getServerNode());
 //        }
@@ -32,7 +32,7 @@ public class BlockClientAioListener implements ClientAioListener {
     @Override
     public void onBeforeClose(ChannelContext channelContext, Throwable throwable, String s, boolean b) {
         logger.info("连接关闭：server地址为-" + channelContext.getServerNode());
-        Aio.unbindGroup(channelContext);
+        Tio.unbindGroup(channelContext);
     }
 
     @Override

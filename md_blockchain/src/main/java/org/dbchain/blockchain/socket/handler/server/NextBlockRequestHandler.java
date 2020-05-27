@@ -11,8 +11,9 @@ import org.dbchain.blockchain.socket.packet.PacketBuilder;
 import org.dbchain.blockchain.socket.packet.PacketType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tio.core.Aio;
+import org.tio.core.Tio;
 import org.tio.core.ChannelContext;
+import org.tio.core.Tio;
 import org.tio.utils.json.Json;
 
 /**
@@ -45,7 +46,7 @@ public class NextBlockRequestHandler extends AbstractBlockHandler<RpcSimpleBlock
         respBody.setResponseMsgId(rpcBlockBody.getMessageId());
         BlockPacket blockPacket = new PacketBuilder<RpcNextBlockBody>().setType(PacketType
                 .NEXT_BLOCK_INFO_RESPONSE).setBody(respBody).build();
-        Aio.send(channelContext, blockPacket);
+        Tio.send(channelContext, blockPacket);
         logger.info("回复给<" + rpcBlockBody.getAppId() + ">，我的nextBlock是" + respBody.toString());
 
         return null;

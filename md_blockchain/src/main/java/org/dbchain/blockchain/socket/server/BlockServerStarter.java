@@ -2,8 +2,8 @@ package org.dbchain.blockchain.socket.server;
 
 import org.dbchain.blockchain.socket.common.Const;
 import org.springframework.stereotype.Component;
-import org.tio.server.AioServer;
-import org.tio.server.ServerGroupContext;
+import org.tio.server.ServerTioConfig;
+import org.tio.server.TioServer;
 import org.tio.server.intf.ServerAioHandler;
 import org.tio.server.intf.ServerAioListener;
 
@@ -22,8 +22,8 @@ public class BlockServerStarter {
     public void serverStart() throws IOException {
         ServerAioHandler serverAioHandler = new BlockServerAioHandler();
         ServerAioListener serverAioListener = new BlockServerAioListener();
-        ServerGroupContext serverGroupContext = new ServerGroupContext(serverAioHandler, serverAioListener);
-        AioServer aioServer = new AioServer(serverGroupContext);
+        ServerTioConfig serverGroupContext = new ServerTioConfig(serverAioHandler, serverAioListener);
+        TioServer aioServer = new TioServer(serverGroupContext);
         //本机启动服务
         aioServer.start(null, Const.PORT);
     }

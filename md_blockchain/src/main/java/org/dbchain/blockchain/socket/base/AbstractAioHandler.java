@@ -2,7 +2,7 @@ package org.dbchain.blockchain.socket.base;
 
 import org.dbchain.blockchain.socket.packet.BlockPacket;
 import org.tio.core.ChannelContext;
-import org.tio.core.GroupContext;
+import org.tio.core.TioConfig;
 import org.tio.core.exception.AioDecodeException;
 import org.tio.core.intf.AioHandler;
 import org.tio.core.intf.Packet;
@@ -20,8 +20,10 @@ public abstract class AbstractAioHandler implements AioHandler {
      * 消息体：byte[]
      */
     @Override
-    public BlockPacket decode(ByteBuffer buffer, ChannelContext channelContext) throws AioDecodeException {
-        int readableLength = buffer.limit() - buffer.position();
+    public BlockPacket decode(ByteBuffer buffer, int limit, int position, int readableLength,
+                              ChannelContext channelContext) throws AioDecodeException {
+        //提醒：buffer的开始位置并不一定是0，应用需要从buffer.position()开始读取数据
+        //收到的数据组不了业务包，则返回null以告诉框架数据不够
         if (readableLength < BlockPacket.HEADER_LENGTH) {
             return null;
         }
@@ -58,7 +60,7 @@ public abstract class AbstractAioHandler implements AioHandler {
      * 消息体：byte[]
      */
     @Override
-    public ByteBuffer encode(Packet packet, GroupContext groupContext, ChannelContext channelContext) {
+    public ByteBuffer encode(Packet packet, TioConfig groupContext, ChannelContext channelContext) {
         BlockPacket showcasePacket = (BlockPacket) packet;
         byte[] body = showcasePacket.getBody();
         int bodyLen = 0;

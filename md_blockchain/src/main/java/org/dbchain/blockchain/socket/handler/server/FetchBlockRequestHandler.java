@@ -11,7 +11,7 @@ import org.dbchain.blockchain.socket.packet.PacketBuilder;
 import org.dbchain.blockchain.socket.packet.PacketType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tio.core.Aio;
+import org.tio.core.Tio;
 import org.tio.core.ChannelContext;
 
 /**
@@ -33,7 +33,7 @@ public class FetchBlockRequestHandler extends AbstractBlockHandler<RpcSimpleBloc
 
         BlockPacket blockPacket = new PacketBuilder<>().setType(PacketType.FETCH_BLOCK_INFO_RESPONSE).setBody(new
                 RpcBlockBody(block)).build();
-        Aio.send(channelContext, blockPacket);
+        Tio.send(channelContext, blockPacket);
 
         return null;
     }

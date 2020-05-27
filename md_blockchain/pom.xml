@@ -3,7 +3,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mindata.blockchain</groupId>
+	<groupId>org.dbchain.blockchain</groupId>
 	<artifactId>md_blockchain</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -26,19 +26,6 @@
 		<swagger.version>2.9.2</swagger.version>
 		<swagger.bootstrap.version>1.9.6</swagger.bootstrap.version>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>ali-repos</id>
-			<name>ali Repository</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
-		</repository>
-		<repository>
-			<id>center-repos</id>
-			<name>center Repository</name>
-			<url>http://repo1.maven.org/maven2</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -145,7 +132,12 @@
 			<artifactId>swagger-bootstrap-ui</artifactId>
 			<version>${swagger.bootstrap.version}</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

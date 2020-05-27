@@ -1,5 +1,6 @@
 package org.dbchain.blockchain.socket.client;
 
+import com.google.common.collect.Maps;
 import org.dbchain.blockchain.common.AppId;
 import org.dbchain.blockchain.common.CommonUtil;
 import org.dbchain.blockchain.core.bean.Member;
@@ -8,10 +9,9 @@ import org.dbchain.blockchain.core.bean.Permission;
 import org.dbchain.blockchain.core.bean.PermissionData;
 import org.dbchain.blockchain.core.event.NodesConnectedEvent;
 import org.dbchain.blockchain.core.manager.PermissionManager;
+import org.dbchain.blockchain.socket.common.Const;
 import org.dbchain.blockchain.socket.packet.BlockPacket;
 import org.dbchain.blockchain.socket.packet.NextBlockPacketBuilder;
-import com.google.common.collect.Maps;
-import org.dbchain.blockchain.socket.common.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,11 +19,11 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.tio.client.AioClient;
-import org.tio.client.ClientGroupContext;
-import org.tio.core.Aio;
+import org.tio.client.ClientTioConfig;
+import org.tio.client.TioClient;
 import org.tio.core.ChannelContext;
 import org.tio.core.Node;
+import org.tio.core.Tio;
 import org.tio.utils.lock.SetWithLock;
 
 import javax.annotation.PostConstruct;
@@ -43,7 +43,7 @@ import static org.dbchain.blockchain.socket.common.Const.GROUP_NAME;
 @Component
 public class ClientStarter {
     @Resource
-    private ClientGroupContext clientGroupContext;
+    private ClientTioConfig clientTioConfig;
     @Resource
     private PacketSender packetSender;
     @Resource
@@ -165,7 +165,7 @@ public class ClientStarter {
      */
     private void bindServerGroup(Set<Node> serverNodes) {
         //当前已经连接的
-        SetWithLock<ChannelContext> setWithLock = Aio.getAllChannelContexts(clientGroupContext);
+        SetWithLock<ChannelContext> setWithLock = Tio.getAll(clientTioConfig);
         Lock lock2 = setWithLock.getLock().readLock();
         lock2.lock();
         try {
@@ -183,7 +183,7 @@ public class ClientStarter {
             for (ChannelContext channelContext : set) {
                 Node node = channelContext.getServerNode();
                 if (!serverNodes.contains(node)) {
-                    Aio.remove(channelContext, "主动关闭" + node.getIp());
+                    Tio.remove(channelContext, "主动关闭" + node.getIp());
                 }
 
             }
@@ -195,9 +195,9 @@ public class ClientStarter {
 
     private void connect(Node serverNode) {
         try {
-            AioClient aioClient = new AioClient(clientGroupContext);
+            TioClient tioClient = new TioClient(clientTioConfig);
             logger.info("开始绑定" + ":" + serverNode.toString());
-            aioClient.asynConnect(serverNode);
+            tioClient.asynConnect(serverNode);
         } catch (Exception e) {
             logger.info("异常");
         }
@@ -207,7 +207,7 @@ public class ClientStarter {
     public void onConnected(NodesConnectedEvent connectedEvent){
     	ChannelContext channelContext = connectedEvent.getSource();
     	Node node = channelContext.getServerNode();
-    	if (channelContext.isClosed()) {
+    	if (channelContext.isClosed) {
             logger.info("连接" + node.toString() + "失败");
             nodesStatus.put(node.getIp(), -1);
             return;
@@ -215,9 +215,9 @@ public class ClientStarter {
         	logger.info("连接" + node.toString() + "成功");
         	nodesStatus.put(node.getIp(), 1);
         	//绑group是将要连接的各个服务器节点做为一个group
-        	Aio.bindGroup(channelContext, GROUP_NAME);
+        	Tio.bindGroup(channelContext, GROUP_NAME);
 
-        	int csize = Aio.getAllChannelContexts(clientGroupContext).size();
+        	int csize = Tio.getAll(clientTioConfig).size();
         	if(csize >= pbftAgreeCount()){
         		synchronized (nodesStatus) {
         			if(!isNodesReady){
@@ -230,7 +230,7 @@ public class ClientStarter {
     }
 
     public int halfGroupSize() {
-        SetWithLock<ChannelContext> setWithLock = clientGroupContext.groups.clients(clientGroupContext, Const.GROUP_NAME);
+        SetWithLock<ChannelContext> setWithLock = clientTioConfig.groups.clients(clientTioConfig, Const.GROUP_NAME);
         return setWithLock.getObj().size() / 2;
     }
 

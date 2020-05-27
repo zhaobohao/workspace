@@ -3,11 +3,9 @@ package org.dbchain.blockchain.socket.distruptor;
 import org.dbchain.blockchain.socket.base.AbstractBlockHandler;
 import org.dbchain.blockchain.socket.distruptor.base.BaseEvent;
 import org.dbchain.blockchain.socket.distruptor.base.MessageConsumer;
-import com.dbchain.blockchain.socket.handler.server.*;
+import org.dbchain.blockchain.socket.handler.server.*;
 import org.dbchain.blockchain.socket.packet.BlockPacket;
 import org.dbchain.blockchain.socket.packet.PacketType;
-import com.mindata.blockchain.socket.handler.server.*;
-import org.dbchain.blockchain.socket.handler.server.*;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

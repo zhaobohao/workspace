@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `member`;
 
-CREATE TABLE `member` (
+CREATE TABLE `members` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
@@ -11,10 +11,10 @@ CREATE TABLE `member` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `member` WRITE;
+LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
 
-INSERT INTO `member` (`id`, `create_time`, `update_time`, `ip`, `name`, `app_id`, `group_id`)
+INSERT INTO `members` (`id`, `create_time`, `update_time`, `ip`, `name`, `app_id`, `group_id`)
 VALUES
 	(1,'2018-03-19 14:37:26','2018-03-19 14:37:28','192.168.1.75','maida','wolf','1'),
 	(2,'2018-03-19 14:37:26','2018-03-19 14:37:28','192.168.1.121','mingyi','mingyi','1');

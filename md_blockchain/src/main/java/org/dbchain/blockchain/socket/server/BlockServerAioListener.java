@@ -47,4 +47,9 @@ public class BlockServerAioListener implements ServerAioListener {
 	@Override
 	public void onBeforeClose(ChannelContext channelContext, Throwable throwable, String remark, boolean isRemove) {
 	}
+
+	@Override
+	public boolean onHeartbeatTimeout(ChannelContext channelContext, Long aLong, int i) {
+		return false;
+	}
 }

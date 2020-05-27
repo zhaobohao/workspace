@@ -78,7 +78,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 				.useDefaultResponseMessages(false)
 				.forCodeGeneration(true)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.mindata.blockchain.core.controller"))
+				.apis(RequestHandlerSelectors.basePackage("org.dbchain.blockchain.core.controller"))
 				.paths(PathSelectors.any())
 				.build()
 				.globalResponseMessage(RequestMethod.GET, responseMessages)
