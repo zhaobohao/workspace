@@ -100,7 +100,7 @@ public class SQLiteDialect extends Dialect {
     // IDENTITY support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     private static final SQLiteDialectIdentityColumnSupport IDENTITY_COLUMN_SUPPORT = new
-            SQLiteDialectIdentityColumnSupport(new SQLiteDialect());
+            SQLiteDialectIdentityColumnSupport();
 
 
     @Override

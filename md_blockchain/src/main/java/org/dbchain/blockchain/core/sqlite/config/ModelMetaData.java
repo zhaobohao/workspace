@@ -1,8 +1,9 @@
 package org.dbchain.blockchain.core.sqlite.config;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.persister.entity.AbstractEntityPersister;
+import org.hibernate.internal.SessionFactoryImpl;
+import org.hibernate.persister.entity.EntityPersister;
+import org.hibernate.persister.entity.SingleTableEntityPersister;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,23 +21,20 @@ import java.util.Map;
 @AutoConfigureAfter(JpaConfiguration.class)
 public class ModelMetaData {
 
+    @SuppressWarnings({ "rawtypes", "deprecation" })
     @Bean(name = "metaMap")
     public Map<String, Class> metaMap(EntityManagerFactory factory) throws ClassNotFoundException {
         if (factory.unwrap(SessionFactory.class) == null) {
             throw new NullPointerException("factory is not a hibernate factory");
         }
-        SessionFactory sessionFactory = factory.unwrap(SessionFactory.class);
-        Map<String, ClassMetadata> metaMap = sessionFactory.getAllClassMetadata();
-        Map<String, Class> map = new HashMap<>(metaMap.size());
-        for (String key : metaMap.keySet()) {
-            AbstractEntityPersister classMetadata = (AbstractEntityPersister) metaMap
-                    .get(key);
-            String tableName = classMetadata.getTableName().toLowerCase();
-            int index = tableName.indexOf(".");
-            if (index >= 0) {
-                tableName = tableName.substring(index + 1);
-            }
-            map.put(tableName, Class.forName(key));
+        SessionFactoryImpl sessionFactory = (SessionFactoryImpl) factory.unwrap(SessionFactory.class);
+        Map<String, EntityPersister> persisterMap = sessionFactory.getEntityPersisters();
+        Map<String, Class> map = new HashMap<>();
+        for (Map.Entry<String, EntityPersister> entity : persisterMap.entrySet()) {
+            Class targetClass = entity.getValue().getMappedClass();
+            SingleTableEntityPersister persister = (SingleTableEntityPersister) entity.getValue();
+            String tableName = persister.getTableName();// Entity对应的表的英文名
+            map.put(tableName, targetClass);
         }
         return map;
     }

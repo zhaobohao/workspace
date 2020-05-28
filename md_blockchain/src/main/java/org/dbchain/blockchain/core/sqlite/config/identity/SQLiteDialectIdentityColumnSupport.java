@@ -1,14 +1,13 @@
 package org.dbchain.blockchain.core.sqlite.config.identity;
 
-import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.identity.IdentityColumnSupportImpl;
 
 /**
  * @author zhaobo create on 2020/3/2.
  */
 public class SQLiteDialectIdentityColumnSupport extends IdentityColumnSupportImpl {
-    public SQLiteDialectIdentityColumnSupport(Dialect dialect) {
-        super(dialect);
+    public SQLiteDialectIdentityColumnSupport() {
+        super();
     }
 
     @Override

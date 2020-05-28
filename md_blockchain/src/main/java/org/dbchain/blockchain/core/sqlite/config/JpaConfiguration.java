@@ -2,6 +2,8 @@ package org.dbchain.blockchain.core.sqlite.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +31,8 @@ import java.util.Map;
 public class JpaConfiguration {
     @Resource
     private JpaProperties jpaProperties;
-
+    @Autowired
+    private HibernateProperties hibernateProperties;
     @Autowired
     @Bean
     public JpaTransactionManager jpaTransactionManager(@Qualifier(value = "EmbeddeddataSource") DataSource
@@ -47,14 +50,12 @@ public class JpaConfiguration {
     @Bean
     LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(@Qualifier(value =
             "EmbeddeddataSource") DataSource dataSource, EntityManagerFactoryBuilder builder) {
+        Map<String, Object> properties = hibernateProperties.determineHibernateProperties(
+                jpaProperties.getProperties(), new HibernateSettings());
         return builder.dataSource(dataSource)
-                .packages("org.dbchain.blockchain.core.model")
-                .properties(getVendorProperties(dataSource))
+                .packages(new String[]{"org.dbchain.blockchain.core.model"})
+                .properties(properties)
                 .build();
-    }
-
-    private Map<String, String> getVendorProperties(DataSource dataSource) {
-        return jpaProperties.getHibernateProperties(dataSource);
     }
 
 }
