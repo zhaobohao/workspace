@@ -177,9 +177,6 @@
                    logger.info("tankSay =》我是子线程的日志！{}", TraceId.logTraceID.get());
          }));
       
-* [Dubbo的分布式系统traceId传递 ](/springclouddev-log-es_dubbo/README.md)
-
-   
 4. 启动服务
 
  * 步骤一打包完的 启动 springclouddev-log-es_server-1.0.jar ，高可用的话直接启动多个服务就行

@@ -25,18 +25,20 @@ public interface LogMessageConstant {
     String TRACE_END = ">";
 
 
-    String LOG_KEY = "springclouddev-log-es_list";
+    String LOG_KEY = "easy_log_list";
 
     /**
      * 链路日志存入ES的索引后缀
      */
-    String LOG_KEY_TRACE = "springclouddev-log-es_list_trace";
+    String LOG_KEY_TRACE = "easy_log_list_trace";
 
-    String ES_INDEX = "springclouddev-log-es_";
+    String ES_INDEX = "easy_log_";
 
-    String ES_TYPE = "springclouddev-log-es";
+    String ES_TYPE = "easy_log";
 
     String LOG_TYPE_RUN = "run";
 
     String LOG_TYPE_TRACE = "trace";
+
+    String DELIM_STR = "{}";
 }

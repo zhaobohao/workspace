@@ -17,26 +17,26 @@ import java.io.Serializable;
 
 @Plugin(name = "RedisAppender", category = "Core", elementType = "appender", printObject = true)
 public class RedisAppender extends AbstractAppender {
-    private RedisClient redisClient;
+    private static RedisClient redisClient;
     private String appName;
     private String reidsHost;
     private String redisPort;
+    private String redisAuth;
 
-    protected RedisAppender(String name, String appName, String reidsHost, String redisPort, Filter filter, Layout<? extends Serializable> layout,
+    protected RedisAppender(String name, String appName, String reidsHost, String redisPort,String redisAuth, Filter filter, Layout<? extends Serializable> layout,
                             final boolean ignoreExceptions) {
         super(name, filter, layout, ignoreExceptions);
         this.appName = appName;
         this.reidsHost = reidsHost;
         this.redisPort = redisPort;
+        this.redisAuth=redisAuth;
     }
 
     @Override
     public void append(LogEvent logEvent) {
-        if (redisClient == null) {
-            redisClient = RedisClient.getInstance(this.reidsHost, Integer.parseInt(this.redisPort), "");
-        }
         final BaseLogMessage logMessage = LogMessageUtil.getLogMessage(this.appName, logEvent);
-        MessageAppenderFactory.push(appName, logMessage, redisClient);
+        MessageAppenderFactory.push(logMessage, redisClient);
+
     }
 
     @PluginFactory
@@ -45,8 +45,10 @@ public class RedisAppender extends AbstractAppender {
             @PluginAttribute("appName") String appName,
             @PluginAttribute("reidsHost") String reidsHost,
             @PluginAttribute("redisPort") String redisPort,
+            @PluginAttribute("redisAuth") String redisAuth,
             @PluginElement("Layout") Layout<? extends Serializable> layout,
             @PluginElement("Filter") final Filter filter) {
-        return new RedisAppender(name, appName, reidsHost, redisPort, filter, layout, true);
+        redisClient = RedisClient.getInstance(reidsHost, Integer.parseInt(redisPort), redisAuth);
+        return new RedisAppender(name, appName, reidsHost, redisPort,redisAuth, filter, layout, true);
     }
 }

@@ -1,6 +1,9 @@
 package com.springclouddev.loges.core;
 
 import com.springclouddev.loges.core.constant.LogMessageConstant;
+import com.springclouddev.loges.core.disruptor.LogEvent;
+import com.springclouddev.loges.core.disruptor.LogMessageProducer;
+import com.springclouddev.loges.core.disruptor.LogRingBuffer;
 import com.springclouddev.loges.core.dto.BaseLogMessage;
 import com.springclouddev.loges.core.dto.RunLogMessage;
 import com.springclouddev.loges.core.util.GfJsonUtil;
@@ -18,11 +21,27 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class MessageAppenderFactory {
 
+
+
     private static ThreadPoolExecutor threadPoolExecutor
             = ThreadPoolUtil.getPool(4, 8, 5000);
 
 
-    public static void push(String appName, BaseLogMessage baseLogMessage, AbstractClient client) {
+    /**
+     * disruptor 的写入
+     * @param baseLogMessage
+     */
+    public static void push(BaseLogMessage baseLogMessage) {
+        LogMessageProducer producer = new LogMessageProducer(LogRingBuffer.ringBuffer);
+        producer.send(baseLogMessage);
+    }
+
+    /**
+     * 直接使用线程池异步写入
+     * @param baseLogMessage
+     * @param client
+     */
+    public static void push(BaseLogMessage baseLogMessage, AbstractClient client) {
         final String redisKey =
                 baseLogMessage instanceof RunLogMessage
                         ? LogMessageConstant.LOG_KEY
@@ -34,4 +53,5 @@ public class MessageAppenderFactory {
             }
         });
     }
+
 }

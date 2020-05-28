@@ -7,12 +7,20 @@ import com.springclouddev.loges.core.dto.BaseLogMessage;
 import com.springclouddev.loges.core.redis.RedisClient;
 import com.springclouddev.loges.logback.util.LogMessageUtil;
 
-
+/**
+ * className：RedisAppender
+ * description：
+ * time：2020-05-19.15:26
+ *
+ * @author Tank
+ * @version 1.0.0
+ */
 public class RedisAppender extends AppenderBase<ILoggingEvent> {
     private RedisClient redisClient;
     private String appName;
     private String reidsHost;
     private String redisPort;
+    private String redisAuth;
 
     public void setAppName(String appName) {
         this.appName = appName;
@@ -26,13 +34,19 @@ public class RedisAppender extends AppenderBase<ILoggingEvent> {
         this.redisPort = redisPort;
     }
 
+    public void setRedisAuth(String redisAuth) {
+        this.redisAuth = redisAuth;
+    }
 
     @Override
     protected void append(ILoggingEvent event) {
-        if (redisClient == null) {
-            redisClient = RedisClient.getInstance(this.reidsHost, Integer.parseInt(this.redisPort), "");
-        }
         BaseLogMessage logMessage = LogMessageUtil.getLogMessage(appName, event);
-        MessageAppenderFactory.push(appName, logMessage, redisClient);
+        MessageAppenderFactory.push(logMessage,redisClient);
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        redisClient = RedisClient.getInstance(this.reidsHost, Integer.parseInt(this.redisPort), this.redisAuth);
     }
 }

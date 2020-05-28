@@ -6,7 +6,7 @@
     <artifactId>springclouddev-log-es_demo</artifactId>
     <name>springclouddev-log-es_demo</name>
     <version>2.0</version>
-    <properties>
+   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <parent>
@@ -18,28 +18,61 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>logback-classic</artifactId>
+                    <groupId>ch.qos.logback</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j-to-slf4j</artifactId>
+                    <groupId>org.apache.logging.log4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+
         </dependency>
         <dependency>
             <groupId>com.springclouddev</groupId>
             <artifactId>springclouddev-log-es_logback</artifactId>
             <version>2.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.springclouddev</groupId>
             <artifactId>springclouddev-log-es_trace</artifactId>
             <version>2.0</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.springclouddev</groupId>-->
+            <!--<artifactId>easy_log_dubbo</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.dubbo</groupId>-->
+            <!--<artifactId>dubbo-spring-boot-starter</artifactId>-->
+            <!--<exclusions>-->
+                <!--&lt;!&ndash; 排除默认日志配置 &ndash;&gt;-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.springframework.boot</groupId>-->
+                    <!--<artifactId>spring-boot-starter-logging</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+            <!--<version>2.7.3</version>-->
+        <!--</dependency>-->
+
         <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-client -->
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-client</artifactId>
             <version>2.10.0</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
@@ -47,7 +80,6 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
             <version>2.10.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -68,6 +100,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>easy_log_demo_log4j_kafka</finalName>
     </build>
 
 </project>

@@ -4,14 +4,12 @@ package com.springclouddev.loges.server.collect;
 import com.springclouddev.loges.core.constant.LogMessageConstant;
 import com.springclouddev.loges.core.redis.RedisClient;
 import com.springclouddev.loges.server.InitConfig;
-import com.springclouddev.loges.server.es.ElasticSearchClient;
+import com.springclouddev.loges.server.es.ElasticLowerClient;
 import com.springclouddev.loges.server.util.DateUtil;
-import com.springclouddev.loges.server.util.GfJsonUtil;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
 * @Author Frank.chen
@@ -24,11 +22,11 @@ public class RedisLogCollect extends BaseLogCollect{
     private  org.slf4j.Logger logger= LoggerFactory.getLogger(RedisLogCollect.class);
     private RedisClient redisClient;
 
-    public RedisLogCollect(String redisHost,int redisPort,String esHosts){
+    public RedisLogCollect(String redisHost,int redisPort,String esHosts,String userName,String passWord){
 
         this.redisClient=RedisClient.getInstance(redisHost,redisPort,"");
         logger.info("getting log ready!");
-        super.elasticSearchClient=ElasticSearchClient.getInstance(esHosts);
+        super.elasticLowerClient= ElasticLowerClient.getInstance(esHosts,userName,passWord);
         logger.info("sending log ready!");
     }
     public  void redisStart(){
@@ -57,11 +55,10 @@ public class RedisLogCollect extends BaseLogCollect{
         if(logs.size()>0) {
             logs.forEach(log->{
                 logger.debug("get log:" + log);
-                Map<String, Object> map = GfJsonUtil.parseObject(log, Map.class);
-                super.logList.add(map);
+                super.logList.add(log);
             });
             if (super.logList.size() > 0) {
-                List<Map<String,Object>> logList=new CopyOnWriteArrayList();
+                List<String> logList=new ArrayList();
                 logList.addAll(super.logList);
                 super.logList.clear();
                 super.sendLog(index,logList);
@@ -77,11 +74,10 @@ public class RedisLogCollect extends BaseLogCollect{
         if(logs.size()>0) {
             logs.forEach(log->{
                 logger.debug("get log:" + log);
-                Map<String, Object> map = GfJsonUtil.parseObject(log, Map.class);
-                super.traceLogList.add(map);
+                super.traceLogList.add(log);
             });
             if (super.traceLogList.size() > 0) {
-                List<Map<String,Object>> logList=new CopyOnWriteArrayList();
+                List<String> logList=new ArrayList();
                 logList.addAll(super.traceLogList);
                 super.traceLogList.clear();
                 super.sendTraceLogList(index,logList);
