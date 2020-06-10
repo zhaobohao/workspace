@@ -39,5 +39,6 @@
         <module>springboot-t-io2</module>
         <module>spring-boot-rate-limiter</module>
         <module>spring-boot-shared-session</module>
+        <module>springboot-aop-transcation-service-impl</module>
     </modules>
 </project>
