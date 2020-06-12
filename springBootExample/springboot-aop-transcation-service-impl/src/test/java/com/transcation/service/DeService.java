@@ -24,13 +24,13 @@ public class DeService implements IService<DeServiceServiceContext>, ICallback<D
 
     @Override
     public ServiceStatus refund(DeServiceServiceContext context) {
-        System.out.println("DeWorker0 run refund() "+Thread.currentThread().getName() + "- start --" + System.currentTimeMillis());
+        System.out.println("DeService0 run refund() "+Thread.currentThread().getName() + "- start --" + System.currentTimeMillis());
         return ServiceStatus.SUCCESS;
     }
 
     @Override
     public ServiceStatus check(DeServiceServiceContext context) {
-        System.out.println("DeWorker0 run check() "+Thread.currentThread().getName() + "- start --" + System.currentTimeMillis());
+        System.out.println("DeService0 run check() "+Thread.currentThread().getName() + "- start --" + System.currentTimeMillis());
         return ServiceStatus.SUCCESS;
     }
 
@@ -47,7 +47,7 @@ public class DeService implements IService<DeServiceServiceContext>, ICallback<D
 
     @Override
     public void result(boolean success, DeServiceServiceContext param, ServiceInstanceResult<ServiceStatus> serviceResult) {
-        System.out.println("worker0 的结果是：" + serviceResult.getResult());
+        System.out.println("service0 的结果是：" + serviceResult.getResult());
     }
 
 }

@@ -22,7 +22,7 @@ public class ServiceGroup {
      */
     public ServiceGroup begin(ServiceInstance... workerWrappers) {
         if (workerWrappers == null) {
-            throw new NullPointerException("workerWrapper cannot be null");
+            throw new NullPointerException("serviceWrapper cannot be null");
         }
         beginList = Arrays.asList(workerWrappers);
         return this;
@@ -30,7 +30,7 @@ public class ServiceGroup {
 
     public ServiceGroup then(ServiceInstance... workerWrappers) {
         if (workerWrappers == null) {
-            throw new NullPointerException("workerWrapper cannot be null");
+            throw new NullPointerException("serviceWrapper cannot be null");
         }
         beginList = Arrays.asList(workerWrappers);
         return this;
@@ -39,7 +39,7 @@ public class ServiceGroup {
 
     public ServiceGroup addWrappers(List<ServiceInstance> workerWrappers) {
         if (workerWrappers == null) {
-            throw new NullPointerException("workers cannot be null");
+            throw new NullPointerException("services cannot be null");
         }
         this.workerWrapperList.addAll(workerWrappers);
         return this;
@@ -47,7 +47,7 @@ public class ServiceGroup {
 
     public ServiceGroup addWrappers(ServiceInstance... workerWrappers) {
         if (workerWrappers == null) {
-            throw new NullPointerException("workers cannot be null");
+            throw new NullPointerException("services cannot be null");
         }
         return addWrappers(Arrays.asList(workerWrappers));
     }

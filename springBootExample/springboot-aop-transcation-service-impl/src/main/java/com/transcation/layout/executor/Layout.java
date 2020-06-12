@@ -1,6 +1,7 @@
 package com.transcation.layout.executor;
 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.transcation.layout.callback.DefaultGroupCallback;
 import com.transcation.layout.callback.IGroupCallback;
 import com.transcation.layout.instance.ServiceInstance;
@@ -29,8 +30,9 @@ public class Layout {
      * 如果想自定义线程池，请传pool。不自定义的话，就走默认的COMMON_POOL
      */
     public static boolean beginWork(long timeout, ThreadPoolExecutor pool, ServiceInstance... serviceInstancesParams) throws ExecutionException, InterruptedException {
+        Boolean ret=Boolean.TRUE;
         if (serviceInstancesParams == null || serviceInstancesParams.length == 0) {
-            return false;
+            return Boolean.FALSE;
         }
         List<ServiceInstance> serviceInstances = Arrays.stream(serviceInstancesParams).collect(Collectors.toList());
 
@@ -48,20 +50,24 @@ public class Layout {
             for (int i = list.size()-1; i >=0; i--) {
                 if (list.get(i).getserviceResult().getResult() == ServiceStatus.FAILS) {
                     failIndex = i;
+                    //  当前失败的service冲正操作
+                    list.get(i).refund();
+                    ret=Boolean.FALSE;
                 }
                 if (i < failIndex && list.get(i).getserviceResult().getResult() == ServiceStatus.SUCCESS) {
-                    //开始冲正
+                    //开始将正向执行成功的service逐步冲正,这里是串行，会耗时。
                     list.get(i).refund();
                 }
             }
-            return true;
+            // 遍历完成
+            return ret;
         } catch (TimeoutException e) {
             List<ServiceInstance> list = new LinkedList<>();
             totalWorkers(serviceInstances, list);
             for (ServiceInstance service : list) {
                 service.stopNow();
             }
-            return false;
+            return Boolean.FALSE;
         }
     }
 

@@ -19,7 +19,7 @@ public class DeService1 implements IService<DeServiceServiceContext>, ICallback<
             e.printStackTrace();
         }
         context.setUser(new User("user1"));
-        return  ServiceStatus.FAILS;
+        return  ServiceStatus.SUCCESS;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class DeService1 implements IService<DeServiceServiceContext>, ICallback<
 
     @Override
     public void result(boolean success, DeServiceServiceContext param, ServiceInstanceResult<ServiceStatus> serviceResult) {
-        System.out.println("worker1 的结果是：" + serviceResult.getResult());
+        System.out.println("service1 的结果是：" + serviceResult.getResult());
     }
 
 }

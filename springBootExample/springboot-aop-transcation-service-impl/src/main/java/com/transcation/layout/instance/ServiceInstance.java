@@ -5,7 +5,6 @@ import com.transcation.layout.callback.DefaultCallback;
 import com.transcation.layout.callback.ICallback;
 import com.transcation.layout.callback.IService;
 import com.transcation.layout.exception.ServiceFailsException;
-import com.transcation.layout.exception.ServiceTimeoutException;
 import com.transcation.layout.exception.SkippedException;
 import com.transcation.layout.executor.timer.SystemClock;
 import com.transcation.layout.service.DependQueue;
@@ -13,7 +12,6 @@ import com.transcation.layout.service.ResultState;
 import com.transcation.layout.service.ServiceInstanceResult;
 import com.transcation.service.base.BaseServiceContext;
 import com.transcation.service.enums.ServiceStatus;
-import javafx.concurrent.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -120,18 +118,17 @@ public class ServiceInstance {
     /**
      * 开始冲正交易
      */
-    public void refund()
-    {
+    public void refund() {
         this.service.refund(param);
     }
 
     /**
      * 开始查证交易
      */
-    public void check()
-    {
+    public void check() {
         this.service.check(param);
     }
+
     /**
      * 总控制台超时，停止所有任务
      */
@@ -161,9 +158,8 @@ public class ServiceInstance {
      */
     private void beginNext(ThreadPoolExecutor poolExecutor, long now, long remainTime) {
         //如果本任务失败了，就不要在往下进行了。
-        if(getserviceResult().getResult()!=ServiceStatus.SUCCESS)
-        {
-            return ;
+        if (getserviceResult().getResult() != ServiceStatus.SUCCESS) {
+            return;
         }
         //花费的时间
         long costTime = SystemClock.now() - now;
@@ -177,7 +173,7 @@ public class ServiceInstance {
         CompletableFuture[] futures = new CompletableFuture[nextInstances.size()];
         for (int i = 0; i < nextInstances.size(); i++) {
             int finalI = i;
-            futures[i] = CompletableFuture.runAsync (() -> nextInstances.get(finalI)
+            futures[i] = CompletableFuture.runAsync(() -> nextInstances.get(finalI)
                     .work(poolExecutor, ServiceInstance.this, remainTime - costTime), poolExecutor);
         }
         try {
@@ -325,17 +321,27 @@ public class ServiceInstance {
             if (!compareAndSetState(WORKING, FINISH)) {
                 return serviceResult;
             }
-            if(resultValue==ServiceStatus.FAILS)
-            {
+            if (resultValue == ServiceStatus.FAILS) {
                 serviceResult.setResultState(ResultState.EXCEPTION);
                 serviceResult.setEx(new ServiceFailsException());
-            }
-            else if(resultValue==ServiceStatus.TIMEOUT)
-            {
-                serviceResult.setResultState(ResultState.TIMEOUT);
-                serviceResult.setEx(new ServiceTimeoutException());
-            }
-            else {
+            } else if (resultValue == ServiceStatus.TIMEOUT) {
+                //serviceResult.setResultState(ResultState.TIMEOUT);
+                //serviceResult.setEx(new ServiceTimeoutException());
+                // 当前service进行查证方法
+                resultValue = service.check(param);
+                // 如果查证方法返回DOUBT,主交易流程开始冲正。
+
+                // 如果查证方法返回FAILS,主交易流程正常冲正。
+                if (resultValue == ServiceStatus.FAILS || resultValue == ServiceStatus.DOUBT) {
+                    serviceResult.setResultState(ResultState.EXCEPTION);
+                    serviceResult.setEx(new ServiceFailsException());
+                }
+                // 如果查证方法返回SUCCESS,主交易流程正常运行。
+                else  if (resultValue == ServiceStatus.SUCCESS)
+                {
+                    serviceResult.setResultState(ResultState.SUCCESS);
+                }
+            } else {
                 serviceResult.setResultState(ResultState.SUCCESS);
             }
             serviceResult.setResult(resultValue);

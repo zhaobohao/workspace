@@ -19,4 +19,14 @@ public class DeServiceServiceContext implements BaseServiceContext {
     public int retry() {
         return 3;
     }
+
+    @Override
+    public String transcationId() {
+        return "T0010233948";
+    }
+
+    @Override
+    public String serviceId() {
+        return "S223959023";
+    }
 }

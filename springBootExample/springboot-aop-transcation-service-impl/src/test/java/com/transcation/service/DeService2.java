@@ -31,7 +31,7 @@ public class DeService2 implements IService<DeServiceServiceContext>, ICallback<
     @Override
     public ServiceStatus check(DeServiceServiceContext context) {
         System.out.println("DeService2 run check() "+Thread.currentThread().getName() + "- start --" + System.currentTimeMillis());
-        return ServiceStatus.SUCCESS;
+        return ServiceStatus.FAILS;
     }
 
 
@@ -47,7 +47,7 @@ public class DeService2 implements IService<DeServiceServiceContext>, ICallback<
 
     @Override
     public void result(boolean success, DeServiceServiceContext param, ServiceInstanceResult<ServiceStatus> serviceResult) {
-        System.out.println("worker2 的结果是：" + serviceResult.getResult());
+        System.out.println("service2 的结果是：" + serviceResult.getResult());
     }
 
 }

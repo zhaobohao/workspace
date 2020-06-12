@@ -7,7 +7,12 @@ package com.transcation.service.enums;
  *
  */
 public enum ServiceStatus {
-    SUCCESS(0),FAILS(1),TIMEOUT(99),Doubt(10),DEFAULT(20);
+    SUCCESS(0),
+    FAILS(1),
+    TIMEOUT(99),
+    //供查证方法使用，如果查证方法返回DOUBT,查交易流程开始冲正。
+    DOUBT(10),
+    DEFAULT(20);
 
     ServiceStatus(int status) {
         this.status = status;

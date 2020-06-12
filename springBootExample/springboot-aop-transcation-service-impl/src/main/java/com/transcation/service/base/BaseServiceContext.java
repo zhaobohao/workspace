@@ -12,4 +12,16 @@ public interface BaseServiceContext {
      * @return
      */
     int retry();
+
+    /**
+     * 当前交易id
+     * @return
+     */
+    String transcationId();
+
+    /**
+     *  当前service的id
+     * @return
+     */
+    String  serviceId();
 }

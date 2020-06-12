@@ -27,6 +27,9 @@ public interface IService<T extends  BaseServiceContext> {
 
     /**
      * 查证流程
+     * 如果查证方法返回DOUBT,主交易流程开始冲正。
+     * 如果查证方法返回SUCCESS,主交易流程正常运行。
+     *如果查证方法返回FAILS,主交易流程正常冲正。
      * @return
      */
     ServiceStatus  check(T context);
