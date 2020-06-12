@@ -7,7 +7,7 @@ package com.transcation.service.enums;
  *
  */
 public enum ServiceStatus {
-    SUCCESS(0),FAILS(1),TIMEOUT(99),Doubt(10);
+    SUCCESS(0),FAILS(1),TIMEOUT(99),Doubt(10),DEFAULT(20);
 
     ServiceStatus(int status) {
         this.status = status;

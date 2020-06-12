@@ -2,8 +2,6 @@ package com.transcation.service;
 
 /**
  * 一个包装类
- * @author zhaobo wrote on 2017--12-26
- * @version 1.0
  */
 public class User {
     private String name;

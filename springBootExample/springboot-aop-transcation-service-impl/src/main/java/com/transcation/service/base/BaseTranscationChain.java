@@ -40,46 +40,46 @@ public abstract class BaseTranscationChain {
      */
     public Boolean invoke(BaseServiceContext context) {
         int step=chains.size();
-        for ( index = 0; index <step ; index++) {
-            //每添加一个过滤规则，index自增1
-            BaseTranscationService service=chains.get(index);
-            //根据索引值获取对应的服务进行处理
-            try {
-                ServiceStatus result=service.trade(context);
-                if(result== ServiceStatus.FAILS){
-                    refund(context);
-                }else if(result==ServiceStatus.TIMEOUT)
-                {
-                    // 正向交易 超时了，进行查证流程。
-                    ServiceStatus checkResult=  service.check(context);
-                    if(checkResult==ServiceStatus.Doubt){
-                        int refundStep=0;
-                        //有service冲正操作，超时，那么循环调用N次。
-                        for (;refundStep < retry;refundStep++) {
-                            if (service.check(context)==ServiceStatus.SUCCESS){
-                                refundStep--;
-                                break;
-                            }
-                        }
-                        if(refundStep>=index){
-                            // 重试多次失败,调用冲正方法
-                            refund(context);
-                        }
-                    }
-
-                }
-            }catch (Exception e){
-               //返回任何异常，调用所有已执行service的冲正流程
-                for (int sub=index-1;sub<=index ; sub--) {
-                    // 需要冲正的service
-//                    BaseTranscationService service=chains.get(index);
-//                    service.refund(context);
-                }
-                refund(context);
-            }
-        }
-        // 所有service执行成功后，执行chain的正向交易
-        trade(context);
+//        for ( index = 0; index <step ; index++) {
+//            //每添加一个过滤规则，index自增1
+//            BaseTranscationService service=chains.get(index);
+//            //根据索引值获取对应的服务进行处理
+//            try {
+//                ServiceStatus result=service.trade(context);
+//                if(result== ServiceStatus.FAILS){
+//                    refund(context);
+//                }else if(result==ServiceStatus.TIMEOUT)
+//                {
+//                    // 正向交易 超时了，进行查证流程。
+//                    ServiceStatus checkResult=  service.check(context);
+//                    if(checkResult==ServiceStatus.Doubt){
+//                        int refundStep=0;
+//                        //有service冲正操作，超时，那么循环调用N次。
+//                        for (;refundStep < retry;refundStep++) {
+//                            if (service.check(context)==ServiceStatus.SUCCESS){
+//                                refundStep--;
+//                                break;
+//                            }
+//                        }
+//                        if(refundStep>=index){
+//                            // 重试多次失败,调用冲正方法
+//                            refund(context);
+//                        }
+//                    }
+//
+//                }
+//            }catch (Exception e){
+//               //返回任何异常，调用所有已执行service的冲正流程
+//                for (int sub=index-1;sub<=index ; sub--) {
+//                    // 需要冲正的service
+////                    BaseTranscationService service=chains.get(index);
+////                    service.refund(context);
+//                }
+//                refund(context);
+//            }
+//        }
+//        // 所有service执行成功后，执行chain的正向交易
+//        trade(context);
         return true;
     }
 
@@ -89,25 +89,25 @@ public abstract class BaseTranscationChain {
      */
     private void refund(BaseServiceContext context) {
         //如果正向交易 失败，调用所有已执行service的冲正流程
-        for (int sub=index-1;sub<=index ; sub--) {
-            // 需要冲正的service
-            BaseTranscationService refundService=chains.get(index);
-            if (refundService.refund(context)!= ServiceStatus.SUCCESS)
-            {
-                int refundStep=0;
-                //有service冲正操作，超时，那么循环调用N次。
-                for (;refundStep < retry;refundStep++) {
-                    if (refundService.refund(context)==ServiceStatus.SUCCESS){
-                        refundStep--;
-                        break;
-                    }
-                }
-                if(refundStep>=index){
-                    // 重试多次失败,回调冲正失败方法
-                    refundFails(context);
-                }
-            }
-        }
+//        for (int sub=index-1;sub<=index ; sub--) {
+//            // 需要冲正的service
+//            BaseTranscationService refundService=chains.get(index);
+//            if (refundService.refund(context)!= ServiceStatus.SUCCESS)
+//            {
+//                int refundStep=0;
+//                //有service冲正操作，超时，那么循环调用N次。
+//                for (;refundStep < retry;refundStep++) {
+//                    if (refundService.refund(context)==ServiceStatus.SUCCESS){
+//                        refundStep--;
+//                        break;
+//                    }
+//                }
+//                if(refundStep>=index){
+//                    // 重试多次失败,回调冲正失败方法
+//                    refundFails(context);
+//                }
+//            }
+//        }
         // 回调冲正成功后方法
         refundSuccess(context);
     }

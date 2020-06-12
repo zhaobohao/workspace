@@ -1,14 +1,19 @@
-package com.transcation.layout.wrapper;
+package com.transcation.layout.instance;
 
 
 import com.transcation.layout.callback.DefaultCallback;
 import com.transcation.layout.callback.ICallback;
 import com.transcation.layout.callback.IService;
+import com.transcation.layout.exception.ServiceFailsException;
+import com.transcation.layout.exception.ServiceTimeoutException;
 import com.transcation.layout.exception.SkippedException;
 import com.transcation.layout.executor.timer.SystemClock;
-import com.transcation.layout.worker.DependWrapper;
-import com.transcation.layout.worker.ResultState;
-import com.transcation.layout.worker.ServicdResult;
+import com.transcation.layout.service.DependQueue;
+import com.transcation.layout.service.ResultState;
+import com.transcation.layout.service.ServiceInstanceResult;
+import com.transcation.service.base.BaseServiceContext;
+import com.transcation.service.enums.ServiceStatus;
+import javafx.concurrent.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,25 +25,25 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 对每个worker及callback进行包装，一对一
+ * 对每个service及callback进行包装，一对一
  *
  * @author zhaobo wrote on 2017-11-19.
  */
-public class ServiceInstance<T, V> {
+public class ServiceInstance {
     /**
      * worker将来要处理的param
      */
-    private T param;
-    private IService<T, V> worker;
-    private ICallback<T, V> callback;
+    private BaseServiceContext param;
+    private IService service;
+    private ICallback callback;
 
-    private List<ServiceInstance<?, ?>> nextWrappers;
+    private List<ServiceInstance> nextInstances;
 
-    private List<DependWrapper> dependWrappers;
+    private List<DependQueue> dependInstances;
 
     private AtomicInteger state = new AtomicInteger(0);
 
-    private volatile ServicdResult<V> serviceResult = ServicdResult.defaultResult();
+    private volatile ServiceInstanceResult<ServiceStatus> serviceResult = ServiceInstanceResult.defaultResult();
 
     private volatile boolean needCheckNextWrapperResult = true;
 
@@ -47,11 +52,11 @@ public class ServiceInstance<T, V> {
     private static final int WORKING = 3;
     private static final int INIT = 0;
 
-    private ServiceInstance(IService<T, V> worker, T param, ICallback<T, V> callback) {
-        if (worker == null) {
-            throw new NullPointerException("layout .worker is null");
+    private ServiceInstance(IService service, BaseServiceContext param, ICallback callback) {
+        if (service == null) {
+            throw new NullPointerException("layout .service is null");
         }
-        this.worker = worker;
+        this.service = service;
         this.param = param;
         //允许不设置回调
         if (callback == null) {
@@ -62,9 +67,9 @@ public class ServiceInstance<T, V> {
 
     /**
      * 开始工作
-     * fromWrapper代表这次work是由哪个上游wrapper发起的
+     * fromInstance代表这次work是由哪个上游service发起的
      */
-    private void work(ThreadPoolExecutor poolExecutor, ServiceInstance fromWrapper, long remainTime) {
+    private void work(ThreadPoolExecutor poolExecutor, ServiceInstance fromInstance, long remainTime) {
         long now = SystemClock.now();
         //总的已经超时了，就快速失败，进行下一个
         if (remainTime <= 0) {
@@ -90,24 +95,19 @@ public class ServiceInstance<T, V> {
         }
 
         //如果没有任何依赖，说明自己就是第一批要执行的
-        if (dependWrappers == null || dependWrappers.size() == 0) {
+        if (dependInstances == null || dependInstances.size() == 0) {
             fire();
             beginNext(poolExecutor, now, remainTime);
             return;
         }
 
-        /*如果有前方依赖，存在两种情况
-         一种是前面只有一个wrapper。即 A  ->  B
-        一种是前面有多个wrapper。A C D ->   B。需要A、C、D都完成了才能轮到B。但是无论是A执行完，还是C执行完，都会去唤醒B。
-        所以需要B来做判断，必须A、C、D都完成，自己才能执行 */
-
         //只有一个依赖
-        if (dependWrappers.size() == 1) {
-            doDependsOneJob(fromWrapper);
+        if (dependInstances.size() == 1) {
+            doDependsOneJob(fromInstance);
             beginNext(poolExecutor, now, remainTime);
         } else {
             //有多个依赖时
-            doDependsJobs(poolExecutor, dependWrappers, fromWrapper, now, remainTime);
+            doDependsJobs(poolExecutor, dependInstances, fromInstance, now, remainTime);
         }
 
     }
@@ -117,6 +117,21 @@ public class ServiceInstance<T, V> {
         work(poolExecutor, null, remainTime);
     }
 
+    /**
+     * 开始冲正交易
+     */
+    public void refund()
+    {
+        this.service.refund(param);
+    }
+
+    /**
+     * 开始查证交易
+     */
+    public void check()
+    {
+        this.service.check(param);
+    }
     /**
      * 总控制台超时，停止所有任务
      */
@@ -132,10 +147,10 @@ public class ServiceInstance<T, V> {
      */
     private boolean checkNextWrapperResult() {
         //如果自己就是最后一个，或者后面有并行的多个，就返回true
-        if (nextWrappers == null || nextWrappers.size() != 1) {
+        if (nextInstances == null || nextInstances.size() != 1) {
             return getState() == INIT;
         }
-        ServiceInstance nextWrapper = nextWrappers.get(0);
+        ServiceInstance nextWrapper = nextInstances.get(0);
         boolean state = nextWrapper.getState() == INIT;
         //继续校验自己的next的状态
         return state && nextWrapper.checkNextWrapperResult();
@@ -145,19 +160,24 @@ public class ServiceInstance<T, V> {
      * 进行下一个任务
      */
     private void beginNext(ThreadPoolExecutor poolExecutor, long now, long remainTime) {
+        //如果本任务失败了，就不要在往下进行了。
+        if(getserviceResult().getResult()!=ServiceStatus.SUCCESS)
+        {
+            return ;
+        }
         //花费的时间
         long costTime = SystemClock.now() - now;
-        if (nextWrappers == null) {
+        if (nextInstances == null) {
             return;
         }
-        if (nextWrappers.size() == 1) {
-            nextWrappers.get(0).work(poolExecutor, ServiceInstance.this, remainTime - costTime);
+        if (nextInstances.size() == 1) {
+            nextInstances.get(0).work(poolExecutor, ServiceInstance.this, remainTime - costTime);
             return;
         }
-        CompletableFuture[] futures = new CompletableFuture[nextWrappers.size()];
-        for (int i = 0; i < nextWrappers.size(); i++) {
+        CompletableFuture[] futures = new CompletableFuture[nextInstances.size()];
+        for (int i = 0; i < nextInstances.size(); i++) {
             int finalI = i;
-            futures[i] = CompletableFuture.runAsync (() -> nextWrappers.get(finalI)
+            futures[i] = CompletableFuture.runAsync (() -> nextInstances.get(finalI)
                     .work(poolExecutor, ServiceInstance.this, remainTime - costTime), poolExecutor);
         }
         try {
@@ -167,12 +187,12 @@ public class ServiceInstance<T, V> {
         }
     }
 
-    private void doDependsOneJob(ServiceInstance dependWrapper) {
-        if (ResultState.TIMEOUT == dependWrapper.getserviceResult().getResultState()) {
+    private void doDependsOneJob(ServiceInstance dependInstance) {
+        if (ResultState.TIMEOUT == dependInstance.getserviceResult().getResultState()) {
             serviceResult = defaultResult();
             fastFail(INIT, null);
-        } else if (ResultState.EXCEPTION == dependWrapper.getserviceResult().getResultState()) {
-            serviceResult = defaultExResult(dependWrapper.getserviceResult().getEx());
+        } else if (ResultState.EXCEPTION == dependInstance.getserviceResult().getResultState()) {
+            serviceResult = defaultExResult(dependInstance.getserviceResult().getEx());
             fastFail(INIT, null);
         } else {
             //前面任务正常完毕了，该自己了
@@ -180,22 +200,22 @@ public class ServiceInstance<T, V> {
         }
     }
 
-    private synchronized void doDependsJobs(ThreadPoolExecutor poolExecutor, List<DependWrapper> dependWrappers, ServiceInstance fromWrapper, long now, long remainTime) {
+    private synchronized void doDependsJobs(ThreadPoolExecutor poolExecutor, List<DependQueue> dependInstances, ServiceInstance fromInstance, long now, long remainTime) {
         boolean nowDependIsMust = false;
-        //创建必须完成的上游wrapper集合
-        Set<DependWrapper> mustWrapper = new HashSet<>();
-        for (DependWrapper dependWrapper : dependWrappers) {
-            if (dependWrapper.isMust()) {
-                mustWrapper.add(dependWrapper);
+        //创建必须完成的上游serviceInstance集合
+        Set<DependQueue> mustWrapper = new HashSet<>();
+        for (DependQueue dependInstance : dependInstances) {
+            if (dependInstance.isMust()) {
+                mustWrapper.add(dependInstance);
             }
-            if (dependWrapper.getDependWrapper().equals(fromWrapper)) {
-                nowDependIsMust = dependWrapper.isMust();
+            if (dependInstance.getDependQueue().equals(fromInstance)) {
+                nowDependIsMust = dependInstance.isMust();
             }
         }
 
         //如果全部是不必须的条件，那么只要到了这里，就执行自己。
         if (mustWrapper.size() == 0) {
-            if (ResultState.TIMEOUT == fromWrapper.getserviceResult().getResultState()) {
+            if (ResultState.TIMEOUT == fromInstance.getserviceResult().getResultState()) {
                 fastFail(INIT, null);
             } else {
                 fire();
@@ -204,20 +224,20 @@ public class ServiceInstance<T, V> {
             return;
         }
 
-        //如果存在需要必须完成的，且fromWrapper不是必须的，就什么也不干
+        //如果存在需要必须完成的，且fromInstance不是必须的，就什么也不干
         if (!nowDependIsMust) {
             return;
         }
 
-        //如果fromWrapper是必须的
+        //如果fromInstance是必须的
         boolean existNoFinish = false;
         boolean hasError = false;
         //先判断前面必须要执行的依赖任务的执行结果，如果有任何一个失败，那就不用走action了，直接给自己设置为失败，进行下一步就是了
-        for (DependWrapper dependWrapper : mustWrapper) {
-            ServiceInstance workerWrapper = dependWrapper.getDependWrapper();
-            ServicdResult tempserviceResult = workerWrapper.getserviceResult();
+        for (DependQueue dependInstance : mustWrapper) {
+            ServiceInstance service = dependInstance.getDependQueue();
+            ServiceInstanceResult tempserviceResult = service.getserviceResult();
             //为null或者isWorking，说明它依赖的某个任务还没执行到或没执行完
-            if (workerWrapper.getState() == INIT || workerWrapper.getState() == WORKING) {
+            if (service.getState() == INIT || service.getState() == WORKING) {
                 existNoFinish = true;
                 break;
             }
@@ -227,10 +247,11 @@ public class ServiceInstance<T, V> {
                 break;
             }
             if (ResultState.EXCEPTION == tempserviceResult.getResultState()) {
-                serviceResult = defaultExResult(workerWrapper.getserviceResult().getEx());
+                serviceResult = defaultExResult(service.getserviceResult().getEx());
                 hasError = true;
                 break;
             }
+
 
         }
         //只要有失败的
@@ -251,11 +272,12 @@ public class ServiceInstance<T, V> {
     }
 
     /**
-     * 执行自己的job.具体的执行是在另一个线程里,但判断阻塞超时是在work线程
+     * 执行自己的job.具体的执行是在另一个线程里,但判断阻塞超时是在Service线程
      */
     private void fire() {
         //阻塞取结果
         serviceResult = workerDoJob();
+
     }
 
     /**
@@ -283,7 +305,7 @@ public class ServiceInstance<T, V> {
     /**
      * 具体的单个worker执行任务
      */
-    private ServicdResult<V> workerDoJob() {
+    private ServiceInstanceResult<ServiceStatus> workerDoJob() {
         //避免重复执行
         if (!checkIsNullResult()) {
             return serviceResult;
@@ -297,14 +319,25 @@ public class ServiceInstance<T, V> {
             callback.begin();
 
             //执行耗时操作
-            V resultValue = worker.action(param);
+            ServiceStatus resultValue = service.trade(param);
 
             //如果状态不是在working,说明别的地方已经修改了
             if (!compareAndSetState(WORKING, FINISH)) {
                 return serviceResult;
             }
-
-            serviceResult.setResultState(ResultState.SUCCESS);
+            if(resultValue==ServiceStatus.FAILS)
+            {
+                serviceResult.setResultState(ResultState.EXCEPTION);
+                serviceResult.setEx(new ServiceFailsException());
+            }
+            else if(resultValue==ServiceStatus.TIMEOUT)
+            {
+                serviceResult.setResultState(ResultState.TIMEOUT);
+                serviceResult.setEx(new ServiceTimeoutException());
+            }
+            else {
+                serviceResult.setResultState(ResultState.SUCCESS);
+            }
             serviceResult.setResult(resultValue);
             //回调成功
             callback.result(true, param, serviceResult);
@@ -320,15 +353,15 @@ public class ServiceInstance<T, V> {
         }
     }
 
-    public ServicdResult<V> getserviceResult() {
+    public ServiceInstanceResult<ServiceStatus> getserviceResult() {
         return serviceResult;
     }
 
-    public List<ServiceInstance<?, ?>> getNextWrappers() {
-        return nextWrappers;
+    public List<ServiceInstance> getNextInstances() {
+        return nextInstances;
     }
 
-    public void setParam(T param) {
+    public void setParam(BaseServiceContext param) {
         this.param = param;
     }
 
@@ -336,63 +369,63 @@ public class ServiceInstance<T, V> {
         return ResultState.DEFAULT == serviceResult.getResultState();
     }
 
-    private void addDepend(ServiceInstance<?, ?> workerWrapper, boolean must) {
-        addDepend(new DependWrapper(workerWrapper, must));
+    private void addDepend(ServiceInstance workerWrapper, boolean must) {
+        addDepend(new DependQueue(workerWrapper, must));
     }
 
-    private void addDepend(DependWrapper dependWrapper) {
-        if (dependWrappers == null) {
-            dependWrappers = new ArrayList<>();
+    private void addDepend(DependQueue dependInstance) {
+        if (dependInstances == null) {
+            dependInstances = new ArrayList<>();
         }
         //如果依赖的是重复的同一个，就不重复添加了
-        for (DependWrapper wrapper : dependWrappers) {
-            if (wrapper.equals(dependWrapper)) {
+        for (DependQueue wrapper : dependInstances) {
+            if (wrapper.equals(dependInstance)) {
                 return;
             }
         }
-        dependWrappers.add(dependWrapper);
+        dependInstances.add(dependInstance);
     }
 
-    private void addNext(ServiceInstance<?, ?> workerWrapper) {
-        if (nextWrappers == null) {
-            nextWrappers = new ArrayList<>();
+    private void addNext(ServiceInstance workerWrapper) {
+        if (nextInstances == null) {
+            nextInstances = new ArrayList<>();
         }
         //避免添加重复
-        for (ServiceInstance wrapper : nextWrappers) {
+        for (ServiceInstance wrapper : nextInstances) {
             if (workerWrapper.equals(wrapper)) {
                 return;
             }
         }
-        nextWrappers.add(workerWrapper);
+        nextInstances.add(workerWrapper);
     }
 
-    private void addNextWrappers(List<ServiceInstance<?, ?>> wrappers) {
+    private void addNextWrappers(List<ServiceInstance> wrappers) {
         if (wrappers == null) {
             return;
         }
-        for (ServiceInstance<?, ?> wrapper : wrappers) {
+        for (ServiceInstance wrapper : wrappers) {
             addNext(wrapper);
         }
     }
 
-    private void addDependWrappers(List<DependWrapper> dependWrappers) {
-        if (dependWrappers == null) {
+    private void adddependInstances(List<DependQueue> dependInstances) {
+        if (dependInstances == null) {
             return;
         }
-        for (DependWrapper wrapper : dependWrappers) {
+        for (DependQueue wrapper : dependInstances) {
             addDepend(wrapper);
         }
     }
 
-    private ServicdResult<V> defaultResult() {
+    private ServiceInstanceResult<ServiceStatus> defaultResult() {
         serviceResult.setResultState(ResultState.TIMEOUT);
-        serviceResult.setResult(worker.defaultValue());
+        serviceResult.setResult(service.defaultValue());
         return serviceResult;
     }
 
-    private ServicdResult<V> defaultExResult(Exception ex) {
+    private ServiceInstanceResult<ServiceStatus> defaultExResult(Exception ex) {
         serviceResult.setResultState(ResultState.EXCEPTION);
-        serviceResult.setResult(worker.defaultValue());
+        serviceResult.setResult(service.defaultValue());
         serviceResult.setEx(ex);
         return serviceResult;
     }
@@ -410,79 +443,79 @@ public class ServiceInstance<T, V> {
         this.needCheckNextWrapperResult = needCheckNextWrapperResult;
     }
 
-    public static class Builder<W, C> {
+    public static class Builder {
         /**
          * worker将来要处理的param
          */
-        private W param;
-        private IService<W, C> worker;
-        private ICallback<W, C> callback;
+        private BaseServiceContext param;
+        private IService service;
+        private ICallback callback;
         /**
          * 自己后面的所有
          */
-        private List<ServiceInstance<?, ?>> nextWrappers;
+        private List<ServiceInstance> nextWrappers;
         /**
          * 自己依赖的所有
          */
-        private List<DependWrapper> dependWrappers;
+        private List<DependQueue> dependInstances;
         /**
          * 存储强依赖于自己的wrapper集合
          */
-        private Set<ServiceInstance<?, ?>> selfIsMustSet;
+        private Set<ServiceInstance> selfIsMustSet;
 
         private boolean needCheckNextWrapperResult = true;
 
-        public Builder<W, C> worker(IService<W, C> worker) {
-            this.worker = worker;
+        public Builder service(IService service) {
+            this.service = service;
             return this;
         }
 
-        public Builder<W, C> param(W w) {
+        public Builder param(BaseServiceContext w) {
             this.param = w;
             return this;
         }
 
-        public Builder<W, C> needCheckNextWrapperResult(boolean needCheckNextWrapperResult) {
+        public Builder needCheckNextWrapperResult(boolean needCheckNextWrapperResult) {
             this.needCheckNextWrapperResult = needCheckNextWrapperResult;
             return this;
         }
 
-        public Builder<W, C> callback(ICallback<W, C> callback) {
+        public Builder callback(ICallback callback) {
             this.callback = callback;
             return this;
         }
 
-        public Builder<W, C> depend(ServiceInstance<?, ?>... wrappers) {
+        public Builder depend(ServiceInstance... wrappers) {
             if (wrappers == null) {
                 return this;
             }
-            for (ServiceInstance<?, ?> wrapper : wrappers) {
+            for (ServiceInstance wrapper : wrappers) {
                 depend(wrapper);
             }
             return this;
         }
 
-        public Builder<W, C> depend(ServiceInstance<?, ?> wrapper) {
+        public Builder depend(ServiceInstance wrapper) {
             return depend(wrapper, true);
         }
 
-        public Builder<W, C> depend(ServiceInstance<?, ?> wrapper, boolean isMust) {
+        public Builder depend(ServiceInstance wrapper, boolean isMust) {
             if (wrapper == null) {
                 return this;
             }
-            DependWrapper dependWrapper = new DependWrapper(wrapper, isMust);
-            if (dependWrappers == null) {
-                dependWrappers = new ArrayList<>();
+            DependQueue dependInstance = new DependQueue(wrapper, isMust);
+            if (dependInstances == null) {
+                dependInstances = new ArrayList<>();
             }
-            dependWrappers.add(dependWrapper);
+            dependInstances.add(dependInstance);
             return this;
         }
 
-        public Builder<W, C> next(ServiceInstance<?, ?> wrapper) {
+        public Builder next(ServiceInstance wrapper) {
             return next(wrapper, true);
         }
 
-        public Builder<W, C> next(ServiceInstance<?, ?> wrapper, boolean selfIsMust) {
+        public Builder next(ServiceInstance wrapper, boolean selfIsMust) {
             if (nextWrappers == null) {
                 nextWrappers = new ArrayList<>();
             }
@@ -498,27 +531,27 @@ public class ServiceInstance<T, V> {
             return this;
         }
 
-        public Builder<W, C> next(ServiceInstance<?, ?>... wrappers) {
+        public Builder next(ServiceInstance... wrappers) {
             if (wrappers == null) {
                 return this;
             }
-            for (ServiceInstance<?, ?> wrapper : wrappers) {
+            for (ServiceInstance wrapper : wrappers) {
                 next(wrapper);
             }
             return this;
         }
 
-        public ServiceInstance<W, C> build() {
-            ServiceInstance<W, C> wrapper = new ServiceInstance<>(worker, param, callback);
+        public ServiceInstance build() {
+            ServiceInstance wrapper = new ServiceInstance(service, param, callback);
             wrapper.setNeedCheckNextWrapperResult(needCheckNextWrapperResult);
-            if (dependWrappers != null) {
-                for (DependWrapper workerWrapper : dependWrappers) {
-                    workerWrapper.getDependWrapper().addNext(wrapper);
+            if (dependInstances != null) {
+                for (DependQueue workerWrapper : dependInstances) {
+                    workerWrapper.getDependQueue().addNext(wrapper);
                     wrapper.addDepend(workerWrapper);
                 }
             }
             if (nextWrappers != null) {
-                for (ServiceInstance<?, ?> workerWrapper : nextWrappers) {
+                for (ServiceInstance workerWrapper : nextWrappers) {
                     boolean must = false;
                     if (selfIsMustSet != null && selfIsMustSet.contains(workerWrapper)) {
                         must = true;

@@ -1,6 +1,6 @@
 package com.transcation.layout.callback;
 
-import com.transcation.layout.wrapper.ServiceInstance;
+import com.transcation.layout.instance.ServiceInstance;
 
 import java.util.List;
 

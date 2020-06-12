@@ -6,4 +6,10 @@ public interface BaseServiceContext {
      * @return
      */
     String getData();
+
+    /**
+     * 获取重试的最大次数
+     * @return
+     */
+    int retry();
 }

@@ -1,9 +1,9 @@
-package com.transcation.layout.worker;
+package com.transcation.layout.service;
 
 /**
  * 执行结果
  */
-public class ServicdResult<V> {
+public class ServiceInstanceResult<V> {
     /**
      * 执行的结果
      */
@@ -14,18 +14,18 @@ public class ServicdResult<V> {
     private ResultState resultState;
     private Exception ex;
 
-    public ServicdResult(V result, ResultState resultState) {
+    public ServiceInstanceResult(V result, ResultState resultState) {
         this(result, resultState, null);
     }
 
-    public ServicdResult(V result, ResultState resultState, Exception ex) {
+    public ServiceInstanceResult(V result, ResultState resultState, Exception ex) {
         this.result = result;
         this.resultState = resultState;
         this.ex = ex;
     }
 
-    public static <V> ServicdResult<V> defaultResult() {
-        return new ServicdResult<>(null, ResultState.DEFAULT);
+    public static <V> ServiceInstanceResult<V> defaultResult() {
+        return new ServiceInstanceResult<>(null, ResultState.DEFAULT);
     }
 
     @Override

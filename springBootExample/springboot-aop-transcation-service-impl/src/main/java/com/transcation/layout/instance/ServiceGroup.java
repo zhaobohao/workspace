@@ -1,4 +1,4 @@
-package com.transcation.layout.wrapper;
+package com.transcation.layout.instance;
 
 
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.List;
  * @author zhaobo wrote on 2017-11-19.
  */
 public class ServiceGroup {
-    private List<ServiceInstance<?, ?>> workerWrapperList;
-    private List<ServiceInstance<?, ?>> beginList;
+    private List<ServiceInstance> workerWrapperList;
+    private List<ServiceInstance> beginList;
 
     public ServiceGroup() {
         workerWrapperList = new ArrayList<>();
@@ -20,7 +20,7 @@ public class ServiceGroup {
     /**
      * 起始任务
      */
-    public ServiceGroup begin(ServiceInstance<?, ?>... workerWrappers) {
+    public ServiceGroup begin(ServiceInstance... workerWrappers) {
         if (workerWrappers == null) {
             throw new NullPointerException("workerWrapper cannot be null");
         }
@@ -28,7 +28,7 @@ public class ServiceGroup {
         return this;
     }
 
-    public ServiceGroup then(ServiceInstance<?, ?>... workerWrappers) {
+    public ServiceGroup then(ServiceInstance... workerWrappers) {
         if (workerWrappers == null) {
             throw new NullPointerException("workerWrapper cannot be null");
         }
@@ -37,7 +37,7 @@ public class ServiceGroup {
     }
 
 
-    public ServiceGroup addWrappers(List<ServiceInstance<?, ?>> workerWrappers) {
+    public ServiceGroup addWrappers(List<ServiceInstance> workerWrappers) {
         if (workerWrappers == null) {
             throw new NullPointerException("workers cannot be null");
         }
@@ -45,7 +45,7 @@ public class ServiceGroup {
         return this;
     }
 
-    public ServiceGroup addWrappers(ServiceInstance<?, ?>... workerWrappers) {
+    public ServiceGroup addWrappers(ServiceInstance... workerWrappers) {
         if (workerWrappers == null) {
             throw new NullPointerException("workers cannot be null");
         }
@@ -63,7 +63,7 @@ public class ServiceGroup {
         }
     }
 
-    public List<ServiceInstance<?, ?>> getWorkerWrapperList() {
+    public List<ServiceInstance> getWorkerWrapperList() {
         return workerWrapperList;
     }
 }
