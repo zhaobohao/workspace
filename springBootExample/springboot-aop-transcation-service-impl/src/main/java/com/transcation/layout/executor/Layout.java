@@ -46,7 +46,7 @@ public class Layout {
             // 遍历所有的Service,只要有一个是Fails,所有已执行的service冲正。
             List<ServiceInstance> list = new LinkedList<>();
             totalWorkers(serviceInstances, list);
-            int failIndex = 9999999;
+            int failIndex = -1;
             for (int i = list.size()-1; i >=0; i--) {
                 if (list.get(i).getserviceResult().getResult() == ServiceStatus.FAILS) {
                     failIndex = i;

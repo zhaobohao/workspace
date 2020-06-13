@@ -40,5 +40,7 @@
         <module>spring-boot-rate-limiter</module>
         <module>spring-boot-shared-session</module>
         <module>springboot-aop-transcation-service-impl</module>
+        <module>springboot-rocketmq</module>
+
     </modules>
 </project>
