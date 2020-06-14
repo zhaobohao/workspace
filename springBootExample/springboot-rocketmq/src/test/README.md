@@ -1,5 +1,41 @@
 # [Apache RocketMQ](http://rocketmq.apache.org)
 分布式消息中间件
+## 术语
+- Topic
+
+一个 Topic 是一个主题。一个系统中，我们可以将消息划成 Topic ，这样，将不同的消息发送到不同的 queue。
+
+- Queue
+
+一个topic下，我们可以设置多个queue，每个queue就是我们平时所说的消息队列；因为queue是完全从属于某个特定的topic的，所以当我们要发送消息时，总是要指定该消息所属的topic是什么。然后equeue就能知道该topic下有几个queue了。但是到底发送到哪个queue呢？比如一个topic下有4个queue，那对于这个topic下的消息，发送时，到底该发送到哪个queue呢？那必定有个消息被路由的过程。目前equeue的做法是在发送一个消息时，需要用户指定这个消息对应的topic以及一个用来路由的一个object类型的参数。equeue会根据topic得到所有的queue，然后根据该object参数通过hash code然后取模queue的个数最后得到要发送的queue的编号，从而知道该发送到哪个queue。这个路由消息的过程是在发送消息的这一方做的，也就是下面要说的producer。之所以不在消息服务器上做是因为这样可以让用户自己决定该如何路由消息，具有更大的灵活性。
+
+- Producer
+
+就是消息队列的生产者。我们知道，消息队列的本质就是实现了publish-subscribe的模式，即生产者-消费者模式。生产者生产消息，消费者消费消息。所以这里的Producer就是用来生产和发送消息的。
+
+- Consumer
+
+就是消息队列的消费者，一个消息可以有多个消费者。
+
+- Consumer Group
+
+消费者分组，这可能对大家来说是一个新概念。之所以要搞出一个消费者分组，是为了实现下面要说的集群消费。一个消费者分组中包含了一些消费者，如果这些消费者是要集群消费，那这些消费者会平均消费该分组中的消息。
+
+- Broker
+
+equeue中的broker负责消息的中转，即接收producer发送过来的消息，然后持久化消息到磁盘，然后接收consumer发送过来的拉取消息的请求，然后根据请求拉取相应的消息给consumer。所以，broker可以理解为消息队列服务器，提供消息的接收、存储、拉取服务。可见，broker对于equeue来说是核心，它绝对不能挂，一旦挂了，那producer，consumer就无法实现publish-subscribe了。
+
+- 集群消费
+
+集群消费是指，一个consumer group下的consumer，平均消费topic下的queue。具体如何平均可以看一下下面的架构图，这里先用文字简单描述一下。假如一个topic下有4个queue，然后当前有一个consumer group，该分组下有4个consumer，那每个consumer就被分配到该topic下的一个queue，这样就达到了平均消费topic下的queue的目的。如果consumer group下只有两个consumer，那每个consumer就消费2个queue。如果有3个consumer，则第一个消费2个queue，后面两个每个消费一个queue，从而达到尽量平均消费。所以，可以看出，我们应该尽量让consumer group下的consumer的数目和topic的queue的数目一致或成倍数关系。这样每个consumer消费的queue的数量总是一样的，这样每个consumer服务器的压力才会差不多。当前前提是这个topic下的每个queue里的消息的数量总是差不多多的。这点我们可以对消息根据某个用户自己定义的key来进行hash路由来保证。
+
+- 广播消费
+
+广播消费是指一个consumer只要订阅了某个topic的消息，那它就会收到该topic下的所有queue里的消息，而不管这个consumer的group是什么。所以对于广播消费来说，consumer group没什么实际意义。consumer可以在实例化时，我们可以指定是集群消费还是广播消费。
+
+- 消费进度(offset)
+
+消费进度是指，当一个consumer group里的consumer在消费某个queue里的消息时，equeue是通过记录消费位置(offset)来知道当前消费到哪里了。以便该consumer重启后继续从该位置开始消费。比如一个topic有4个queue，一个consumer group有4个consumer，则每个consumer分配到一个queue，然后每个consumer分别消费自己的queue里的消息。equeue会分别记录每个consumer对其queue的消费进度，从而保证每个consumer重启后知道下次从哪里开始继续消费。实际上，也许下次重启后不是由该consumer消费该queue了，而是由group里的其他consumer消费了，这样也没关系，因为我们已经记录了这个queue的消费位置了。所以可以看出，消费位置和consumer其实无关，消费位置完全是queue的一个属性，用来记录当前被消费到哪里了。另外一点很重要的是，一个topic可以被多个consumer group里的consumer订阅。不同consumer group里的consumer即便是消费同一个topic下的同一个queue，那消费进度也是分开存储的。也就是说，不同的consumer group内的consumer的消费完全隔离，彼此不受影响。还有一点就是，对于集群消费和广播消费，消费进度持久化的地方是不同的，集群消费的消费进度是放在broker，也就是消息队列服务器上的，而广播消费的消费进度是存储在consumer本地磁盘上的。之所以这样设计是因为，对于集群消费，由于一个queue的消费者可能会更换，因为consumer group下的consumer数量可能会增加或减少，然后就会重新计算每个consumer该消费的queue是哪些，这个能理解的把？所以，当出现一个queue的consumer变动的时候，新的consumer如何知道该从哪里开始消费这个queue呢？如果这个queue的消费进度是存储在前一个consumer服务器上的，那就很难拿到这个消费进度了，因为有可能那个服务器已经挂了，或者下架了，都有可能。而因为broker对于所有的consumer总是在服务的，所以，在集群消费的情况下，被订阅的topic的queue的消费位置是存储在broker上的，存储的时候按照不同的consumer group做隔离，以确保不同的consumer group下的consumer的消费进度互补影响。然后，对于广播消费，由于不会出现一个queue的consumer会变动的情况，所以我们没必要让broker来保存消费位置，所以是保存在consumer自己的服务器上。
 
 ### Quick Start
 - .properties指定rocketmqHome,listenPort，启动NamesrvStartup (whatsmars-mq-rocketmq-namesrv)

@@ -17,4 +17,5 @@ public final class DefaultRocketMQListenerContainerConstants {
     public static final String PROP_ROCKETMQ_LISTENER = "rocketMQListener";
     public static final String PROP_OBJECT_MAPPER = "objectMapper";
     public static final String METHOD_DESTROY = "destroy";
+    public static final String TRACE_TOPIC_ENABLE = "traceTopicEnable";
 }

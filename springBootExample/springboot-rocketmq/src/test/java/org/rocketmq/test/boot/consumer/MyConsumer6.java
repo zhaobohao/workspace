@@ -8,10 +8,10 @@ import org.apache.rocketmq.spring.starter.core.RocketMQListener;
  * 演示接收String对像
  */
 @Slf4j
-@RocketMQMessageListener(topic = "test-topic-1", consumerGroup = "my-consumer_test-topic-1",traceTopicEnable = "true")
-public class MyConsumer implements RocketMQListener<String> {
+@RocketMQMessageListener(topic = "RMQ_SYS_TRACE_TOPIC", consumerGroup = "my-consumer_traces")
+public class MyConsumer6 implements RocketMQListener<String> {
     @Override
     public void onMessage(String message) {
-        log.info("received message: " + message);
+        log.info("received trace message: " + message);
     }
 }

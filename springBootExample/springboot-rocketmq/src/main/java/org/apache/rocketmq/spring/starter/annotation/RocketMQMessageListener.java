@@ -1,5 +1,7 @@
 package org.apache.rocketmq.spring.starter.annotation;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.rocketmq.common.filter.ExpressionType;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.spring.starter.enums.ConsumeMode;
@@ -20,6 +22,8 @@ public @interface RocketMQMessageListener {
     String nameServer() default "";
 
     String instanceName() default "";
+
+    String traceTopicEnable() default "false";
 
     /**
      * Consumers of the same role is required to have exactly same subscriptions and consumerGroup to correctly achieve

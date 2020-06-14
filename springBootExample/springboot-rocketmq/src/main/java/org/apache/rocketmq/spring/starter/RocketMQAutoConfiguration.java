@@ -61,7 +61,7 @@ public class RocketMQAutoConfiguration {
         String groupName = producerConfig.getGroup();
         Assert.hasText(groupName, "[spring.rocketmq.producer.group] must not be null");
 
-        DefaultMQProducer producer = new DefaultMQProducer(producerConfig.getGroup());
+        DefaultMQProducer producer = new DefaultMQProducer(producerConfig.getGroup(),rocketMQProperties.getTraceTopicEnable());
         producer.setNamesrvAddr(rocketMQProperties.getNameServer());
         producer.setSendMsgTimeout(producerConfig.getSendMsgTimeout());
         producer.setRetryTimesWhenSendFailed(producerConfig.getRetryTimesWhenSendFailed());
@@ -153,12 +153,14 @@ public class RocketMQAutoConfiguration {
             BeanDefinitionBuilder beanBuilder = BeanDefinitionBuilder.rootBeanDefinition(DefaultRocketMQListenerContainer.class);
             String nameServer = rocketMQProperties.getNameServer();
             String annotationNameServer = environment.resolvePlaceholders(annotation.nameServer());
+            String annotationTraceTopicEnable = environment.resolvePlaceholders(annotation.traceTopicEnable());
             if (!StringUtils.isEmpty(annotationNameServer)) {
                 nameServer = annotationNameServer;
                 String instanceName = environment.resolvePlaceholders(annotation.instanceName());
                 if (StringUtils.isEmpty(instanceName)) instanceName = nameServer;
                 beanBuilder.addPropertyValue(PROP_INSTANCE_NAME, instanceName);
             }
+            beanBuilder.addPropertyValue(TRACE_TOPIC_ENABLE,Boolean.valueOf(annotationTraceTopicEnable));
             beanBuilder.addPropertyValue(PROP_NAMESERVER, nameServer);
             beanBuilder.addPropertyValue(PROP_TOPIC, environment.resolvePlaceholders(annotation.topic()));
 

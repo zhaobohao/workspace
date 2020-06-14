@@ -44,6 +44,10 @@ public class DefaultRocketMQListenerContainer implements InitializingBean, Rocke
 
     @Setter
     @Getter
+    private Boolean traceTopicEnable=false;
+
+    @Setter
+    @Getter
     private String consumerGroup;
 
     @Setter
@@ -267,7 +271,7 @@ public class DefaultRocketMQListenerContainer implements InitializingBean, Rocke
         Assert.notNull(nameServer, "Property 'nameServer' is required");
         Assert.notNull(topic, "Property 'topic' is required");
 
-        consumer = new DefaultMQPushConsumer(consumerGroup);
+        consumer = new DefaultMQPushConsumer(consumerGroup,traceTopicEnable);
         consumer.setNamesrvAddr(nameServer);
         if (!StringUtils.isEmpty(instanceName)) {
             consumer.setInstanceName(instanceName);

@@ -15,6 +15,7 @@ public class RocketMQProperties {
 
     private Producer producer;
 
+    private Boolean traceTopicEnable=Boolean.FALSE;
     @Data
     public static class Producer {
 

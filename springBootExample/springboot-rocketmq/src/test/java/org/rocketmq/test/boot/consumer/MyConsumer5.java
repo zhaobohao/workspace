@@ -11,7 +11,7 @@ import org.apache.rocketmq.spring.starter.enums.ConsumeMode;
  * 注意：Consumer里抛出异常才会重试，所以使用者不要把Consumer里的整个代码try-catch
  */
 @Slf4j
-@RocketMQMessageListener(topic = "test-topic-4", consumerGroup = "my-consumer_test-topic-5",consumeMode = ConsumeMode.ORDERLY, reconsumeTimes = 3)
+//@RocketMQMessageListener(topic = "test-topic-4", consumerGroup = "my-consumer_test-topic-5",consumeMode = ConsumeMode.ORDERLY, reconsumeTimes = 3)
 public class MyConsumer5 implements RocketMQListener<MessageExt> {
     @Override
     public void onMessage(MessageExt messageExt) {
