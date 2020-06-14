@@ -36,7 +36,18 @@ equeue中的broker负责消息的中转，即接收producer发送过来的消息
 - 消费进度(offset)
 
 消费进度是指，当一个consumer group里的consumer在消费某个queue里的消息时，equeue是通过记录消费位置(offset)来知道当前消费到哪里了。以便该consumer重启后继续从该位置开始消费。比如一个topic有4个queue，一个consumer group有4个consumer，则每个consumer分配到一个queue，然后每个consumer分别消费自己的queue里的消息。equeue会分别记录每个consumer对其queue的消费进度，从而保证每个consumer重启后知道下次从哪里开始继续消费。实际上，也许下次重启后不是由该consumer消费该queue了，而是由group里的其他consumer消费了，这样也没关系，因为我们已经记录了这个queue的消费位置了。所以可以看出，消费位置和consumer其实无关，消费位置完全是queue的一个属性，用来记录当前被消费到哪里了。另外一点很重要的是，一个topic可以被多个consumer group里的consumer订阅。不同consumer group里的consumer即便是消费同一个topic下的同一个queue，那消费进度也是分开存储的。也就是说，不同的consumer group内的consumer的消费完全隔离，彼此不受影响。还有一点就是，对于集群消费和广播消费，消费进度持久化的地方是不同的，集群消费的消费进度是放在broker，也就是消息队列服务器上的，而广播消费的消费进度是存储在consumer本地磁盘上的。之所以这样设计是因为，对于集群消费，由于一个queue的消费者可能会更换，因为consumer group下的consumer数量可能会增加或减少，然后就会重新计算每个consumer该消费的queue是哪些，这个能理解的把？所以，当出现一个queue的consumer变动的时候，新的consumer如何知道该从哪里开始消费这个queue呢？如果这个queue的消费进度是存储在前一个consumer服务器上的，那就很难拿到这个消费进度了，因为有可能那个服务器已经挂了，或者下架了，都有可能。而因为broker对于所有的consumer总是在服务的，所以，在集群消费的情况下，被订阅的topic的queue的消费位置是存储在broker上的，存储的时候按照不同的consumer group做隔离，以确保不同的consumer group下的consumer的消费进度互补影响。然后，对于广播消费，由于不会出现一个queue的consumer会变动的情况，所以我们没必要让broker来保存消费位置，所以是保存在consumer自己的服务器上。
+- 消息轨迹数据关键属性
+```
+Producer端    	Consumer端	     Broker端
 
+生产实例信息  	消费实例信息     	  消息的Topic
+
+发送消息时间	投递时间,投递轮次 	消息存储位置
+
+消息是否发送成功	消息是否消费成功  	消息的Key值
+
+发送耗时 	消费耗时 	 消息的Tag值
+```
 ### Quick Start
 - .properties指定rocketmqHome,listenPort，启动NamesrvStartup (whatsmars-mq-rocketmq-namesrv)
 - .properties指定rocketmqHome,namesrvAddr等，启动BrokerStartup (whatsmars-mq-rocketmq-broker)
