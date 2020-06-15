@@ -39,7 +39,7 @@ import java.util.ArrayList;
 public class FeignAutoConfiguration {
 
 	@Bean
-	@ConditionalOnMissingBean
+	@ConditionalOnMissingBean(Targeter.class)
 	public Targeter springCloudFeignTargeter() {
 		return new SpringCloudHystrixTargeter();
 	}

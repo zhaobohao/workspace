@@ -13,8 +13,8 @@ import com.gitee.sop.gatewaycommon.validate.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.gateway.filter.factory.rewrite.CachedBodyOutputMessage;
 import org.springframework.cloud.gateway.support.BodyInserterContext;
-import org.springframework.cloud.gateway.support.CachedBodyOutputMessage;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -82,14 +82,13 @@ public class IndexFilter implements WebFilter {
                 // 读取请求体中的内容
                 Mono<?> modifiedBody = serverRequest.bodyToMono(byte[].class)
                         .flatMap(data -> {
-                            String body = new String(data, SopConstants.CHARSET_UTF8);
                             // 构建ApiParam
-                            ApiParam apiParam = ServerWebExchangeUtil.getApiParam(exchange, body);
+                            ApiParam apiParam = ServerWebExchangeUtil.getApiParam(exchange, data);
                             // 签名验证
                             doValidate(exchange, apiParam);
                             return Mono.just(data);
                         });
-                BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, (Class) byte[].class);
+                BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, (Class)byte[].class);
                 HttpHeaders headers = new HttpHeaders();
                 headers.putAll(exchange.getRequest().getHeaders());
 
@@ -113,7 +112,7 @@ public class IndexFilter implements WebFilter {
                 // 原始参数
                 String originalQuery = uri.getRawQuery();
                 // 构建ApiParam
-                ApiParam apiParam = ServerWebExchangeUtil.getApiParam(exchange, originalQuery);
+                ApiParam apiParam = ServerWebExchangeUtil.getApiParamByQuery(exchange, originalQuery);
                 // 签名验证
                 doValidate(exchange, apiParam);
 
@@ -139,7 +138,7 @@ public class IndexFilter implements WebFilter {
     }
 
     private void afterValidate(ServerWebExchange exchange, ApiParam param) {
-        RouteInterceptorUtil.runPreRoute(exchange, param, context -> {
+        RouteInterceptorUtil.runPreRoute(exchange, param, context ->  {
             DefaultRouteInterceptorContext defaultRouteInterceptorContext = (DefaultRouteInterceptorContext) context;
             defaultRouteInterceptorContext.setRequestDataSize(exchange.getRequest().getHeaders().getContentLength());
             exchange.getAttributes().put(SopConstants.CACHE_ROUTE_INTERCEPTOR_CONTEXT, context);

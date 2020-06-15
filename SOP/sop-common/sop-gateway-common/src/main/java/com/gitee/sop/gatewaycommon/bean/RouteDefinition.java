@@ -1,6 +1,7 @@
 package com.gitee.sop.gatewaycommon.bean;
 
 import lombok.Data;
+import org.springframework.cloud.netflix.zuul.filters.Route;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,4 +81,6 @@ public class RouteDefinition {
      * 是否是兼容模式，即使用了@ApiAbility注解
      */
     private int compatibleMode;
+
+    private Route route;
 }

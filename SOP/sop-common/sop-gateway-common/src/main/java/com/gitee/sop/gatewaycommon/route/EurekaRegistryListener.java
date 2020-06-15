@@ -4,8 +4,6 @@ import com.gitee.sop.gatewaycommon.bean.InstanceDefinition;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.shared.Application;
 import com.netflix.discovery.shared.Applications;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.cloud.netflix.eureka.CloudEurekaClient;
 import org.springframework.context.ApplicationEvent;
@@ -46,6 +44,7 @@ public class EurekaRegistryListener extends BaseRegistryListener {
                 .collect(Collectors.toList());
 
         final Set<ServiceHolder> currentServices = new HashSet<>(serviceList);
+        // 删除现有的，剩下的就是新服务
         currentServices.removeAll(cacheServices);
         // 如果有新的服务注册进来
         if (currentServices.size() > 0) {
@@ -115,10 +114,4 @@ public class EurekaRegistryListener extends BaseRegistryListener {
         deletedServices.forEach(this::removeRoutes);
     }
 
-    @Data
-    @AllArgsConstructor
-    private static class ServiceHolder {
-        private String serviceId;
-        private long lastUpdatedTimestamp;
-    }
 }

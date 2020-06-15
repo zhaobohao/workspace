@@ -40,6 +40,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.PostConstruct;
@@ -184,11 +185,35 @@ public class AbstractConfiguration implements ApplicationContextAware, Applicati
 
 
     /**
-     * 跨域过滤器
+     * 跨域过滤器，zuul
      */
     @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnProperty("zuul.servlet-path")
     public CorsFilter corsFilter() {
-        return createCorsFilter();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", createCorsConfiguration());
+        return new CorsFilter(source);
+    }
+
+    /**
+     * 跨域过滤器，gateway
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnProperty("sop.gateway-index-path")
+    public CorsWebFilter corsWebFilter() {
+        org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", createCorsConfiguration());
+        return new CorsWebFilter(source);
+    }
+
+    private CorsConfiguration createCorsConfiguration() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        return corsConfiguration;
     }
 
     /**
@@ -209,24 +234,6 @@ public class AbstractConfiguration implements ApplicationContextAware, Applicati
     @ConditionalOnProperty("eureka.client.serviceUrl.defaultZone")
     ServerIntrospector eurekaServerIntrospector() {
         return new EurekaServerIntrospector();
-    }
-
-    protected CorsFilter createCorsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        this.registerCorsConfiguration(source);
-        return new CorsFilter(source);
-    }
-
-    protected void registerCorsConfiguration(UrlBasedCorsConfigurationSource source) {
-        source.registerCorsConfiguration("/**", corsConfiguration());
-    }
-
-    protected CorsConfiguration corsConfiguration() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.addAllowedMethod("*");
-        return corsConfiguration;
     }
 
     @Override

@@ -12,7 +12,7 @@
     <artifactId>springcloud-grpc-client</artifactId>
     <packaging>jar</packaging>
     <properties>
-        <grpc-spring-boot-starter.version>2.6.2.RELEASE</grpc-spring-boot-starter.version>
+        <grpc-spring-boot-starter.version>2.8.0.RELEASE</grpc-spring-boot-starter.version>
     </properties>
 
     <dependencies>

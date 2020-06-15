@@ -42,10 +42,13 @@ public class GatewayRouteRepository implements RouteRepository<GatewayTargetRout
     @Autowired
     private ApplicationContext applicationContext;
 
-    private RouteLocator routeLocator;
+    private volatile RouteLocator routeLocator;
 
     @Override
     public Flux<Route> getRoutes() {
+        if (routeLocator == null) {
+            return Flux.empty();
+        }
         return routeLocator.getRoutes();
     }
 
@@ -59,6 +62,7 @@ public class GatewayRouteRepository implements RouteRepository<GatewayTargetRout
                 r -> r.path(routeDefinition.getPath())
                         .uri(routeDefinition.getUri())));
         this.routeLocator = builder.build();
+
         // 触发
         applicationContext.publishEvent(new RefreshRoutesEvent(new Object()));
     }

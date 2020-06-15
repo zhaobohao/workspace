@@ -37,6 +37,7 @@ public class ZuulErrorController implements ErrorController {
                 , response.getStatus()
                 , ZuulContext.getApiParam()
                 , throwable);
+        RequestContext.getCurrentContext().setRequest(request);
         return this.buildResult(throwable);
     }
 

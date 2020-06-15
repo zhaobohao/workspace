@@ -1,7 +1,7 @@
 package com.gitee.sop.gatewaycommon.gateway.loadbalancer;
 
+import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.netflix.loadbalancer.Server;
-import org.springframework.cloud.alibaba.nacos.ribbon.NacosServer;
 import org.springframework.cloud.netflix.ribbon.DefaultServerIntrospector;
 
 import java.util.Map;

@@ -67,7 +67,7 @@
         width="250"
       >
         <template slot-scope="scope">
-          <div v-if="scope.row.serviceId.toLowerCase() !== 'sop-gateway'">
+          <div v-if="blackList.indexOf(scope.row.serviceId.toLowerCase()) < 0">
             <div v-if="scope.row.parentId === 0">
               <el-button type="text" size="mini" @click="onGrayConfigUpdate(scope.row)">设置灰度参数</el-button>
             </div>
@@ -204,6 +204,7 @@ export default {
       searchFormData: {
         serviceId: ''
       },
+      blackList: ['sop-gateway', 'sop-admin'],
       grayDialogVisible: false,
       grayForm: {
         serviceId: '',

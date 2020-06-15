@@ -1,20 +1,24 @@
 package com.gitee.sop.gatewaycommon.route;
 
-import com.alibaba.nacos.api.annotation.NacosInjected;
-import com.alibaba.nacos.api.config.ConfigService;
+import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
+import com.alibaba.nacos.api.naming.pojo.ListView;
 import com.gitee.sop.gatewaycommon.bean.InstanceDefinition;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.alibaba.nacos.NacosDiscoveryProperties;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.CollectionUtils;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 加载服务路由，nacos实现
@@ -24,48 +28,105 @@ import java.util.Objects;
 @Slf4j
 public class NacosRegistryListener extends BaseRegistryListener {
 
+    private volatile Set<String> cacheServices = new HashSet<>();
+
     @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;
 
-    @NacosInjected
-    private ConfigService configService;
+    @Autowired(required = false)
+    private List<RegistryEvent> registryEventList;
 
     @Override
-    public void onEvent(ApplicationEvent applicationEvent) {
+    public synchronized void onEvent(ApplicationEvent applicationEvent) {
         NamingService namingService = nacosDiscoveryProperties.namingServiceInstance();
-        List<ServiceInfo> subscribes = null;
+        ListView<String> servicesOfServer = null;
         try {
-            subscribes = namingService.getSubscribeServices();
+            servicesOfServer = namingService.getServicesOfServer(1, Integer.MAX_VALUE);
         } catch (NacosException e) {
-            log.error("namingService.getSubscribeServices()错误", e);
+            log.error("namingService.getServicesOfServer()错误", e);
         }
-        if (CollectionUtils.isEmpty(subscribes)) {
+        if (servicesOfServer == null || CollectionUtils.isEmpty(servicesOfServer.getData())) {
             return;
         }
-        subscribes.stream()
-                .filter(serviceInfo -> this.canOperator(serviceInfo.getName()))
-                .forEach(serviceInfo -> {
-                    String serviceName = serviceInfo.getName();
+
+        Map<String, Instance> instanceMap = servicesOfServer
+                .getData()
+                .stream()
+                .filter(this::canOperator)
+                .map(serviceName -> {
                     try {
                         List<Instance> allInstances = namingService.getAllInstances(serviceName);
                         if (CollectionUtils.isEmpty(allInstances)) {
-                            // 如果没有服务列表，则删除所有路由信息
-                            removeRoutes(serviceName);
-                        } else {
-                            for (Instance instance : allInstances) {
-                                InstanceDefinition instanceDefinition = new InstanceDefinition();
-                                instanceDefinition.setInstanceId(instance.getInstanceId());
-                                instanceDefinition.setServiceId(serviceName);
-                                instanceDefinition.setIp(instance.getIp());
-                                instanceDefinition.setPort(instance.getPort());
-                                instanceDefinition.setMetadata(instance.getMetadata());
-                                pullRoutes(instanceDefinition);
-                            }
+                            return null;
                         }
-                    } catch (Exception e) {
-                        log.error("选择服务实例失败，serviceName: {}", serviceName, e);
+                        Instance instance = allInstances.stream()
+                                .filter(Instance::isHealthy)
+                                .findFirst()
+                                .orElse(null);
+                        return instance == null ? null : new InstanceInfo(serviceName, instance);
+                    } catch (NacosException e) {
+                        log.error("namingService.getAllInstances(serviceName)错误，serviceName：{}", serviceName, e);
+                        return null;
                     }
-                });
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(InstanceInfo::getServiceName, InstanceInfo::getInstance));
+
+
+        Set<String> serviceNames = instanceMap.keySet();
+
+        final Set<String> currentServices = new HashSet<>(serviceNames);
+        // 删除现有的，剩下的就是新服务
+        currentServices.removeAll(cacheServices);
+        // 如果有新的服务注册进来
+        if (currentServices.size() > 0) {
+            currentServices.forEach(serviceName -> {
+                Instance instance = instanceMap.get(serviceName);
+                InstanceDefinition instanceDefinition = new InstanceDefinition();
+                instanceDefinition.setInstanceId(instance.getInstanceId());
+                instanceDefinition.setServiceId(serviceName);
+                instanceDefinition.setIp(instance.getIp());
+                instanceDefinition.setPort(instance.getPort());
+                instanceDefinition.setMetadata(instance.getMetadata());
+                pullRoutes(instanceDefinition);
+                if (registryEventList != null) {
+                    registryEventList.forEach(registryEvent -> registryEvent.onRegistry(instanceDefinition));
+                }
+            });
+        }
+
+        // 如果有服务删除
+        Set<String> removedServiceIdList = getRemovedServiceId(serviceNames);
+        if (removedServiceIdList.size() > 0) {
+            removedServiceIdList.forEach(serviceId->{
+                this.removeRoutes(serviceId);
+                if (registryEventList != null) {
+                    registryEventList.forEach(registryEvent -> registryEvent.onRemove(serviceId));
+                }
+            });
+        }
+
+        cacheServices = new HashSet<>(serviceNames);
+    }
+
+    /**
+     * 获取已经下线的serviceId
+     *
+     * @param serviceList 最新的serviceId集合
+     * @return 返回已下线的serviceId
+     */
+    private Set<String> getRemovedServiceId(Set<String> serviceList) {
+        Set<String> cache = cacheServices;
+        // 删除最新的，剩下就是已经删除的
+        cache.removeAll(serviceList);
+        return cache;
+    }
+
+    @Data
+    @AllArgsConstructor
+    private static class InstanceInfo {
+        private String serviceName;
+        private Instance instance;
     }
 
 }

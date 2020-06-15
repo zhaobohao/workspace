@@ -2,19 +2,18 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.gitee.sop</groupId>
-        <artifactId>sop-common</artifactId>
-        <version>3.1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>sop-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>sop-service-common</artifactId>
-    <version>3.1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
-    <name>sop-service-common</name>
-    <description>sop-service-common</description>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>sop-service-common</artifactId>
+    <version>3.2.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -25,7 +24,16 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>27.1-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
         </dependency>
 
         <!-- optional -->
@@ -38,19 +46,16 @@
         <dependency>
             <groupId>net.oschina.durcframework</groupId>
             <artifactId>easyopen</artifactId>
-            <version>1.16.1</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-spring-web</artifactId>
-            <version>2.9.2</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.5.21</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -75,6 +80,17 @@
             <artifactId>javax.el</artifactId>
             <version>3.0.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

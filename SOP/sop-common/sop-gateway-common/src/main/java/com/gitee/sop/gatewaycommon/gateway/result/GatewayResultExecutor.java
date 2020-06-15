@@ -52,6 +52,9 @@ public class GatewayResultExecutor extends BaseExecutorAdapter<ServerWebExchange
         if (StringUtils.hasText(errorMsg)) {
             errorMsg = UriUtils.decode(errorMsg, StandardCharsets.UTF_8);
         }
+        if (StringUtils.hasText(errorMsg)) {
+            errorMsg = UriUtils.decode(errorMsg, StandardCharsets.UTF_8);
+        }
         exchange.getResponse().getHeaders().remove(SopConstants.X_SERVICE_ERROR_MESSAGE);
         return errorMsg;
     }

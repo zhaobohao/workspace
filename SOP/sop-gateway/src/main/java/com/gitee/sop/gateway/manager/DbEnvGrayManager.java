@@ -6,8 +6,10 @@ import com.gitee.sop.gateway.entity.ConfigGrayInstance;
 import com.gitee.sop.gateway.mapper.ConfigGrayInstanceMapper;
 import com.gitee.sop.gateway.mapper.ConfigGrayMapper;
 import com.gitee.sop.gatewaycommon.bean.ChannelMsg;
+import com.gitee.sop.gatewaycommon.bean.InstanceDefinition;
 import com.gitee.sop.gatewaycommon.bean.ServiceGrayDefinition;
 import com.gitee.sop.gatewaycommon.manager.DefaultEnvGrayManager;
+import com.gitee.sop.gatewaycommon.route.RegistryEvent;
 import com.gitee.sop.gatewaycommon.zuul.loadbalancer.ServiceGrayConfig;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +32,7 @@ import java.util.stream.Stream;
  */
 @Slf4j
 @Service
-public class DbEnvGrayManager extends DefaultEnvGrayManager {
+public class DbEnvGrayManager extends DefaultEnvGrayManager implements RegistryEvent {
 
     private static final int STATUS_ENABLE = 1;
 
@@ -44,18 +46,25 @@ public class DbEnvGrayManager extends DefaultEnvGrayManager {
     private ConfigGrayInstanceMapper configGrayInstanceMapper;
 
     @Override
-    public void load() {
+    public void onRegistry(InstanceDefinition instanceDefinition) {
+        String instanceId = instanceDefinition.getInstanceId();
+        ConfigGrayInstance grayInstance = configGrayInstanceMapper.getByColumn("instance_id", instanceId);
+        if (grayInstance != null && grayInstance.getStatus() == STATUS_ENABLE) {
+            log.info("实例[{}]开启灰度发布", grayInstance.getInstanceId());
+            this.openGray(grayInstance.getInstanceId(), grayInstance.getServiceId());
+        }
+    }
 
+    @Override
+    public void onRemove(String serviceId) {
+
+    }
+
+    @Override
+    public void load() {
         List<ConfigGray> list = configGrayMapper.list(new Query());
         for (ConfigGray configGray : list) {
             this.setServiceGrayConfig(configGray);
-        }
-
-        Query query = new Query();
-        query.eq("status", STATUS_ENABLE);
-        List<ConfigGrayInstance> grayInstanceList = configGrayInstanceMapper.list(query);
-        for (ConfigGrayInstance configGrayInstance : grayInstanceList) {
-            this.openGray(configGrayInstance.getInstanceId(), configGrayInstance.getServiceId());
         }
     }
 
