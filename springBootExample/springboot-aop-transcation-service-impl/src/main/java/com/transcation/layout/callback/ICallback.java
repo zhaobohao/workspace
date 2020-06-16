@@ -11,8 +11,16 @@ import com.transcation.service.enums.ServiceStatus;
  * @author zhaobo wrote on 2017-11-19.
  */
 public interface ICallback<T extends  BaseServiceContext>{
-
+    /**
+     * 开始处理业务逻辑前调用
+     */
     void begin();
 
+    /**
+     * 处理完业务逻辑后调用
+     * @param success
+     * @param param
+     * @param serviceResult
+     */
     void result(boolean success, T param, ServiceInstanceResult<ServiceStatus> serviceResult);
 }

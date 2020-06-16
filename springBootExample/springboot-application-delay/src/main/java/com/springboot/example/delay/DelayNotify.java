@@ -1,4 +1,4 @@
-package com.timewheel;
+package com.springboot.example.delay;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,16 +15,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * Function:Ring Queue, it can be used to delay task.
- *
- * @author crossoverJie
- * Date: 2019-09-20 14:46
- * @since JDK 1.8
- */
-public final class RingBufferWheel {
+public final class DelayNotify {
 
-    private Logger logger = LoggerFactory.getLogger(RingBufferWheel.class);
+    private Logger logger = LoggerFactory.getLogger(DelayNotify.class);
 
 
     /**
@@ -69,7 +62,7 @@ public final class RingBufferWheel {
      *
      * @param executorService the business thread pool
      */
-    public RingBufferWheel(ExecutorService executorService) {
+    public DelayNotify(ExecutorService executorService) {
         this.executorService = executorService;
         this.bufferSize = STATIC_RING_SIZE;
         this.ringBuffer = new Object[bufferSize];
@@ -82,7 +75,7 @@ public final class RingBufferWheel {
      * @param executorService the business thread pool
      * @param bufferSize      custom buffer size
      */
-    public RingBufferWheel(ExecutorService executorService, int bufferSize) {
+    public DelayNotify(ExecutorService executorService, int bufferSize) {
         this(executorService);
 
         if (!powerOf2(bufferSize)) {
@@ -98,7 +91,7 @@ public final class RingBufferWheel {
      * @param task business task extends {@link Task}
      */
     public int addTask(Task task) {
-        int key = task.getDelayTime();
+        int key = task.getKey();
         int id;
 
         try {
@@ -134,6 +127,7 @@ public final class RingBufferWheel {
 
     /**
      * Cancel task by taskId
+     *
      * @param id unique id through {@link #addTask(Task)}
      * @return
      */
@@ -151,7 +145,7 @@ public final class RingBufferWheel {
 
             Set<Task> tasks = get(task.getIndex());
             for (Task tk : tasks) {
-                if (tk.getDelayTime() == task.getDelayTime() && tk.getCycleNum() == task.getCycleNum()) {
+                if (tk.getKey() == task.getKey() && tk.getCycleNum() == task.getCycleNum()) {
                     size--;
                     flag = true;
                 } else {
@@ -302,21 +296,21 @@ public final class RingBufferWheel {
     public abstract static class Task extends Thread {
 
         private int index;
-        // 用于记录该任务所在时间轮的圈数
+        // the cycle Number of timewheel
         private int cycleNum;
-        // 在这里其实就是延时时间,时间单位是秒
-        private int delayTime;
+        // the time you want delay.timeunit is second
+        private int key;
 
         @Override
         public void run() {
         }
 
-        public int getDelayTime() {
-            return delayTime;
+        public int getKey() {
+            return key;
         }
 
-        public void setDelayTime(int delayTime) {
-            this.delayTime = delayTime;
+        public void setKey(int key) {
+            this.key = key;
         }
 
         public int getCycleNum() {
@@ -360,7 +354,9 @@ public final class RingBufferWheel {
                 } catch (Exception e) {
                     logger.error("Exception", e);
                 }
+
             }
+
             logger.info("delay task is stopped");
         }
     }

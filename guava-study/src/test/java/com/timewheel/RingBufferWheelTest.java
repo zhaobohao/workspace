@@ -28,12 +28,12 @@ public class RingBufferWheelTest {
         ExecutorService executorService = Executors.newFixedThreadPool(2) ;
 
         RingBufferWheel.Task task = new Task() ;
-        task.setKey(10);
+        task.setDelayTime(10);
         RingBufferWheel wheel = new RingBufferWheel(executorService) ;
         wheel.addTask(task) ;
 
         task = new Task() ;
-        task.setKey(74);
+        task.setDelayTime(74);
         wheel.addTask(task) ;
 
         while (true){
@@ -45,12 +45,12 @@ public class RingBufferWheelTest {
         ExecutorService executorService = Executors.newFixedThreadPool(2) ;
 
         RingBufferWheel.Task task = new Task() ;
-        task.setKey(10);
+        task.setDelayTime(10);
         RingBufferWheel wheel = new RingBufferWheel(executorService) ;
         wheel.addTask(task) ;
 
         task = new Task() ;
-        task.setKey(74);
+        task.setDelayTime(74);
         wheel.addTask(task) ;
 
         wheel.start();
@@ -75,12 +75,12 @@ public class RingBufferWheelTest {
         ExecutorService executorService = Executors.newFixedThreadPool(2) ;
 
         RingBufferWheel.Task task = new Task() ;
-        task.setKey(10);
+        task.setDelayTime(10);
         RingBufferWheel wheel = new RingBufferWheel(executorService) ;
         wheel.addTask(task) ;
 
         task = new Task() ;
-        task.setKey(60);
+        task.setDelayTime(60);
         wheel.addTask(task) ;
 
 
@@ -96,7 +96,7 @@ public class RingBufferWheelTest {
 
         for (int i = 0; i < 65; i++) {
             RingBufferWheel.Task task = new Job(i) ;
-            task.setKey(i);
+            task.setDelayTime(i);
             wheel.addTask(task);
         }
 
@@ -115,7 +115,7 @@ public class RingBufferWheelTest {
 
         for (int i = 0; i < 65; i++) {
             RingBufferWheel.Task task = new Job(i) ;
-            task.setKey(i);
+            task.setDelayTime(i);
             wheel.addTask(task);
         }
 
@@ -132,13 +132,13 @@ public class RingBufferWheelTest {
 
         for (int i = 0; i < 10; i++) {
             RingBufferWheel.Task task = new Job(i) ;
-            task.setKey(i);
+            task.setDelayTime(i);
             wheel.addTask(task);
         }
 
         TimeUnit.SECONDS.sleep(5);
         RingBufferWheel.Task task = new Job(15) ;
-        task.setKey(15);
+        task.setDelayTime(15);
         wheel.addTask(task);
 
         logger.info("task size={}",wheel.taskSize());
@@ -153,12 +153,12 @@ public class RingBufferWheelTest {
 
         for (int i = 0; i < 10; i++) {
             RingBufferWheel.Task task = new Job(i) ;
-            task.setKey(i);
+            task.setDelayTime(i);
             wheel.addTask(task);
         }
 
         RingBufferWheel.Task task = new Job(15) ;
-        task.setKey(15);
+        task.setDelayTime(15);
         int cancel = wheel.addTask(task);
 
         new Thread(() -> {
@@ -167,7 +167,7 @@ public class RingBufferWheelTest {
         }).start();
 
         RingBufferWheel.Task task1 = new Job(20) ;
-        task1.setKey(20);
+        task1.setDelayTime(20);
         wheel.addTask(task1) ;
 
         logger.info("task size={}",wheel.taskSize());
@@ -193,7 +193,7 @@ public class RingBufferWheelTest {
                 public void run() {
                     for (int i1 = 0; i1 < 30; i1++) {
                         RingBufferWheel.Task task = new Job(i1) ;
-                        task.setKey(i1);
+                        task.setDelayTime(i1);
                         wheel.addTask(task);
                     }
                 }

@@ -41,6 +41,8 @@
         <module>spring-boot-shared-session</module>
         <module>springboot-aop-transcation-service-impl</module>
         <module>springboot-rocketmq</module>
+        <module>springboot-application-event</module>
+        <module>springboot-application-delay</module>
 
     </modules>
 </project>
