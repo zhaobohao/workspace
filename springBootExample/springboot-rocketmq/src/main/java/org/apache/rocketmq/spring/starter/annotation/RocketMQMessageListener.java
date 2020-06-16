@@ -23,6 +23,10 @@ public @interface RocketMQMessageListener {
 
     String instanceName() default "";
 
+    /**
+     * 如果为True,要使用消息轨迹，在broke服务启动时，加traceTopicEnable=true
+     * @return
+     */
     String traceTopicEnable() default "false";
 
     /**
