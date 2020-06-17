@@ -12,7 +12,7 @@
     <modules>
         <module>springboot-aop</module>
         <module>springboot-async</module>
-        <!--<module>springboot-batch</module>-->
+        <module>springboot-batch</module>
         <module>springboot-cache</module>
         <module>springboot-cxf</module>
         <module>springboot-echarts</module>
