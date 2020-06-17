@@ -15,10 +15,15 @@ spring:
   profiles:
     active: test
   batch:
+    schema: classpath:org/springframework/batch/core/schema-mysql.sql
     job:
       enabled: false
     initializer:
-      enabled: false
+      enable: false
+    table-prefix: batch_
+  integration:
+    jdbc:
+      initialize-schema: always
 
 ###################  mybatis-plus配置  ###################
 mybatis-plus:
@@ -48,10 +53,10 @@ logging:
 spring:
   profiles: dev
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl11g
-    username: adm_real
-    password: adm_real
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springbatch?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    username: root
+    password: 1qaz2wsx
 
 common:
   location: 1
@@ -72,11 +77,12 @@ logging:
 spring:
   profiles: test
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl11g
-    username: adm_123
-    password: adm_123
-
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springbatch?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    username: root
+    password: 1qaz2wsx
+  main:
+    allow-bean-definition-overriding: true
 common:
   csvDir: /var/csv/
   location: 2

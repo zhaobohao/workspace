@@ -42,7 +42,7 @@ public class DruidProperties {
 
     private Integer minEvictableIdleTimeMillis = 300000;
 
-    private String validationQuery = "SELECT 1 from dual";
+    private String validationQuery = "SELECT 1 ";
 
     private Boolean testWhileIdle = true;
 
@@ -57,7 +57,7 @@ public class DruidProperties {
     private String filters = "stat";
 
     public void config(DruidDataSource dataSource) {
-        dataSource.setDbType(JdbcConstants.ORACLE);
+        dataSource.setDbType(JdbcConstants.MYSQL_DRIVER_6);
         dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);

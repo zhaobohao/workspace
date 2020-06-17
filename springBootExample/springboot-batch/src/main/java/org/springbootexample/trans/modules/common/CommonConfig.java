@@ -117,7 +117,7 @@ public class CommonConfig {
      */
     @Bean(name = "commonWriter")
     @StepScope
-    public ItemWriter writer(DruidDataSource dataSource,@Value("#{jobParameters['input.sq']}") String sql) {
+    public ItemWriter writer(DruidDataSource dataSource,@Value("#{jobParameters['input.sql']}") String sql) {
         JdbcBatchItemWriter writer = new JdbcBatchItemWriter();
         //我们使用JDBC批处理的JdbcBatchItemWriter来写数据到数据库
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider());
@@ -136,9 +136,9 @@ public class CommonConfig {
      * @return
      */
     @Bean(name = "commonJob")
-    public Job vtollJob(JobBuilderFactory jobBuilderFactory, @Qualifier("commonStep1") Step s1,
-                        @Value("#{jobParameters['input.job.name']}") String jobname) {
-        return jobBuilderFactory.get(jobname)
+    public Job commonJob(JobBuilderFactory jobBuilderFactory, @Qualifier("commonStep1") Step s1
+                       ) {
+        return jobBuilderFactory.get("commonJob")
                 .incrementer(new RunIdIncrementer())
                 .flow(s1)//为Job指定Step
                 .end()
@@ -156,13 +156,12 @@ public class CommonConfig {
      * @return
      */
     @Bean(name = "commonStep1")
-    public Step vtollStep1(StepBuilderFactory stepBuilderFactory,
+    public Step commonStep1(StepBuilderFactory stepBuilderFactory,
                            @Qualifier("commonReader") ItemReader reader,
                            @Qualifier("commonWriter") ItemWriter writer,
-                           @Qualifier("commonProcessor") ItemProcessor processor,
-                           @Value("#{jobParameters['input.job.name']}") String jobname) {
+                           @Qualifier("commonProcessor") ItemProcessor processor) {
         return stepBuilderFactory
-                .get(jobname+"step1")
+                .get("commonStep1")
                 .<BudgetVtoll, BudgetVtoll>chunk(5000)//批处理每次提交5000条数据
                 .reader(reader)//给step绑定reader
                 .processor(processor)//给step绑定processor

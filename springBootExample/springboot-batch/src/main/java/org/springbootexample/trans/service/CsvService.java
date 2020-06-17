@@ -2,10 +2,7 @@ package org.springbootexample.trans.service;
 
 import org.springbootexample.trans.config.properties.CommonProperties;
 import org.springbootexample.trans.modules.common.anno.TableName;
-import org.springbootexample.trans.modules.common.vo.BscCanton;
-import org.springbootexample.trans.modules.common.vo.BscExeOffice;
-import org.springbootexample.trans.modules.common.vo.BscOfficeExeItem;
-import org.springbootexample.trans.modules.common.vo.BscTollItem;
+import org.springbootexample.trans.modules.common.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -42,10 +39,12 @@ public class CsvService {
      * @throws Exception ex
      */
     public void importTables() throws Exception {
-        runTask(BscCanton.class);
-        runTask(BscOfficeExeItem.class);
-        runTask(BscExeOffice.class);
-        runTask(BscTollItem.class);
+       //runTask(BscCanton.class);
+        //runTask(BscOfficeExeItem.class);
+        //runTask(BscExeOffice.class);
+        //runTask(BscTollItem.class);
+        runTask(BacSimpleCsv.class);
+        runTask(BacSimpleCsv.class);
     }
 
     /**

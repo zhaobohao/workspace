@@ -6,12 +6,13 @@ import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.batch.support.DatabaseType;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
-
+import org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration;
 /**
  * 这里是批处理公共配置类
  *
@@ -48,7 +49,7 @@ public class MyBatchConfig {
         JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
         jobRepositoryFactoryBean.setDataSource(dataSource);
         jobRepositoryFactoryBean.setTransactionManager(transactionManager);
-        jobRepositoryFactoryBean.setDatabaseType(String.valueOf(DatabaseType.ORACLE));
+        jobRepositoryFactoryBean.setDatabaseType(String.valueOf(DatabaseType.MYSQL));
         jobRepositoryFactoryBean.setMaxVarCharLength(5000);
         // 下面事务隔离级别的配置是针对Oracle的
         jobRepositoryFactoryBean.setIsolationLevelForCreate("ISOLATION_READ_COMMITTED");
@@ -65,7 +66,7 @@ public class MyBatchConfig {
      * @throws Exception
      */
     @Bean
-    public SimpleJobLauncher jobLauncher(ThreadPoolTaskExecutor taskExecutor, DruidDataSource dataSource,
+    public SimpleJobLauncher jobLauncher(@Qualifier("taskExecutor") ThreadPoolTaskExecutor taskExecutor, DruidDataSource dataSource,
                                          PlatformTransactionManager transactionManager) throws Exception {
         SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
         jobLauncher.setTaskExecutor(taskExecutor);

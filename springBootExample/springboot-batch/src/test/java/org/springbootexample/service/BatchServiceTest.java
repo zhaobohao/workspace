@@ -2,7 +2,7 @@ package org.springbootexample.service;
 
 import org.springbootexample.trans.Application;
 import org.springbootexample.trans.config.properties.CommonProperties;
-import com.springbootexample.trans.modules.common.vo.*;
+import org.springbootexample.trans.modules.common.vo.*;
 import org.springbootexample.trans.modules.common.vo.BscCanton;
 import org.springbootexample.trans.modules.common.vo.BscExeOffice;
 import org.springbootexample.trans.modules.common.vo.BscOfficeExeItem;
