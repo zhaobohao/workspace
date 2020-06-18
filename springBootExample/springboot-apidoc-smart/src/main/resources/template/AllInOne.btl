@@ -1,0 +1,113 @@
+<%if(isNotEmpty(projectName)){%>
+# ${projectName}
+<%}%>
+<%if(isNotEmpty(revisionLogList)){%>
+Version |  Update Time  | Status | Author |  Description
+---|---|---|---|---
+<%
+for(revisionLog in revisionLogList){
+%>
+${revisionLog.version}|${revisionLog.revisionTime}|${revisionLog.status}|${revisionLog.author}|${revisionLog.remarks}
+<%}%>
+
+<%}%>
+
+
+<%
+for(api in apiDocList){
+%>
+## ${api.desc}
+<%
+for(doc in api.list){
+%>
+<%if(doc.deprecated){%>
+### ~~${doc.desc}~~
+<%}else{%>
+### ${doc.desc}
+<%}%>
+**URL:** ${doc.url}
+
+**Type:** ${doc.type}
+
+<%if(isNotEmpty(doc.author)){%>
+**Author:** ${doc.author}
+<%}%>
+
+**Content-Type:** ${doc.contentType}
+
+**Description:** ${doc.detail}
+<%if(isNotEmpty(doc.headers)){%>
+
+**Request-headers:**
+
+Header | Type|Description|Required|Since
+---|---|---|---|----
+${doc.headers}
+<%}%>
+<%if(isNotEmpty(doc.requestParams)){%>
+
+**Request-parameters:**
+
+Parameter | Type|Description|Required|Since
+---|---|---|---|---
+<%
+for(param in doc.requestParams){
+%>
+${param.field}|${param.type}|${param.desc}|${param.required}|${param.version}
+<%}%>
+<%}%>
+
+<%if(isNotEmpty(doc.requestUsage)){%>
+**Request-example:**
+```
+${doc.requestUsage}
+```
+<%}%>
+<%if(isNotEmpty(doc.responseParams)){%>
+**Response-fields:**
+
+Field | Type|Description|Since
+---|---|---|---
+<%
+for(param in doc.responseParams){
+%>
+${param.field}|${param.type}|${param.desc}|${param.version}
+<%}%>
+<%}%>
+
+<%if(isNotEmpty(doc.responseUsage)){%>
+**Response-example:**
+```
+${doc.responseUsage}
+```
+<%}%>
+
+<% } %>
+<% } %>
+<%if(isNotEmpty(errorCodeList)){%>
+## ${errorListTitle}
+Error code |Description
+---|---
+<%
+for(error in errorCodeList){
+%>
+${error.value}|${error.desc}
+<%}%>
+<%}%>
+
+<%if(isNotEmpty(dictList)){%>
+## ${dictListTitle}
+<%
+for(dict in dictList){
+%>
+### ${dict.title}
+
+Code |Type|Description
+---|---|---
+<%
+for(dataDict in dict.dataDictList){
+%>
+${dataDict.value}|${dataDict.type}|${dataDict.desc}
+<%}%>
+<%}%>
+<%}%>

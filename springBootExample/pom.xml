@@ -43,6 +43,10 @@
         <module>springboot-rocketmq</module>
         <module>springboot-application-event</module>
         <module>springboot-application-delay</module>
+        <module>springboot-state-workflow</module>
+        <module>springboot-rabc</module>
+        <module>springboot-apidoc</module>
+        <module>springboot-apidoc-smart</module>
 
     </modules>
 </project>

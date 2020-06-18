@@ -2,34 +2,17 @@
 ##################  所有profile共有的配置  #################
 ##########################################################
 
-###################  自定义配置  ###################
-common:
-  csvVtoll: /var/csv/
-  csvCanton: /var/csv/
-  csvExeOffice: /var/csv/
-  csvApp: /var/csv/
-  csvLog: /var/csv/
 
 ###################  spring配置  ###################
 spring:
   profiles:
     active: test
-  batch:
-    schema: classpath:org/springframework/batch/core/schema-mysql.sql
-    job:
-      enabled: false
-    initializer:
-      enable: false
-    table-prefix: batch_
-  integration:
-    jdbc:
-      initialize-schema: always
 
 ###################  mybatis-plus配置  ###################
 mybatis-plus:
-  mapper-locations: classpath*:com/springbootexample/trans/dao/repository/mapping/*.xml
+  mapper-locations: classpath*:org/springexample/statemachine/dao/mapping/*.xml
   typeAliasesPackage: >
-    com.springbootexample.trans.dao.entity
+    org.springexample.statemachine.workflow.model
   global-config:
     id-type: 1  # 0:数据库ID自增  1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false
@@ -54,20 +37,9 @@ spring:
   profiles: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/springbatch?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/statemachine?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
     username: root
     password: 1qaz2wsx
-
-common:
-  location: 1
-  csvDir: E:/
-
-logging:
-  level:
-    ROOT: INFO
-    com:
-      xncoding: DEBUG
-  file: /var/logs/batch.log
 
 ---
 
@@ -78,19 +50,9 @@ spring:
   profiles: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/springbatch?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/statemachine?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
     username: root
     password: 1qaz2wsx
   main:
     allow-bean-definition-overriding: true
-common:
-  csvDir: /var/csv/
-  location: 2
-
-logging:
-  level:
-    ROOT: INFO
-    com:
-      xncoding: DEBUG
-  file: /var/logs/batch.log
 
