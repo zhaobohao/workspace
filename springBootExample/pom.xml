@@ -47,6 +47,7 @@
         <module>springboot-rabc</module>
         <module>springboot-apidoc</module>
         <module>springboot-apidoc-smart</module>
+        <module>springboot-db-document</module>
 
     </modules>
 </project>
