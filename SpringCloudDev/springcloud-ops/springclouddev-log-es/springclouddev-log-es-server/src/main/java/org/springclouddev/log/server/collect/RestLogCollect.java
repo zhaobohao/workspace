@@ -64,7 +64,7 @@ public class RestLogCollect extends BaseLogCollect {
             } catch (InterruptedException e) {
                 logger.error("", e);
             } catch (Exception e) {
-                logger.error("从plumelog-server拉取日志失败！", e);
+                logger.error("从log-server拉取日志失败！", e);
             }
         }
     }
@@ -78,7 +78,7 @@ public class RestLogCollect extends BaseLogCollect {
             } catch (InterruptedException e) {
                 logger.error("", e);
             } catch (Exception e) {
-                logger.error("从plumelog-server队列拉取日志失败！", e);
+                logger.error("从log-server队列拉取日志失败！", e);
             }
         }
     }

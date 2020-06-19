@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * className：MainController
- * description：plumelog server 增強功能：1.開放rest去隊列 1.開發接口插入隊列
+ * description：log server 增強功能：1.開放rest去隊列 1.開發接口插入隊列
  *
  * @author Frank.chen
  * @version 1.0.0
@@ -24,16 +24,16 @@ import java.util.List;
 public class MainController implements InitializingBean {
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(MainController.class);
-    @Value("${plumelog.server.redis.redisHost:127.0.0.1:6379}")
+    @Value("${log.server.redis.redisHost:127.0.0.1:6379}")
     private String redisHost;
-    @Value("${plumelog.server.redis.redisPassWord:}")
+    @Value("${log.server.redis.redisPassWord:}")
     private String redisPassWord;
-    @Value("${plumelog.server.model:redis}")
+    @Value("${log.server.model:redis}")
     private String model;
 
     private RedisClient redisClient;
 
-    @RequestMapping({"/getlog", "/plumelogServer/getlog"})
+    @RequestMapping({"/getlog", "/logServer/getlog"})
     public Result getlog(Integer maxSendSize, String logKey) {
         if (maxSendSize == null) {
             maxSendSize = 500;
@@ -58,7 +58,7 @@ public class MainController implements InitializingBean {
         return result;
     }
 
-    @RequestMapping({"/sendLog", "/plumelogServer/sendLog"})
+    @RequestMapping({"/sendLog", "/logServer/sendLog"})
     public Result sendLog(List<String> logs, String logKey) {
         Result result = new Result();
         if ("redis".equals(model)) {
@@ -81,7 +81,7 @@ public class MainController implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         if (this.redisClient == null) {
             if (StringUtils.isEmpty(redisHost)) {
-                logger.error("can not find redisHost config! please check the plumelog.properties(plumelog.server.redis.redisHost) ");
+                logger.error("can not find redisHost config! please check the log.properties(log.server.redis.redisHost) ");
                 throw new LogQueueConnectException("redis 写入失败！:can not find redisHost config");
             }
             String[] hs = redisHost.split(":");
@@ -91,7 +91,7 @@ public class MainController implements InitializingBean {
                 ip = hs[0];
                 port = Integer.valueOf(hs[1]);
             } else {
-                logger.error("redis config error! please check the plumelog.properties(plumelog.server.redis.redisHost) ");
+                logger.error("redis config error! please check the log.properties(log.server.redis.redisHost) ");
                 throw new LogQueueConnectException("redis 写入失败！:redis config error");
             }
             this.redisClient = RedisClient.getInstance(ip, port, redisPassWord);

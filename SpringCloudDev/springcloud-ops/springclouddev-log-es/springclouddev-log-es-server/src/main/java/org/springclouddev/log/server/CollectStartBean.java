@@ -21,33 +21,33 @@ import org.springframework.util.StringUtils;
 @Component
 public class CollectStartBean implements InitializingBean {
 
-    @Value("${plumelog.server.model:redis}")
+    @Value("${log.server.model:redis}")
     private String model;
-    @Value("${plumelog.server.kafka.kafkaHosts:}")
+    @Value("${log.server.kafka.kafkaHosts:}")
     private String kafkaHosts;
-    @Value("${plumelog.server.es.esHosts:}")
+    @Value("${log.server.es.esHosts:}")
     private String esHosts;
-    @Value("${plumelog.server.es.indexType:}")
+    @Value("${log.server.es.indexType:}")
     private String indexType;
-    @Value("${plumelog.server.es.userName:}")
+    @Value("${log.server.es.userName:}")
     private String esUserName;
-    @Value("${plumelog.server.es.passWord:}")
+    @Value("${log.server.es.passWord:}")
     private String esPassWord;
-    @Value("${plumelog.server.redis.redisHost:127.0.0.1:6379}")
+    @Value("${log.server.redis.redisHost:127.0.0.1:6379}")
     private String redisHost;
-    @Value("${plumelog.server.redis.redisPassWord:}")
+    @Value("${log.server.redis.redisPassWord:}")
     private String redisPassWord;
-    @Value("${plumelog.server.maxSendSize:5000}")
+    @Value("${log.server.maxSendSize:5000}")
     public int maxSendSize = 5000;
-    @Value("${plumelog.server.interval:100}")
+    @Value("${log.server.interval:100}")
     public int interval = 100;
-    @Value("${plumelog.server.kafka.kafkaGroupName:logConsumer}")
+    @Value("${log.server.kafka.kafkaGroupName:logConsumer}")
     public String kafkaGroupName = "logConsumer";
-    @Value("${plumelog.server.rest.restUrl:}")
+    @Value("${log.server.rest.restUrl:}")
     private String restUrl;
-    @Value("${plumelog.server.rest.restUserName:}")
+    @Value("${log.server.rest.restUserName:}")
     private String restUserName;
-    @Value("${plumelog.server.rest.restPassWord:}")
+    @Value("${log.server.rest.restPassWord:}")
     private String restPassWord;
 
     private String KAFKA_MODE_NAME = "kafka";
@@ -78,7 +78,7 @@ public class CollectStartBean implements InitializingBean {
     private void serverStart() {
         if (KAFKA_MODE_NAME.equals(model)) {
             if (StringUtils.isEmpty(kafkaHosts)) {
-                logger.error("can not find kafkaHosts config! please check the plumelog.properties(plumelog.server.kafka.kafkaHosts) ");
+                logger.error("can not find kafkaHosts config! please check the log.properties(log.server.kafka.kafkaHosts) ");
                 return;
             }
             KafkaLogCollect kafkaLogCollect = new KafkaLogCollect(this.kafkaHosts, this.esHosts, this.esUserName, this.esPassWord);
@@ -86,7 +86,7 @@ public class CollectStartBean implements InitializingBean {
         }
         if (REDIS_MODE_NAME.equals(model)) {
             if (StringUtils.isEmpty(redisHost)) {
-                logger.error("can not find redisHost config! please check the plumelog.properties(plumelog.server.redis.redisHost) ");
+                logger.error("can not find redisHost config! please check the log.properties(log.server.redis.redisHost) ");
                 return;
             }
             String[] hs = redisHost.split(":");
@@ -96,7 +96,7 @@ public class CollectStartBean implements InitializingBean {
                 ip = hs[0];
                 port = Integer.valueOf(hs[1]);
             } else {
-                logger.error("redis config error! please check the plumelog.properties(plumelog.server.redis.redisHost) ");
+                logger.error("redis config error! please check the log.properties(log.server.redis.redisHost) ");
                 return;
             }
             RedisLogCollect redisLogCollect = new RedisLogCollect(ip, port, this.redisPassWord, this.esHosts, this.esUserName, this.esPassWord);
@@ -104,7 +104,7 @@ public class CollectStartBean implements InitializingBean {
         }
         if (REST_MODE_NAME.equals(model)) {
             if (StringUtils.isEmpty(restUrl)) {
-                logger.error("can not find restUrl config! please check the plumelog.properties(plumelog.server.rest.restUrl) ");
+                logger.error("can not find restUrl config! please check the log.properties(log.server.rest.restUrl) ");
                 return;
             }
             RestLogCollect restLogCollect = new RestLogCollect(this.restUrl, this.esHosts, this.esUserName, this.esPassWord, this.restUserName, this.restPassWord);
@@ -120,7 +120,7 @@ public class CollectStartBean implements InitializingBean {
             logger.info("load config success!");
             serverStart();
         } catch (Exception e) {
-            logger.error("plumelog server running fail!", e);
+            logger.error("log server running fail!", e);
         }
     }
 }

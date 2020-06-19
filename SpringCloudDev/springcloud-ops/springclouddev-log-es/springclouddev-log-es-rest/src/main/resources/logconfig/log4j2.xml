@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info" packages="com.plumelog.log4j2.appender">
+<Configuration status="info" packages="org.springclouddev.log.log4j2.appender">
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
@@ -15,8 +15,8 @@
         </appender>-->
 
         <!--10.103.4.50   172.16.249.72-->
-        <RedisAppender name="logdemo" appName="logrest" redisHost="172.16.249.72" redisPort="6379" expand="sleuth"/>
-        <!--<RedisAppender name="easylog_demo" appName="logdemo" reidsHost="10.103.4.14" redisPort="6379" />-->
+        <RedisAppender name="logdemo" appName="logrest" redisHost="127.0.0.1" redisPort="6379" expand="sleuth"/>
+        <!--<RedisAppender name="log_demo" appName="logdemo" reidsHost="10.103.4.14" redisPort="6379" />-->
         <!--整个日志采取异步输出，由于混部会影响性能，故 console和redis都采用异步输出，
             所以说有时候日志没有输出完也许应用已经可以访问了
          -->

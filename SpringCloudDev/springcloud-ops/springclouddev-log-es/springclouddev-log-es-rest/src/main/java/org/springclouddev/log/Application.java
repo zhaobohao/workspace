@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author Tank
  * @version 1.0.0
  */
-@EnableFeignClients(basePackages = {"com.plumelog"})
+@EnableFeignClients(basePackages = {"org.springclouddev.log"})
 @SpringBootApplication
 public class Application {
 

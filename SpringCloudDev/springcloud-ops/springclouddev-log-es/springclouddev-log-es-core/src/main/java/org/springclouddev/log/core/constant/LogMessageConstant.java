@@ -57,12 +57,12 @@ public class LogMessageConstant {
     /**
      * 默认扩展 可变参数
      */
-    public static String EXPAND = "plumelog";
+    public static String EXPAND = "log";
 
     /**
      * 默认扩展
      */
-    public final static String DEFAULT_EXPAND = "plumelog";
+    public final static String DEFAULT_EXPAND = "log";
 
     /**
      * Sleuth 扩展
@@ -72,7 +72,7 @@ public class LogMessageConstant {
     /**
      * 所有支持的扩展
      */
-    public final static List<String> EXPANDS = Arrays.asList("plumelog", "sleuth");
+    public final static List<String> EXPANDS = Arrays.asList("log", "sleuth");
 
     /**
      * redis 默认端口号

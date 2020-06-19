@@ -26,12 +26,12 @@
     </appender>
 
     <!-- easylog日志 -->
-    <!--<appender name="logdemo" class="com.plumelog.logback.appender.KafkaAppender">-->
+    <!--<appender name="logdemo" class="com.log.logback.appender.KafkaAppender">-->
         <!--<appName>logdemo</appName>-->
         <!--<kafkaHosts>172.16.247.143:9092,172.16.247.60:9092,172.16.247.64:9092</kafkaHosts>-->
     <!--</appender>-->
     <!-- easylog日志 -->
-    <appender name="logdemo" class="com.plumelog.logback.appender.RedisAppender">
+    <appender name="logdemo" class="com.log.logback.appender.RedisAppender">
         <appName>logrest</appName>
         <redisHost>172.16.249.72</redisHost>
         <!--<redisAuth>123456</redisAuth>-->

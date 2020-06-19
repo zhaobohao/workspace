@@ -29,8 +29,8 @@
     </appender>
 
     <!-- 如果使用kafka作为队列，启用下面配置 -->
-    <!--<appender name="plumelog_demo" class="KafkaAppender">-->
-    <!--<appName>plumelog_demo</appName>-->
+    <!--<appender name="log_demo" class="KafkaAppender">-->
+    <!--<appName>log_demo</appName>-->
     <!--<kafkaHosts>172.16.247.143:9092,172.16.247.60:9092,172.16.247.64:9092</kafkaHosts>-->
     <!-- runModel 1,2  1表示最高性能模式，2表示低性能模式 但是2可以获取更多信息 不配置默认为1-->
     <!--<runModel>2</runModel>-->
@@ -39,8 +39,8 @@
     <!--</appender>-->
 
     <!-- 如果使用redis作为队列，启用下面配置 -->
-    <appender name="plumelog" class="com.plumelog.logback.appender.RedisAppender">
-        <appName>plumelog</appName>
+    <appender name="log" class="com.log.logback.appender.RedisAppender">
+        <appName>log</appName>
         <redisHost>172.16.249.72</redisHost>
         <!-- 如果使用redis有密码，启用下面配置 -->
         <!--<redisAuth>123456</redisAuth>-->
@@ -55,6 +55,6 @@
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="plumelog"/>
+        <appender-ref ref="log"/>
     </root>
 </configuration>

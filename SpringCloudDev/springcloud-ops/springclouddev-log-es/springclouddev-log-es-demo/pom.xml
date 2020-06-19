@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
              <groupId>org.springclouddev</groupId>
-            <artifactId>springclouddev-log-es-log4j</artifactId>
+            <artifactId>springclouddev-log-es-log4j2</artifactId>
             <version>${version}</version>
         </dependency>
 
@@ -90,7 +90,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>plumelog-demo</finalName>
+        <finalName>log-demo</finalName>
     </build>
 
 </project>
