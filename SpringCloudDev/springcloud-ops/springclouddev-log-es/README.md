@@ -15,18 +15,18 @@
 
 ### 二.架构
 
-* springclouddev-log-es_core 核心组件包含日志搜集端，负责搜集日志并推送到kafka，redis等队列
+* springclouddev-log-es-core 核心组件包含日志搜集端，负责搜集日志并推送到kafka，redis等队列
 
-* springclouddev-log-es_server 负责把队列中的日志日志异步写入到elasticsearch 
+* springclouddev-log-es-server 负责把队列中的日志日志异步写入到elasticsearch 
 
-* springclouddev-log-es_ui 前端展示，日志查询界面
+* springclouddev-log-es-ui 前端展示，日志查询界面
 
-* springclouddev-log-es_demo 基于springboot的使用案例
+* springclouddev-log-es-demo 基于springboot的使用案例
 
 ### 三.系统流程
-   1. springclouddev-log-es_core 搜集日志发送到=>kafka或者redis
+   1. springclouddev-log-es-core 搜集日志发送到=>kafka或者redis
    
-   2. springclouddev-log-es_server kafka或者redis=>elasticsearch
+   2. springclouddev-log-es-server kafka或者redis=>elasticsearch
    
 ### 四.使用方法
 
@@ -46,8 +46,8 @@
     （1）如果用log4j，引入
     
                    <dependency>
-                       <groupId>com.springclouddev</groupId>
-                       <artifactId>springclouddev-log-es_log4j</artifactId>
+                       <groupId>org.springclouddev</groupId>
+                       <artifactId>springclouddev-log-es-log4j</artifactId>
                        <version>2.0</version>
                    </dependency>
                          
@@ -74,8 +74,8 @@
 * 引入
     
        <dependency>
-           <groupId>com.springclouddev</groupId>
-           <artifactId>springclouddev-log-es_logback</artifactId>
+           <groupId>org.springclouddev</groupId>
+           <artifactId>springclouddev-log-es-logback</artifactId>
            <version>2.0</version>
        </dependency>
     
@@ -107,8 +107,8 @@
 * 引入
 
        <dependency>
-           <groupId>com.springclouddev</groupId>
-           <artifactId>springclouddev-log-es_log4j2</artifactId>
+           <groupId>org.springclouddev</groupId>
+           <artifactId>springclouddev-log-es-log4j2</artifactId>
            <version>2.0</version>
        </dependency>       
 
@@ -131,7 +131,7 @@
               </root>
           </loggers>
   
-3. 示例(所有的列子都在springclouddev-log-es_demo里面)
+3. 示例(所有的列子都在springclouddev-log-es-demo里面)
 
 * 普通日志使用
 
@@ -149,11 +149,11 @@
         }
 
 
-* [链路追踪使用](/springclouddev-log-es_trace/README.md)
+* [链路追踪使用](/springclouddev-log-es-trace/README.md)
 
 * TraceId跨线程传递
 
-    如果不使用线程池，不用特殊处理，如果使用线程池，有两种使用方式，（springclouddev-log-es_demo也有）
+    如果不使用线程池，不用特殊处理，如果使用线程池，有两种使用方式，（springclouddev-log-es-demo也有）
 
     #### 修饰线程池
 
@@ -179,11 +179,11 @@
       
 4. 启动服务
 
- * 步骤一打包完的 启动 springclouddev-log-es_server-1.0.jar ，高可用的话直接启动多个服务就行
+ * 步骤一打包完的 启动 springclouddev-log-es-server-1.0.jar ，高可用的话直接启动多个服务就行
 
-   注意：打完的包target目录下，lib文件夹（依赖包目录），config文件夹（两个配置文件的目录），springclouddev-log-es_server-1.0.jar 放到同一个目录下
+   注意：打完的包target目录下，lib文件夹（依赖包目录），config文件夹（两个配置文件的目录），springclouddev-log-es-server-1.0.jar 放到同一个目录下
   
- * springclouddev-log-es_server中easylog.properties详解    
+ * springclouddev-log-es-server中easylog.properties详解    
         
        #日志缓冲区，kafka，redis两种模式
        easylog.server.model=kafka
@@ -200,7 +200,7 @@
        
   * 查询界面
      
-     1.到springclouddev-log-es_ui界面下，进入src目录 修改配置文件 config.json
+     1.到springclouddev-log-es-ui界面下，进入src目录 修改配置文件 config.json
      
      注意：需要自行安装nodejs环境
      

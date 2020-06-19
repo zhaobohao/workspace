@@ -2,24 +2,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.springclouddev</groupId>
+    <groupId>org.springclouddev</groupId>
     <artifactId>springclouddev-log-es</artifactId>
     <packaging>pom</packaging>
     <version>2.0</version>
     <name>springclouddev-log-es</name>
-    <modules>
-        <module>springclouddev-log-es_core</module>
-        <module>springclouddev-log-es_demo</module>
-        <module>springclouddev-log-es_server</module>
-        <module>springclouddev-log-es_log4j</module>
-        <module>springclouddev-log-es_logback</module>
-        <module>springclouddev-log-es_log4j2</module>
-        <module>springclouddev-log-es_trace</module>
-        <module>springclouddev-log-es_ui</module>
-    </modules>
-    <properties>
+     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <redis.version>3.3.0</redis.version>
+        <kafka.version>2.5.0</kafka.version>
+        <springboot.version>2.1.7.RELEASE</springboot.version>
+        <elasticsearch.version>7.7.0</elasticsearch.version>
     </properties>
+    <modules>
+        <module>springclouddev-log-es-core</module>
+        <module>springclouddev-log-es-demo</module>
+        <module>springclouddev-log-es-server</module>
+        <module>springclouddev-log-es-log4j</module>
+        <module>springclouddev-log-es-logback</module>
+        <module>springclouddev-log-es-log4j2</module>
+        <module>springclouddev-log-es-trace</module>
+        <module>springclouddev-log-es-ui</module>
+        <module>springclouddev-log-es-rest</module>
+    </modules>
     <build>
         <plugins>
             <plugin>
