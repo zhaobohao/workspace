@@ -48,6 +48,7 @@
         <module>springboot-apidoc</module>
         <module>springboot-apidoc-smart</module>
         <module>springboot-db-document</module>
+        <module>springboot-flink</module>
 
     </modules>
 </project>
