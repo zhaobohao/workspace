@@ -22,8 +22,8 @@
         -->
         <dependency>
             <groupId>com.gitee.sop</groupId>
-            <artifactId>sop-bridge-gateway</artifactId>
-            <!--<artifactId>sop-bridge-zuul</artifactId>-->
+            <!-- <artifactId>sop-bridge-gateway</artifactId>-->
+           <artifactId>sop-bridge-zuul</artifactId>
             <version>3.2.0-SNAPSHOT</version>
         </dependency>
 

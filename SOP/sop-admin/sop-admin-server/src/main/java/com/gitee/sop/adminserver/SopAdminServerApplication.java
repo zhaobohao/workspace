@@ -9,6 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class SopAdminServerApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("spring.profiles.active","dev");
 		SpringApplication.run(SopAdminServerApplication.class, args);
 	}
 }
