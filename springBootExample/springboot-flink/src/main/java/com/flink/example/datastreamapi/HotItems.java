@@ -1,6 +1,5 @@
 package com.flink.example.datastreamapi;
 
-import lombok.Data;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.java.io.PojoCsvInputFormat;
@@ -16,7 +15,7 @@ import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
-
+import org.apache.flink.streaming.api.functions.source.TimestampedFileInputSplit;
 import java.io.File;
 import java.net.URL;
 
@@ -51,10 +50,11 @@ public class HotItems {
                 return "pv".equals(userBehavior.behavior);
             }
         });
-
-
+        pvData.print();
         DataStream<ItemViewCount> windowedData = pvData.keyBy("itemId")
-                .timeWindow(Time.minutes(60), Time.minutes(5)).aggregate(new CountAgg(), new WindowResultFunction());
+                .timeWindow(Time.seconds(10), Time.seconds(5)).aggregate(new CountAgg(), new WindowResultFunction());
+        windowedData.print().setParallelism(1);
+        env.execute("streaming word count");
     }
 
     private static class CountAgg implements AggregateFunction<UserBehavior, Long, Long> {
@@ -90,28 +90,6 @@ public class HotItems {
 
     }
 
- private static class ItemViewCount {
-    public long itemId;     // 商品ID
-    public long windowEnd;  // 窗口结束时间戳
-    public long viewCount;  // 商品的点击量
-
-    public static ItemViewCount of(long itemId, long windowEnd, long viewCount) {
-        ItemViewCount result = new ItemViewCount();
-        result.itemId = itemId;
-        result.windowEnd = windowEnd;
-        result.viewCount = viewCount;
-        return result;
-    }
 
 }
-}
 
-
-@Data
-class UserBehavior {
-    public long userId;         // 用户ID
-    public long itemId;         // 商品ID
-    public int categoryId;      // 商品类目ID
-    public String behavior;     // 用户行为, 包括("pv", "buy", "cart", "fav")
-    public long timestamp;      // 行为发生的时间戳，单位秒
-}

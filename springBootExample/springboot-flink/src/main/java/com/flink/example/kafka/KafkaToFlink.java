@@ -9,9 +9,11 @@ import org.apache.flink.api.common.time.Time;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.typeutils.RowTypeInfo;
+import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.StreamQueryConfig;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
@@ -19,24 +21,46 @@ import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 
+import java.util.Objects;
 import java.util.Properties;
 
 import static org.apache.flink.api.common.typeinfo.BasicTypeInfo.STRING_TYPE_INFO;
 
 public class KafkaToFlink {
     public static void main(String[] args) throws Exception {
+        final ParameterTool params = ParameterTool.fromArgs(args);
+        String planner = params.has("planner") ? params.get("planner") : "blink";
         //初始化流式处理环境
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         //初始化table环境
-        StreamTableEnvironment tableEnv = TableEnvironment.getTableEnvironment(env);
+        StreamTableEnvironment tEnv;
+        if (Objects.equals(planner, "blink")) {	// use blink planner in streaming mode
+            EnvironmentSettings settings = EnvironmentSettings.newInstance()
+                    .inStreamingMode()
+                    .useBlinkPlanner()
+                    .build();
+            tEnv = StreamTableEnvironment.create(env, settings);
+        } else if (Objects.equals(planner, "flink")) {	// use flink planner in streaming mode
+            EnvironmentSettings settings = EnvironmentSettings.newInstance()
+                    .inStreamingMode()
+                .useOldPlanner()
+
+                    .build();
+            tEnv = StreamTableEnvironment.create(env, settings);
+        } else {
+            System.err.println("The planner is incorrect. Please run 'StreamSQLExample --planner <planner>', " +
+                    "where planner (it is either flink or blink, and the default is blink) indicates whether the " +
+                    "example uses flink planner or blink planner.");
+            return;
+        }
         //设置此可以屏蔽掉日记打印情况，运行环境配置
 //      env.getConfig().disableSysoutLogging();
         env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(4, 10000));
         env.enableCheckpointing(500);      //启动检查点
         //toAppendStream方法的查询配置
-        StreamQueryConfig qConfig = tableEnv.queryConfig();
+       // StreamQueryConfig qConfig = tEnv.queryConfig();
         //空闲状态保持时间，最小最大时间
-        qConfig.withIdleStateRetentionTime(Time.milliseconds(5), Time.minutes(6));
+       // qConfig.withIdleStateRetentionTime(Time.milliseconds(5), Time.minutes(6));
 
         //kafka配置信息
         Properties properties = new Properties();
@@ -55,13 +79,13 @@ public class KafkaToFlink {
         //将来源的数据转为DataStream
         DataStream<Tuple3<String,String,String>> stream = sourceStream.map(new JobMapFun());
         //注册临时表
-        tableEnv.registerDataStream("myTable2", stream, "din,type,version");
+        tEnv.registerDataStream("myTable2", stream, "din,type,version");
         //写sql语句
         String sql = "SELECT din,type,version FROM myTable2";
         //执行sql查询
-        Table table = tableEnv.sqlQuery(sql);
+        Table table = tEnv.sqlQuery(sql);
         //打印查看数据
-        DataStream<Tuple2<Boolean, Row>> wcDataStream = tableEnv.toRetractStream(table, Row.class);
+        DataStream<Tuple2<Boolean, Row>> wcDataStream = tEnv.toRetractStream(table, Row.class);
         wcDataStream.print();
 
         //sql中的字段的类型
