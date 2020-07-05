@@ -2,6 +2,7 @@ package com.flink.example.sink;
 
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
+import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.postgresql.Driver;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ public class PostGreSQLSink extends RichSinkFunction<Tuple3<String,String,String
     static String drivername = "org.postgresql.Driver";
     static String dburl = "jdbc:postgresql://localhost:5432/flink_test";
 
-    public void invoke(Tuple3<String, String, String> value) throws Exception {
+    public void invoke(Tuple3<String, String, String> value, SinkFunction.Context context) throws Exception {
         System.out.println("value1:"+value.f0);
         System.out.println("value2:"+value.f1);
         System.out.println("value3:"+value.f2);

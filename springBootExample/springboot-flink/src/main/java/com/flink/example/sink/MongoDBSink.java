@@ -9,6 +9,7 @@ import com.mongodb.client.MongoDatabase;
 import org.apache.flink.api.java.tuple.Tuple5;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
+import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class MongoDBSink extends RichSinkFunction<Tuple3<String, String, String>
     private static final long serialVersionUID = 1L;
     MongoClient mongoClient = null;
 
-    public void invoke(Tuple5<String, String, String, String, String> value) {
+    public void invoke(Tuple5<String, String, String, String, String> value, SinkFunction.Context context) {
         try {
             if (mongoClient != null) {
                 mongoClient = getConnect();
