@@ -8,6 +8,7 @@ import org.apache.flink.api.java.tuple.Tuple1;
 import org.apache.flink.api.java.typeutils.PojoTypeInfo;
 import org.apache.flink.api.java.typeutils.TypeExtractor;
 import org.apache.flink.core.fs.Path;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor;
@@ -15,7 +16,6 @@ import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
-import org.apache.flink.streaming.api.functions.source.TimestampedFileInputSplit;
 import java.io.File;
 import java.net.URL;
 
@@ -23,8 +23,11 @@ import java.net.URL;
 public class HotItems {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        // 为了打印到控制台的结果不乱序，我们配置全局的并发为1，这里改变并发对结果正确性没有影响
         env.setParallelism(1);
-
+       // 按照 EventTime 模式进行处理，Flink 默认使用 ProcessingTime 处理
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+        // 构造数据源
         URL fileUrl = HotItems.class.getClassLoader().getResource("UserBehavior.csv");
         Path FilePath = Path.fromLocalFile(new File(fileUrl.toURI()));
 
