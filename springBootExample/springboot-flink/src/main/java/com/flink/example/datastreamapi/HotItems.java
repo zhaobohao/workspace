@@ -53,7 +53,7 @@ public class HotItems {
                 return "pv".equals(userBehavior.behavior);
             }
         });
-        pvData.print();
+
         DataStream<ItemViewCount> windowedData = pvData.keyBy("itemId")
                 .timeWindow(Time.seconds(10), Time.seconds(5)).aggregate(new CountAgg(), new WindowResultFunction());
         windowedData.print().setParallelism(1);
