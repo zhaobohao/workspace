@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "message2")
-public class MessageEntity extends BaseEntity {
+public class Message2Entity extends BaseEntity {
     /**
      * 内容
      */

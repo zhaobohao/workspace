@@ -6,7 +6,6 @@
   <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>spring-boot-seckill</name>
-  <url>http://maven.apache.org</url>
    <properties>
      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      <docker.image.prefix>springboot</docker.image.prefix>
@@ -161,14 +160,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                 <dependencies>
-                   <!--  mvn spring-boot:run 热部署启动 -->
-                       <dependency>
-                           <groupId>org.springframework</groupId>
-                           <artifactId>springloaded</artifactId>
-                           <version>1.2.7.RELEASE</version>
-                       </dependency>
-                   </dependencies>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>

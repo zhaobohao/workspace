@@ -16,8 +16,10 @@ import org.dbchain.blockchain.core.bean.BaseData;
 import org.dbchain.blockchain.core.bean.ResultGenerator;
 import org.dbchain.blockchain.core.event.DbSyncEvent;
 import org.dbchain.blockchain.core.manager.DbBlockManager;
+import org.dbchain.blockchain.core.manager.Message2Manager;
 import org.dbchain.blockchain.core.manager.MessageManager;
 import org.dbchain.blockchain.core.manager.SyncManager;
+import org.dbchain.blockchain.core.model.Message2Entity;
 import org.dbchain.blockchain.core.model.MessageEntity;
 import org.dbchain.blockchain.core.requestbody.BlockRequestBody;
 import org.dbchain.blockchain.core.requestbody.InstructionBody;
@@ -55,7 +57,7 @@ public class BlockController {
     @Resource
     private SyncManager syncManager;
     @Resource
-    private MessageManager messageManager;
+    private Message2Manager message2Manager;
     @Resource
     private BlockChecker blockChecker;
     @Value("${publicKey:A/XPlwP7beLREu4r0+s+vE6kUY+XsaAH5Ye6x1R0d46r}")
@@ -90,7 +92,7 @@ public class BlockController {
     public BaseData create(@ApiParam(name = "content", value = "区块链内容", required = true) @RequestParam(value = "content") String content) throws Exception {
         InstructionBody instructionBody = new InstructionBody();
         instructionBody.setOperation(Operation.ADD);
-        instructionBody.setTable("message");
+        instructionBody.setTable("message2");
         instructionBody.setJson("{\"content\":\"" + content + "\"}");
         /*instructionBody.setPublicKey("A/XPlwP7beLREu4r0+s+vE6kUY+XsaAH5Ye6x1R0d46r");
         instructionBody.setPrivateKey("cOSq0Rul8xppftOGDT3F2l1xVuFhcBkb2tsNETClADI=");*/
@@ -123,7 +125,7 @@ public class BlockController {
         }
         InstructionBody instructionBody = new InstructionBody();
         instructionBody.setOperation(Operation.UPDATE);
-        instructionBody.setTable("message");
+        instructionBody.setTable("message2");
         instructionBody.setInstructionId(id);
         instructionBody.setJson("{\"content\":\"" + content + "\"}");
     	 /*instructionBody.setPublicKey("A/XPlwP7beLREu4r0+s+vE6kUY+XsaAH5Ye6x1R0d46r");
@@ -156,9 +158,9 @@ public class BlockController {
         }
         InstructionBody instructionBody = new InstructionBody();
         instructionBody.setOperation(Operation.DELETE);
-        instructionBody.setTable("message");
+        instructionBody.setTable("message2");
         instructionBody.setInstructionId(id);
-        MessageEntity message = messageManager.findById(id);
+        Message2Entity message = message2Manager.findById(id);
         String content = ObjectUtils.isEmpty(message) ? "" : message.getContent();
         instructionBody.setJson("{\"content\":\"" + content + "\"}");
     	 /*instructionBody.setPublicKey("A/XPlwP7beLREu4r0+s+vE6kUY+XsaAH5Ye6x1R0d46r");
@@ -183,7 +185,7 @@ public class BlockController {
     @ApiOperation(value = "查询区块链数据", notes = "查询区块链数据", httpMethod = "GET", response = BaseData.class)
     @GetMapping("sqlite")
     public BaseData sqlite() {
-        return ResultGenerator.genSuccessResult(messageManager.findAll());
+        return ResultGenerator.genSuccessResult(message2Manager.findAll());
     }
 
     /**
@@ -192,7 +194,7 @@ public class BlockController {
     @ApiOperation(value = "查询区块链内容", notes = "查询区块链内容", httpMethod = "GET", response = BaseData.class)
     @GetMapping("sqlite/content")
     public BaseData content() {
-        return ResultGenerator.genSuccessResult(messageManager.findAllContent());
+        return ResultGenerator.genSuccessResult(message2Manager.findAllContent());
     }
 
     /**
