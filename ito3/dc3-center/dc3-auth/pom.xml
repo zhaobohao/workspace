@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.dc3</groupId>
+        <artifactId>dc3-center</artifactId>
+        <version>${dc3.version}</version>
+    </parent>
+
+    <artifactId>dc3-auth</artifactId>
+    <packaging>jar</packaging>
+
+    <description>IOT DC3 平台 授权服务。</description>
+
+    <dependencies>
+
+        <!-- dc3 Api -->
+        <dependency>
+            <groupId>com.dc3</groupId>
+            <artifactId>dc3-api-auth</artifactId>
+        </dependency>
+
+        <!-- dc3 Common Core -->
+        <dependency>
+            <groupId>com.dc3</groupId>
+            <artifactId>dc3-core</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

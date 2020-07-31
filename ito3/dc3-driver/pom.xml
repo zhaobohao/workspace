@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.dc3</groupId>
+        <artifactId>iot-dc3</artifactId>
+        <version>${dc3.version}</version>
+    </parent>
+
+    <artifactId>dc3-driver</artifactId>
+    <packaging>pom</packaging>
+
+    <description>IOT DC3 平台 设备协议驱动集合。</description>
+
+    <modules>
+        <module>dc3-driver-virtual</module>
+        <module>dc3-driver-listening-virtual</module>
+        <module>dc3-driver-plcs7</module>
+        <module>dc3-driver-opc-da</module>
+        <module>dc3-driver-opc-ua</module>
+        <module>dc3-driver-mqtt</module>
+        <module>dc3-driver-modbus-tcp</module>
+    </modules>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
+    <dependencies>
+
+        <!-- Undertow Web 容器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <!-- dc3 Driver Sdk -->
+        <dependency>
+            <groupId>com.dc3</groupId>
+            <artifactId>dc3-sdk</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/application.yml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+</project>

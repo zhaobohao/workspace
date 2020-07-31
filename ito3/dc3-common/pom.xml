@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.dc3</groupId>
+        <artifactId>iot-dc3</artifactId>
+        <version>${dc3.version}</version>
+    </parent>
+
+    <artifactId>dc3-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>IOT DC3 平台 Common 公共模块。</description>
+
+    <modules>
+        <module>dc3-core</module>
+        <module>dc3-base</module>
+        <module>dc3-config</module>
+        <module>dc3-sdk</module>
+    </modules>
+
+</project>

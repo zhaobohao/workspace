@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.dc3</groupId>
+        <artifactId>dc3-center</artifactId>
+        <version>${dc3.version}</version>
+    </parent>
+
+    <artifactId>dc3-register</artifactId>
+    <packaging>jar</packaging>
+
+    <description>IOT DC3 平台 服务注册与发现中心。</description>
+
+    <dependencies>
+
+        <!-- Eureka Server-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+
+        <!-- Security -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>
