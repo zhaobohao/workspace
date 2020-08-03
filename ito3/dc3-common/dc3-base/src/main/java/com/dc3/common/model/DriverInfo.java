@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import com.dc3.common.valid.Insert;

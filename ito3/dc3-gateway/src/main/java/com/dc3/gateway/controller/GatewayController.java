@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway.controller;
 
 import org.springframework.stereotype.Controller;

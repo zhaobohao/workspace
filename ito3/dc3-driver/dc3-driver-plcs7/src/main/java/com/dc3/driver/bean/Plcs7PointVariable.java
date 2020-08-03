@@ -1,5 +1,3 @@
-
-
 package com.dc3.driver.bean;
 
 import com.github.s7connector.api.S7Type;

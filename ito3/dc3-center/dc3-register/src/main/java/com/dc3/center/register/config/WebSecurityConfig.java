@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.register.config;
 
 import lombok.SneakyThrows;

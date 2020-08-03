@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.data.config;
 
 import com.mongodb.MongoClient;

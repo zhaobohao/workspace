@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.register;
 
 import org.springframework.boot.SpringApplication;

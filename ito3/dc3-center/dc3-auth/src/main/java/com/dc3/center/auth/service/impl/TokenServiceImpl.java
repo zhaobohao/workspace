@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.service.impl;
 
 import cn.hutool.core.util.RandomUtil;

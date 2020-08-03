@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway.config;
 
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +63,14 @@ public class RouteConfig {
                         r -> r.path("/api/v3/token/generate")
                                 .filters(
                                         f -> f.setPath("/auth/token/generate")
+                                                .requestRateLimiter(l -> l.setKeyResolver(hostKeyResolver()).setRateLimiter(redisRateLimiter()))
+                                                .hystrix(h -> h.setName("default").setFallbackUri("forward:/fallback"))
+                                ).uri("lb://dc3-auth")
+                )
+                .route("check_token",
+                        r -> r.path("/api/v3/token/check")
+                                .filters(
+                                        f -> f.setPath("/auth/token/check")
                                                 .requestRateLimiter(l -> l.setKeyResolver(hostKeyResolver()).setRateLimiter(redisRateLimiter()))
                                                 .hystrix(h -> h.setName("default").setFallbackUri("forward:/fallback"))
                                 ).uri("lb://dc3-auth")

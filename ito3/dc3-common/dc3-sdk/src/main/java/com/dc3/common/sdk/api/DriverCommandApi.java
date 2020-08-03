@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.api;
 
 import com.dc3.common.bean.R;

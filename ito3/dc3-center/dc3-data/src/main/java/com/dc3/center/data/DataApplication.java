@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.data;
 
 import org.springframework.boot.SpringApplication;

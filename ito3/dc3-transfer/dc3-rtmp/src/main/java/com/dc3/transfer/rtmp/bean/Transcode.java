@@ -1,5 +1,3 @@
-
-
 package com.dc3.transfer.rtmp.bean;
 
 import cn.hutool.core.util.RuntimeUtil;

@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.monitor;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;

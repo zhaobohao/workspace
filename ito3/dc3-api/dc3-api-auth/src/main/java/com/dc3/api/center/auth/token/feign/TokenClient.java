@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.auth.token.feign;
 
 import com.dc3.api.center.auth.token.hystrix.TokenClientHystrix;

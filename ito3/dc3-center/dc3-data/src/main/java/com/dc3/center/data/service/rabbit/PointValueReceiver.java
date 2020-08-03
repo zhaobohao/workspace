@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.data.service.rabbit;
 
 import com.dc3.center.data.service.PointValueService;

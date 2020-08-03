@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

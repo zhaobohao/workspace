@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway;
 
 import org.springframework.boot.SpringApplication;
