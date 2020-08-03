@@ -32,9 +32,9 @@ import static java.util.Collections.synchronizedMap;
 @Slf4j
 public class GatewayRouteRepository implements RouteRepository<GatewayTargetRoute>, RouteLocator {
 
-    private PathMatcher pathMatcher = new AntPathMatcher();
+    private final PathMatcher pathMatcher = new AntPathMatcher();
 
-    private final Map<String, GatewayTargetRoute> routes = synchronizedMap(new LinkedHashMap<>());
+    private static final Map<String, GatewayTargetRoute> routes = synchronizedMap(new LinkedHashMap<>());
 
     @Autowired
     private RouteLocatorBuilder routeLocatorBuilder;
@@ -54,7 +54,7 @@ public class GatewayRouteRepository implements RouteRepository<GatewayTargetRout
 
     public void refresh() {
         RouteLocatorBuilder.Builder builder = routeLocatorBuilder.routes();
-        List<RouteDefinition> routeDefinitionList = this.routes.values()
+        List<RouteDefinition> routeDefinitionList = routes.values()
                 .stream()
                 .map(AbstractTargetRoute::getRouteDefinition)
                 .collect(Collectors.toList());
@@ -135,7 +135,7 @@ public class GatewayRouteRepository implements RouteRepository<GatewayTargetRout
 
     @Override
     public void deleteAll(String serviceId) {
-        List<String> idList = this.routes.values().stream()
+        List<String> idList = routes.values().stream()
                 .filter(zuulTargetRoute -> StringUtils.equalsIgnoreCase(serviceId, zuulTargetRoute.getServiceRouteInfo().getServiceId()))
                 .map(zuulTargetRoute -> zuulTargetRoute.getRouteDefinition().getId())
                 .collect(Collectors.toList());

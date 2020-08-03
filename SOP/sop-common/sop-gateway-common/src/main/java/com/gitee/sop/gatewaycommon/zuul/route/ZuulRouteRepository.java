@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
  */
 public class ZuulRouteRepository implements RouteRepository<ZuulTargetRoute> {
 
-    private PathMatcher pathMatcher = new AntPathMatcher();
+    private final PathMatcher pathMatcher = new AntPathMatcher();
 
     /**
      * key：nameVersion
      */
-    private Map<String, ZuulTargetRoute> nameVersionTargetRouteMap = new ConcurrentHashMap<>(128);
+    private static final Map<String, ZuulTargetRoute> nameVersionTargetRouteMap = new ConcurrentHashMap<>(128);
 
     @Override
     public ZuulTargetRoute get(String id) {
@@ -36,7 +36,7 @@ public class ZuulRouteRepository implements RouteRepository<ZuulTargetRoute> {
         }
         for (Map.Entry<String, ZuulTargetRoute> entry : nameVersionTargetRouteMap.entrySet()) {
             String pattern = entry.getKey();
-            if (this.pathMatcher.match(pattern, id)) {
+            if (pathMatcher.match(pattern, id)) {
                 return clone(id, entry.getValue());
             }
         }

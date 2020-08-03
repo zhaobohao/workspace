@@ -2,6 +2,7 @@ package com.gitee.sop.gatewaycommon.result;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import com.gitee.sop.gatewaycommon.bean.*;
 import com.gitee.sop.gatewaycommon.interceptor.RouteInterceptorContext;
 import com.gitee.sop.gatewaycommon.manager.RouteRepositoryContext;
@@ -99,7 +100,7 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
         this.doAfterRoute(serviceResult, responseStatus, request);
         String finalResult;
         if (isMergeResult) {
-            JSONObject responseData = this.parseServiceResult(serviceResult, responseStatus, request);
+            Map<String, Object> responseData = this.parseServiceResult(serviceResult, responseStatus, request);
             finalResult = this.merge(request, responseData);
         } else {
             finalResult = serviceResult;
@@ -141,7 +142,7 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
      * @param request        请求
      * @return 返回JSONObject
      */
-    protected JSONObject parseServiceResult(String serviceResult, int responseStatus, T request) {
+    protected Map<String, Object> parseServiceResult(String serviceResult, int responseStatus, T request) {
         ErrorEnum errorEnum = HTTP_STATUS_ERROR_ENUM_MAP.get(responseStatus);
         if (errorEnum == null) {
             // 其它异常不应该把异常信息告诉给客户端，将微服务内容设置成空的json
@@ -149,10 +150,17 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
             errorEnum = ErrorEnum.ISP_UNKNOWN_ERROR;
         }
         ErrorMeta errorMeta = errorEnum.getErrorMeta();
-        JSONObject responseData = JSON.parseObject(serviceResult);
-        responseData.put(GATEWAY_CODE_NAME, errorMeta.getCode());
-        responseData.put(GATEWAY_MSG_NAME, errorMeta.getError(getLocale(request)).getMsg());
-        return responseData;
+        Map<String, Object> serviceData = new LinkedHashMap<>();
+        ApiParam apiParam = this.getApiParam(request);
+        if (apiParam != null) {
+            // 全局请求id，方便追踪定位
+            serviceData.put("request_id", apiParam.fetchRequestId());
+        }
+        serviceData.put(GATEWAY_CODE_NAME, errorMeta.getCode());
+        serviceData.put(GATEWAY_MSG_NAME, errorMeta.getError(getLocale(request)).getMsg());
+        JSONObject serviceObj = JSON.parseObject(serviceResult, Feature.OrderedField);
+        serviceData.putAll(serviceObj);
+        return serviceData;
     }
 
 
@@ -178,7 +186,7 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
         return serviceResult;
     }
 
-    public String merge(T exchange, JSONObject responseData) {
+    public String merge(T exchange, Map<String, Object> responseData) {
         JSONObject finalData = new JSONObject(true);
         ApiParam params = this.getApiParam(exchange);
         if (params == null) {
@@ -191,8 +199,8 @@ public abstract class BaseExecutorAdapter<T, R> implements ResultExecutor<T, R> 
         // alipay_goods_get_response
         String responseDataNodeName = dataNameBuilder.build(params.fetchName());
         //TODO:外送的包体结构
-        finalData.put(GATEWAY_CODE_NAME, responseData.getString(GATEWAY_CODE_NAME));
-        finalData.put(GATEWAY_MSG_NAME, responseData.getString(GATEWAY_MSG_NAME));
+        finalData.put(GATEWAY_CODE_NAME, responseData.get(GATEWAY_CODE_NAME));
+        finalData.put(GATEWAY_MSG_NAME, responseData.get(GATEWAY_MSG_NAME));
         responseData.remove(GATEWAY_CODE_NAME);
         responseData.remove(GATEWAY_MSG_NAME);
         finalData.put(responseDataNodeName, responseData);
