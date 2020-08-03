@@ -6,6 +6,7 @@ import com.gitee.sop.gatewaycommon.bean.SopConstants;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 客户端传来的参数放在这里.
@@ -23,6 +24,7 @@ public class ApiParam extends JSONObject implements Param {
         super(map);
     }
 
+    private String requestId = UUID.randomUUID().toString().replace("-", "");
     private boolean ignoreSign;
     private boolean ignoreValidate;
 
@@ -288,5 +290,9 @@ public class ApiParam extends JSONObject implements Param {
 
     public void setRestful(boolean restful) {
         this.restful = restful;
+    }
+
+    public String fetchRequestId() {
+        return requestId;
     }
 }
