@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: ./Dockerfile
+    image: registry.cn-beijing.aliyuncs.com/dc3/dc3-web:1.0
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    container_name: dc3-web
+    hostname: dc3-web
+    networks:
+      dc3net:
+        aliases:
+          - dc3-web
+
+networks:
+  dc3net:
+    driver: 'bridge'
+...
