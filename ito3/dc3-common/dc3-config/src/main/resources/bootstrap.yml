@@ -29,7 +29,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     sql-script-encoding: utf-8
     username: root
-    password: dc3
+    password: 1qaz2wsx
     hikari:
       pool-name: dc3-hikaricp
       max-lifetime: 1765000
@@ -47,7 +47,7 @@ spring:
   redis:
     host: dc3-redis
     port: 6379
-    password: dc3
+    password:
     timeout: 15S
     jedis:
       pool:
