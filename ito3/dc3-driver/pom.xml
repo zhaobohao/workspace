@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.dc3</groupId>
         <artifactId>iot-dc3</artifactId>
-        <version>${dc3.version}</version>
+         <version>${dc3.version}</version>
     </parent>
 
     <artifactId>dc3-driver</artifactId>
@@ -21,6 +21,8 @@
         <module>dc3-driver-opc-ua</module>
         <module>dc3-driver-mqtt</module>
         <module>dc3-driver-modbus-tcp</module>
+        <module>dc3-driver-water-188b-tcp</module>
+        <module>dc3-driver-water-188b-udp</module>
     </modules>
 
     <properties>
@@ -65,6 +67,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/application.yml</include>
+                    <include>**/*.json</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>

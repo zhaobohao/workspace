@@ -1,3 +1,5 @@
+
+
 package com.dc3.common.sdk.init;
 
 import com.dc3.common.sdk.service.DriverCommonService;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * 初始化
+ * Driver SDK Initial
  *
  * @author pnoker
  */
@@ -23,6 +25,7 @@ import javax.annotation.Resource;
         "com.dc3.common.sdk"
 })
 public class DriverInitRunner implements ApplicationRunner {
+
     @Resource
     private DriverCommonService driverCommonService;
 

@@ -1,7 +1,9 @@
+
+
 package com.dc3.common.bean.driver;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.dc3.common.bean.Pages;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

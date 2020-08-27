@@ -1,3 +1,5 @@
+
+
 package com.dc3.driver.bean;
 
 import com.dc3.common.valid.Insert;

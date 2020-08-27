@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.dc3</groupId>
         <artifactId>dc3-center</artifactId>
-        <version>${dc3.version}</version>
+         <version>${dc3.version}</version>
     </parent>
 
     <artifactId>dc3-data</artifactId>
@@ -34,6 +34,10 @@
         </dependency>
 
         <!-- dc3 Api -->
+        <dependency>
+            <groupId>com.dc3</groupId>
+            <artifactId>dc3-api-manager</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.dc3</groupId>
             <artifactId>dc3-api-data</artifactId>

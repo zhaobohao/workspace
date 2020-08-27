@@ -1,3 +1,5 @@
+
+
 package com.dc3.common.bean.batch;
 
 import lombok.Data;

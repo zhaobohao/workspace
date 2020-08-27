@@ -1,3 +1,5 @@
+
+
 package com.dc3.common.sdk.config;
 
 import com.dc3.common.constant.Common;
@@ -39,12 +41,7 @@ public class TopicRabbitConfig {
 
     @Bean
     TopicExchange notifyExchange() {
-        return new TopicExchange(Common.Rabbit.TOPIC_EXCHANGE_NOTIFY);
-    }
-
-    @Bean
-    TopicExchange valueExchange() {
-        return new TopicExchange(Common.Rabbit.TOPIC_EXCHANGE_VALUE);
+        return new TopicExchange(Common.Rabbit.TOPIC_EXCHANGE_NOTIFY, true, true);
     }
 
     @Bean
@@ -53,16 +50,31 @@ public class TopicRabbitConfig {
     }
 
     @Bean
-    Queue pointValueQueue() {
-        return new Queue(Common.Rabbit.QUEUE_POINT_VALUE);
-    }
-
-    @Bean
     Binding driverNotifyBinding() {
         return BindingBuilder
                 .bind(driverNotifyQueue())
                 .to(notifyExchange())
-                .with(Common.Rabbit.ROUTING_KEY_PREFIX + this.serviceName);
+                .with(Common.Rabbit.ROUTING_DEVICE_NOTIFY_PREFIX + this.serviceName);
+    }
+
+    @Bean
+    TopicExchange valueExchange() {
+        return new TopicExchange(Common.Rabbit.TOPIC_EXCHANGE_VALUE, true, true);
+    }
+
+    @Bean
+    Queue deviceStatusQueue() {
+        return new Queue(Common.Rabbit.QUEUE_DEVICE_STATUS, true, false, true);
+    }
+
+    @Bean
+    Queue singlePointValueQueue() {
+        return new Queue(Common.Rabbit.QUEUE_POINT_SINGLE_VALUE, true, false, true);
+    }
+
+    @Bean
+    Queue multiplePointValueQueue() {
+        return new Queue(Common.Rabbit.QUEUE_POINT_MULTI_VALUE, true, false, true);
     }
 
     @Bean

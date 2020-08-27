@@ -1,3 +1,5 @@
+
+
 package com.dc3.driver.service.impl;
 
 import com.alibaba.fastjson.JSON;
@@ -31,21 +33,23 @@ import static com.dc3.common.sdk.util.DriverUtils.value;
 @Service
 public class CustomDriverServiceImpl implements CustomDriverService {
 
-    /**
-     * Plc Connector Map
-     */
-    private volatile Map<Long, S7Connector> s7ConnectorMap;
     @Resource
     private DriverContext driverContext;
     @Resource
     private DriverService driverService;
+
+    /**
+     * Plc Connector Map
+     */
+    private volatile Map<Long, S7Connector> s7ConnectorMap;
+
     @Override
     public void initial() {
         s7ConnectorMap = new ConcurrentHashMap<>(16);
     }
 
     @Override
-    public String read(Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo, Device device, Point point) throws Exception{
+    public String read(Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo, Device device, Point point) throws Exception {
         log.debug("Opc Da Read, device: {}, point: {}", JSON.toJSONString(device), JSON.toJSONString(point));
         S7Serializer serializer = getS7Serializer(device.getId(), driverInfo);
         Plcs7PointVariable plcs7PointVariable = getPointVariable(pointInfo, point.getType());
@@ -53,7 +57,7 @@ public class CustomDriverServiceImpl implements CustomDriverService {
     }
 
     @Override
-    public Boolean write(Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo, Device device, AttributeInfo value) throws Exception{
+    public Boolean write(Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo, Device device, AttributeInfo value) throws Exception {
         log.debug("Opc Da Read, device: {}, value: {}", JSON.toJSONString(device), JSON.toJSONString(value));
         S7Serializer serializer = getS7Serializer(device.getId(), driverInfo);
         Plcs7PointVariable plcs7PointVariable = getPointVariable(pointInfo, value.getType());
@@ -63,6 +67,7 @@ public class CustomDriverServiceImpl implements CustomDriverService {
 
     @Override
     public void schedule() {
+
         /*
         TODO:设备状态
         上传设备状态，可自行灵活拓展，不一定非要在schedule()接口中实现，也可以在read中实现设备状态的设置；
@@ -76,7 +81,6 @@ public class CustomDriverServiceImpl implements CustomDriverService {
          */
         driverContext.getDeviceMap().keySet().forEach(id -> driverService.deviceStatusSender(id, Common.Device.ONLINE));
     }
-
 
     /**
      * 获取 plcs7 serializer

@@ -1,3 +1,5 @@
+
+
 package com.dc3.transfer.rtmp.init;
 
 import cn.hutool.core.io.FileUtil;
@@ -5,7 +7,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dc3.common.bean.Pages;
 import com.dc3.common.dto.RtmpDto;
 import com.dc3.common.model.Rtmp;
-import com.dc3.transfer.rtmp.bean.Transcode;
 import com.dc3.transfer.rtmp.service.RtmpService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,8 @@ import static java.lang.System.getProperty;
 @Order(10)
 @Component
 public class TranscodeRunner implements ApplicationRunner {
+    public static String ffmpeg;
+
     @Value("${rtmp.ffmpeg.window}")
     private String window;
     @Value("${rtmp.ffmpeg.unix}")
@@ -43,13 +46,13 @@ public class TranscodeRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        Transcode.ffmpeg = getProperty("os.name").toLowerCase().startsWith("win") ? window : unix;
-        if (StringUtils.isBlank(Transcode.ffmpeg)) {
+        ffmpeg = getProperty("os.name").toLowerCase().startsWith("win") ? window : unix;
+        if (StringUtils.isBlank(ffmpeg)) {
             log.error("FFmpeg path is null,Please fill absolute path!");
             System.exit(1);
         }
-        if (!FileUtil.isFile(Transcode.ffmpeg)) {
-            log.error("{} does not exist,Please fill absolute path!", Transcode.ffmpeg);
+        if (!FileUtil.isFile(ffmpeg)) {
+            log.error("{} does not exist,Please fill absolute path!", ffmpeg);
             System.exit(1);
         }
         list().forEach(rtmp -> rtmpService.start(rtmp.getId()));

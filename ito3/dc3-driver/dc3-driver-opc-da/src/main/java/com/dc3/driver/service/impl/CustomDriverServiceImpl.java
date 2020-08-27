@@ -1,3 +1,5 @@
+
+
 package com.dc3.driver.service.impl;
 
 import com.alibaba.fastjson.JSON;
@@ -33,14 +35,16 @@ import static com.dc3.common.sdk.util.DriverUtils.value;
 @Service
 public class CustomDriverServiceImpl implements CustomDriverService {
 
-    /**
-     * Opc Da Server Map
-     */
-    private volatile Map<Long, Server> serverMap = new HashMap<>(64);
     @Resource
     private DriverContext driverContext;
     @Resource
     private DriverService driverService;
+
+    /**
+     * Opc Da Server Map
+     */
+    private volatile Map<Long, Server> serverMap = new HashMap<>(64);
+
     @Override
     public void initial() {
     }
@@ -72,6 +76,7 @@ public class CustomDriverServiceImpl implements CustomDriverService {
 
     @Override
     public void schedule() {
+
         /*
         TODO:设备状态
         上传设备状态，可自行灵活拓展，不一定非要在schedule()接口中实现，也可以在read中实现设备状态的设置；
@@ -85,7 +90,6 @@ public class CustomDriverServiceImpl implements CustomDriverService {
          */
         driverContext.getDeviceMap().keySet().forEach(id -> driverService.deviceStatusSender(id, Common.Device.ONLINE));
     }
-
 
     /**
      * 获取 Opc Da Server

@@ -1,3 +1,5 @@
+
+
 package com.dc3.common.bean;
 
 import lombok.AllArgsConstructor;

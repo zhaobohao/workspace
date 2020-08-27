@@ -1,3 +1,5 @@
+
+
 package com.dc3.center.manager.config;
 
 import com.dc3.common.constant.Common;
@@ -37,7 +39,7 @@ public class TopicRabbitConfig {
 
     @Bean
     TopicExchange notifyExchange() {
-        return new TopicExchange(Common.Rabbit.TOPIC_EXCHANGE_NOTIFY);
+        return new TopicExchange(Common.Rabbit.TOPIC_EXCHANGE_NOTIFY, true, true);
     }
 
     @Bean

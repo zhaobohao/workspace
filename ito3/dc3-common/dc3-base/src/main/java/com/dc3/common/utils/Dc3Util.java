@@ -1,3 +1,5 @@
+
+
 package com.dc3.common.utils;
 
 import cn.hutool.core.util.ReUtil;
@@ -6,10 +8,15 @@ import com.dc3.common.constant.Common;
 import com.dc3.common.dto.NodeDto;
 import com.google.common.base.Charsets;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -188,25 +195,60 @@ public class Dc3Util {
 
     /**
      * InputStream 转 String
+     * 此方法可以防止中文乱码
      *
      * @param inputStream InputStream
      * @return String
      */
     public static String inputStreamToString(InputStream inputStream) throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
+        ByteArrayOutputStream boa = new ByteArrayOutputStream();
         try {
             int length = 0;
-            byte[] buff = new byte[1024];
-            while ((length = inputStream.read(buff)) > -1) {
-                stringBuilder.append(new String(buff, 0, length, Charsets.UTF_8));
+            byte[] buffer = new byte[1024];
+            while ((length = inputStream.read(buffer)) > -1) {
+                boa.write(buffer, 0, length);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         } finally {
             inputStream.close();
+            boa.close();
         }
 
-        return stringBuilder.toString();
+        byte[] result = boa.toByteArray();
+        String temp = new String(result);
+        if (temp.contains("utf-8")) {
+            return new String(result, StandardCharsets.UTF_8);
+        } else if (temp.contains("gb2312")) {
+            return new String(result, "gb2312");
+        } else {
+            return new String(result, StandardCharsets.UTF_8);
+        }
+    }
+
+    /**
+     * File 转 MultipartFile
+     *
+     * @param fileInputStream FileInputStream
+     * @return MultipartFile
+     */
+    public static MultipartFile fileInputStreamToMultipartFile(FileInputStream fileInputStream) {
+        FileItemFactory factory = new DiskFileItemFactory(16, null);
+        String textFieldName = "file";
+        FileItem item = factory.createItem(textFieldName, "text/plain", true, "Dc3MultipartFile");
+        try {
+            int length = 0;
+            byte[] buffer = new byte[1024];
+            OutputStream outputStream = item.getOutputStream();
+            while ((length = fileInputStream.read(buffer)) > -1) {
+                outputStream.write(buffer, 0, length);
+            }
+            outputStream.close();
+            fileInputStream.close();
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
+        return new CommonsMultipartFile(item);
     }
 
     /**

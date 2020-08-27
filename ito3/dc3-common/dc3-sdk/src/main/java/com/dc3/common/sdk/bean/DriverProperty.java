@@ -1,3 +1,5 @@
+
+
 package com.dc3.common.sdk.bean;
 
 import com.dc3.common.model.DriverAttribute;

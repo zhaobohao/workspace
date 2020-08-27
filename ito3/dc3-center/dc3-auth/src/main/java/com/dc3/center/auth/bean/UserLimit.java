@@ -1,3 +1,5 @@
+
+
 package com.dc3.center.auth.bean;
 
 import lombok.AllArgsConstructor;

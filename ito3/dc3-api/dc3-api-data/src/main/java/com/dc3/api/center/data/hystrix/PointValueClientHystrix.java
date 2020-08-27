@@ -1,3 +1,5 @@
+
+
 package com.dc3.api.center.data.hystrix;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,6 +10,9 @@ import com.dc3.common.bean.driver.PointValueDto;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * PointValueClientHystrix
@@ -26,7 +31,22 @@ public class PointValueClientHystrix implements FallbackFactory<PointValueClient
         return new PointValueClient() {
 
             @Override
-            public R<Page<PointValue>> list(PointValueDto pointValueDto) {
+            public R<String> status(Long deviceId) {
+                return R.fail(message);
+            }
+
+            @Override
+            public R<List<PointValue>> realtime(@NotNull Long deviceId) {
+                return R.fail(message);
+            }
+
+            @Override
+            public R<PointValue> realtime(Long deviceId, Long pointId) {
+                return R.fail(message);
+            }
+
+            @Override
+            public R<PointValue> latest(@NotNull Long deviceId) {
                 return R.fail(message);
             }
 
@@ -36,12 +56,7 @@ public class PointValueClientHystrix implements FallbackFactory<PointValueClient
             }
 
             @Override
-            public R<String> status(Long deviceId) {
-                return R.fail(message);
-            }
-
-            @Override
-            public R<String> realtime(Long deviceId, Long pointId) {
+            public R<Page<PointValue>> list(PointValueDto pointValueDto) {
                 return R.fail(message);
             }
 

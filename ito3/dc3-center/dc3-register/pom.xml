@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.dc3</groupId>
         <artifactId>dc3-center</artifactId>
-        <version>${dc3.version}</version>
+         <version>${dc3.version}</version>
     </parent>
 
     <artifactId>dc3-register</artifactId>
@@ -23,8 +23,8 @@
 
         <!-- Security -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
         </dependency>
 
     </dependencies>

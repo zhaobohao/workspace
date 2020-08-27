@@ -1,3 +1,5 @@
+
+
 package com.dc3.driver.service.netty;
 
 import cn.hutool.core.util.CharsetUtil;
@@ -69,6 +71,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         String deviceName = byteBuf.toString(0, 22, CharsetUtil.CHARSET_ISO_8859_1);
         Long deviceId = nettyServerHandler.driverContext.getDeviceIdByName(deviceName);
         String hexKey = ByteBufUtil.hexDump(byteBuf, 22, 1);
+
         //TODO 简单的例子，用于存储channel，然后配合write接口实现向下发送数据
         NettyServer.deviceChannelMap.put(deviceId, context.channel());
 
@@ -85,27 +88,33 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 switch (point.getName()) {
                     case "海拔":
                         float altitude = byteBuf.getFloat(start);
-                        pointValue = nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(altitude));
+                        pointValue = new PointValue(deviceId, pointId, String.valueOf(altitude),
+                                nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(altitude)));
                         break;
                     case "速度":
                         double speed = byteBuf.getDouble(start);
-                        pointValue = nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(speed));
+                        pointValue = new PointValue(deviceId, pointId, String.valueOf(speed),
+                                nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(speed)));
                         break;
                     case "液位":
                         long level = byteBuf.getLong(start);
-                        pointValue = nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(level));
+                        pointValue = new PointValue(deviceId, pointId, String.valueOf(level),
+                                nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(level)));
                         break;
                     case "方向":
                         int direction = byteBuf.getInt(start);
-                        pointValue = nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(direction));
+                        pointValue = new PointValue(deviceId, pointId, String.valueOf(direction),
+                                nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(direction)));
                         break;
                     case "锁定":
                         boolean lock = byteBuf.getBoolean(start);
-                        pointValue = nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(lock));
+                        pointValue = new PointValue(deviceId, pointId, String.valueOf(lock),
+                                nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(lock)));
                         break;
                     case "经纬":
                         String lalo = byteBuf.toString(start, end, CharsetUtil.CHARSET_ISO_8859_1).trim();
-                        pointValue = nettyServerHandler.driverService.convertValue(deviceId, pointId, String.valueOf(lalo));
+                        pointValue = new PointValue(deviceId, pointId, lalo,
+                                nettyServerHandler.driverService.convertValue(deviceId, pointId, lalo));
                         break;
                     default:
                         break;
@@ -115,7 +124,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 }
             }
         }
-        nettyServerHandler.driverService.pointValueSender(pointValues);
+        nettyServerHandler.driverService.singlePointValueSender(pointValues);
     }
 
     @Override

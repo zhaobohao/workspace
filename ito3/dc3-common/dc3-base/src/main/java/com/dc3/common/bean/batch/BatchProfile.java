@@ -1,3 +1,5 @@
+
+
 package com.dc3.common.bean.batch;
 
 import lombok.Data;
@@ -23,6 +25,10 @@ public class BatchProfile implements Serializable {
     private Map<String, String> driverConfig;
 
     private List<BatchPoint> points;
+    /**
+     * 仅当share为true的时候生效
+     */
+    private Map<String, Map<String, String>> pointConfig;
 
     private List<BatchGroup> groups;
 }
