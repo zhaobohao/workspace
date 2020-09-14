@@ -1,7 +1,6 @@
-
 package org.springclouddev.core.boot.tenant;
 
-import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
+import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.Expression;
@@ -17,7 +16,7 @@ import org.springclouddev.core.tool.utils.StringUtil;
  */
 @Slf4j
 @AllArgsConstructor
-public class SpringCloudTenantHandler implements TenantHandler {
+public class SpringCloudTenantHandler  implements TenantLineHandler {
 
 	private final SpringCloudTenantProperties properties;
 
@@ -27,7 +26,7 @@ public class SpringCloudTenantHandler implements TenantHandler {
 	 * @return 租户ID
 	 */
 	@Override
-	public Expression getTenantId(boolean where) {
+	public Expression getTenantId() {
 		return new StringValue(Func.toStr(SecureUtil.getTenantId(), TenantConstant.DEFAULT_TENANT_ID));
 	}
 
@@ -45,16 +44,16 @@ public class SpringCloudTenantHandler implements TenantHandler {
 	 * 过滤租户表
 	 *
 	 * @param tableName 表名
-	 * @return 是否进行过滤
+	 * @return 是否忽略, true:表示忽略，false:需要解析并拼接多租户条件
 	 */
 	@Override
-	public boolean doTableFilter(String tableName) {
+	public boolean ignoreTable(String tableName) {
 		return !(
 			(
 				(properties.getTables().size() > 0 && properties.getTables().contains(tableName))
-					|| properties.getMkTable().contains(tableName)
+					|| properties.getTables().contains(tableName)
 			)
-				&& StringUtil.isNotBlank(SecureUtil.getTenantId()) && !"000000".equals(SecureUtil.getTenantId())
+				&& StringUtil.isNotBlank(SecureUtil.getTenantId())
 		);
 	}
 }

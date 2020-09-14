@@ -44,6 +44,11 @@ private Long id;
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
 	/**
+	 * 域名地址
+	 */
+	@ApiModelProperty(value = "域名地址")
+	private String domain;
+	/**
 	 * 联系人
 	 */
 	@ApiModelProperty(value = "联系人")

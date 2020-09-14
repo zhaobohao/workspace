@@ -1,6 +1,8 @@
 
 package org.springclouddev.core.secure;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,8 +21,15 @@ public class AuthInfo {
 	private String tokenType;
 	@ApiModelProperty(value = "刷新令牌")
 	private String refreshToken;
+	@ApiModelProperty(value = "用户ID")
+	@JsonSerialize(using = ToStringSerializer.class)
+	private Long userId;
+	@ApiModelProperty(value = "租户ID")
+	private String tenantId;
+	@ApiModelProperty(value = "第三方系统ID")
+	private String oauthId;
 	@ApiModelProperty(value = "头像")
-	private String avatar = "xxx.png";
+	private String avatar = "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png";
 	@ApiModelProperty(value = "角色名")
 	private String authority;
 	@ApiModelProperty(value = "用户名")
@@ -30,5 +39,5 @@ public class AuthInfo {
 	@ApiModelProperty(value = "过期时间")
 	private long expiresIn;
 	@ApiModelProperty(value = "许可证")
-	private String license = "free for all ";
+	private String license = "free for all";
 }

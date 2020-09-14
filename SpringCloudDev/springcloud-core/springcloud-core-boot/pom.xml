@@ -182,6 +182,12 @@
             <artifactId>apm-toolkit-logback-1.x</artifactId>
             <version>6.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.0</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- PostgreSql -->
         <!--<dependency>
             <groupId>org.postgresql</groupId>

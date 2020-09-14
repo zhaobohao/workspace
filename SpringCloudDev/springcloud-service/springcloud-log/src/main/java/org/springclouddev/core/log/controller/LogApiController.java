@@ -13,6 +13,7 @@ import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.utils.BeanUtil;
 import org.springclouddev.core.tool.utils.Func;
+import org.springclouddev.core.tool.utils.StringPool;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,7 +50,9 @@ public class LogApiController {
 	 */
 	@GetMapping("/list")
 	public R<IPage<LogApiVo>> list(@ApiIgnore @RequestParam Map<String, Object> log, Query query) {
-		IPage<LogApi> pages = logService.page(Condition.getPage(query.setDescs("create_time")), Condition.getQueryWrapper(log, LogApi.class));
+		query.setAscs("create_time");
+		query.setDescs(StringPool.EMPTY);
+		IPage<LogApi> pages = logService.page(Condition.getPage(query), Condition.getQueryWrapper(log, LogApi.class));
 		List<LogApiVo> records = pages.getRecords().stream().map(logApi -> {
 			LogApiVo vo = BeanUtil.copy(logApi, LogApiVo.class);
 			vo.setStrId(Func.toStr(logApi.getId()));

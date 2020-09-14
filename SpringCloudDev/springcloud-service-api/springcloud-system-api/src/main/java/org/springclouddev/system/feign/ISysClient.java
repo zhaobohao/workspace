@@ -3,8 +3,10 @@ package org.springclouddev.system.feign;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springclouddev.core.launch.constant.AppConstant;
+import org.springclouddev.core.tool.api.R;
 import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Role;
+import org.springclouddev.system.entity.Tenant;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,7 @@ public interface ISysClient {
 
 	String API_PREFIX = "/sys";
 
+
 	/**
 	 * 获取部门
 	 *
@@ -32,6 +35,7 @@ public interface ISysClient {
 	 */
 	@GetMapping(API_PREFIX + "/getDept")
 	Dept getDept(@RequestParam("id") Long id);
+
 	/**
 	 * 获取部门名
 	 *
@@ -42,7 +46,6 @@ public interface ISysClient {
 	String getDeptName(@RequestParam("id") Long id);
 
 	/**
-	 * 获取部门
 	 * 获取部门id
 	 *
 	 * @param tenantId  租户id
@@ -80,8 +83,25 @@ public interface ISysClient {
 	@GetMapping(API_PREFIX + "/getPostNames")
 	List<String> getPostNames(@RequestParam("postIds") String postIds);
 
+
+	/**
+	 * 获取角色
+	 *
+	 * @param id 主键
+	 * @return Role
+	 */
+	@GetMapping(API_PREFIX + "/getRole")
+	Role getRole(@RequestParam("id") Long id);
+
+	/**
+	 * 获取角色id
+	 *
+	 * @param tenantId  租户id
+	 * @param roleNames 角色名
+	 * @return 角色id
+	 */
 	@GetMapping(API_PREFIX + "/getRoleIds")
-	String getRoleIds(String tenantId, String roleNames);
+	String getRoleIds(@RequestParam("tenantId") String tenantId, @RequestParam("roleNames") String roleNames);
 
 	/**
 	 * 获取角色名
@@ -93,6 +113,15 @@ public interface ISysClient {
 	String getRoleName(@RequestParam("id") Long id);
 
 	/**
+	 * 获取角色名
+	 *
+	 * @param roleIds 主键
+	 * @return
+	 */
+	@GetMapping(API_PREFIX + "/getRoleNames")
+	List<String> getRoleNames(@RequestParam("roleIds") String roleIds);
+
+	/**
 	 * 获取角色别名
 	 *
 	 * @param id 主键
@@ -102,29 +131,21 @@ public interface ISysClient {
 	String getRoleAlias(@RequestParam("id") Long id);
 
 	/**
-	 * 获取角色别名
-	 *
-	 * @return 角色别名
-	 * @param roleIds 主键
-	 * @return
-	 */
-	@GetMapping(API_PREFIX + "/getRoleNames")
-	List<String> getRoleNames(@RequestParam("roleIds") String roleIds);
-	/**
-	 * 获取角色
+	 * 获取租户
 	 *
 	 * @param id 主键
-	 * @return Role
+	 * @return Tenant
 	 */
-	@GetMapping(API_PREFIX + "/getRole")
-    Role getRole(@RequestParam("id") Long id);
+	@GetMapping(API_PREFIX + "/tenant")
+	R<Tenant> getTenant(@RequestParam("id") Long id);
 
 	/**
-	 * 获取角色
+	 * 获取租户
 	 *
-	 * @param id 主键
-	 * @return Role
+	 * @param tenantId 租户id
+	 * @return Tenant
 	 */
-	@GetMapping(API_PREFIX + "/getPermission")
-	List<String> getPermission(@RequestParam("id") String id);
+	@GetMapping(API_PREFIX + "/tenant-id")
+	R<Tenant> getTenant(@RequestParam("tenantId") String tenantId);
+
 }

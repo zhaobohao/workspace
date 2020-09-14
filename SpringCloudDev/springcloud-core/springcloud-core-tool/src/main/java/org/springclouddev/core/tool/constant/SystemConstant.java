@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class SystemConstant {
 
+	public static final Integer DB_NOT_DELETED = 0;
 	/**
 	 * 开发模式
 	 */

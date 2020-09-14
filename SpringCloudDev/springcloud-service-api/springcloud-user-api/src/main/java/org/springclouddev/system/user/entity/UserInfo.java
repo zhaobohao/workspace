@@ -36,9 +36,11 @@ public class UserInfo implements Serializable {
 	 */
 	@ApiModelProperty(value = "角色集合")
 	private List<String> roles;
+
 	/**
-	 * 资源集合
+	 * 第三方授权id
 	 */
-	@ApiModelProperty(value = "资源集合")
-	private List<String> resources;
+	@ApiModelProperty(value = "第三方授权id")
+	private String oauthId;
+
 }

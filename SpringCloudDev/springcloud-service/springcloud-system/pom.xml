@@ -30,6 +30,12 @@
             <artifactId>springclouddev-system-api</artifactId>
             <version>${springclouddev.project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-user-api</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

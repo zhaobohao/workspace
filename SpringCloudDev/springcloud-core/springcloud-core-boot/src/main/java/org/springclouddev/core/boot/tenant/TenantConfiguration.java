@@ -3,6 +3,7 @@ package org.springclouddev.core.boot.tenant;
 
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
 import lombok.AllArgsConstructor;
@@ -38,8 +39,8 @@ public class TenantConfiguration {
 	 * @return TenantHandler
 	 */
 	@Bean
-	@ConditionalOnMissingBean(TenantHandler.class)
-	public TenantHandler springCloudTenantHandler() {
+	@ConditionalOnMissingBean(TenantLineHandler.class)
+	public TenantLineHandler springCloudTenantHandler() {
 		return new SpringCloudTenantHandler(properties);
 	}
 
@@ -54,21 +55,5 @@ public class TenantConfiguration {
 		return new SpringCloudTenantId();
 	}
 
-	/**
-	 * 分页插件
-	 *
-	 * @param tenantHandler 自定义租户处理器
-	 * @return PaginationInterceptor
-	 */
-	@Bean
-	public PaginationInterceptor paginationInterceptor(TenantHandler tenantHandler) {
-		PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-		List<ISqlParser> sqlParserList = new ArrayList<>();
-		TenantSqlParser tenantSqlParser = new TenantSqlParser();
-		tenantSqlParser.setTenantHandler(tenantHandler);
-		sqlParserList.add(tenantSqlParser);
-		paginationInterceptor.setSqlParserList(sqlParserList);
-		return paginationInterceptor;
-	}
 
 }

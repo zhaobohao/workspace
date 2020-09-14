@@ -4,36 +4,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>springclouddev-core</artifactId>
-       <groupId>org.springclouddev</groupId>
+        <groupId>org.springclouddev</groupId>
         <version>1.0.1</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springclouddev-core-mybatis</artifactId>
+    <artifactId>springcloud-core-social</artifactId>
     <name>${project.artifactId}</name>
     <version>${project.tool.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>
-        <!--Mybatis-->
+        <!--sprngclouddev-->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>${mybatis.plus.version}</version>
-        </dependency>
-        <!--springclouddev-->
-        <dependency>
-           <groupId>org.springclouddev</groupId>
-            <artifactId>springclouddev-core-secure</artifactId>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-tool</artifactId>
             <version>${project.tool.version}</version>
         </dependency>
+        <!-- 第三方登陆 -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
-            <version>3.4.0</version>
-            <scope>compile</scope>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>1.15.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
         </dependency>
     </dependencies>
-
 </project>

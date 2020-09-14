@@ -3,6 +3,7 @@ package org.springclouddev.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springclouddev.core.mp.support.Query;
 import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
+import org.springclouddev.core.tool.support.Kv;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Tenant;
 import org.springclouddev.system.service.ITenantService;
@@ -106,6 +108,21 @@ public class TenantController extends AbstractController {
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(tenantService.deleteLogic(Func.toLongList(ids)));
+	}
+	/**
+	 * 根据域名查询信息
+	 *
+	 * @param domain 域名
+	 */
+	@GetMapping("/info")
+	@ApiOperation(value = "配置信息", notes = "传入domain")
+	public R<Kv> info(String domain) {
+		Tenant tenant = tenantService.getOne(Wrappers.<Tenant>query().lambda().eq(Tenant::getDomain, domain));
+		Kv kv = Kv.init();
+		if (tenant != null) {
+			kv.set("tenantId", tenant.getTenantId()).set("domain", tenant.getDomain());
+		}
+		return R.data(kv);
 	}
 
 

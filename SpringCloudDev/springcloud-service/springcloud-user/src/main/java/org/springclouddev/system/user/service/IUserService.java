@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.core.mp.base.BaseService;
 import org.springclouddev.system.user.entity.User;
 import org.springclouddev.system.user.entity.UserInfo;
+import org.springclouddev.system.user.entity.UserOauth;
 import org.springclouddev.system.user.excel.UserExcel;
 
 import java.util.List;
@@ -20,7 +21,6 @@ public interface IUserService extends BaseService<User> {
 
 	/**
 	 * 新增或修改用户
-	 *
 	 * @param user
 	 * @return
 	 */
@@ -54,6 +54,14 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfo(String tenantId, String account, String password);
 
 	/**
+	 * 用户信息
+	 *
+	 * @param userOauth
+	 * @return
+	 */
+	UserInfo userInfo(UserOauth userOauth);
+
+	/**
 	 * 给用户设置角色
 	 *
 	 * @param userIds
@@ -69,6 +77,7 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	boolean resetPassword(String userIds);
+
 	/**
 	 * 修改密码
 	 *
@@ -87,13 +96,7 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	List<String> getRoleName(String roleIds);
-	/**
-	 * 获取角色名
-	 *
-	 * @param roleIds
-	 * @return
-	 */
-	List<String> getRoleAlians(String roleIds);
+
 	/**
 	 * 获取部门名
 	 *
@@ -101,7 +104,6 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	List<String> getDeptName(String deptIds);
-
 
 	/**
 	 * 导入用户数据
@@ -118,4 +120,13 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	List<UserExcel> exportUser(Wrapper<User> queryWrapper);
+
+	/**
+	 * 注册用户
+	 *
+	 * @param user
+	 * @param oauthId
+	 * @return
+	 */
+	boolean registerGuest(User user, Long oauthId);
 }

@@ -11,16 +11,23 @@ import org.springclouddev.common.constant.CommonConstant;
 import org.springclouddev.core.log.exception.ServiceException;
 import org.springclouddev.core.mp.base.BaseServiceImpl;
 import org.springclouddev.core.mp.base.SuperMapper;
+import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.utils.*;
+import org.springclouddev.system.entity.Tenant;
 import org.springclouddev.system.feign.ISysClient;
 import org.springclouddev.system.user.entity.User;
 import org.springclouddev.system.user.entity.UserInfo;
+import org.springclouddev.system.user.entity.UserOauth;
 import org.springclouddev.system.user.excel.UserExcel;
 import org.springclouddev.system.user.mapper.UserMapper;
+import org.springclouddev.system.user.service.IUserOauthService;
 import org.springclouddev.system.user.service.IUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +40,11 @@ import java.util.Objects;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements IUserService {
+	private static final String GUEST_NAME = "guest";
+	private static final String MINUS_ONE = "-1";
+
 	private ISysClient sysClient;
+	private IUserOauthService userOauthService;
 
 	@Override
 	public boolean submit(User user) {
@@ -61,10 +72,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
 		}
-		if (Func.isNotEmpty(user)) {
-			List<String> resources = baseMapper.getResources(Func.toStrArray(user.getRoleId()));
-			userInfo.setResources(resources);
-		}
 		return userInfo;
 	}
 
@@ -77,9 +84,29 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			List<String> roleAlias = baseMapper.getRoleAlias(Func.toStrArray(user.getRoleId()));
 			userInfo.setRoles(roleAlias);
 		}
-		if (Func.isNotEmpty(user)) {
-			List<String> resources = baseMapper.getResources(Func.toStrArray(user.getRoleId()));
-			userInfo.setResources(resources);
+		return userInfo;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public UserInfo userInfo(UserOauth userOauth) {
+		UserOauth uo = userOauthService.getOne(Wrappers.<UserOauth>query().lambda().eq(UserOauth::getUuid, userOauth.getUuid()).eq(UserOauth::getSource, userOauth.getSource()));
+		UserInfo userInfo;
+		if (Func.isNotEmpty(uo) && Func.isNotEmpty(uo.getUserId())) {
+			userInfo = this.userInfo(uo.getUserId());
+			userInfo.setOauthId(Func.toStr(uo.getId()));
+		} else {
+			userInfo = new UserInfo();
+			if (Func.isEmpty(uo)) {
+				userOauthService.save(userOauth);
+				userInfo.setOauthId(Func.toStr(userOauth.getId()));
+			} else {
+				userInfo.setOauthId(Func.toStr(uo.getId()));
+			}
+			User user = new User();
+			user.setAccount(userOauth.getUsername());
+			userInfo.setUser(user);
+			userInfo.setRoles(Collections.singletonList(GUEST_NAME));
 		}
 		return userInfo;
 	}
@@ -88,15 +115,15 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public boolean grant(String userIds, String roleIds) {
 		User user = new User();
 		user.setRoleId(roleIds);
-		return this.update(user, Wrappers.<User>update().lambda().in(User::getId, Func.toIntList(userIds)));
+		return this.update(user, Wrappers.<User>update().lambda().in(User::getId, Func.toLongList(userIds)));
 	}
 
 	@Override
 	public boolean resetPassword(String userIds) {
 		User user = new User();
 		user.setPassword(DigestUtil.encrypt(CommonConstant.DEFAULT_PASSWORD));
-		user.setUpdateTime( LocalDateTime.now());
-		return this.update(user, Wrappers.<User>update().lambda().in(User::getId, Func.toIntList(userIds)));
+		user.setUpdateTime(LocalDateTime.now());
+		return this.update(user, Wrappers.<User>update().lambda().in(User::getId, Func.toLongList(userIds)));
 	}
 
 	@Override
@@ -117,11 +144,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	}
 
 	@Override
-	public List<String> getRoleAlians(String roleIds) {
-		return baseMapper.getRoleAlias(Func.toStrArray(roleIds));
-	}
-
-	@Override
 	public List<String> getDeptName(String deptIds) {
 		return baseMapper.getDeptName(Func.toStrArray(deptIds));
 	}
@@ -137,7 +159,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			// 设置角色ID
 			user.setRoleId(sysClient.getRoleIds(userExcel.getTenantId(), userExcel.getRoleName()));
 			// 设置默认密码
-			user.setPassword(DigestUtil.encrypt(CommonConstant.DEFAULT_PASSWORD));
+			user.setPassword(CommonConstant.DEFAULT_PASSWORD);
 			this.submit(user);
 		});
 	}
@@ -152,4 +174,29 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		});
 		return userList;
 	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public boolean registerGuest(User user, Long oauthId) {
+		R<Tenant> result = sysClient.getTenant(user.getTenantId());
+		Tenant tenant = result.getData();
+		if (!result.isSuccess() || tenant == null || tenant.getId() == null) {
+			throw new ApiException("租户信息错误!");
+		}
+		UserOauth userOauth = userOauthService.getById(oauthId);
+		if (userOauth == null || userOauth.getId() == null) {
+			throw new ApiException("第三方登陆信息错误!");
+		}
+		user.setRealName(user.getName());
+		user.setAvatar(userOauth.getAvatar());
+		user.setRoleId(MINUS_ONE);
+		user.setDeptId(MINUS_ONE);
+		user.setPostId(MINUS_ONE);
+		boolean userTemp = this.submit(user);
+		userOauth.setUserId(user.getId());
+		userOauth.setTenantId(user.getTenantId());
+		boolean oauthTemp = userOauthService.updateById(userOauth);
+		return (userTemp && oauthTemp);
+	}
+
 }
