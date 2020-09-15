@@ -20,12 +20,12 @@ public class TokenGranterBuilder {
 	/**
 	 * TokenGranter缓存池
 	 */
-	private static Map<String, ITokenGranter> granterPool = new ConcurrentHashMap<>();
+	private static final Map<String, ITokenGranter> GRANTER_POOL = new ConcurrentHashMap<>();
 
 	static {
-		granterPool.put(PasswordTokenGranter.GRANT_TYPE, SpringUtil.getBean(PasswordTokenGranter.class));
-		granterPool.put(CaptchaTokenGranter.GRANT_TYPE, SpringUtil.getBean(CaptchaTokenGranter.class));
-		granterPool.put(RefreshTokenGranter.GRANT_TYPE, SpringUtil.getBean(RefreshTokenGranter.class));
+		GRANTER_POOL.put(PasswordTokenGranter.GRANT_TYPE, SpringUtil.getBean(PasswordTokenGranter.class));
+		GRANTER_POOL.put(CaptchaTokenGranter.GRANT_TYPE, SpringUtil.getBean(CaptchaTokenGranter.class));
+		GRANTER_POOL.put(RefreshTokenGranter.GRANT_TYPE, SpringUtil.getBean(RefreshTokenGranter.class));
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class TokenGranterBuilder {
 	 * @return ITokenGranter
 	 */
 	public static ITokenGranter getGranter(String grantType) {
-		ITokenGranter tokenGranter = granterPool.get(Func.toStr(grantType, PasswordTokenGranter.GRANT_TYPE));
+		ITokenGranter tokenGranter = GRANTER_POOL.get(Func.toStr(grantType, PasswordTokenGranter.GRANT_TYPE));
 		if (tokenGranter == null) {
 			throw new SecureException("no grantType was found");
 		} else {

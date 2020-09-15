@@ -9,3 +9,7 @@ spring:
     url: ${springclouddev.datasource.test.url}
     username: ${springclouddev.datasource.test.username}
     password: ${springclouddev.datasource.test.password}
+#第三方登陆
+social:
+  enabled: true
+  domain: http://127.0.0.1:1888

@@ -129,7 +129,16 @@ public interface ISysClient {
 	 */
 	@GetMapping(API_PREFIX + "/getRoleAlias")
 	String getRoleAlias(@RequestParam("id") Long id);
-
+	/**
+	 * 获取角色
+	 * 获取租户
+	 *
+	 * @param id 主键
+	 * @return Role
+	 * @return Tenant
+	 */
+	@GetMapping(API_PREFIX + "/getPermission")
+	List<String> getPermission(@RequestParam("id") String id);
 	/**
 	 * 获取租户
 	 *

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springcloud-core-social</artifactId>
+    <artifactId>springclouddev-core-social</artifactId>
     <name>${project.artifactId}</name>
     <version>${project.tool.version}</version>
     <packaging>jar</packaging>

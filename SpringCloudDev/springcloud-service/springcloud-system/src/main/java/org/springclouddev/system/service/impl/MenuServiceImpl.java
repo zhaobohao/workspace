@@ -11,6 +11,7 @@ import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.node.ForestNodeMerger;
 import org.springclouddev.core.tool.support.Kv;
 import org.springclouddev.core.tool.utils.Func;
+import org.springclouddev.core.tool.utils.StringUtil;
 import org.springclouddev.system.dto.MenuDTO;
 import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Menu;
@@ -45,6 +46,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 	@Override
 	public List<MenuVO> routes(String roleId) {
+		if (StringUtil.isBlank(roleId)) {
+			return null;
+		}
 		List<Menu> allMenus = baseMapper.allMenu();
 		List<Menu> roleMenus = baseMapper.roleMenu(Func.toIntList(roleId));
 		List<Menu> routes = new LinkedList<>(roleMenus);

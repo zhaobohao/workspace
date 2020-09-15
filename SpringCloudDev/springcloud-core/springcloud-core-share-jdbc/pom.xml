@@ -8,7 +8,7 @@
         <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>springcloud-core-share-jdbc</artifactId>
+    <artifactId>springclouddev-core-share-jdbc</artifactId>
     <packaging>jar</packaging>
 
     <properties>

@@ -48,6 +48,11 @@
             <artifactId>springclouddev-core-swagger</artifactId>
             <version>${project.tool.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-social</artifactId>
+            <version>${project.tool.version}</version>
+        </dependency>
         <!-- Captcha -->
         <dependency>
             <groupId>com.github.whvcse</groupId>

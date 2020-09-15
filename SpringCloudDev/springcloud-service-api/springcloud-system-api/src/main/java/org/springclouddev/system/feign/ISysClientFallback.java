@@ -1,8 +1,10 @@
 
 package org.springclouddev.system.feign;
 
+import org.springclouddev.core.tool.api.R;
 import org.springclouddev.system.entity.Dept;
 import org.springclouddev.system.entity.Role;
+import org.springclouddev.system.entity.Tenant;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -46,6 +48,16 @@ public class ISysClientFallback implements ISysClient {
 
 	@Override
 	public List<String> getPermission(String id) {
+		return null;
+	}
+
+	@Override
+	public R<Tenant> getTenant(Long id) {
+		return null;
+	}
+
+	@Override
+	public R<Tenant> getTenant(String tenantId) {
 		return null;
 	}
 

@@ -122,7 +122,7 @@ public class MenuController extends AbstractController {
     @ApiOperationSupport(order = 5)
     @ApiOperation(value = "前端菜单数据", notes = "前端菜单数据")
     public R<List<MenuVO>> routes(SystemUser user) {
-        List<MenuVO> list = menuService.routes(user.getRoleId());
+        List<MenuVO> list = menuService.routes((user == null || user.getUserId() == 0L) ? null : user.getRoleId());
         return R.data(list);
     }
 
@@ -183,6 +183,9 @@ public class MenuController extends AbstractController {
     @ApiOperationSupport(order = 10)
     @ApiOperation(value = "菜单的角色权限")
     public R<List<Kv>> authRoutes(SystemUser user) {
+        if (Func.isEmpty(user) || user.getUserId() == 0L) {
+            return null;
+        }
         return R.data(menuService.authRoutes(user));
     }
 
