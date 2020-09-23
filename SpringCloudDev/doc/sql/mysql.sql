@@ -4216,8 +4216,7 @@ CREATE TABLE `mk_tenant`  (
   `is_deleted` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '租户表' ROW_FORMAT = Dynamic;
-ALTER TABLE `mk_tenant`
-    ADD COLUMN `domain` varchar(255) NULL COMMENT '域名地址' AFTER `tenant_name`;
+
 -- ----------------------------
 -- Records of mk_tenant
 -- ----------------------------
@@ -4260,8 +4259,8 @@ INSERT INTO `mk_user` VALUES (1, '000000', NULL, 'admin', '90b9aa7e25f80cf4f64e9
 -- ----------------------------
 -- Table structure for blade_user_oauth
 -- ----------------------------
-DROP TABLE IF EXISTS `blade_user_oauth`;
-CREATE TABLE `blade_user_oauth`  (
+DROP TABLE IF EXISTS `mk_user_oauth`;
+CREATE TABLE `mk_user_oauth`  (
   `id` bigint(64) NOT NULL COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户ID',
   `uuid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方系统用户ID',
