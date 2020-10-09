@@ -25,7 +25,9 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>2.3.4.RELEASE</version>
         </dependency>
+
 
         <!-- dc3 Common Core -->
         <dependency>
