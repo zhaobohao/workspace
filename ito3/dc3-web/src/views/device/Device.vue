@@ -133,7 +133,7 @@
                                 }
                             ]
                         }, {
-                            label: '数据存储类型',
+                            label: '存储类型',
                             prop: 'multi',
                             width: 100,
                             span: 8,

@@ -391,5 +391,6 @@ export const failMessage = (message) => {
                 failNotifyText = '';
             }
         });
+        console.error(message);
     }
 };

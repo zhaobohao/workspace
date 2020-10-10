@@ -69,14 +69,17 @@
                             searchSpan: 6,
                             type: 'select',
                             searchFilterable: true,
-                            value: true,
+                            value: false,
                             dicData: [
                                 {
-                                    label: '公有(web暂不支持,该模式请使用批量导入)',
-                                    value: true
-                                }, {
                                     label: '私有',
                                     value: false
+                                },
+                                {
+                                    label: '公有(web暂不支持,该模式请使用批量导入)',
+                                    value: true,
+                                    disabled: true
+
                                 }
                             ],
                             rules: [

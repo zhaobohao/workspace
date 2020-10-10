@@ -88,6 +88,10 @@
                             prop: 'value',
                             span: 12
                         }, {
+                            label: '自定义',
+                            prop: 'customValue',
+                            span: 12
+                        }, {
                             label: '采集日期',
                             prop: 'originTime',
                             width: 180,

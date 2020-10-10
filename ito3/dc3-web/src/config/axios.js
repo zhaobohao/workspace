@@ -33,12 +33,17 @@ axios.interceptors.request.use(config => {
 //HTTP Response拦截
 axios.interceptors.response.use(res => {
     NProgress.done();
-    const ok = res.data.ok || false, status = res.data.code || 200, message = res.data.message || '数据请求失败!';
-    if (status === 401) store.dispatch('ClearToken').then(() => router.push({path: '/login'}));
+    const ok = res.data.ok || false, status = res.status || 200, message = res.data.message || 'Internal Server Error!';
+
     if (!ok) {
-        failMessage(message);
+        if (status === 401) {
+            store.dispatch('ClearToken').then(() => router.push({path: '/login'}));
+        } else {
+            failMessage(message);
+        }
         return Promise.reject(new Error(message));
     }
+
     return res.data;
 }, error => {
     console.error('Response interceptors:', error);

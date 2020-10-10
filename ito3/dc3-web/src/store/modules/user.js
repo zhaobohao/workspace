@@ -1,5 +1,5 @@
 import md5 from 'js-md5';
-import {getStore, setStore} from '@/util/store'
+import {getStore, removeStore, setStore} from '@/util/store'
 import {cancelToken, generateSalt, generateToken} from '@/api/user'
 
 const user = {
@@ -52,7 +52,7 @@ const user = {
         },
         REMOVE_USER: (state) => {
             state.user = '';
-            setStore({name: 'user'});
+            removeStore({name: 'user'});
         },
         SET_TOKEN: (state, token) => {
             state.token = token;
@@ -60,7 +60,7 @@ const user = {
         },
         REMOVE_TOKEN: (state) => {
             state.token = '';
-            setStore({name: 'token'});
+            removeStore({name: 'token'});
         }
     }
 };
