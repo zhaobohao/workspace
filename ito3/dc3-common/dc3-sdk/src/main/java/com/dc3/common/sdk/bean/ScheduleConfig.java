@@ -7,9 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Pattern;
 
-/**
- * @author pnoker
- */
+
 @Setter
 @Getter
 public class ScheduleConfig {

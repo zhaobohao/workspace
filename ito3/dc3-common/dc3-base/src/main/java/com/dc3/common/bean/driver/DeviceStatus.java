@@ -11,9 +11,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author pnoker
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

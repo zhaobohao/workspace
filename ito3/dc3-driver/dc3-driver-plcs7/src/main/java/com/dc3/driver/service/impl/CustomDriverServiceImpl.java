@@ -26,9 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.dc3.common.sdk.util.DriverUtils.attribute;
 import static com.dc3.common.sdk.util.DriverUtils.value;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class CustomDriverServiceImpl implements CustomDriverService {

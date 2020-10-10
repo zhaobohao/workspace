@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class DriverCommandServiceImpl implements DriverCommandService {

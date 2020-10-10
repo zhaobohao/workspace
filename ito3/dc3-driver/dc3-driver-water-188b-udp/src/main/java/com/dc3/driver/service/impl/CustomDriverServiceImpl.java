@@ -15,9 +15,7 @@ import javax.annotation.Resource;
 import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class CustomDriverServiceImpl implements CustomDriverService {

@@ -10,9 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-/**
- * @author pnoker
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

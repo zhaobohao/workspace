@@ -8,9 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
-/**
- * @author pnoker
- */
+
 @Component
 @EnableFeignClients(basePackages = {
         "com.dc3.api.center.manager.*"

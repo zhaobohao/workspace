@@ -4,9 +4,7 @@ package com.dc3.common.sdk.service;
 
 import com.dc3.common.bean.driver.PointValue;
 
-/**
- * @author pnoker
- */
+
 public interface DriverCommandService {
 
     /**

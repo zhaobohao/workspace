@@ -10,9 +10,7 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Component
 public class RedisUtil {

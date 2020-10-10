@@ -23,9 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class PointValueServiceImpl implements PointValueService {

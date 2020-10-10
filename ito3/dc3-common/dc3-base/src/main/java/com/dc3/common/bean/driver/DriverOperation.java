@@ -8,9 +8,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
-/**
- * @author pnoker
- */
+
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)

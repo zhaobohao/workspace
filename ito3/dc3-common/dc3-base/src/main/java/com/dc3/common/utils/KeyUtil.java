@@ -14,6 +14,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -40,7 +41,7 @@ public class KeyUtil {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(Common.KEY_ALGORITHM_AES);
         keyGenerator.init(128);
         SecretKey secretKey = keyGenerator.generateKey();
-        return new Keys().new Aes(Dc3Util.encode(secretKey.getEncoded()));
+        return new Keys.Aes(Dc3Util.encode(secretKey.getEncoded()));
     }
 
     /**
@@ -58,7 +59,7 @@ public class KeyUtil {
         //AES加密
         Cipher cipher = Cipher.getInstance(Common.KEY_ALGORITHM_AES);
         cipher.init(Cipher.ENCRYPT_MODE, key);
-        return Dc3Util.encode(cipher.doFinal(str.getBytes(Charsets.UTF_8)));
+        return Dc3Util.encode(cipher.doFinal(str.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**
@@ -77,8 +78,8 @@ public class KeyUtil {
         Cipher cipher = Cipher.getInstance(Common.KEY_ALGORITHM_AES);
         cipher.init(Cipher.DECRYPT_MODE, key);
         //64位解码加密后的字符串
-        byte[] inputByte = Dc3Util.decode(str.getBytes(Charsets.UTF_8));
-        return new String(cipher.doFinal(inputByte));
+        byte[] inputByte = Dc3Util.decode(str.getBytes(StandardCharsets.UTF_8));
+        return new String(cipher.doFinal(inputByte), StandardCharsets.UTF_8);
     }
 
     /**
@@ -95,7 +96,7 @@ public class KeyUtil {
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         String publicKeyString = Dc3Util.encode(publicKey.getEncoded());
         String privateKeyString = Dc3Util.encode((privateKey.getEncoded()));
-        return new Keys().new Rsa(publicKeyString, privateKeyString);
+        return new Keys.Rsa(publicKeyString, privateKeyString);
     }
 
     /**
@@ -114,7 +115,7 @@ public class KeyUtil {
         //RSA加密
         Cipher cipher = Cipher.getInstance(Common.KEY_ALGORITHM_RSA);
         cipher.init(Cipher.ENCRYPT_MODE, pubKey);
-        return Dc3Util.encode(cipher.doFinal(str.getBytes(Charsets.UTF_8)));
+        return Dc3Util.encode(cipher.doFinal(str.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**
@@ -134,8 +135,8 @@ public class KeyUtil {
         Cipher cipher = Cipher.getInstance(Common.KEY_ALGORITHM_RSA);
         cipher.init(Cipher.DECRYPT_MODE, priKey);
         //64位解码加密后的字符串
-        byte[] inputByte = Dc3Util.decode(str.getBytes(Charsets.UTF_8));
-        return new String(cipher.doFinal(inputByte));
+        byte[] inputByte = Dc3Util.decode(str.getBytes(StandardCharsets.UTF_8));
+        return new String(cipher.doFinal(inputByte), StandardCharsets.UTF_8);
     }
 
     /**
@@ -148,7 +149,7 @@ public class KeyUtil {
         JwtBuilder builder = Jwts.builder()
                 .setId(name)
                 .setIssuedAt(new Date())
-                .setExpiration(Dc3Util.expireTime(6, Calendar.HOUR))
+                .setExpiration(Dc3Util.expireTime(Common.Cache.TOKEN_CACHE_TIMEOUT, Calendar.HOUR))
                 .signWith(SignatureAlgorithm.HS256, Common.KEY);
         return builder.compact();
     }

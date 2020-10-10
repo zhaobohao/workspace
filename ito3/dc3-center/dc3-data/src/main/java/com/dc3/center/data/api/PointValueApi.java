@@ -17,9 +17,7 @@ import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @RestController
 @RequestMapping(Common.Service.DC3_DATA_URL_PREFIX)

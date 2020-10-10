@@ -14,9 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-/**
- * @author pnoker
- */
+
 @Setter
 @Getter
 @Validated({Insert.class, Update.class})

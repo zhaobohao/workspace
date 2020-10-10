@@ -14,9 +14,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Configuration
 public class TopicRabbitConfig {

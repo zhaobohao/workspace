@@ -24,9 +24,7 @@ import org.springframework.messaging.MessageHandler;
 
 import javax.annotation.Resource;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Configuration
 @IntegrationComponentScan

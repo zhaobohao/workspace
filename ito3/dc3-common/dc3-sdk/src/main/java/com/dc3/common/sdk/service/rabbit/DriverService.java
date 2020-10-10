@@ -20,9 +20,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class DriverService {

@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.util;
 
 import cn.hutool.core.convert.Convert;
@@ -8,12 +6,11 @@ import com.dc3.common.sdk.bean.AttributeInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 public class DriverUtils {
 
@@ -48,7 +45,7 @@ public class DriverUtils {
      * @return string
      */
     public static String base64Encode(String content) {
-        byte[] bytes = content.getBytes();
+        byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
         return Base64.getEncoder().encodeToString(bytes);
     }
 
@@ -59,7 +56,7 @@ public class DriverUtils {
      * @return string
      */
     public static String base64Decode(String content) {
-        byte[] bytes = content.getBytes();
+        byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
         return new String(Base64.getDecoder().decode(bytes));
     }
 

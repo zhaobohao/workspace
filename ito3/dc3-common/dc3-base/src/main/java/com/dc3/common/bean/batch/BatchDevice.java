@@ -9,9 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Map;
 
-/**
- * @author pnoker
- */
+
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)

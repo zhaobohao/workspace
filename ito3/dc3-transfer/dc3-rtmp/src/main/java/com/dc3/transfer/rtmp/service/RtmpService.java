@@ -6,9 +6,7 @@ import com.dc3.common.base.Service;
 import com.dc3.common.dto.RtmpDto;
 import com.dc3.common.model.Rtmp;
 
-/**
- * @author pnoker
- */
+
 public interface RtmpService extends Service<Rtmp, RtmpDto> {
 
     /**

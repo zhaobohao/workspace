@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Optional;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class DriverScheduleServiceImpl implements DriverScheduleService {

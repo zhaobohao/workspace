@@ -18,16 +18,14 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author pnoker
- */
+
 @Component
 public class NettyServer {
     /**
      * DeviceId:Channel
      * 用于存放设备的 Netty Context Channel
      */
-    public static Map<Long, Channel> deviceChannelMap = new ConcurrentHashMap<>(16);
+    public static final Map<Long, Channel> deviceChannelMap = new ConcurrentHashMap<>(16);
 
     @SneakyThrows
     public void start(int port) {

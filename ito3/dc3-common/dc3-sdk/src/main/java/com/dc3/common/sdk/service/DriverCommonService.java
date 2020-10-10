@@ -2,9 +2,7 @@
 
 package com.dc3.common.sdk.service;
 
-/**
- * @author pnoker
- */
+
 public interface DriverCommonService {
     /**
      * 初始化 SDK

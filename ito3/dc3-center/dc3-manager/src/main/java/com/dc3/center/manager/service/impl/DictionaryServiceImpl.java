@@ -18,9 +18,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class DictionaryServiceImpl implements DictionaryService {

@@ -2,9 +2,7 @@
 
 package com.dc3.common.constant;
 
-/**
- * @author pnoker
- */
+
 public interface Operation {
 
     interface Profile {

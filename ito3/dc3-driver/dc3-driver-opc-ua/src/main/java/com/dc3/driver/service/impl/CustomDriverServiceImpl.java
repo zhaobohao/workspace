@@ -1,5 +1,3 @@
-
-
 package com.dc3.driver.service.impl;
 
 import com.alibaba.fastjson.JSON;
@@ -26,18 +24,15 @@ import javax.annotation.Resource;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 
 import static com.dc3.common.sdk.util.DriverUtils.attribute;
 import static com.dc3.common.sdk.util.DriverUtils.value;
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.uint;
 
-/**
- * @author pnoker
- */
 @Slf4j
 @Service
 public class CustomDriverServiceImpl implements CustomDriverService {
@@ -51,7 +46,7 @@ public class CustomDriverServiceImpl implements CustomDriverService {
     /**
      * Opc Ua Client Map
      */
-    private volatile Map<Long, OpcUaClient> clientMap = new HashMap<>(64);
+    private static Map<Long, OpcUaClient> clientMap = new ConcurrentHashMap<>(16);
     private static KeyLoader keyLoader;
 
     static {
@@ -145,23 +140,30 @@ public class CustomDriverServiceImpl implements CustomDriverService {
      * @return String Value
      * @throws Exception
      */
-    public String readItem(Long deviceId, Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo) throws Exception {
+    public String readItem(Long deviceId, Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo) {
         CompletableFuture<String> value = new CompletableFuture<>();
-        OpcUaClient client = getOpcUaClient(deviceId, driverInfo);
-        client.connect().get();
-        int namespace = attribute(pointInfo, "namespace");
-        String tag = attribute(pointInfo, "tag");
 
-        NodeId nodeId = new NodeId(namespace, tag);
-        client.readValue(0.0, TimestampsToReturn.Both, nodeId).thenAccept(dataValue -> {
-            try {
-                value.complete(dataValue.getValue().getValue().toString());
-            } catch (Exception e) {
-                log.error("Point ns={};s={}; does not exist", namespace, tag);
-            }
-        });
+        OpcUaClient client;
+        try {
+            int namespace = attribute(pointInfo, "namespace");
+            String tag = attribute(pointInfo, "tag");
+            NodeId nodeId = new NodeId(namespace, tag);
 
-        return value.get();
+            client = getOpcUaClient(deviceId, driverInfo);
+            client.connect().get();
+            client.readValue(0.0, TimestampsToReturn.Both, nodeId).thenAccept(dataValue -> {
+                try {
+                    value.complete(dataValue.getValue().getValue().toString());
+                } catch (Exception e) {
+                    log.error("Opc Ua point(ns={};s={}) does not exist", namespace, tag);
+                }
+            });
+            return value.get();
+        } catch (UaException | InterruptedException | ExecutionException e) {
+            log.error("Opc Ua Read Item Error:{}", e.getMessage(), e);
+            clientMap.entrySet().removeIf(next -> next.getKey().equals(deviceId));
+            return null;
+        }
     }
 
     /**

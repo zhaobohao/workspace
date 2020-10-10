@@ -3,7 +3,7 @@
 package com.dc3.common.exception;
 
 /**
- * 服务接口异常
+ * 自定义服务 异常
  *
  * @author pnoker
  */

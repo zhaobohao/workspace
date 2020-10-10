@@ -16,9 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
 
-/**
- * @author pnoker
- */
+
 @Component
 public class NettyTcpServer {
 

@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.bean.driver;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,9 +13,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author pnoker
- */
 @Data
 @Document
 @NoArgsConstructor
@@ -29,16 +24,38 @@ public class PointValue implements Serializable {
 
     @Transient
     private Long id;
+
+    /**
+     * 设备ID，同MySQl中等 设备ID 一致
+     */
     private Long deviceId;
+
+    /**
+     * 位号ID，同MySQl中等 位号ID 一致
+     */
     private Long pointId;
 
-    private String rawValue;
+    /**
+     * 处理值，进行过缩放、格式化等操作
+     */
     private String value;
+
+    /**
+     * 原始值
+     */
+    private String rawValue;
+
+    /**
+     * 自定义值，用户定义
+     */
+    private Object customValue;
+
     private List<PointValue> children;
 
     @Transient
     @JsonIgnore
     private int timeOut = 15;
+
     @Transient
     @JsonIgnore
     private TimeUnit timeUnit = TimeUnit.MINUTES;
@@ -85,3 +102,4 @@ public class PointValue implements Serializable {
         this.originTime = System.currentTimeMillis();
     }
 }
+

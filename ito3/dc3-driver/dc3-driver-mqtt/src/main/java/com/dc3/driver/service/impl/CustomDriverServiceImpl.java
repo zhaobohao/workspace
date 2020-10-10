@@ -18,9 +18,7 @@ import java.util.Map;
 
 import static com.dc3.common.sdk.util.DriverUtils.attribute;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class CustomDriverServiceImpl implements CustomDriverService {

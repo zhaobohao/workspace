@@ -1,18 +1,17 @@
 [
   {
-    "serviceName": "dc3-driver-opc-ua",
+    "serviceName": "dc3-driver-modbus-tcp",
     "profiles": [
       {
-        "name": "OpcUa-Profile",
+        "name": "Modbus-Tcp-Profile",
         "share": false,
         "driverConfig": {
-          "host": "localhost",
-          "port": "53530",
-          "path": "/OPCUA/SimulationServer"
+          "host": "127.0.0.1",
+          "port": "502"
         },
         "points": [
           {
-            "name": "OpcUa-Point-String",
+            "name": "Modbus-Tcp-Point-String",
             "type": "string",
             "rw": 0,
             "base": 0,
@@ -24,7 +23,7 @@
             "unit": "-"
           },
           {
-            "name": "OpcUa-Point-Boolean",
+            "name": "Modbus-Tcp-Point-Boolean",
             "type": "boolean",
             "rw": 0,
             "base": 0,
@@ -36,7 +35,7 @@
             "unit": "-"
           },
           {
-            "name": "OpcUa-Point-Int",
+            "name": "Modbus-Tcp-Point-Int",
             "type": "int",
             "rw": 0,
             "base": 0,
@@ -48,7 +47,7 @@
             "unit": "-"
           },
           {
-            "name": "OpcUa-Point-Long",
+            "name": "Modbus-Tcp-Point-Long",
             "type": "long",
             "rw": 0,
             "base": 0,
@@ -60,7 +59,7 @@
             "unit": "-"
           },
           {
-            "name": "OpcUa-Point-Float",
+            "name": "Modbus-Tcp-Point-Float",
             "type": "float",
             "rw": 0,
             "base": 0,
@@ -72,7 +71,7 @@
             "unit": "-"
           },
           {
-            "name": "OpcUa-Point-Double",
+            "name": "Modbus-Tcp-Point-Double",
             "type": "double",
             "rw": 0,
             "base": 0,
@@ -86,35 +85,41 @@
         ],
         "groups": [
           {
-            "name": "OpcUa-Group",
+            "name": "Modbus-Tcp-Group",
             "devices": [
               {
-                "name": "OpcUa-Device",
+                "name": "Modbus-Tcp-Device",
                 "multi": false,
                 "pointConfig": {
-                  "OpcUa-Point-String": {
-                    "namespace": "5",
-                    "tag": "tag-string"
+                  "Modbus-Tcp-Point-String": {
+                    "slaveId": "1",
+                    "functionCode": "3",
+                    "offset": "1"
                   },
-                  "OpcUa-Point-Boolean": {
-                    "namespace": "5",
-                    "tag": "tag-boolean"
+                  "Modbus-Tcp-Point-Boolean": {
+                    "slaveId": "1",
+                    "functionCode": "3",
+                    "offset": "2"
                   },
-                  "OpcUa-Point-Int": {
-                    "namespace": "5",
-                    "tag": "tag-int"
+                  "Modbus-Tcp-Point-Int": {
+                    "slaveId": "1",
+                    "functionCode": "3",
+                    "offset": "3"
                   },
-                  "OpcUa-Point-Long": {
-                    "namespace": "5",
-                    "tag": "tag-long"
+                  "Modbus-Tcp-Point-Long": {
+                    "slaveId": "1",
+                    "functionCode": "3",
+                    "offset": "4"
                   },
-                  "OpcUa-Point-Float": {
-                    "namespace": "5",
-                    "tag": "tag-float"
+                  "Modbus-Tcp-Point-Float": {
+                    "slaveId": "1",
+                    "functionCode": "3",
+                    "offset": "5"
                   },
-                  "OpcUa-Point-Double": {
-                    "namespace": "5",
-                    "tag": "tag-double"
+                  "Modbus-Tcp-Point-Double": {
+                    "slaveId": "1",
+                    "functionCode": "3",
+                    "offset": "6"
                   }
                 }
               }

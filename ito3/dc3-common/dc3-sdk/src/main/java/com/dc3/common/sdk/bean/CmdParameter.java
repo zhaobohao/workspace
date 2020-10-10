@@ -12,9 +12,7 @@ import lombok.experimental.Accessors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author pnoker
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

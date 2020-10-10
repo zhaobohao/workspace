@@ -16,9 +16,7 @@ import java.security.*;
 import java.security.cert.X509Certificate;
 import java.util.regex.Pattern;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 public class KeyLoader {
     @Getter

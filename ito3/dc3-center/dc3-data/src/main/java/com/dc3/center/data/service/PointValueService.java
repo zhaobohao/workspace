@@ -8,9 +8,7 @@ import com.dc3.common.bean.driver.PointValueDto;
 
 import java.util.List;
 
-/**
- * @author pnoker
- */
+
 public interface PointValueService {
 
     /**

@@ -26,9 +26,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/**
- * @author pnoker
- */
+
 @Slf4j
 @Service
 public class RtmpServiceImpl implements RtmpService {

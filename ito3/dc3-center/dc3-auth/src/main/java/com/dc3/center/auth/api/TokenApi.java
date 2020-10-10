@@ -27,39 +27,23 @@ public class TokenApi implements TokenClient {
 
     @Override
     public R<String> generateSalt(String username) {
-        try {
             String salt = tokenService.generateSalt(username);
             return null != salt ? R.ok(salt, "ok") : R.fail();
-        } catch (Exception e) {
-            return R.fail(e.getMessage());
-        }
     }
 
     @Override
     public R<String> generateToken(User user) {
-        try {
             String token = tokenService.generateToken(user);
             return null != token ? R.ok(token, "ok") : R.fail();
-        } catch (Exception e) {
-            return R.fail(e.getMessage());
-        }
     }
 
     @Override
     public R<Boolean> checkTokenValid(String username, String token) {
-        try {
             return tokenService.checkTokenValid(username, token) ? R.ok() : R.fail();
-        } catch (Exception e) {
-            return R.fail(e.getMessage());
-        }
     }
 
     @Override
     public R<Boolean> cancelToken(String username) {
-        try {
             return tokenService.cancelToken(username) ? R.ok() : R.fail();
-        } catch (Exception e) {
-            return R.fail(e.getMessage());
-        }
     }
 }

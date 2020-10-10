@@ -1,12 +1,9 @@
-
-
 package com.dc3.common.utils;
 
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.dc3.common.constant.Common;
 import com.dc3.common.dto.NodeDto;
-import com.google.common.base.Charsets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -23,11 +20,6 @@ import java.util.stream.Collectors;
 
 import static com.google.common.collect.Sets.newHashSet;
 
-/**
- * Dc3 平台自定义工具类集合
- *
- * @author pnoker
- */
 @Slf4j
 public class Dc3Util {
     /**
@@ -48,7 +40,7 @@ public class Dc3Util {
      */
     public static String md5(String str) {
         MD5 md5 = MD5.create();
-        return md5.digestHex(str, Charsets.UTF_8);
+        return md5.digestHex(str, StandardCharsets.UTF_8);
     }
 
     /**
@@ -69,7 +61,7 @@ public class Dc3Util {
      * @return Byte Array
      */
     public static byte[] encode(String str) {
-        return Base64.getEncoder().encode(str.getBytes(Charsets.UTF_8));
+        return Base64.getEncoder().encode(str.getBytes(StandardCharsets.UTF_8));
     }
 
     /**
@@ -217,9 +209,7 @@ public class Dc3Util {
 
         byte[] result = boa.toByteArray();
         String temp = new String(result);
-        if (temp.contains("utf-8")) {
-            return new String(result, StandardCharsets.UTF_8);
-        } else if (temp.contains("gb2312")) {
+        if (temp.contains("gb2312")) {
             return new String(result, "gb2312");
         } else {
             return new String(result, StandardCharsets.UTF_8);

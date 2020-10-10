@@ -13,9 +13,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 
-/**
- * @author pnoker
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

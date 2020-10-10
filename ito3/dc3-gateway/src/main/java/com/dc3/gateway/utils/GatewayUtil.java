@@ -8,9 +8,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import java.util.Objects;
 
-/**
- * @author pnoker
- */
+
 public class GatewayUtil {
 
     /**
