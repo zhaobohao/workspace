@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,7 +16,7 @@ import javax.annotation.Resource;
 /**
  * 用户 Feign Client 接口实现
  *
- * @author pnoker
+
  */
 @Slf4j
 @RestController

@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager;
 
 import org.springframework.boot.SpringApplication;
@@ -13,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * <p>设备管理服务入口
  *
- * @author pnoker
+
  */
 @SpringCloudApplication
 @EnableTransactionManagement

@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.dto;
 
 import lombok.Data;
@@ -11,7 +9,7 @@ import java.util.List;
 /**
  *
  *
- * @author pnoker
+
  */
 @Data
 public class NodeDto implements Serializable {

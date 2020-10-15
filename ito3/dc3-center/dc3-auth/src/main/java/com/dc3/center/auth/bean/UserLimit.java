@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.bean;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +10,7 @@ import java.util.Date;
 /**
  * 用户登录限制
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

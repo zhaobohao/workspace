@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.data.service.rabbit;
 
 import com.dc3.center.data.service.PointValueService;
@@ -20,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * 接收驱动发送过来的数据
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

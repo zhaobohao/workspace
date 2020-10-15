@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.auth.token.feign;
 
 import com.dc3.api.center.auth.token.hystrix.TokenClientHystrix;
@@ -19,7 +17,7 @@ import javax.validation.constraints.NotNull;
 /**
  * <p>令牌 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_AUTH_TOKEN_URL_PREFIX, name = Common.Service.DC3_AUTH_SERVICE_NAME, fallbackFactory = TokenClientHystrix.class)
 public interface TokenClient {

@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import com.dc3.common.valid.Insert;
@@ -11,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * Rtmp
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

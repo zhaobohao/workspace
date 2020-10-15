@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,7 +18,7 @@ import javax.annotation.Resource;
 /**
  * <p>位号 Client 接口实现
  *
- * @author pnoker
+
  */
 @Slf4j
 @RestController

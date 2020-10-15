@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 全局异常处理
  *
- * @author pnoker
+
  */
 @Slf4j
 @RestControllerAdvice

@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway.utils;
 
 import com.dc3.common.exception.ServiceException;

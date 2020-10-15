@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.service.job;
 
 import com.dc3.common.sdk.service.CustomDriverService;
@@ -14,7 +12,6 @@ import javax.annotation.Resource;
 /**
  * 自定义调度任务
  *
- * @author pnoker
  */
 @Slf4j
 @Component

@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.manager.feign;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,7 +20,7 @@ import javax.validation.constraints.NotNull;
 /**
  * <p>位号 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_MANAGER_POINT_URL_PREFIX, name = Common.Service.DC3_MANAGER_SERVICE_NAME, fallbackFactory = PointClientHystrix.class)
 public interface PointClient {

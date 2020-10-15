@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.manager.hystrix;
 
 import com.dc3.api.center.manager.feign.DictionaryClient;
@@ -15,7 +13,7 @@ import java.util.List;
 /**
  * <p>DictionaryClientHystrix
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

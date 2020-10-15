@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.data.init;
 
 import org.springframework.boot.ApplicationArguments;

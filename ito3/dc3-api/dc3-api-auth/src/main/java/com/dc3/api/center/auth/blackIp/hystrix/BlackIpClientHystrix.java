@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.auth.blackIp.hystrix;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * BlackIpClientHystrix
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

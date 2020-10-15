@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.api;
 
 import com.dc3.api.center.auth.token.feign.TokenClient;
@@ -16,7 +14,7 @@ import javax.annotation.Resource;
 /**
  * 令牌 Feign Client 接口实现
  *
- * @author pnoker
+
  */
 @Slf4j
 @RestController

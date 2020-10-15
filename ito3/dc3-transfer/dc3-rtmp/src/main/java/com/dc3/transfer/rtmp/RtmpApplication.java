@@ -1,5 +1,3 @@
-
-
 package com.dc3.transfer.rtmp;
 
 import org.springframework.boot.SpringApplication;
@@ -9,7 +7,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 /**
  * Rtmp 视频转码服务启动入口
  *
- * @author pnoker
+
  */
 @EnableCaching
 @SpringCloudApplication

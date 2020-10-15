@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.api;
 
 import com.dc3.common.bean.R;
@@ -24,7 +22,7 @@ import java.util.Optional;
 /**
  * 驱动操作指令 Rest Api
  *
- * @author pnoker
+
  */
 @Slf4j
 @RestController

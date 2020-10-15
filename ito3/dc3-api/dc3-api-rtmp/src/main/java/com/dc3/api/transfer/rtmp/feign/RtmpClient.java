@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.transfer.rtmp.feign;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,7 +18,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Rtmp转码 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_RTMP_URL_PREFIX, name = Common.Service.DC3_RTMP_SERVICE_NAME, fallbackFactory = RtmpClientHystrix.class)
 public interface RtmpClient {

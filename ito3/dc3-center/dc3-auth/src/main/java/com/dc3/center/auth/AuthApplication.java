@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth;
 
 import org.springframework.boot.SpringApplication;
@@ -11,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * 授权中心服务启动入口
  *
- * @author pnoker
+
  */
 @SpringCloudApplication
 @EnableTransactionManagement

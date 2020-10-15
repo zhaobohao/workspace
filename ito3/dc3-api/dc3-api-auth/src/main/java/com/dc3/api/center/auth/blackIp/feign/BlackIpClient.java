@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.auth.blackIp.feign;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,7 +20,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Ip 黑名单 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_AUTH_BLACK_IP_URL_PREFIX, name = Common.Service.DC3_AUTH_SERVICE_NAME, fallbackFactory = BlackIpClientHystrix.class)
 public interface BlackIpClient {

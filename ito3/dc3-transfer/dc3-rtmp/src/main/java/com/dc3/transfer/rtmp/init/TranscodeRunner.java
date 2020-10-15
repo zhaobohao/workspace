@@ -1,5 +1,3 @@
-
-
 package com.dc3.transfer.rtmp.init;
 
 import cn.hutool.core.io.FileUtil;
@@ -27,7 +25,7 @@ import static java.lang.System.getProperty;
 /**
  * 启动服务，自动加载自启任务
  *
- * @author pnoker
+
  */
 @Slf4j
 @Setter

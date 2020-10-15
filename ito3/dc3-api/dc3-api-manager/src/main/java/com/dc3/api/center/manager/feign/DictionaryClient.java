@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.manager.feign;
 
 import com.dc3.api.center.manager.hystrix.DictionaryClientHystrix;
@@ -16,7 +14,7 @@ import java.util.List;
 /**
  * <p>字典 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_MANAGER_DICTIONARY_URL_PREFIX, name = Common.Service.DC3_MANAGER_SERVICE_NAME, fallbackFactory = DictionaryClientHystrix.class)
 public interface DictionaryClient {

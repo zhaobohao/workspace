@@ -1,5 +1,3 @@
-
-
 package com.dc3.driver.service.mqtt;
 
 import com.alibaba.fastjson.JSON;
@@ -24,7 +22,7 @@ import javax.annotation.Resource;
  * }
  * 可根据实际情况定义 DevicePayLoad 类属性
  *
- * @author pnoker
+
  */
 @Slf4j
 @Configuration

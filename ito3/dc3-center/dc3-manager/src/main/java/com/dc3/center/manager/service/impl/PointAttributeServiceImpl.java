@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -26,7 +24,7 @@ import java.util.Optional;
 /**
  * <p>PointAttributeService Impl
  *
- * @author pnoker
+
  */
 @Slf4j
 @Service

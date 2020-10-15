@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import com.dc3.common.valid.Insert;
@@ -13,7 +11,7 @@ import javax.validation.constraints.Pattern;
 /**
  * 设备表
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

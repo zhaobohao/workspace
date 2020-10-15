@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.service;
 
 import com.dc3.common.model.Device;
@@ -11,7 +9,7 @@ import java.util.Map;
 /**
  * 驱动接口，用于驱动接口实现
  *
- * @author pnoker
+
  */
 public interface CustomDriverService {
     /**

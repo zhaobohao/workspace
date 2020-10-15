@@ -16,9 +16,7 @@
  You should have received a copy of the GNU Library General Public License
  along with this; see the file COPYING.  If not, write to
  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  
-*/
-
-package com.github.s7connector.impl.nodave;
+*/package com.github.s7connector.impl.nodave;
 
 /**
  * @author Thomas Rudin

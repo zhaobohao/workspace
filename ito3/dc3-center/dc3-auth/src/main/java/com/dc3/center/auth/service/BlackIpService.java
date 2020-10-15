@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.service;
 
 import com.dc3.common.base.Service;
@@ -9,7 +7,7 @@ import com.dc3.common.model.BlackIp;
 /**
  * User Interface
  *
- * @author pnoker
+
  */
 public interface BlackIpService extends Service<BlackIp, BlackIpDto> {
     /**

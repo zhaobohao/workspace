@@ -1,5 +1,3 @@
-
-
 package com.dc3.driver.config;
 
 import com.dc3.driver.bean.MqttProperty;

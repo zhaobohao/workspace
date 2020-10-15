@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import com.dc3.common.valid.Auth;
@@ -15,7 +13,7 @@ import javax.validation.constraints.Pattern;
 /**
  * User
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

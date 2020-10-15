@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.init;
 
 import com.dc3.common.sdk.service.DriverCommonService;
@@ -14,7 +12,7 @@ import javax.annotation.Resource;
 /**
  * Driver SDK Initial
  *
- * @author pnoker
+
  */
 @Component
 @EnableFeignClients(basePackages = {

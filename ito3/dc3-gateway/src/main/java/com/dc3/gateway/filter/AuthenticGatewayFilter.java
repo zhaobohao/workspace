@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway.filter;
 
 import com.dc3.api.center.auth.token.feign.TokenClient;
@@ -22,7 +20,7 @@ import javax.annotation.Resource;
 /**
  * 自定义权限过滤器
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

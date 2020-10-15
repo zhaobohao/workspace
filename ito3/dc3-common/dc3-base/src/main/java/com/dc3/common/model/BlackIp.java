@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import lombok.*;
@@ -8,7 +6,7 @@ import lombok.experimental.Accessors;
 /**
  * Ip 黑名单表
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

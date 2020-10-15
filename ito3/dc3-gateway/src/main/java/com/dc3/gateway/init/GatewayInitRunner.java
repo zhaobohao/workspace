@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway.init;
 
 import org.springframework.boot.ApplicationArguments;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 初始化
  *
- * @author pnoker
+
  */
 @Component
 @EnableFeignClients(basePackages = {

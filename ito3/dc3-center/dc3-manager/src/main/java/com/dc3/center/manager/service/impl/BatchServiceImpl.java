@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.service.impl;
 
 import com.dc3.center.manager.service.*;
@@ -23,7 +21,7 @@ import java.util.Map;
 /**
  * <p>BatchService Impl
  *
- * @author pnoker
+
  */
 @Slf4j
 @Service

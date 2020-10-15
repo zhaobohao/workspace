@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.manager.feign;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -23,7 +21,7 @@ import java.util.Map;
 /**
  * <p>驱动 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_MANAGER_DRIVER_URL_PREFIX, name = Common.Service.DC3_MANAGER_SERVICE_NAME, fallbackFactory = DriverClientHystrix.class)
 public interface DriverClient {

@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -16,7 +14,7 @@ import javax.validation.constraints.Pattern;
 /**
  * 驱动表
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.service;
 
 import com.dc3.common.base.Service;
@@ -11,7 +9,7 @@ import java.util.Map;
 /**
  * <p>Driver Interface
  *
- * @author pnoker
+
  */
 public interface DriverService extends Service<Driver, DriverDto> {
     /**

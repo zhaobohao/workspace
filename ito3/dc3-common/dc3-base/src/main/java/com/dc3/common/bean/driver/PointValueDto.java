@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.bean.driver;
 
 import com.dc3.common.bean.Pages;

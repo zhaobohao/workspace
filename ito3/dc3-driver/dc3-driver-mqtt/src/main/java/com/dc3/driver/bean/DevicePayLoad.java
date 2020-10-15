@@ -1,5 +1,3 @@
-
-
 package com.dc3.driver.bean;
 
 import lombok.AllArgsConstructor;

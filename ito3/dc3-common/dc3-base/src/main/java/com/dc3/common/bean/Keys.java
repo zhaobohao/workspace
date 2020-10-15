@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.bean;
 
 import lombok.AllArgsConstructor;
@@ -8,7 +6,7 @@ import lombok.Data;
 /**
  * Aes/Rsa 加密密钥
  *
- * @author pnoker
+
  */
 public class Keys {
 

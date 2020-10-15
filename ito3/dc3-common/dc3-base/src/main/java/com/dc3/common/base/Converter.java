@@ -1,11 +1,9 @@
-
-
 package com.dc3.common.base;
 
 /**
  * Converter
  *
- * @author pnoker
+
  */
 public interface Converter<D,T> {
     /**

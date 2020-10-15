@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.monitor;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
@@ -9,7 +7,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 /**
  * 服务监控中心
  *
- * @author pnoker
+
  */
 @EnableAdminServer
 @SpringCloudApplication

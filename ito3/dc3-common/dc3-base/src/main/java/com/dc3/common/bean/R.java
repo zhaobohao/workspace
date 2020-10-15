@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +10,7 @@ import java.io.Serializable;
 /**
  * Response
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

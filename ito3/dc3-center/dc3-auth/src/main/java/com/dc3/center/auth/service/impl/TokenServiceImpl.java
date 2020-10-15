@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
@@ -24,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 令牌服务接口实现类
  *
- * @author pnoker
+
  */
 @Service
 public class TokenServiceImpl implements TokenService {

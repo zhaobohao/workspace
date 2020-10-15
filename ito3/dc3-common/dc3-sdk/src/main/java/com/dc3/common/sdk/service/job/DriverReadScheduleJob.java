@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.service.job;
 
 import com.dc3.common.sdk.bean.AttributeInfo;
@@ -18,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Read Schedule Job
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

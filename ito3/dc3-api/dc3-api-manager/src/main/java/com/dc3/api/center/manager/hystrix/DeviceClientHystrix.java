@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.manager.hystrix;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,7 +14,7 @@ import java.util.Map;
 /**
  * <p>DeviceClientHystrix
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

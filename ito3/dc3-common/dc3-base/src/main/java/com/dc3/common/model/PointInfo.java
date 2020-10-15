@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import com.dc3.common.valid.Insert;
@@ -12,7 +10,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 位号配置信息表
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

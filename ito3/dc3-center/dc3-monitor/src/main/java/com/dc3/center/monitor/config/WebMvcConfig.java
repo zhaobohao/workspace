@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.monitor.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  *
  *
- * @author pnoker
+
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

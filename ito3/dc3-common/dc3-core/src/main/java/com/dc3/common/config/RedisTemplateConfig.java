@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * RedisTemplate
  *
- * @author pnoker
+
  */
 @EnableCaching
 @Configuration

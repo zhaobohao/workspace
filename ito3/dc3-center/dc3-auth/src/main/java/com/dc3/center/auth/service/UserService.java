@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.service;
 
 import com.dc3.common.base.Service;
@@ -9,7 +7,7 @@ import com.dc3.common.model.User;
 /**
  * User Interface
  *
- * @author pnoker
+
  */
 public interface UserService extends Service<User, UserDto> {
 

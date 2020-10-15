@@ -1,11 +1,9 @@
-
-
 package com.dc3.common.constant;
 
 /**
  * dc3平台常量
  *
- * @author pnoker
+
  */
 public interface Common {
 

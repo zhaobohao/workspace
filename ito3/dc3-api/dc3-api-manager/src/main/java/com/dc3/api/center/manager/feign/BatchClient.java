@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.manager.feign;
 
 import com.dc3.api.center.manager.hystrix.BatchClientHystrix;
@@ -17,7 +15,7 @@ import java.util.List;
 /**
  * <p>批量导入 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_MANAGER_BATCH_URL_PREFIX, name = Common.Service.DC3_MANAGER_SERVICE_NAME, fallbackFactory = BatchClientHystrix.class)
 public interface BatchClient {

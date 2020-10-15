@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.base;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -8,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 /**
  * 基础服务类接口
  *
- * @author pnoker
+
  */
 public interface Service<T, D> {
     /**

@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.register.config;
 
 import lombok.SneakyThrows;
@@ -11,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * 注册中心安全配置
  *
- * @author pnoker
+
  */
 @Slf4j
 @EnableWebSecurity

@@ -15,9 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * version 3 along with OpenSCADA. If not, see
  * <http://opensource.org/licenses/lgpl-3.0.html> for a copy of the LGPLv3 License.
- */
-
-package org.openscada.opc.dcom.common;
+ */package org.openscada.opc.dcom.common;
 
 public interface Categories {
     public static final String OPCDAServer10 = "63D5F430-CFE4-11d1-B2C8-0060083BA1FB";

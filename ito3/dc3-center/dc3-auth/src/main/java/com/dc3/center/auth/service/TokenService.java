@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.service;
 
 import com.dc3.common.model.User;
@@ -7,7 +5,7 @@ import com.dc3.common.model.User;
 /**
  * Token Interface
  *
- * @author pnoker
+
  */
 public interface TokenService {
     /**

@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway.hystrix;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +17,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 /**
  * Gateway Hystrix
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

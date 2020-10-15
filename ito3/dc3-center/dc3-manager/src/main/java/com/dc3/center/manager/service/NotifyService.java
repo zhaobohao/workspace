@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.service;
 
 import com.dc3.common.model.Driver;
@@ -7,7 +5,7 @@ import com.dc3.common.model.Driver;
 /**
  * <p>Notify Interface
  *
- * @author pnoker
+
  */
 public interface NotifyService {
 

@@ -1,5 +1,3 @@
-
-
 package com.dc3.driver.service.impl;
 
 import com.dc3.common.constant.Common;
@@ -12,6 +10,7 @@ import com.dc3.common.sdk.service.rabbit.DriverService;
 import com.dc3.driver.service.netty.NettyServer;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +46,11 @@ public class CustomDriverServiceImpl implements CustomDriverService {
 
     @Override
     public String read(Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo, Device device, Point point) throws Exception {
+        log.debug(ToStringBuilder.reflectionToString(driverInfo));
+        log.debug(ToStringBuilder.reflectionToString(pointInfo));
+        log.debug(ToStringBuilder.reflectionToString(device));
+        log.debug(ToStringBuilder.reflectionToString(point));
+
         return "nil";
     }
 

@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.auth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -9,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * Mapper
  *
- * @author pnoker
+
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {

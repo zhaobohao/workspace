@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.dto;
 
 import com.dc3.common.base.Converter;
@@ -11,7 +9,7 @@ import org.springframework.beans.BeanUtils;
 /**
  * User DTO
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.data.service.rabbit;
 
 import com.dc3.common.bean.driver.DeviceStatus;
@@ -18,7 +16,7 @@ import java.io.IOException;
 /**
  * 接收驱动发送过来的数据
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

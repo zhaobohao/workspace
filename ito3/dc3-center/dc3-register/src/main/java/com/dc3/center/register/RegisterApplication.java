@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.register;
 
 import org.springframework.boot.SpringApplication;
@@ -9,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 /**
  * 服务注册中心
  *
- * @author pnoker
+
  */
 @EnableEurekaServer
 @SpringBootApplication

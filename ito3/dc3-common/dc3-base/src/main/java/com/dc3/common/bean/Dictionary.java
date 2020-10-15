@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.bean;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -18,7 +16,7 @@ import java.util.List;
 /**
  * 字典表
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

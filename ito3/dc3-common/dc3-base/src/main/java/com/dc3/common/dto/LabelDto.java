@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.dto;
 
 import com.dc3.common.bean.Pages;
@@ -12,7 +10,7 @@ import org.springframework.beans.BeanUtils;
 /**
  * Label DTO
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

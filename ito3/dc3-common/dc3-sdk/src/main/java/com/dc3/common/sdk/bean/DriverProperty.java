@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.bean;
 
 import com.dc3.common.model.DriverAttribute;
@@ -18,7 +16,7 @@ import java.util.List;
 /**
  * 驱动配置文件 driver 字段内容
  *
- * @author pnoker
+
  */
 @Setter
 @Getter

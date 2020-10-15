@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.bean;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -17,7 +15,7 @@ import java.util.List;
 /**
  * 基础查询类，其中包括分页以及排序
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

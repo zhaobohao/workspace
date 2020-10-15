@@ -1,5 +1,3 @@
-
-
 package com.dc3.gateway.filter;
 
 import com.dc3.api.center.auth.blackIp.feign.BlackIpClient;
@@ -19,7 +17,7 @@ import javax.annotation.Resource;
 /**
  * 自定义Ip黑名单过滤器
  *
- * @author pnoker
+
  */
 @Slf4j
 public class BlackIpGlobalFilter implements GlobalFilter, Ordered {

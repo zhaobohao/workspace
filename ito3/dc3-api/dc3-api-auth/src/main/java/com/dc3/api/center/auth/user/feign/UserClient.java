@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.auth.user.feign;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,7 +20,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 用户 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_AUTH_USER_URL_PREFIX, name = Common.Service.DC3_AUTH_SERVICE_NAME, fallbackFactory = UserClientHystrix.class)
 public interface UserClient {

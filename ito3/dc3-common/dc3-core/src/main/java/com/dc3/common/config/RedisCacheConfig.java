@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +19,7 @@ import java.time.Duration;
 /**
  * Redis Cache
  *
- * @author pnoker
+
  */
 @Configuration
 @ConfigurationProperties(prefix = "spring.cache.redis")

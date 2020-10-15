@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * 自定义权限过滤器
  *
- * @author pnoker
+
  */
 @Component
 public class AuthenticFilter extends AbstractGatewayFilterFactory<Object> {

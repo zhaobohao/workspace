@@ -15,9 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * version 3 along with OpenSCADA. If not, see
  * <http://opensource.org/licenses/lgpl-3.0.html> for a copy of the LGPLv3 License.
- */
-
-package org.openscada.opc.dcom.list;
+ */package org.openscada.opc.dcom.list;
 
 public interface Constants extends org.openscada.opc.dcom.common.Constants {
     public static final String IOPCServerList_IID = "13486D50-4821-11D2-A494-3CB306C10000";

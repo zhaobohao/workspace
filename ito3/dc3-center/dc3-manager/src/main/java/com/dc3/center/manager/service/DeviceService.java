@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.service;
 
 import com.dc3.common.base.Service;
@@ -11,7 +9,7 @@ import java.util.Map;
 /**
  * <p>Device Interface
  *
- * @author pnoker
+
  */
 public interface DeviceService extends Service<Device, DeviceDto> {
 

@@ -1,5 +1,3 @@
-
-
 package com.dc3.api.center.data.feign;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,7 +18,7 @@ import java.util.List;
 /**
  * 数据 FeignClient
  *
- * @author pnoker
+
  */
 @FeignClient(path = Common.Service.DC3_DATA_URL_PREFIX, name = Common.Service.DC3_DATA_SERVICE_NAME, fallbackFactory = PointValueClientHystrix.class)
 public interface PointValueClient {

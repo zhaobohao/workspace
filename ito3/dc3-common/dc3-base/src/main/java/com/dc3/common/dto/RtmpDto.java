@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.dto;
 
 import com.dc3.common.base.Converter;
@@ -18,7 +16,7 @@ import java.io.Serializable;
 /**
  * Rtmp DTO
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

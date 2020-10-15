@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.model;
 
 import com.dc3.common.valid.Insert;
@@ -14,7 +12,7 @@ import javax.validation.constraints.Pattern;
 /**
  * 驱动配置属性表
  *
- * @author pnoker
+
  */
 @Data
 @NoArgsConstructor

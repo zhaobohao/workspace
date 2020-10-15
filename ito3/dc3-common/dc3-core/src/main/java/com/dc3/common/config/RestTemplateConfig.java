@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

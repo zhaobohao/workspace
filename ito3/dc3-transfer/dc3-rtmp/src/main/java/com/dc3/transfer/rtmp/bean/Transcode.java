@@ -1,5 +1,3 @@
-
-
 package com.dc3.transfer.rtmp.bean;
 
 import cn.hutool.core.util.RuntimeUtil;
@@ -16,7 +14,7 @@ import java.util.Optional;
 /**
  * Command 指令执行任务信息类
  *
- * @author pnoker
+
  */
 @Data
 @Slf4j

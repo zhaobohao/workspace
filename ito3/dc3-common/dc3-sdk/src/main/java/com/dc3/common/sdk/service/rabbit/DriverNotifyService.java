@@ -1,5 +1,3 @@
-
-
 package com.dc3.common.sdk.service.rabbit;
 
 import com.dc3.common.bean.driver.DriverOperation;
@@ -17,7 +15,7 @@ import javax.annotation.Resource;
 /**
  * 接收驱动发送过来的数据
  *
- * @author pnoker
+
  */
 @Slf4j
 @Component

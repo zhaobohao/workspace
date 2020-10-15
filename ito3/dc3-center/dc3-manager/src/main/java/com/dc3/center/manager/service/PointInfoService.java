@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.service;
 
 import com.dc3.common.base.Service;
@@ -9,7 +7,7 @@ import com.dc3.common.model.PointInfo;
 /**
  * <p>PointInfo Interface
  *
- * @author pnoker
+
  */
 public interface PointInfoService extends Service<PointInfo, PointInfoDto> {
     /**

@@ -1,5 +1,3 @@
-
-
 package com.dc3.center.manager.service;
 
 import com.dc3.common.bean.batch.BatchDriver;
@@ -9,7 +7,7 @@ import java.util.List;
 /**
  * <p>BatchService Interface
  *
- * @author pnoker
+
  */
 public interface BatchService {
 
