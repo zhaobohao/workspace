@@ -3,23 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>SpringCloudDev</artifactId>
+        <artifactId>springcloud-business-api</artifactId>
         <groupId>org.springclouddev</groupId>
         <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description> 业务模块API集合</description>
+    <description>iot模块API集合</description>
     <name>${project.artifactId}</name>
-    <artifactId>springcloud-business-api</artifactId>
-    <version>1.0.1</version>
+    <artifactId>springcloud-iot-api</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>springcloud-integral-api</module>
-        <module>springcloud-crm-api</module>
-        <module>springcloud-iot-api</module>
+        <module>springcloud-iot-api-manager</module>
+        <module>springcloud-iot-api-data</module>
     </modules>
 
-    <dependencies>
+<dependencies>
         <dependency>
             <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-boot</artifactId>
