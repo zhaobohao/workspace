@@ -1,0 +1,38 @@
+### --------------------- Point ---------------------
+### 分页查询 Point Value
+#/data/list
+POST http://localhost:8500/data/list
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "deviceId": "-1",
+  "pointId": "-1",
+  "page": {
+    "current": 1
+  }
+}
+
+
+### 根据 Device Id 和 Point Id 查询 最新值
+#/latest/deviceId/:deviceId/pointId/:pointId
+GET http://localhost:8500/data/latest/deviceId/-1/pointId/-1
+Accept: */*
+Cache-Control: no-cache
+
+
+### 根据 Device Id 查询 设备状态
+#/latest/deviceId/:deviceId
+GET http://localhost:8500/data/status/deviceId/1
+Accept: */*
+Cache-Control: no-cache
+
+
+### 根据 Device Id 和 Point Id 查询 实时值
+#/realtime/deviceId/:deviceId/pointId/:pointId
+GET http://localhost:8500/data/realtime/deviceId/-1/pointId/-1
+Accept: */*
+Cache-Control: no-cache
+
+###

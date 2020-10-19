@@ -1,0 +1,11 @@
+### --------------------- Import ---------------------
+### 批量导入 All, 包含：驱动->模版->驱动配置->位号->设备->位号配置
+#/manager/import/all
+POST http://localhost:8400/manager/batch/import
+Accept: */*
+Content-Type: multipart/form-data
+Cache-Control: no-cache
+
+< ./files/batch-import.json
+# 请使用 postman 进行测试 key=file,value=./files/batch-import.json
+###

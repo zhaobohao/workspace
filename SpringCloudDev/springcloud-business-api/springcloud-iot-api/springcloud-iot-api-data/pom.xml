@@ -11,6 +11,18 @@
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <artifactId>springcloud-iot-api-data</artifactId>
+    <dependencies>
 
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springcloud-iot-core</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
