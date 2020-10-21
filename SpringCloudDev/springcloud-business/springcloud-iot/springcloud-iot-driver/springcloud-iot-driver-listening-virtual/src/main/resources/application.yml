@@ -1,0 +1,59 @@
+driver:
+  name: ListeningVirtualDriver
+  description: @project.description@
+  custom:
+    socket:
+      port: 6270
+  schedule:
+    read:
+      enable: true
+      corn: '0/30 * * * * ?'
+    custom:
+      enable: true
+      corn:  '0/30 * * * * ?'
+  driver-attribute:
+    - displayName: 主机
+      name: host
+      type: string
+      value: 62
+      description: 主机号关键字
+    - displayName: 端口
+      name: port
+      type: string
+      value: 62
+      description: 主机所使用的端口号
+  point-attribute:
+    - displayName: 关键字
+      name: key
+      type: string
+      value: 62
+      description: 报文关键字
+    - displayName: 起始字节
+      name: start
+      type: int
+      value: 0
+      description: 起始字节，包含该字节
+    - displayName: 结束字节
+      name: end
+      type: int
+      value: 8
+      description: 结束字节，不包含该字节
+    - displayName: 类型
+      name: type
+      type: string
+      value: string
+      description: 解析类型，short、int、long、float、double、boolean、string
+
+server:
+  port: 8700
+
+spring:
+  application:
+    name: @project.artifactId@
+
+logging:
+  level:
+    org.springclouddev.iot.driver: DEBUG
+    org.springclouddev.iot.common.sdk: DEBUG
+  file:
+    name: iot/logs/driver/listeningVirtual/${spring.application.name}.log

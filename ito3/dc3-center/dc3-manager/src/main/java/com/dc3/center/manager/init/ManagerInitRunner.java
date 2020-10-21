@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 初始化
- *
-
  */
 @Component
 @EnableFeignClients(basePackages = {

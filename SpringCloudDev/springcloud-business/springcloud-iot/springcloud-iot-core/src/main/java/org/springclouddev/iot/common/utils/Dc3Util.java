@@ -2,8 +2,8 @@ package org.springclouddev.iot.common.utils;
 
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.crypto.digest.MD5;
-import com.dc3.common.constant.Common;
-import com.dc3.common.dto.NodeDto;
+import org.springclouddev.iot.common.bean.NodeDto;
+import org.springclouddev.iot.common.constant.Common;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;

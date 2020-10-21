@@ -17,38 +17,14 @@
         <module>springcloud-iot-core</module>
         <module>springcloud-iot-sdk</module>
         <module>springcloud-iot-driver</module>
+        <module>springcloud-iot-base</module>
     </modules>
-<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-common</artifactId>
             <version>${springclouddev.project.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker.plugin.version}</version>
-                <configuration>
-                    <imageName>${docker.registry.url}/srpingclouddev/${project.artifactId}:${project.version}</imageName>
-                    <dockerDirectory>${project.basedir}</dockerDirectory>
-                    <dockerHost>${docker.registry.host}</dockerHost>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <registryUrl>${docker.registry.url}</registryUrl>
-                    <serverId>${docker.registry.url}</serverId>
-                    <pushImage>true</pushImage>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

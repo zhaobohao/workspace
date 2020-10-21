@@ -1,0 +1,36 @@
+server:
+  port: 8400
+
+spring:
+  application:
+    name: @project.artifactId@
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  cache:
+    redis:
+      time-to-live: 60S
+#数据源配置
+  datasource:
+    url: ${springclouddev.datasource.dev.url}
+    username: ${springclouddev.datasource.dev.username}
+    password: ${springclouddev.datasource.dev.password}
+# apollo的配置
+# 对应 Apollo 中应用的 AppId
+app:
+  id: 100001
+apollo:
+  bootstrap:
+    enabled: true
+    # 添加 application 本身 和 TEST1.Common Namespace 的配置
+    namespaces: application,TEST1.Common
+logging:
+  level:
+    org.springclouddev.iot: DEBUG
+  file:
+    name: iot/logs/center/${spring.application.name}.log
+
+

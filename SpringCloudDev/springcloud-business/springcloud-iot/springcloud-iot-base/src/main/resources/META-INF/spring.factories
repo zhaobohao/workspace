@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.springclouddev.iot.base.config.RedisCacheConfig,\
+  org.springclouddev.iot.base.config.ThreadPoolConfig,\
+  org.springclouddev.iot.base.utils.RedisUtil

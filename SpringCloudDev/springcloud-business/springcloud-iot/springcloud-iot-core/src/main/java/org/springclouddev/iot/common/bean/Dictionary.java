@@ -1,7 +1,7 @@
 package org.springclouddev.iot.common.bean;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.dc3.common.valid.Insert;
+import org.springclouddev.iot.common.valid.Insert;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;

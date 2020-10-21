@@ -1,0 +1,19 @@
+server:
+  port: 8500
+
+spring:
+  application:
+    name: @project.artifactId@
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
+
+logging:
+  level:
+    org.springclouddev.iot: DEBUG
+  file:
+    name: iot/logs/center/${spring.application.name}.log

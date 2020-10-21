@@ -1,7 +1,7 @@
 package org.springclouddev.iot.common.utils;
 
-import com.dc3.common.bean.Keys;
-import com.dc3.common.constant.Common;
+import org.springclouddev.iot.common.bean.Keys;
+import org.springclouddev.iot.common.constant.Common;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

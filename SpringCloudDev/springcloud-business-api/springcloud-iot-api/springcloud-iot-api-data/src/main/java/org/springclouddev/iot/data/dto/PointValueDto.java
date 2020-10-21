@@ -1,6 +1,6 @@
 package org.springclouddev.iot.data.dto;
 
-import com.dc3.common.bean.Pages;
+import org.springclouddev.iot.common.bean.Pages;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;

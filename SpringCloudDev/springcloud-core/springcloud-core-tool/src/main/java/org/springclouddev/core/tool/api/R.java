@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -207,4 +208,7 @@ public class R<T> implements Serializable {
 		return flag ? success(ToolConstant.DEFAULT_SUCCESS_MESSAGE) : fail(ToolConstant.DEFAULT_FAILURE_MESSAGE);
 	}
 
+	public static <T> R<T> fail() {
+		return new R<>(ResultCode.FAILURE, ToolConstant.DEFAULT_FAILURE_MESSAGE);
+	}
 }
