@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

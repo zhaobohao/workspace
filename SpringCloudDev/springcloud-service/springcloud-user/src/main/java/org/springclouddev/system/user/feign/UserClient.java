@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.user.feign;
 
 import lombok.AllArgsConstructor;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.develop.dto;
 
 import org.springclouddev.develop.entity.TableInfo;

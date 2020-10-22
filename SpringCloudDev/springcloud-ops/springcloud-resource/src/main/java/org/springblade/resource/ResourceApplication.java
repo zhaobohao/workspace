@@ -1,4 +1,3 @@
-
 package org.springclouddev.resource;
 
 import org.springclouddev.core.launch.SpingCloudDevApplication;

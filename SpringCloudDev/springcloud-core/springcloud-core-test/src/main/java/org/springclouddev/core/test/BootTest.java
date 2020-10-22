@@ -1,5 +1,3 @@
-
-
 package org.springclouddev.core.test;
 
 import org.springframework.boot.test.context.SpringBootTest;

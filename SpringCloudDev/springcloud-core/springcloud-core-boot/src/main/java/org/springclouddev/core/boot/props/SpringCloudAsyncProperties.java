@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.boot.props;
 
 import lombok.Getter;

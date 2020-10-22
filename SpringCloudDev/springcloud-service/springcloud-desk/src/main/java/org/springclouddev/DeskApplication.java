@@ -1,4 +1,3 @@
-
 package org.springclouddev;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;

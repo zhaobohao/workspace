@@ -1,4 +1,3 @@
-
 package org.springclouddev.auth.utils;
 
 import org.springclouddev.core.launch.constant.TokenConstant;

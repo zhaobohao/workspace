@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.user.entity;
 
 import io.swagger.annotations.ApiModel;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.mockserver.vo;
 
 import io.swagger.annotations.ApiModel;

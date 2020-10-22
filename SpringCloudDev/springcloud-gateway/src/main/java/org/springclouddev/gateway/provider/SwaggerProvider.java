@@ -1,5 +1,3 @@
-
-
 package org.springclouddev.gateway.provider;
 
 import lombok.AllArgsConstructor;

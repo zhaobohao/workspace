@@ -1,4 +1,3 @@
-
 package org.springclouddev.seata.order;
 
 import org.springclouddev.core.launch.SpingCloudDevApplication;

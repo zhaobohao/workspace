@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure.auth;
 
 import org.springclouddev.core.secure.utils.SecureUtil;

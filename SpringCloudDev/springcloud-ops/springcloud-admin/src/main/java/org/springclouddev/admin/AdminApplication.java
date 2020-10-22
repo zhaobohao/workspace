@@ -1,4 +1,3 @@
-
 package org.springclouddev.admin;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;

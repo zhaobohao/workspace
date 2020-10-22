@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.service.impl;
 
 import org.springclouddev.core.tool.node.ForestNodeMerger;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.utils;
 
 import org.slf4j.Logger;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.swagger;
 
 import lombok.Data;

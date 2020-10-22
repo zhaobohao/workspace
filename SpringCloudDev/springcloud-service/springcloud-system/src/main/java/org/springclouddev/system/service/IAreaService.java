@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.service;
 
 import org.springclouddev.system.entity.Area;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.launch;
 
 import lombok.extern.slf4j.Slf4j;

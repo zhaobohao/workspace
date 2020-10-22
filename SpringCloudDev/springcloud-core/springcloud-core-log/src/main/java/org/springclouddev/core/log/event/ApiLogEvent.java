@@ -1,5 +1,3 @@
-
-
 package org.springclouddev.core.log.event;
 
 import org.springframework.context.ApplicationEvent;

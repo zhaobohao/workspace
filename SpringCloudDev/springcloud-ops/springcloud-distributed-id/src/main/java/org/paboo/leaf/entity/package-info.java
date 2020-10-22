@@ -16,5 +16,4 @@
 
 /**
  * @author Leonard Woo
- */
-package org.paboo.leaf.entity;
+ */package org.paboo.leaf.entity;

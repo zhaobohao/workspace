@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.node;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

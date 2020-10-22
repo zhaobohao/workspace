@@ -1,4 +1,3 @@
-
 package org.springclouddev.common.config;
 
 

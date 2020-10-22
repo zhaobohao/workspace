@@ -1,5 +1,3 @@
-
-
 package org.springclouddev.core.log.annotation;
 
 import java.lang.annotation.*;

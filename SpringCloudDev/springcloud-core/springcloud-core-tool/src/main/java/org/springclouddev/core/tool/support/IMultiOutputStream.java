@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.support;
 
 import java.io.OutputStream;

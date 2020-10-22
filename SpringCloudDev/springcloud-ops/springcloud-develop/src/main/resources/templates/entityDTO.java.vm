@@ -1,6 +1,5 @@
 
-#set($dtoPackage=$package.Entity.replace("entity","dto"))
-package $!{dtoPackage};
+#set($dtoPackage=$package.Entity.replace("entity","dto"))package $!{dtoPackage};
 
 import $!{package.Entity}.$!{entity};
 #if($!{entityLombokModel})

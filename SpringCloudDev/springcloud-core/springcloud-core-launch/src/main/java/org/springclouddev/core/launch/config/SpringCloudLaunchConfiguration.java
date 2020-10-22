@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.launch.config;
 
 import lombok.AllArgsConstructor;

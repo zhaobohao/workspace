@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.feign;
 
 import org.springclouddev.core.tool.api.R;

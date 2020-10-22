@@ -1,4 +1,3 @@
-
 package org.springclouddev.common.launch;
 
 import org.springclouddev.common.constant.LauncherConstant;

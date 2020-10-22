@@ -1,4 +1,3 @@
-
 package org.springclouddev;
 
 import org.springclouddev.core.cloud.feign.EnableCustomFeign;

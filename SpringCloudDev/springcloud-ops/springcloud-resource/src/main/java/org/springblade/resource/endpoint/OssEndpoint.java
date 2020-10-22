@@ -1,4 +1,3 @@
-
 package org.springclouddev.resource.endpoint;
 
 import io.swagger.annotations.Api;

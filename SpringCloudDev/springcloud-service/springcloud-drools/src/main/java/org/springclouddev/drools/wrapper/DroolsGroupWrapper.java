@@ -1,4 +1,3 @@
-
 package org.springclouddev.drools.wrapper;
 
 import org.springclouddev.core.mp.support.BaseEntityWrapper;

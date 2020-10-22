@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.support;
 
 import org.springclouddev.core.tool.utils.Func;

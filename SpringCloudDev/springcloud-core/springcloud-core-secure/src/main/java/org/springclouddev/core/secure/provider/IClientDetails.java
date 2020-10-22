@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure.provider;
 
 import java.io.Serializable;

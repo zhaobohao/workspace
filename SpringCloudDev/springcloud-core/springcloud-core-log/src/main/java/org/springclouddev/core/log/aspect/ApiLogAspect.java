@@ -1,5 +1,3 @@
-
-
 package org.springclouddev.core.log.aspect;
 
 import lombok.extern.slf4j.Slf4j;

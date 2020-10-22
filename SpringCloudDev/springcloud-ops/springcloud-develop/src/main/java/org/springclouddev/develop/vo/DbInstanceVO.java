@@ -1,4 +1,3 @@
-
 package org.springclouddev.develop.vo;
 
 import org.springclouddev.develop.entity.DbInstance;

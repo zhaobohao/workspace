@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.utils;
 
 import java.time.Instant;

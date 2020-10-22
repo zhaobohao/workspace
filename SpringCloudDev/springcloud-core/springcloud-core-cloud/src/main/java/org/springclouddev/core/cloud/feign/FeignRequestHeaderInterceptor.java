@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.cloud.feign;
 
 import feign.RequestInterceptor;

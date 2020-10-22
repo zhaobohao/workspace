@@ -1,4 +1,3 @@
-
 package org.springclouddev.desk.wrapper;
 
 import org.springclouddev.core.mp.support.BaseEntityWrapper;

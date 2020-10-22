@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.oss.config;
 
 import com.qiniu.common.Zone;

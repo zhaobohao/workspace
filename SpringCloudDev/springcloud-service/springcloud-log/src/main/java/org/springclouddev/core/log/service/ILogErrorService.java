@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.log.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.boot.file;
 
 import org.springclouddev.core.tool.utils.StringPool;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.log.logger;
 
 import lombok.extern.slf4j.Slf4j;

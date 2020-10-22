@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.boot.redis;
 
 import org.springframework.cache.interceptor.SimpleKey;

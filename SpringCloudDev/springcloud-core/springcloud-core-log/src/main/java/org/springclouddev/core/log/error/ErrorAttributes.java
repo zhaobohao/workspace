@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.log.error;
 
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.wrapper;
 
 import org.springclouddev.common.constant.CommonConstant;

@@ -9,8 +9,7 @@
     #if($!{field.name}=="tenant_id")
         #set($isTenant=true)
     #end
-#end
-package $!{package.Entity};
+#endpackage $!{package.Entity};
 
 #foreach($pkg in $!{table.importPackages})
 import $!{pkg};

@@ -1,4 +1,3 @@
-
 package org.springclouddev.integral.dto;
 
 import org.springclouddev.integral.entity.ClientBlackList;

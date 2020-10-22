@@ -1,4 +1,3 @@
-
 package org.springclouddev.develop.support;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -202,8 +201,7 @@ public class SpringCloudDEmoCodeGenerator {
 		strategy.setVersionFieldName("version");
 		strategy.setEntityTableFieldAnnotationEnable(true);
 		mpg.setStrategy(strategy);
-		// 包配置
-		PackageConfig pc = new PackageConfig();
+		// 包配置packageConfig pc = new PackageConfig();
 		// 控制台扫描
 		pc.setModuleName(null);
 		pc.setParent(packageName);

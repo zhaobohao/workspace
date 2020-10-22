@@ -1,6 +1,5 @@
 
-#set($voPackage=$package.Entity.replace("entity","vo"))
-package $!{voPackage};
+#set($voPackage=$package.Entity.replace("entity","vo"))package $!{voPackage};
 
 import $!{package.Entity}.$!{entity};
 #if($!{entityLombokModel})

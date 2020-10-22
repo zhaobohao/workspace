@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.mapper;
 
 import org.springclouddev.system.entity.Area;

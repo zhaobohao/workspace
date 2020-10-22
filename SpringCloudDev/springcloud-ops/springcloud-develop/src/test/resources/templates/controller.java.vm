@@ -1,4 +1,3 @@
-
 package $!{package.Controller};
 
 import io.swagger.annotations.Api;

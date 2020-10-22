@@ -1,4 +1,3 @@
-
 package org.springclouddev.gateway;
 
 import org.springclouddev.core.launch.constant.AppConstant;

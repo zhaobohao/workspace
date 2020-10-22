@@ -1,5 +1,3 @@
-
-
 package org.springclouddev.core.launch.utils;
 
 import java.net.InetAddress;

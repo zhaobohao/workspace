@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.user.entity;
 
 import com.baomidou.mybatisplus.annotation.*;

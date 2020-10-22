@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.oss.rule;
 
 import lombok.AllArgsConstructor;

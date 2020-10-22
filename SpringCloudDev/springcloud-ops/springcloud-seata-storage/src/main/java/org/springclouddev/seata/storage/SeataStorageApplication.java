@@ -1,4 +1,3 @@
-
 package org.springclouddev.seata.storage;
 
 import org.springclouddev.core.launch.SpingCloudDevApplication;

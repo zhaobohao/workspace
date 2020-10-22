@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.feign;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;

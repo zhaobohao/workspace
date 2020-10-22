@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.oss.props;
 
 import lombok.Data;

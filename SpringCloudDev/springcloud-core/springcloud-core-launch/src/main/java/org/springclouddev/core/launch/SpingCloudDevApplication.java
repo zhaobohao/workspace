@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.launch;
 
 import org.springclouddev.core.launch.constant.AppConstant;

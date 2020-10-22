@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.boot.tenant;
 
 import com.baomidou.mybatisplus.core.parser.ISqlParser;

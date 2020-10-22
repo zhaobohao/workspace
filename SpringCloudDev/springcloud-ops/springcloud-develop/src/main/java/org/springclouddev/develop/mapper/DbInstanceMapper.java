@@ -1,4 +1,3 @@
-
 package org.springclouddev.develop.mapper;
 
 import org.springclouddev.core.mp.base.SuperMapper;

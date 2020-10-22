@@ -1,4 +1,3 @@
-
 package $!{package.Entity};
 
 #foreach($pkg in $!{table.importPackages})

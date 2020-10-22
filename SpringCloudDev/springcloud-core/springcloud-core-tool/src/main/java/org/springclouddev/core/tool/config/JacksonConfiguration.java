@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.config;
 
 import com.fasterxml.jackson.core.JsonParser;

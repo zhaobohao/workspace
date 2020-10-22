@@ -16,5 +16,4 @@
 
 /**
  * @author Leonard Woo
- */
-package org.paboo.leaf.config;
+ */package org.paboo.leaf.config;

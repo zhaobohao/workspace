@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;

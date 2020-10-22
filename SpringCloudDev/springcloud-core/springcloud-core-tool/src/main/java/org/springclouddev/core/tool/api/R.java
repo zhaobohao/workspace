@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.api;
 
 import io.swagger.annotations.ApiModel;

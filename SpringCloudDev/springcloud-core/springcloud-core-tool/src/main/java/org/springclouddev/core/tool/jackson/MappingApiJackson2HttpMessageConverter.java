@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerator;

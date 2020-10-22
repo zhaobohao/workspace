@@ -1,4 +1,3 @@
-
 package org.springclouddev.gateway.handler;
 
 import org.springclouddev.gateway.provider.ResponseProvider;

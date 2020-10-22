@@ -1,6 +1,5 @@
 
-#set($wrapperPackage=$package.Entity.replace("entity","wrapper"))
-package $!{wrapperPackage};
+#set($wrapperPackage=$package.Entity.replace("entity","wrapper"))package $!{wrapperPackage};
 
 import org.springclouddev.core.mp.support.BaseEntityWrapper;
 import org.springclouddev.core.tool.utils.BeanUtil;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.dto;
 
 import org.springclouddev.system.entity.Area;

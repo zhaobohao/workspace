@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.log.feign;
 
 import org.springclouddev.core.launch.constant.AppConstant;

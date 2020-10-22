@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.log.error;
 
 import org.springclouddev.core.tool.jackson.JsonUtil;

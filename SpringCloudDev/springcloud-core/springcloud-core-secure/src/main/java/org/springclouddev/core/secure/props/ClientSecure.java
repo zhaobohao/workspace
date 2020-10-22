@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure.props;
 
 import lombok.Data;

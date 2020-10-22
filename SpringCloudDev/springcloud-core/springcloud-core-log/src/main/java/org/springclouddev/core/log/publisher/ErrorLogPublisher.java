@@ -1,5 +1,3 @@
-
-
 package org.springclouddev.core.log.publisher;
 
 import org.springclouddev.core.log.constant.EventConstant;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.launch.server;
 
 import lombok.Getter;

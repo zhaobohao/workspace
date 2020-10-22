@@ -1,4 +1,3 @@
-
 package org.springclouddev.auth.granter;
 
 import io.jsonwebtoken.Claims;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.dto;
 
 import lombok.Data;

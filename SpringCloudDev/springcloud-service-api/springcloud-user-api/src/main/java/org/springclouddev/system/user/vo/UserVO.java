@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.user.vo;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

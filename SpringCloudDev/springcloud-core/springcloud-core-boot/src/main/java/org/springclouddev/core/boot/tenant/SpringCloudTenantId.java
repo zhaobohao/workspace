@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.boot.tenant;
 
 import org.springclouddev.core.tool.utils.RandomType;

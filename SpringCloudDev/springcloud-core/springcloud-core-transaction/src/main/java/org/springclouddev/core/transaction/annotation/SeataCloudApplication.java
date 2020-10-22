@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.transaction.annotation;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,3 @@
-
 package org.springclouddev.auth.enums;
 
 import lombok.AllArgsConstructor;

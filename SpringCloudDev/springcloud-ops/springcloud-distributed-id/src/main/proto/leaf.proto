@@ -19,9 +19,7 @@ syntax = "proto3";
 option java_generic_services = true;
 option java_multiple_files = true;
 option java_package = "org.paboo.leaf.proto";
-option java_outer_classname = "LeafProto";
-
-package org.paboo.leaf.proto;
+option java_outer_classname = "LeafProto";package org.paboo.leaf.proto;
 
 // The leaf service definition
 service LeafService {

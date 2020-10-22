@@ -1,4 +1,3 @@
-
 package org.springclouddev.gateway.props;
 
 import lombok.Data;

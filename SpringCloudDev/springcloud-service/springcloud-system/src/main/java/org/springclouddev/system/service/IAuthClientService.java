@@ -1,4 +1,3 @@
-
 package org.springclouddev.system.service;
 
 import org.springclouddev.core.mp.base.BaseService;

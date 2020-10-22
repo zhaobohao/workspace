@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.log.model;
 
 import lombok.Data;

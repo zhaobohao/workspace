@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure.utils;
 
 import io.jsonwebtoken.Claims;

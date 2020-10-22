@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.tool.utils;
 
 import org.springclouddev.core.tool.support.FastStringWriter;

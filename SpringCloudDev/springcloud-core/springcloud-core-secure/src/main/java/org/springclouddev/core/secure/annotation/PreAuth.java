@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure.annotation;
 
 import java.lang.annotation.*;

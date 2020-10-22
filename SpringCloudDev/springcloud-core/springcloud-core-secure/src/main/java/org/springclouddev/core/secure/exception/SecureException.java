@@ -1,4 +1,3 @@
-
 package org.springclouddev.core.secure.exception;
 
 import lombok.Getter;
