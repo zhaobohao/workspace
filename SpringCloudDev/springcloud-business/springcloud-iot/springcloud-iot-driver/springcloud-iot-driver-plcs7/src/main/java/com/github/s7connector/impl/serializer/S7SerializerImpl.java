@@ -1,6 +1,5 @@
 package com.github.s7connector.impl.serializer;
 
-import com.dc3.driver.bean.Plcs7PointVariable;
 import com.github.s7connector.api.DaveArea;
 import com.github.s7connector.api.S7Connector;
 import com.github.s7connector.api.S7Serializer;
@@ -9,6 +8,7 @@ import com.github.s7connector.impl.serializer.parser.BeanEntry;
 import com.github.s7connector.impl.serializer.parser.BeanParseResult;
 import com.github.s7connector.impl.serializer.parser.BeanParser;
 import lombok.extern.slf4j.Slf4j;
+import org.springclouddev.iot.driver.bean.Plcs7PointVariable;
 
 import java.lang.reflect.Array;
 
