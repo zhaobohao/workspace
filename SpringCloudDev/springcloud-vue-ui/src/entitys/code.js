@@ -17,8 +17,7 @@ export default function code() {
       tablePrefix: undefined,
       // 主键名
       pkName: undefined,
-      //  包名
-      packageName: undefined,
+      //  包名packageName: undefined,
       //  基础业务
       baseMode: undefined,
       //  包装器
@@ -58,8 +57,7 @@ export default function code() {
         required: true,
         message: '请输入主键名 ',
         trigger: 'blur '
-      }],
-      packageName: [{
+      }],packageName: [{
         required: true,
         message: '请输入包名 ',
         trigger: 'blur '

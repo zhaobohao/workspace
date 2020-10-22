@@ -8,8 +8,16 @@
         <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <packaging>jar</packaging>
     <artifactId>springcloud-iot-driver-opc-ua</artifactId>
+    <dependencies>
 
+        <dependency>
+            <groupId>org.eclipse.milo</groupId>
+            <artifactId>sdk-client</artifactId>
+            <version>0.4.1</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

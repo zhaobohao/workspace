@@ -1,0 +1,41 @@
+driver:
+  name: VirtualDriver
+  description: @project.description@
+  schedule:
+    read:
+      enable: true
+      corn: '0/30 * * * * ?'
+    custom:
+      enable: true
+      corn:  '0/5 * * * * ?'
+  driver-attribute:
+    - displayName: 主机
+      name: host
+      type: string
+      value: localhost
+      description: Ip
+    - displayName: 端口
+      name: port
+      type: int
+      value: 18600
+      description: Port
+  point-attribute:
+    - displayName: 位号
+      name: tag
+      type: string
+      value: TAG
+      description: 位号名称
+
+server:
+  port: 8600
+
+spring:
+  application:
+    name: @project.artifactId@
+
+logging:
+  level:
+    org.springclouddev.iot.driver: DEBUG
+    org.springclouddev.iot.common.sdk: DEBUG
+  file:
+    name: iot/logs/driver/virtual/${spring.application.name}.log
