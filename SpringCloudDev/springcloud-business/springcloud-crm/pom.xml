@@ -14,6 +14,12 @@
     <version>1.0.1</version>
     <modules>
         <module>springcloud-crm-bi</module>
+        <module>springcloud-crm-admin</module>
+        <module>springcloud-crm-core</module>
+        <module>springcloud-crm-crm</module>
+        <module>springcloud-crm-job</module>
+        <module>springcloud-crm-oa</module>
+        <module>springcloud-crm-work</module>
     </modules>
     <packaging>pom</packaging>
 

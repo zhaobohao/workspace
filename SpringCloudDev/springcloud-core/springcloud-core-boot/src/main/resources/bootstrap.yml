@@ -25,8 +25,12 @@ spring:
       max-request-size: 1024MB
   mvc:
     throw-exception-if-no-handler-found: true
+    date-format: yyyy-MM-dd HH:mm:ss
   resources:
     add-mappings: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:

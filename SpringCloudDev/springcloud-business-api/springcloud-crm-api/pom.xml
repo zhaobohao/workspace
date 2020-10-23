@@ -16,6 +16,10 @@
 
     <modules>
         <module>springcloud-crm-bi-api</module>
+        <module>springcloud-crm-admin-api</module>
+        <module>springcloud-crm-crm-api</module>
+        <module>springcloud-crm-oa-api</module>
+        <module>springcloud-crm-work-api</module>
     </modules>
 
 </project>
