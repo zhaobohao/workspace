@@ -20,14 +20,14 @@
 
 
     <select id="selectPostPage" resultMap="postResultMap">
-        select * from blade_post where is_deleted = 0
+        select * from mk_post where is_deleted = 0
     </select>
 
     <select id="getPostNames" resultType="java.lang.String">
         SELECT
         post_name
         FROM
-        blade_post
+        mk_post
         WHERE
         id IN
         <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">

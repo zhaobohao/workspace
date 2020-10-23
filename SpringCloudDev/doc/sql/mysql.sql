@@ -3509,7 +3509,7 @@ CREATE TABLE `mk_datasource`  (
 -- Records of mk_datasource
 -- ----------------------------
 INSERT INTO `mk_datasource` VALUES (1, 'mysql', 'com.mysql.cj.jdbc.Driver', 'jdbc:mysql://localhost:3306/mk?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroTIMESTAMP Behavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true', 'root', '1qaz2wsx', 'mysql', 1, 1, '2019-08-14 11:43:06', 1, '2019-12-16 22:28:10', 1, 0);
-INSERT INTO `mk_datasource` VALUES (2, 'postgresql', 'org.postgresql.Driver', 'jdbc:postgresql://127.0.0.1:5432/blade', 'postgres', '123456', 'postgresql', 1, 1, '2019-08-14 11:43:41', 1, '2019-08-14 11:43:41', 1, 0);
+INSERT INTO `mk_datasource` VALUES (2, 'postgresql', 'org.postgresql.Driver', 'jdbc:postgresql://127.0.0.1:5432/', 'postgres', '123456', 'postgresql', 1, 1, '2019-08-14 11:43:41', 1, '2019-08-14 11:43:41', 1, 0);
 INSERT INTO `mk_datasource` VALUES (3, 'oracle', 'oracle.jdbc.OracleDriver', 'jdbc:oracle:thin:@127.0.0.1:49161:orcl', 'root', 'root', 'oracle', 1, 1, '2019-08-14 11:44:03', 1, '2019-08-14 11:44:03', 1, 0);
 INSERT INTO `mk_datasource` VALUES (1217070670268141570, 'mysql_integral_all', 'com.mysql.cj.jdbc.Driver', 'jdbc:mysql://localhost:3306/integral_all?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroTIMESTAMP Behavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true', 'root', '1qaz2wsx', 'mysql,integral_all.', 1, NULL, '2020-01-14 21:07:15', NULL, NULL, 1, 0);
 
@@ -3847,7 +3847,7 @@ INSERT INTO `mk_menu` VALUES (93, 89, '000000', 'areas_view', '查看', 'system.
 INSERT INTO `mk_menu` VALUES (1164733389668962251, 3, '000000', 'post', '岗位管理', 'menu', '/system/post', 'iconfont iconicon_message', 2, 1, 0, 1, NULL, 0, 0);
 INSERT INTO `mk_menu` VALUES (1164733389668962252, 1164733389668962251, '000000', 'post_add', '新增', 'add', '/system/post/add', 'plus', 1, 2, 1, 1, NULL, 0, 0);
 INSERT INTO `mk_menu` VALUES (1164733389668962253, 1164733389668962251, '000000', 'post_edit', '修改', 'edit', '/system/post/edit', 'form', 2, 2, 2, 1, NULL, 0, 0);
-INSERT INTO `mk_menu` VALUES (1164733389668962254, 1164733389668962251, '000000', 'post_delete', '删除', 'delete', '/api/blade-system/post/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
+INSERT INTO `mk_menu` VALUES (1164733389668962254, 1164733389668962251, '000000', 'post_delete', '删除', 'delete', '/api/system/post/remove', 'delete', 3, 2, 3, 1, NULL, 0, 0);
 INSERT INTO `mk_menu` VALUES (1164733389668962255, 1164733389668962251, '000000', 'post_view', '查看', 'view', '/system/post/view', 'file-text', 4, 2, 2, 1, NULL, 0, 0);
 INSERT INTO `mk_menu` VALUES (1218005471066120193, 0, '000000', 'activity', '营销管理', 'menu.activity', '/activity', 'money', 8, 1, 0, 1, '积分项目的营销管理菜单', 0, 1);
 INSERT INTO `mk_menu` VALUES (1218006949558280194, 1218005471066120193, '000000', 'activity_manager', '营销活动管理', 'menu.activityManager', '/activityManager/activityManager', 'scan', 1, 1, 0, 1, '营销管理中的活动管理菜单', 0, 0);
@@ -4257,7 +4257,7 @@ CREATE TABLE `mk_user`  (
 -- ----------------------------
 INSERT INTO `mk_user` VALUES (1, '000000', NULL, 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', '管理员', '管理员', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 'admin@xxxxxx.vip', '22233322', '2018-08-08 00:00:00', 1, '1,2,17', '1', NULL, 1, '2018-08-08 00:00:00', 1, '2019-12-26 14:37:47', 1, 0, '我是超级管理员');
 -- ----------------------------
--- Table structure for blade_user_oauth
+-- Table structure for mk_user_oauth
 -- ----------------------------
 DROP TABLE IF EXISTS `mk_user_oauth`;
 CREATE TABLE `mk_user_oauth`  (

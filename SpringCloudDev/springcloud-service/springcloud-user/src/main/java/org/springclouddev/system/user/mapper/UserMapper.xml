@@ -105,6 +105,6 @@
     </select>
 
     <select id="exportUser" resultType="org.springclouddev.system.user.excel.UserExcel">
-        SELECT id, tenant_id, account, name, real_name, email, phone, birthday, role_id, dept_id, post_id FROM blade_user ${ew.customSqlSegment}
+        SELECT id, tenant_id, account, name, real_name, email, phone, birthday, role_id, dept_id, post_id FROM mk_user ${ew.customSqlSegment}
     </select>
 </mapper>

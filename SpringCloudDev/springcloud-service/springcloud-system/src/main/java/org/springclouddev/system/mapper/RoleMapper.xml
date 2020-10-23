@@ -44,7 +44,7 @@
         SELECT
         role_name
         FROM
-        blade_role
+        mk_role
         WHERE
         id IN
         <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">

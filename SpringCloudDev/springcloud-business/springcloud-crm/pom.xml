@@ -13,10 +13,7 @@
     <name>${project.artifactId}</name>
     <version>1.0.1</version>
     <modules>
-        <module>springcloud-crm-office</module>
-        <module>springcloud-crm-customer</module>
         <module>springcloud-crm-bi</module>
-        <module>springcloud-crm-projectManager</module>
     </modules>
     <packaging>pom</packaging>
 

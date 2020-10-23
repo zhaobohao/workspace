@@ -11,17 +11,17 @@ services:
     ports:
       - 8848:8848
     networks:
-      blade_net:
+      mk_net:
         ipv4_address: 172.30.0.48
 
   sentinel:
-    image: bladex/sentinel-dashboard:1.5.0
+    image: springclouddev/sentinel-dashboard:1.5.0
     hostname: "sentinel"
     ports:
       - 8858:8858
     restart: on-failure
     networks:
-      blade_net:
+      springclouddev_net:
         ipv4_address: 172.30.0.58
 
   springcloud-nginx:
@@ -34,7 +34,7 @@ services:
     privileged: true
     restart: always
     networks:
-    - blade_net
+    - springclouddev_net
 
   web-nginx:
     image: nginx:stable-alpine-perl
@@ -47,7 +47,7 @@ services:
     privileged: true
     restart: always
     networks:
-      - blade_net
+      - springclouddev_net
 
   springcloud-redis:
     image: redis:5.0.2-alpine
@@ -60,7 +60,7 @@ services:
     privileged: true
     restart: always
     networks:
-    - blade_net
+    - springclouddev_net
 
   springcloud-admin:
     image: "${REGISTER}/springclouddeve/springcloud-admin:${TAG}"
@@ -69,14 +69,14 @@ services:
     privileged: true
     restart: always
     networks:
-    - blade_net
+    - springclouddev_net
 
   springcloud-gateway1:
     image: "${REGISTER}/springclouddeve/springcloud-gateway:${TAG}"
     privileged: true
     restart: always
     networks:
-      blade_net:
+      springclouddev_net:
         ipv4_address: 172.30.0.81
 
   springcloud-gateway2:
@@ -84,7 +84,7 @@ services:
     privileged: true
     restart: always
     networks:
-      blade_net:
+      springclouddev_net:
         ipv4_address: 172.30.0.82
 
   springcloud-auth1:
@@ -92,7 +92,7 @@ services:
     privileged: true
     restart: always
     networks:
-      blade_net:
+      springclouddev_net:
         ipv4_address: 172.30.0.91
 
   springcloud-auth2:
@@ -100,7 +100,7 @@ services:
     privileged: true
     restart: always
     networks:
-      blade_net:
+      springclouddev_net:
         ipv4_address: 172.30.0.92
 
   springcloud-log:
@@ -108,38 +108,38 @@ services:
     privileged: true
     restart: always
     networks:
-    - blade_net
+    - springclouddev_net
 
   springcloud-desk:
     image: "${REGISTER}/springclouddeve/springcloud-desk:${TAG}"
     privileged: true
     restart: always
     networks:
-    - blade_net
+    - springclouddev_net
 
   springcloud-user:
     image: "${REGISTER}/springclouddeve/springcloud-user:${TAG}"
     privileged: true
     restart: always
     networks:
-    - blade_net
+    - springclouddev_net
 
   springcloud-system:
     image: "${REGISTER}/springclouddeve/springcloud-system:${TAG}"
     privileged: true
     restart: always
     networks:
-    - blade_net
+    - springclouddev_net
 
   springcloud-resource:
     image: "${REGISTER}/springclouddeve/springcloud-resource:${TAG}"
     privileged: true
     restart: always
     networks:
-      - blade_net
+      - springclouddev_net
 
 networks:
-  blade_net:
+  springclouddev_net:
     driver: bridge
     ipam:
       config:

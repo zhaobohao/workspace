@@ -33,11 +33,6 @@
         </dependency>
         <dependency>
             <groupId>org.springclouddev</groupId>
-            <artifactId>springcloud-xxxxtemplate-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springclouddev</groupId>
             <artifactId>springclouddev-core-test</artifactId>
             <version>${project.tool.version}</version>
             <scope>test</scope>

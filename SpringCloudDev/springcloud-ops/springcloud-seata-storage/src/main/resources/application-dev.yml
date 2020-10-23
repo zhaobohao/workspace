@@ -19,12 +19,12 @@ seata:
   #  type: nacos
   #  nacos:
   #    server-addr: localhost
-  tx-service-group: blade-seata-storage-group
+  tx-service-group: mk-seata-storage-group
   service:
     grouplist:
       default: 127.0.0.1:8091
     vgroup-mapping:
-      blade-seata-storage-group: default
+      mk-seata-storage-group: default
     disable-global-transaction: false
   client:
     rm:

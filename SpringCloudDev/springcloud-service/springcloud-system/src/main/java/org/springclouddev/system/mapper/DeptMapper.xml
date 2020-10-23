@@ -44,7 +44,7 @@
         SELECT
         dept_name
         FROM
-        blade_dept
+        mk_dept
         WHERE
         id IN
         <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">

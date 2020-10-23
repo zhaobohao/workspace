@@ -90,6 +90,6 @@ springcloud-gateway:
   ports:
   - 80:80
   networks:
-    blade_net:
+    springclouddev_net:
       ipv4_address: 192.168.2.1
 ```
