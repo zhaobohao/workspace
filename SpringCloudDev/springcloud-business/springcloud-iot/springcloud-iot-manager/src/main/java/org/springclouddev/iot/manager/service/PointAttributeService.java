@@ -2,7 +2,7 @@ package org.springclouddev.iot.manager.service;
 
 import org.springclouddev.iot.common.base.Service;
 import org.springclouddev.iot.manager.dto.PointAttributeDto;
-import org.springclouddev.iot.manager.entity.PointAttribute;
+import org.springclouddev.iot.manager.entityintAttribute;
 
 /**
  * <p>PointAttribute Interface

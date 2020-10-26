@@ -2,7 +2,7 @@ package org.springclouddev.iot.manager.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springclouddev.iot.manager.dto.PointDto;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 import org.springclouddev.iot.manager.feign.PointClient;
 import org.springclouddev.iot.manager.service.NotifyService;
 import org.springclouddev.iot.manager.service.PointService;

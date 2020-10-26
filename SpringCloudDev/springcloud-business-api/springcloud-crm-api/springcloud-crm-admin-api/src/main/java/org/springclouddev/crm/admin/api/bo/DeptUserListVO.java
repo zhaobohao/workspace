@@ -1,6 +1,6 @@
 package org.springclouddev.crm.admin.api.bo;
 
-import com.kakarote.admin.entity.VO.HrmSimpleUserVO;
+import org.springclouddev.crm.admin.api.vo.HrmSimpleUserVO;
 import lombok.Getter;
 import lombok.Setter;
 

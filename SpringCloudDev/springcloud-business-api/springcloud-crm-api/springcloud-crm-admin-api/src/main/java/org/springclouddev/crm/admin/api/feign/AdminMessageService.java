@@ -1,8 +1,8 @@
 package org.springclouddev.crm.admin.api.feign;
 
-import com.kakarote.core.common.Result;
-import com.kakarote.core.feign.admin.entity.AdminMessage;
-import com.kakarote.core.feign.admin.entity.AdminMessageBO;
+import org.springclouddev.crm.core.common.Result;
+import org.springclouddev.crm.admin.api.entity.AdminMessage;
+import org.springclouddev.crm.admin.api.entity.AdminMessageBO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

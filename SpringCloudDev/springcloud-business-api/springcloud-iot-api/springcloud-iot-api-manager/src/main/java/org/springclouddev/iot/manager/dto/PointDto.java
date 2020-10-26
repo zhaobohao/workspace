@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import org.springclouddev.iot.common.base.Converter;
 import org.springclouddev.iot.common.bean.Pages;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 import org.springframework.beans.BeanUtils;
 
 /**

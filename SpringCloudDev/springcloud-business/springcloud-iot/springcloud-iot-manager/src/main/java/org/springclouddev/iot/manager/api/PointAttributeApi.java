@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.iot.common.constant.Common;
 import org.springclouddev.iot.manager.dto.PointAttributeDto;
-import org.springclouddev.iot.manager.entity.PointAttribute;
+import org.springclouddev.iot.manager.entityintAttribute;
 import org.springclouddev.iot.manager.feign.PointAttributeClient;
 import org.springclouddev.iot.manager.service.PointAttributeService;
 import org.springframework.web.bind.annotation.RequestMapping;

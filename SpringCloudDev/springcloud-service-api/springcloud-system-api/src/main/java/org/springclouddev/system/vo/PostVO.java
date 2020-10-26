@@ -3,7 +3,7 @@ package org.springclouddev.system.vo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springclouddev.system.entity.Post;
+import org.springclouddev.system.entityst;
 
 /**
  * 岗位表视图实体类

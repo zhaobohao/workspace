@@ -6,7 +6,7 @@ import org.springclouddev.iot.common.constant.Common;
 import org.springclouddev.iot.common.valid.Insert;
 import org.springclouddev.iot.common.valid.Update;
 import org.springclouddev.iot.manager.dto.PointAttributeDto;
-import org.springclouddev.iot.manager.entity.PointAttribute;
+import org.springclouddev.iot.manager.entityintAttribute;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

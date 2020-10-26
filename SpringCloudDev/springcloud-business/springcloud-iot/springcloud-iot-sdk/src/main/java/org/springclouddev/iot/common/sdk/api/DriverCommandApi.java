@@ -7,7 +7,7 @@ import org.springclouddev.iot.common.sdk.bean.CmdParameter;
 import org.springclouddev.iot.common.sdk.service.DriverCommandService;
 import org.springclouddev.iot.common.valid.Read;
 import org.springclouddev.iot.common.valid.ValidatableList;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

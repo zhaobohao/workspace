@@ -13,7 +13,7 @@ import org.springclouddev.core.secure.SystemUser;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.Func;
-import org.springclouddev.system.entity.Post;
+import org.springclouddev.system.entityst;
 import org.springclouddev.system.service.IPostService;
 import org.springclouddev.system.vo.PostVO;
 import org.springclouddev.system.wrapper.PostWrapper;

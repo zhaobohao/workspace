@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.iot.data.dto.PointValueDto;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

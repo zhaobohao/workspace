@@ -3,7 +3,7 @@ package org.springclouddev.system.wrapper;
 import org.springclouddev.core.mp.support.BaseEntityWrapper;
 import org.springclouddev.core.tool.utils.BeanUtil;
 import org.springclouddev.core.tool.utils.SpringUtil;
-import org.springclouddev.system.entity.Post;
+import org.springclouddev.system.entityst;
 import org.springclouddev.system.service.IDictService;
 import org.springclouddev.system.vo.PostVO;
 

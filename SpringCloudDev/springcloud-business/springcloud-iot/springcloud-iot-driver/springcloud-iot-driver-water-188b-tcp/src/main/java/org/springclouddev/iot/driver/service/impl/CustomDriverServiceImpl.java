@@ -5,7 +5,7 @@ import org.springclouddev.iot.common.sdk.bean.AttributeInfo;
 import org.springclouddev.iot.common.sdk.service.CustomDriverService;
 import org.springclouddev.iot.driver.service.netty.NettyTcpServer;
 import org.springclouddev.iot.manager.entity.Device;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.iot.base.utils.RedisUtil;
 import org.springclouddev.iot.common.constant.Common;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springclouddev.iot.data.service.PointValueService;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;

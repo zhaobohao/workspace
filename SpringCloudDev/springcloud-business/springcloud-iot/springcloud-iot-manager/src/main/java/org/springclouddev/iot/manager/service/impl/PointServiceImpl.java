@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springclouddev.core.log.exception.ServiceException;
 import org.springclouddev.iot.common.constant.Common;
 import org.springclouddev.iot.manager.dto.PointDto;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 import org.springclouddev.iot.manager.mapper.PointMapper;
 import org.springclouddev.iot.manager.service.PointService;
 import org.springframework.cache.annotation.CacheEvict;

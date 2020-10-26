@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;

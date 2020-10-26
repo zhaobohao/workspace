@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springclouddev.iot.common.valid.Insert;
 import org.springclouddev.iot.common.valid.Update;
 import org.springclouddev.iot.manager.entity.DriverAttribute;
-import org.springclouddev.iot.manager.entity.PointAttribute;
+import org.springclouddev.iot.manager.entityintAttribute;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 

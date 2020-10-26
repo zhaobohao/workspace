@@ -3,7 +3,7 @@ package org.springclouddev.iot.driver.service.mqtt;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.iot.common.sdk.service.rabbit.DriverService;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springclouddev.iot.driver.bean.DevicePayLoad;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;

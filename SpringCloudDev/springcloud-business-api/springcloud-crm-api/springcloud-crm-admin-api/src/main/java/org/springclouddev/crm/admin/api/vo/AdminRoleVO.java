@@ -1,6 +1,6 @@
 package org.springclouddev.crm.admin.api.vo;
 
-import com.kakarote.admin.entity.PO.AdminRole;
+import org.springclouddev.crm.admin.api.entity.AdminRole;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -12,7 +12,7 @@ import org.springclouddev.core.tool.constant.ToolConstant;
 import org.springclouddev.core.tool.utils.DigestUtil;
 import org.springclouddev.core.tool.utils.Func;
 import org.springclouddev.system.entity.Dept;
-import org.springclouddev.system.entity.Post;
+import org.springclouddev.system.entityst;
 import org.springclouddev.system.entity.Role;
 import org.springclouddev.system.entity.Tenant;
 import org.springclouddev.system.mapper.DeptMapper;

@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.iot.common.constant.Common;
 import org.springclouddev.iot.data.dto.PointValueDto;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springclouddev.iot.data.feign.PointValueClient;
 import org.springclouddev.iot.data.service.PointValueService;
 import org.springframework.web.bind.annotation.RequestMapping;

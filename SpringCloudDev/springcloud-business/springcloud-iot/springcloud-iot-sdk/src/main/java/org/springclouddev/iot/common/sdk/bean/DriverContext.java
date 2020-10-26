@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.log.exception.ServiceException;
 import org.springclouddev.iot.manager.entity.Device;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

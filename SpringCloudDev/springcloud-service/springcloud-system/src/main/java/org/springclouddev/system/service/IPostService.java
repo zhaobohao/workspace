@@ -2,7 +2,7 @@ package org.springclouddev.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.core.mp.base.BaseService;
-import org.springclouddev.system.entity.Post;
+import org.springclouddev.system.entityst;
 import org.springclouddev.system.vo.PostVO;
 
 import java.util.List;

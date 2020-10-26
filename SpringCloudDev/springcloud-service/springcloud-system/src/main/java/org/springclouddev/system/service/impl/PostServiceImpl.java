@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springclouddev.core.mp.base.BaseServiceImpl;
 import org.springclouddev.core.tool.utils.Func;
-import org.springclouddev.system.entity.Post;
+import org.springclouddev.system.entityst;
 import org.springclouddev.system.mapper.PostMapper;
 import org.springclouddev.system.service.IPostService;
 import org.springclouddev.system.vo.PostVO;

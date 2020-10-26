@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.log.exception.ServiceException;
 import org.springclouddev.iot.common.constant.Common;
 import org.springclouddev.iot.manager.dto.PointInfoDto;
-import org.springclouddev.iot.manager.entity.PointInfo;
+import org.springclouddev.iot.manager.entityintInfo;
 import org.springclouddev.iot.manager.mapper.PointInfoMapper;
 import org.springclouddev.iot.manager.service.PointInfoService;
 import org.springframework.cache.annotation.CacheEvict;

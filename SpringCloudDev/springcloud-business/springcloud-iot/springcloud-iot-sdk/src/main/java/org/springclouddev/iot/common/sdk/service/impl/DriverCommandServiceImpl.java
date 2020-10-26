@@ -7,7 +7,7 @@ import org.springclouddev.iot.common.sdk.bean.DriverContext;
 import org.springclouddev.iot.common.sdk.service.CustomDriverService;
 import org.springclouddev.iot.common.sdk.service.DriverCommandService;
 import org.springclouddev.iot.common.sdk.service.rabbit.DriverService;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springclouddev.iot.manager.entity.Device;
 import org.springframework.stereotype.Service;
 

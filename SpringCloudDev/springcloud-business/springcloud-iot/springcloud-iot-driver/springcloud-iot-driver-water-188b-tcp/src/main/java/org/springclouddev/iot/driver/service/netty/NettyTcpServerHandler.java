@@ -14,7 +14,7 @@ import org.springclouddev.iot.common.sdk.bean.DriverContext;
 import org.springclouddev.iot.common.sdk.service.rabbit.DriverService;
 import org.springclouddev.iot.common.sdk.util.DriverUtils;
 import org.springclouddev.iot.common.utils.Dc3Util;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springclouddev.iot.manager.entity.BatchDevice;
 import org.springclouddev.iot.manager.entity.BatchDriver;
 import org.springframework.stereotype.Component;

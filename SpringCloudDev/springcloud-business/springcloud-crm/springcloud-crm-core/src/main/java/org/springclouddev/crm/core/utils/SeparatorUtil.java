@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.kakarote.core.common.Const.SEPARATOR;
+import static org.springclouddev.crm.core.common.Const.SEPARATOR;
 
 /**
  * 字符串分割

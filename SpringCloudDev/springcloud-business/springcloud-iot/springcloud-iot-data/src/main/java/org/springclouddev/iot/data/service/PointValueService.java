@@ -2,7 +2,7 @@ package org.springclouddev.iot.data.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springclouddev.iot.data.dto.PointValueDto;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 
 import java.util.List;
 

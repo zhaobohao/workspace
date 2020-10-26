@@ -12,7 +12,7 @@ import org.springclouddev.iot.manager.dto.PointDto;
 import org.springclouddev.iot.manager.dto.ProfileDto;
 import org.springclouddev.iot.manager.entity.Device;
 import org.springclouddev.iot.manager.entity.Driver;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 import org.springclouddev.iot.manager.entity.Profile;
 import org.springclouddev.iot.manager.mapper.ProfileMapper;
 import org.springclouddev.iot.manager.service.DeviceService;

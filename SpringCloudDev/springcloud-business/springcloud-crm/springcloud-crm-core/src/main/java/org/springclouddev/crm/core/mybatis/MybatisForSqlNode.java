@@ -2,7 +2,7 @@
 package org.springclouddev.crm.core.mybatis;
 
 import cn.hutool.core.util.StrUtil;
-import com.kakarote.core.common.Const;
+import org.springclouddev.crm.core.common.Const;
 import org.apache.ibatis.parsing.GenericTokenParser;
 import org.apache.ibatis.scripting.xmltags.DynamicContext;
 import org.apache.ibatis.scripting.xmltags.OgnlCache;

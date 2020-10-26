@@ -1,6 +1,6 @@
 package org.springclouddev.iot.common.sdk.service;
 
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 
 
 public interface DriverCommandService {

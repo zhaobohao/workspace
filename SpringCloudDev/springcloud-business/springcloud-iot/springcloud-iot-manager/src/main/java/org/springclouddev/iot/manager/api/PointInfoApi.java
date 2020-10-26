@@ -6,7 +6,7 @@ import org.springclouddev.core.tool.api.R;
 import org.springclouddev.iot.common.constant.Common;
 import org.springclouddev.iot.common.constant.Operation;
 import org.springclouddev.iot.manager.dto.PointInfoDto;
-import org.springclouddev.iot.manager.entity.PointInfo;
+import org.springclouddev.iot.manager.entityintInfo;
 import org.springclouddev.iot.manager.feign.PointInfoClient;
 import org.springclouddev.iot.manager.service.NotifyService;
 import org.springclouddev.iot.manager.service.PointInfoService;

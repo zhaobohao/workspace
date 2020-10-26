@@ -3,7 +3,7 @@
 <mapper namespace="org.springclouddev.system.mapper.PostMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="postResultMap" type="org.springclouddev.system.entity.Post">
+    <resultMap id="postResultMap" type="org.springclouddev.system.entityst">
         <result column="id" property="id"/>
         <result column="create_user" property="createUser"/>
         <result column="create_time" property="createTime"/>

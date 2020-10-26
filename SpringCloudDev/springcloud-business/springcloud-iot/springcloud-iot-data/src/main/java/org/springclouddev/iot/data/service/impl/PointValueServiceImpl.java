@@ -8,7 +8,7 @@ import org.springclouddev.core.tool.api.R;
 import org.springclouddev.iot.base.utils.RedisUtil;
 import org.springclouddev.iot.common.constant.Common;
 import org.springclouddev.iot.data.dto.PointValueDto;
-import org.springclouddev.iot.data.entity.PointValue;
+import org.springclouddev.iot.data.entityintValue;
 import org.springclouddev.iot.data.service.PointValueService;
 import org.springclouddev.iot.manager.entity.Device;
 import org.springclouddev.iot.manager.feign.DeviceClient;

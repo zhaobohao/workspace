@@ -2,7 +2,7 @@ package org.springclouddev.iot.common.sdk.service;
 
 import org.springclouddev.iot.common.sdk.bean.AttributeInfo;
 import org.springclouddev.iot.manager.entity.Device;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 
 import java.util.Map;
 

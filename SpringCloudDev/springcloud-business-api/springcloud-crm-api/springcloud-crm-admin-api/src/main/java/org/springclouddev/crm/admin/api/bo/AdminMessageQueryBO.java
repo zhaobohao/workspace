@@ -1,6 +1,6 @@
 package org.springclouddev.crm.admin.api.bo;
 
-import com.kakarote.core.entity.PageEntity;
+import org.springclouddev.crm.core.entity.PageEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

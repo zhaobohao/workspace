@@ -17,7 +17,7 @@ import java.util.List;
  * @author zhangzhiwei
  * 文件操作相关接口
  */
-@FeignClient(name = "admin", contextId = "file")
+@FeignClient(name = "admin", contextId = "file",fallback = AdminServiceFallBack.class)
 @Component
 public interface AdminFileService {
     /**

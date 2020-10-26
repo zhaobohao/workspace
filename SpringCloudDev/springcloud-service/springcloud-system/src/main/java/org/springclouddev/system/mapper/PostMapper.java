@@ -4,7 +4,7 @@ package org.springclouddev.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springclouddev.core.mp.base.SuperMapper;
-import org.springclouddev.system.entity.Post;
+import org.springclouddev.system.entityst;
 import org.springclouddev.system.vo.PostVO;
 
 import java.util.List;

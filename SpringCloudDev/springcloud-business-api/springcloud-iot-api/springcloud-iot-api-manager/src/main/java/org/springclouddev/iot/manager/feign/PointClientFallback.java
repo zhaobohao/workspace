@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springclouddev.core.tool.api.R;
 import org.springclouddev.iot.manager.dto.PointDto;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.manager.entityint;
 import org.springframework.stereotype.Component;
 
 /**

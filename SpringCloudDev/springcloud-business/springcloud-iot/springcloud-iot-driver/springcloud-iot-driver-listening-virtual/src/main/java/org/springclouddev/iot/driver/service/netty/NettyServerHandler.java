@@ -12,8 +12,8 @@ import org.springclouddev.iot.common.sdk.bean.AttributeInfo;
 import org.springclouddev.iot.common.sdk.bean.DriverContext;
 import org.springclouddev.iot.common.sdk.service.rabbit.DriverService;
 import org.springclouddev.iot.common.sdk.util.DriverUtils;
-import org.springclouddev.iot.data.entity.PointValue;
-import org.springclouddev.iot.manager.entity.Point;
+import org.springclouddev.iot.data.entityintValue;
+import org.springclouddev.iot.manager.entityint;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

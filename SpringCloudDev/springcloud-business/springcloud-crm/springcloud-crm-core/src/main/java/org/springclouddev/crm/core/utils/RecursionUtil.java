@@ -1,9 +1,9 @@
 package org.springclouddev.crm.core.utils;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.kakarote.core.common.Const;
-import com.kakarote.core.common.SystemCodeEnum;
-import com.kakarote.core.exception.CrmException;
+import org.springclouddev.crm.core.common.Const;
+import org.springclouddev.crm.core.common.SystemCodeEnum;
+import org.springclouddev.crm.core.exception.CrmException;
 
 import java.util.ArrayList;
 import java.util.List;
