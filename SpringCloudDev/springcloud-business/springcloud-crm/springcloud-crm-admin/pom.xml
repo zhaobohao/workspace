@@ -10,6 +10,65 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>springcloud-crm-admin</artifactId>
+    <version>${springclouddev.project.version}</version>
+    <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-core-boot</artifactId>
+            <version>${project.tool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-user-api</artifactId>
+            <version>${springclouddev.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springcloud-crm-admin-api</artifactId>
+            <version>${springclouddev.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-dict-api</artifactId>
+            <version>${springclouddev.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springclouddev</groupId>
+            <artifactId>springclouddev-system-api</artifactId>
+            <version>${springclouddev.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <copy overwrite="true"
+                                      tofile="${session.executionRootDirectory}/target/${artifactId}.jar"
+                                      file="${project.build.directory}/${artifactId}.jar" />
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
