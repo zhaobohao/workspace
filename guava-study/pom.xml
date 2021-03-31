@@ -13,7 +13,7 @@
         <bouncycastle.version>1.62</bouncycastle.version>
         <log4j-slf4j-impl.version>2.11.0</log4j-slf4j-impl.version>
         <lombok.version>1.18.8</lombok.version>
-        <guava.version>27.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <caffeine.version>2.7.0</caffeine.version>
         <hutool.version>4.5.10</hutool.version>
         <slf4j-log4j12.version>1.7.7</slf4j-log4j12.version>
