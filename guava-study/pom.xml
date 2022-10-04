@@ -19,7 +19,7 @@
         <slf4j-log4j12.version>1.7.7</slf4j-log4j12.version>
         <hystrix.version>1.5.18</hystrix.version>
         <fastjson.version>1.2.58</fastjson.version>
-        <protobuf-java.version>3.10.0</protobuf-java.version>
+        <protobuf-java.version>3.16.3</protobuf-java.version>
         <grpc.version>1.24.0</grpc.version>
         <kryo-shaded.version>4.0.2</kryo-shaded.version>
         <testng.version>6.14.3</testng.version>
